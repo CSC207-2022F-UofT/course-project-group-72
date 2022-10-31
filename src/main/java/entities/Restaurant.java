@@ -13,23 +13,7 @@ public class Restaurant {
 
 
     //Constructors
-    public void Restaurant(OwnerUser owner, String name, String location) {
-        this.name = name;
-        this.location = location;
-        this.cuisineType = "Unset";
-        this.priceBucket = 0;
-        this.owner = owner;
-    }
-
-    public void Restaurant(OwnerUser owner, String name, String location, String cuisineType) {
-        this.name = name;
-        this.location = location;
-        this.cuisineType = cuisineType;
-        this.priceBucket = 0;
-        this.owner = owner;
-    }
-
-    public void Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
+    public Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
         this.cuisineType = cuisineType;
