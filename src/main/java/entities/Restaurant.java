@@ -3,32 +3,46 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
-    public String name;
-    public String location;
-    public String cuisineType;
-    public double AvgStars = 0;
-    public ArrayList<Review> reviews = new ArrayList<Review>();
+    private String name;
+    private String location;
+    private String cuisineType;
+    private int priceBucket;
+    private double AvgStars = 0;
+    private ArrayList<Review> reviews = new ArrayList<Review>();
+    private OwnerUser owner;
 
-    //TODO Connection with User class
-    // TODO2 Tags/attributes for filter @Janssen
 
     //Constructors
-    public void Restaurant(String name, String location) {
+    public void Restaurant(OwnerUser owner, String name, String location) {
         this.name = name;
         this.location = location;
         this.cuisineType = "Unset";
+        this.priceBucket = 0;
+        this.owner = owner;
     }
 
-    public void Restaurant(String name, String location, String cuisineType) {
+    public void Restaurant(OwnerUser owner, String name, String location, String cuisineType) {
         this.name = name;
         this.location = location;
         this.cuisineType = cuisineType;
+        this.priceBucket = 0;
+        this.owner = owner;
+    }
+
+    public void Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
+        this.name = name;
+        this.location = location;
+        this.cuisineType = cuisineType;
+        this.priceBucket = priceBucket;
+        this.owner = owner;
     }
 
     //Setters
     public void setName(String name) {this.name = name;}
 
     public void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
+
+    public void setPriceBucket(int priceBucket) {this.priceBucket = priceBucket;}
 
     public void setLocation(String location) {this.location = location;}
 
@@ -41,6 +55,8 @@ public class Restaurant {
     public String getName() {return this.name;}
 
     public String getLocation() {return this.location;}
+
+    public int getPriceBucket() {return this.priceBucket;}
 
     public String getCuisineType() {return this.cuisineType;}
 
