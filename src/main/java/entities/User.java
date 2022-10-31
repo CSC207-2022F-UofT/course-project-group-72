@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 public class User {
-    public String username;
+    private String username;
     private String password;
     private ArrayList<Review> past_reviews;
 
