@@ -25,9 +25,9 @@ public class Report {
         return review;
     }
 
-    public String getReview_id(){
-        return review.getReview_id();
-    }
+    //public String getReview_id(){
+       // return review.getReview_id();
+    //}
 
     public String getReporter_id() {
         return reporter_id;
@@ -35,7 +35,7 @@ public class Report {
 
     //later modify get method based on the actual implementation of Review;
     public User getReportedUser() {
-        return review.getReviewer();
+        return review.getUser();
     }
 
     //later modify get method based on the actual implementation of Review;
