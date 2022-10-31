@@ -1,5 +1,7 @@
 package screens;
 
+import entities.Review;
+import entities.User;
 import use_cases.ReportInteractor;
 import use_cases.ReportRequestModel;
 import use_cases.reportInputBoundary;

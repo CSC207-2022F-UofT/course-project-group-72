@@ -34,7 +34,7 @@ public class ReportInteractor implements reportInputBoundary {
             throw new ReportCreationFailure("Report failed: Your account is under investigation due to massive reports");
         }
 
-        Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(), reportRequestModel.getReporter().getId());
+        Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(), reportRequestModel.getReporter().getUsername());
         LocalDateTime now = LocalDateTime.now();
         ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(), report.getReviewContent(), report.getReview_id(), report.getReporter_id(), now.toString());
 

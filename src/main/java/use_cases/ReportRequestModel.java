@@ -1,5 +1,8 @@
 package use_cases;
 
+import entities.Review;
+import entities.User;
+
 public class ReportRequestModel {
 
     private final String reason;

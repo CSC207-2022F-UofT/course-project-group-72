@@ -1,10 +1,16 @@
 package screens;
 
+
+
+import entities.Review;
+import entities.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
+
 
 
 public class ReportScreen implements ActionListener {
