@@ -104,4 +104,5 @@ public class Review {
     Setter for visible
      */
     public void setVisible(boolean visible) {this.visible = visible;}
+
 }
