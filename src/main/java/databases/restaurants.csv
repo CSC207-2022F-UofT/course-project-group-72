@@ -1,1 +1,1 @@
-name, location, priceRange, cuisineType, avgStars, reviews
+name, location, priceBucket, cuisineType, avgStars, reviews
