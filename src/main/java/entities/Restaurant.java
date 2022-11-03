@@ -9,7 +9,6 @@ public class Restaurant {
     private OwnerUser owner;
     private RestaurantAttributes attributes = new RestaurantAttributes();
 
-
     //Constructors
     public Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
         this.name = name;
