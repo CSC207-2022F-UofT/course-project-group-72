@@ -1,6 +1,6 @@
 package entities;
 
-//Contains the attributes we can sort restaurants with
+//TODO Decide which attributes will stay in Restaurant and which will stay in here
 
 public class RestaurantAttributes {
     private String cuisineType;
