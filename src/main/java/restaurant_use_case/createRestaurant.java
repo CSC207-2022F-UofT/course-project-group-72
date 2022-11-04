@@ -4,7 +4,13 @@ import entities.Restaurant;
 import entities.RestaurantFactory;
 
 public class createRestaurant implements RestaurantInputBoundary{
-    private final RestaurantFactory factory = new RestaurantFactory();
+    private RestaurantFactory factory;
+    private RestaurantDSGateway gateway;
+
+    public createRestaurant(RestaurantFactory factory, RestaurantDSGateway gateway) {
+        this.factory = factory;
+        this.gateway = gateway;
+    }
 
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
@@ -18,6 +24,8 @@ public class createRestaurant implements RestaurantInputBoundary{
         );
 
         //TODO Gateway.save()
+        RestaurantDSRequestModel saveData = new RestaurantDSRequestModel();
+        gateway.save(saveData);
 
         //TODO return RequestModel: Decide on what the screen will show
         //TODO most likely a success or fail view, then update the page with the new restaurant
