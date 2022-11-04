@@ -21,6 +21,10 @@ public class Restaurant {
     //Setters
     public void setName(String name) {this.name = name;}
 
+    public void setCuisineType(String cuisineType) {this.attributes.setCuisineType(cuisineType);}
+
+    public void setPriceBucket(int priceBucket) {this.attributes.setPriceBucket(priceBucket);}
+
     public void addReview(Review review) {
         this.reviews.add(review);
         this.attributes.addReview(review.getStars());
@@ -32,6 +36,12 @@ public class Restaurant {
     public String getLocation() {return this.location;}
 
     public ArrayList<Review> getReviews() {return this.reviews;}
+
+    public String getCuisineType() {return this.attributes.getCuisineType();}
+
+    public double getAvgStars() {return this.attributes.getAvgStars();}
+
+    public int getPriceBucket() {return this.attributes.getPriceBucket();}
 
     public RestaurantAttributes getAttributes() {return this.attributes;}
 }
