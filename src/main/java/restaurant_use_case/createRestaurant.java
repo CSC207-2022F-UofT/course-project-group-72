@@ -4,12 +4,13 @@ import entities.Restaurant;
 import entities.RestaurantFactory;
 
 public class createRestaurant implements RestaurantInputBoundary{
-    private RestaurantFactory factory;
-    private RestaurantDSGateway gateway;
+    private final RestaurantFactory factory;
+    private final RestaurantDSGateway gateway;
 
-    public createRestaurant(RestaurantFactory factory, RestaurantDSGateway gateway) {
+    public createRestaurant(RestaurantFactory factory, RestaurantDSGateway dataGateway) {
         this.factory = factory;
-        this.gateway = gateway;
+        //not sure what is going on here, this.gateway throws an error
+        gateway = dataGateway;
     }
 
     @Override
