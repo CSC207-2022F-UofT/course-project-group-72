@@ -9,12 +9,12 @@ public class Report {
 
     private final Review review;
 
-    private final String reporter_id;
+    private final String reporter_username;
 
     Report(String reason, Review review, String reporter_id){
         this.reason = reason;
         this.review = review;
-        this.reporter_id = reporter_id;
+        this.reporter_username = reporter_id;
     }
 
     public String getReason() {
@@ -25,12 +25,12 @@ public class Report {
         return review;
     }
 
-    //public String getReview_id(){
-       // return review.getReview_id();
-    //}
+    public String getReview_id(){
+       return review.getReview_id();
+    }
 
-    public String getReporter_id() {
-        return reporter_id;
+    public String getReporter_username() {
+        return reporter_username;
     }
 
     //later modify get method based on the actual implementation of Review;

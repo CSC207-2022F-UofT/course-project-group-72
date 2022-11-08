@@ -5,14 +5,14 @@ public class ReportDsRequestModel {
     String reason;
     String content;
     String review_id;
-    String reporter_id;
+    String reporter_username;
     String creation_time;
 
-    public ReportDsRequestModel(String reason, String content, String review_id, String reporter_id, String creation_time) {
+    public ReportDsRequestModel(String reason, String content, String review_id, String reporter_username, String creation_time) {
         this.reason = reason;
         this.content = content;
         this.review_id = review_id;
-        this.reporter_id = reporter_id;
+        this.reporter_username = reporter_username;
         this.creation_time = creation_time;
     }
 
@@ -28,8 +28,8 @@ public class ReportDsRequestModel {
         return this.review_id;
     }
 
-    public String getReporter_id() {
-        return this.reporter_id;
+    public String getReporter_username() {
+        return this.reporter_username;
     }
 
     public String getCreation_time() {

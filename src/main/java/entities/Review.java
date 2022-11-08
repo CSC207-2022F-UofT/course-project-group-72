@@ -10,7 +10,8 @@ public class Review {
     private final Restaurant restaurant; //Possibly remove later
     private int likes;
     private String response;
-    private final ArrayList<Report> reports;
+
+    private int received_reports;
     private boolean visible;
 
     /*
@@ -26,7 +27,8 @@ public class Review {
         this.restaurant = restaurant;
         this.likes = 0;
         this.response = null;
-        this.reports = new ArrayList<Report>();
+
+        this.received_reports = 0;
         this.visible = true;
     }
 
@@ -86,14 +88,14 @@ public class Review {
     public void setResponse(String response) {this.response = response;}
 
     /*
-    Getter for reports
-     */
-    public ArrayList<Report> getReports() {return this.reports;}
-
-    /*
     Add a new report to this Review's list of reports
      */
-    public void addReport(Report report){this.reports.add(report);}
+    public void addReport() {this.received_reports = this.received_reports + 1;}
+
+    /*
+    Getter for received_reports
+     */
+    public int getReceived_reports() {return this.received_reports;}
 
     /*
     Getter for visible

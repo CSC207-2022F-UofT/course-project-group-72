@@ -7,6 +7,8 @@ public class User {
     private String password;
     private ArrayList<Review> past_reviews;
 
+
+
     // Get & Set Username
     public String getUsername() {
         return this.username;

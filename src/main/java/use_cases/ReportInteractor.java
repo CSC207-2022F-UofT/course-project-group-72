@@ -26,19 +26,31 @@ public class ReportInteractor implements reportInputBoundary {
     public void Create(ReportRequestModel reportRequestModel) {
 
         //if report already exists
-        if(true){
+        if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getReview_id())){
             throw new ReportCreationFailure("Report failed: You've already reported this review");
 
             // check if the reporter is banned
-        } else if (false) {
+        } else if (reportRequestModel.getReporter().isBanned()) {
             throw new ReportCreationFailure("Report failed: Your account is under investigation due to massive reports");
         }
 
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(), reportRequestModel.getReporter().getUsername());
         LocalDateTime now = LocalDateTime.now();
-        ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(), report.getReviewContent(), report.getReview_id(), report.getReporter_id(), now.toString());
+        ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(), report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
 
         reportDsGateway.save(reportDsRequestModel);
+
+        //add report to targeted user
+        reportRequestModel.getReview().getUser().addReport();
+
+        //add report to targeted review
+        reportRequestModel.getReview().addReport();
+
+        //check if the targeted review and user should be banned; if so ban them
+        Excalibur excalibur = new Excalibur(reportRequestModel.getReview().getUser(), reportRequestModel.getReview());
+        excalibur.execute();
+
+        //save the changes to the targeted user and review
 
 
     }
