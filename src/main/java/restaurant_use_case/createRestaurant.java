@@ -35,7 +35,7 @@ public class createRestaurant implements RestaurantInputBoundary{
 
         LocalDateTime now = LocalDateTime.now();
         RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(
-                requestModel.getOwner(),
+                requestModel.getOwner().getUsername(),
                 requestModel.getName(),
                 requestModel.getLocation(),
                 requestModel.getCuisineType(),

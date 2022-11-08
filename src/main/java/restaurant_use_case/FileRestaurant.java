@@ -47,7 +47,7 @@ public class FileRestaurant implements RestaurantDSGateway{
                 String cusineType = String.valueOf(col[headers.get("cusineType")]);
                 int priceBucket = Integer.parseInt(col[headers.get("priceBucket")]);
                 String owner = String.valueOf(col[headers.get("owner")]);
-                int avgStars = Integer.parseInt(col[headers.get("avgStars")]);
+                double avgStars = Double.parseDouble(col[headers.get("avgStars")]);
 
                 String reviews = String.valueOf(col[headers.get("reviews")]);
                 ArrayList<String> reviewsList = new ArrayList<>(Arrays.asList(reviews.split("<")));
@@ -80,7 +80,7 @@ public class FileRestaurant implements RestaurantDSGateway{
                         restaurant.getCuisineType(),
                         Integer.toString(restaurant.getPriceBucket()),
                         restaurant.getOwner(),
-                        Integer.toString(restaurant.getAvgStars()),
+                        Double.toString(restaurant.getAvgStars()),
                         reviewsLine
                 );
                 writer.write(line);
@@ -108,14 +108,16 @@ public class FileRestaurant implements RestaurantDSGateway{
 
     @Override
     public Restaurant retrieveRestaurant(String location) {
-        //TODO Ask if this is right
+        //TODO reinitializing
         RestaurantDSRequestModel temp = currentRestaurants.get(location);
-        return factory.create(
+        return factory.reintialize(
                 temp.getOwner(),
                 temp.getName(),
                 temp.getLocation(),
                 temp.getCuisineType(),
-                temp.getPriceBucket()
+                temp.getPriceBucket(),
+                temp.getAvgStars(),
+                temp.getReviews()
         );
     }
 
