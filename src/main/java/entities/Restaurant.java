@@ -3,38 +3,31 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
-    public String name;
-    public String location;
-    public String cuisineType;
-    public double AvgStars = 0;
-    public ArrayList<Review> reviews = new ArrayList<Review>();
-
-    //TODO Connection with User class
-    // TODO2 Tags/attributes for filter @Janssen
+    private String name;
+    private String location;
+    private ArrayList<Review> reviews = new ArrayList<Review>();
+    private OwnerUser owner;
+    private RestaurantAttributes attributes = new RestaurantAttributes();
 
     //Constructors
-    public void Restaurant(String name, String location) {
+    Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
-        this.cuisineType = "Unset";
-    }
-
-    public void Restaurant(String name, String location, String cuisineType) {
-        this.name = name;
-        this.location = location;
-        this.cuisineType = cuisineType;
+        this.owner = owner;
+        this.attributes.setPriceBucket(priceBucket);
+        this.attributes.setCuisineType(cuisineType);
     }
 
     //Setters
     public void setName(String name) {this.name = name;}
 
-    public void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
+    public void setCuisineType(String cuisineType) {this.attributes.setCuisineType(cuisineType);}
 
-    public void setLocation(String location) {this.location = location;}
+    public void setPriceBucket(int priceBucket) {this.attributes.setPriceBucket(priceBucket);}
 
     public void addReview(Review review) {
         this.reviews.add(review);
-        this.AvgStars = ((double)review.getStars() + this.AvgStars) / (this.reviews.size() + 1);
+        this.attributes.addReview(review.getStars());
     }
 
     //Getters
@@ -42,9 +35,13 @@ public class Restaurant {
 
     public String getLocation() {return this.location;}
 
-    public String getCuisineType() {return this.cuisineType;}
-
-    public double getAvgStars() {return this.AvgStars;}
-
     public ArrayList<Review> getReviews() {return this.reviews;}
+
+    public String getCuisineType() {return this.attributes.getCuisineType();}
+
+    public double getAvgStars() {return this.attributes.getAvgStars();}
+
+    public int getPriceBucket() {return this.attributes.getPriceBucket();}
+
+    public RestaurantAttributes getAttributes() {return this.attributes;}
 }
