@@ -7,9 +7,9 @@ public class RestaurantDSRequestModel {
     private String location;
     private String cuisineType;
     private int priceBucket;
-    private OwnerUser owner;
+    private String owner;
 
-    public RestaurantDSRequestModel(OwnerUser owner, String name, String location,
+    public RestaurantDSRequestModel(String owner, String name, String location,
                                   String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
@@ -23,5 +23,5 @@ public class RestaurantDSRequestModel {
     String getLocation() {return this.location;}
     String getCuisineType() {return this.cuisineType;}
     int getPriceBucket() {return this.priceBucket;}
-    OwnerUser getOwner() {return this.owner;}
+    String getOwner() {return this.owner;}
 }
