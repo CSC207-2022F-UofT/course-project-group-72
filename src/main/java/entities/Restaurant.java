@@ -63,6 +63,8 @@ public class Restaurant {
         return reviewList;
     }
 
+    public ArrayList<String> getReviewIDs() {return this.reviews;}
+
     public String getCuisineType() {return this.attributes.getCuisineType();}
 
     public double getAvgStars() {return this.attributes.getAvgStars();}
