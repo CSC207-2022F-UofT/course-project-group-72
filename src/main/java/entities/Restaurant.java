@@ -55,6 +55,8 @@ public class Restaurant {
         return owner;
     }
 
+    public String getOwnerID() {return this.ownerID;}
+
     public ArrayList<Review> getReviews() {
         ArrayList<Review> reviewList = new ArrayList<>();
         for (String id : this.reviews) {

@@ -1,7 +1,6 @@
 package restaurant_use_case;
 
 import entities.Restaurant;
-import entities.RestaurantFactory;
 import restaurant_screens.RestaurantPresenter;
 
 import java.time.LocalDateTime;

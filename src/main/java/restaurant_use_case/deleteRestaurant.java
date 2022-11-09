@@ -1,6 +1,5 @@
 package restaurant_use_case;
 
-import restaurant_screens.RestaurantDeleteController;
 import restaurant_screens.RestaurantDeletePresenter;
 
 public class deleteRestaurant implements RestaurantDeleteInputBoundary{
