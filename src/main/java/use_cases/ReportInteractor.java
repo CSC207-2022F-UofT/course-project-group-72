@@ -11,14 +11,14 @@ public class ReportInteractor implements reportInputBoundary {
 
     final reportDsGateway reportDsGateway;
 
-    final ReportPresenter reportPresenter;
-
     final ReportFactory reportFactory;
 
+    final Excalibur excalibur;
 
-    public ReportInteractor(reportDsGateway reportDsGateway, ReportPresenter reportPresenter, ReportFactory reportFactory) {
+
+    public ReportInteractor(reportDsGateway reportDsGateway, ReportFactory reportFactory, Excalibur excalibur) {
         this.reportDsGateway = reportDsGateway;
-        this.reportPresenter = reportPresenter;
+        this.excalibur = excalibur;
         this.reportFactory = reportFactory;
     }
 
@@ -47,7 +47,6 @@ public class ReportInteractor implements reportInputBoundary {
         reportRequestModel.getReview().addReport();
 
         //check if the targeted review and user should be banned; if so ban them
-        Excalibur excalibur = new Excalibur(reportRequestModel.getReview().getUser(), reportRequestModel.getReview());
         excalibur.execute();
 
         //save the changes to the targeted user and review
