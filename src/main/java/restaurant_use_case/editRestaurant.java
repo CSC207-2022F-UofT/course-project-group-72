@@ -18,22 +18,22 @@ public class editRestaurant implements RestaurantInputBoundary{
 
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
-        if (!gateway.existsByLocation(requestModel.getName())) {
+        if (!gateway.existsByLocation(requestModel.getLocation())) {
             return presenter.prepareFailView("RESTAURANT DOES NOT EXIST");
         }
 
         Restaurant oldRestaurant = gateway.retrieveRestaurant(requestModel.getLocation());
 
-        //TODO Overwrite restaurant using gateway
+        //TODO decide on converting string to and from object
         LocalDateTime now = LocalDateTime.now();
         RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(
-                requestModel.getOwner().getUsername(),
+                requestModel.getOwnerID(),
                 requestModel.getName(),
                 requestModel.getLocation(),
                 requestModel.getCuisineType(),
                 requestModel.getPriceBucket(),
                 requestModel.getAvgStars(),
-                requestModel.getReviews() //convert to string identifiers
+                requestModel.getReviews()
         );
         gateway.save(saveData);
 

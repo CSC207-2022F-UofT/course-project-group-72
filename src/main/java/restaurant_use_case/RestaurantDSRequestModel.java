@@ -1,8 +1,5 @@
 package restaurant_use_case;
 
-import entities.OwnerUser;
-import entities.Review;
-
 import java.util.ArrayList;
 
 public class RestaurantDSRequestModel {
@@ -10,31 +7,31 @@ public class RestaurantDSRequestModel {
     private String location;
     private String cuisineType;
     private int priceBucket;
-    private String owner;
+    private String ownerID;
     private double avgStars;
     private ArrayList<String> reviews;
 
-    public RestaurantDSRequestModel(String owner, String name, String location,
-                                  String cuisineType, int priceBucket) {
+    public RestaurantDSRequestModel(String ownerID, String name, String location,
+                                    String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
-        this.owner = owner; // convert to string
+        this.ownerID = ownerID;
         this.cuisineType = cuisineType;
         this.priceBucket= priceBucket;
         this.avgStars = 0;
         this.reviews = new ArrayList<>();
     }
 
-    public RestaurantDSRequestModel(String owner, String name, String location,
+    public RestaurantDSRequestModel(String ownerID, String name, String location,
                                     String cuisineType, int priceBucket, double avgStars,
                                     ArrayList<String> reviews) {
         this.name = name;
         this.location = location;
-        this.owner = owner; // convert to string identifier
+        this.ownerID = ownerID;
         this.cuisineType = cuisineType;
         this.priceBucket= priceBucket;
         this.avgStars = avgStars;
-        this.reviews = reviews; // convert to strings
+        this.reviews = reviews;
     }
 
     // Retrieve Information
@@ -42,7 +39,7 @@ public class RestaurantDSRequestModel {
     String getLocation() {return this.location;}
     String getCuisineType() {return this.cuisineType;}
     int getPriceBucket() {return this.priceBucket;}
-    String getOwner() {return this.owner;}
+    String getOwnerID() {return this.ownerID;}
     double getAvgStars() {return this.avgStars;}
     ArrayList<String> getReviews() {return this.reviews;}
 }

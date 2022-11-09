@@ -79,7 +79,7 @@ public class FileRestaurant implements RestaurantDSGateway{
                         restaurant.getName(),
                         restaurant.getCuisineType(),
                         Integer.toString(restaurant.getPriceBucket()),
-                        restaurant.getOwner(),
+                        restaurant.getOwnerID(),
                         Double.toString(restaurant.getAvgStars()),
                         reviewsLine
                 );
@@ -108,10 +108,10 @@ public class FileRestaurant implements RestaurantDSGateway{
 
     @Override
     public Restaurant retrieveRestaurant(String location) {
-        //TODO reinitializing
+        //TODO reinitializing string to and from object
         RestaurantDSRequestModel temp = currentRestaurants.get(location);
         return factory.reintialize(
-                temp.getOwner(),
+                temp.getOwnerID(),
                 temp.getName(),
                 temp.getLocation(),
                 temp.getCuisineType(),
@@ -128,5 +128,11 @@ public class FileRestaurant implements RestaurantDSGateway{
             restaurants.add(retrieveRestaurant(location));
         }
         return restaurants;
+    }
+
+    @Override
+    public void delete(String location) {
+        this.currentRestaurants.remove(location);
+        save();
     }
 }

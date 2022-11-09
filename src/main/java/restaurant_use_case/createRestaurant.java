@@ -22,11 +22,11 @@ public class createRestaurant implements RestaurantInputBoundary{
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
 
-        if (gateway.existsByLocation(requestModel.getName())) {
+        if (gateway.existsByLocation(requestModel.getLocation())) {
             return presenter.prepareFailView("INVALID LOCATION");
         }
         Restaurant newRestaurant = factory.create(
-                requestModel.getOwner(),
+                requestModel.getOwnerID(),
                 requestModel.getName(),
                 requestModel.getLocation(),
                 requestModel.getCuisineType(),
@@ -35,7 +35,7 @@ public class createRestaurant implements RestaurantInputBoundary{
 
         LocalDateTime now = LocalDateTime.now();
         RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(
-                requestModel.getOwner().getUsername(),
+                requestModel.getOwnerID(),
                 requestModel.getName(),
                 requestModel.getLocation(),
                 requestModel.getCuisineType(),

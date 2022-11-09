@@ -11,24 +11,24 @@ public class RestaurantRequestModel {
     private String location;
     private String cuisineType;
     private int priceBucket;
-    private OwnerUser owner;
+    private String ownerID;
     private double avgStars;
-    private ArrayList<Review> reviews;
+    private ArrayList<String> reviews;
 
-    public RestaurantRequestModel(OwnerUser owner, String name, String location,
+    public RestaurantRequestModel(String ownerID, String name, String location,
                                   String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
-        this.owner = owner;
+        this.ownerID = ownerID;
         this.cuisineType = cuisineType;
         this.priceBucket= priceBucket;
     }
 
-    public RestaurantRequestModel(OwnerUser owner, String name, String location,
-                                  String cuisineType, int priceBucket, double avgStars, ArrayList<Review> reviews) {
+    public RestaurantRequestModel(String ownerID, String name, String location,
+                                  String cuisineType, int priceBucket, double avgStars, ArrayList<String> reviews) {
         this.name = name;
         this.location = location;
-        this.owner = owner;
+        this.ownerID = ownerID;
         this.cuisineType = cuisineType;
         this.priceBucket = priceBucket;
         this.avgStars = avgStars;
@@ -40,7 +40,7 @@ public class RestaurantRequestModel {
     String getLocation() {return this.location;}
     String getCuisineType() {return this.cuisineType;}
     int getPriceBucket() {return this.priceBucket;}
-    OwnerUser getOwner() {return this.owner;}
+    String getOwnerID() {return this.ownerID;}
     double getAvgStars() {return this.avgStars;}
-    public ArrayList<Review> getReviews() {return reviews;}
+    public ArrayList<String> getReviews() {return reviews;}
 }
