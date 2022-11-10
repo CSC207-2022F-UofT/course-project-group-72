@@ -1,4 +1,4 @@
-package report_screens;
+package report_use_cases;
 
 import entities.Review;
 

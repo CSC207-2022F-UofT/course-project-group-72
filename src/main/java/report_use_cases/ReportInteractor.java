@@ -2,8 +2,12 @@ package report_use_cases;
 
 import entities.Report;
 import entities.ReportFactory;
+import entities.Review;
+import entities.User;
+import report_screens.ManipulateReviewDs;
 import report_screens.ReportCreationFailure;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ReportInteractor implements reportInputBoundary {
@@ -22,7 +26,7 @@ public class ReportInteractor implements reportInputBoundary {
     }
 
     @Override
-    public void Create(ReportRequestModel reportRequestModel) {
+    public void Create(ReportRequestModel reportRequestModel) throws IOException {
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getID())){
@@ -45,10 +49,12 @@ public class ReportInteractor implements reportInputBoundary {
         //add report to targeted review
         reportRequestModel.getReview().addReport();
 
-        //check if the targeted review and user should be banned; if so ban them
-        excalibur.execute();
-
         //save the changes to the targeted user and review
+        Review updated_revivew = excalibur.execute_review();
+        User updated_user = excalibur.execute_user();
+
+        ManipulateReviewDs manipulateReviewDs = new ManipulateReviewDs();
+        manipulateReviewDs.updateReview(updated_revivew);
 
 
     }
