@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class CreateRestaurantView extends JPanel implements ActionListener {
     /**
@@ -83,6 +84,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
         this.add(priceInfo);
         this.add(buttons);
 
+        this.setVisible(true);
     }
 
     @Override
@@ -101,7 +103,9 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
                 );
             }
 
-//            TODO revert to previous view
+//          TODO revert to previous view
+            TimeUnit.SECONDS.sleep(5);
+            this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
