@@ -1,8 +1,6 @@
 package Models;
 
 import Interfaces.ReviewGatewayInterface;
-import Interfaces.UserGatewayInterface;
-import Interfaces.RestaurantGatewayInterface;
 import entities.Restaurant;
 import entities.User;
 
