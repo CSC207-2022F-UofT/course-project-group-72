@@ -34,8 +34,8 @@ public class Report {
     }
 
     //later modify get method based on the actual implementation of Review;
-    public User getReportedUserName() {
-        return review.getUserName();
+    public String getReportedUser() {
+        return review.getUser();
     }
 
     //later modify get method based on the actual implementation of Review;
