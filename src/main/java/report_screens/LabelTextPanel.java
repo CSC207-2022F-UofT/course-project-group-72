@@ -1,4 +1,4 @@
-package screens;
+package report_screens;
 
 import javax.swing.*;
 

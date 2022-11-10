@@ -1,4 +1,4 @@
-package use_cases;
+package report_use_cases;
 
 public class ReportDsRequestModel {
 

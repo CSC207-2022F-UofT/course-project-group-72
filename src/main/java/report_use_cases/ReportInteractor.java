@@ -1,9 +1,8 @@
-package use_cases;
+package report_use_cases;
 
 import entities.Report;
 import entities.ReportFactory;
-import screens.ReportCreationFailure;
-import screens.ReportPresenter;
+import report_screens.ReportCreationFailure;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +36,6 @@ public class ReportInteractor implements reportInputBoundary {
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(), reportRequestModel.getReporter().getUsername());
         LocalDateTime now = LocalDateTime.now();
         ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(), report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
-
         reportDsGateway.save(reportDsRequestModel);
 
         //add report to targeted user

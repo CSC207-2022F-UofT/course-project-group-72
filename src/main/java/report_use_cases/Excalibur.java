@@ -1,4 +1,4 @@
-package use_cases;
+package report_use_cases;
 
 import entities.Review;
 import entities.User;
