@@ -1,5 +1,7 @@
 package Interfaces;
 
+import entities.Review;
+
 import java.util.ArrayList;
 
 public interface ReviewGatewayInterface {
@@ -15,5 +17,7 @@ public interface ReviewGatewayInterface {
                           String likes, String response, String reports, String visible);
 
     public void deleteReview(String id);
+
+    public void updateReview(Review review);
 
 }
