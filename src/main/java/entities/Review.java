@@ -1,34 +1,65 @@
 package entities;
 
-import java.util.ArrayList;
-
 public class Review {
 
+    private static final Interfaces.ReviewGatewayInterface gateway = new Gateways.ReviewGateway();
+    private static String currentID = "0"; //NOTE: In main, call Review.setCurrentID();
+    private final String id;
     private int stars;
     private String text;
-    private final User user; //Possibly remove later
-    private final Restaurant restaurant; //Possibly remove later
+    private final String username;
+    private final String restaurantAddress;
     private int likes;
     private String response;
-    private final ArrayList<Report> reports;
+    private int reports;
     private boolean visible;
 
     /*
     Construct a new review object using the given parameters
-
-    REMOVE LATER: I like to be explicit when writing my code, so I called this.attribute = defaultValue even though
-    it is not strictly necessary. We can change this later if it is a bad practice
      */
-    public Review(int stars, String text, User user, Restaurant restaurant){
+    public Review(String id, int stars, String text, String user, String restaurantAddress){
+        this.id = id;
         this.stars = stars;
         this.text = text;
-        this.user = user;
-        this.restaurant = restaurant;
+        this.username = user;
+        this.restaurantAddress = restaurantAddress;
         this.likes = 0;
         this.response = null;
-        this.reports = new ArrayList<Report>();
+        this.reports = 0;
         this.visible = true;
     }
+
+    /*
+    Reconstruct a Review object using information from the database
+     */
+    public Review(String id, int stars, String text, String username, String restaurantAddress, int likes,
+                  String response, int reports, boolean visible){
+        this.id = id;
+        this.stars = stars;
+        this.text = text;
+        this.username = username;
+        this.restaurantAddress = restaurantAddress;
+        this.likes = likes;
+        this.response = response;
+        this.reports = reports;
+        this.visible = visible;
+    }
+
+    public static String getCurrentID() {
+        return currentID;
+    }
+    public static void setCurrentID(){
+        currentID = gateway.loadReviewID();
+    }
+
+    public static void incrementCurrentID(){
+        currentID = currentID + 1;
+    }
+
+    /*
+    Getter for ID
+     */
+    public String getID() {return this.id;}
 
     /*
     Getter for stars
@@ -53,12 +84,12 @@ public class Review {
     /*
     Getter for user
      */
-    public User getUser() {return this.user;}
+    public String getUser() {return this.username;}
 
     /*
     Getter for restaurant
      */
-    public Restaurant getRestaurant() {return this.restaurant;}
+    public String getRestaurant() {return this.restaurantAddress;}
 
     /*
     Getter for likes
@@ -88,12 +119,12 @@ public class Review {
     /*
     Getter for reports
      */
-    public ArrayList<Report> getReports() {return this.reports;}
+    public int getReports() {return this.reports;}
 
     /*
     Add a new report to this Review's list of reports
      */
-    public void addReport(Report report){this.reports.add(report);}
+    public void addReport(){this.reports = this.reports + 1;}
 
     /*
     Getter for visible
@@ -104,5 +135,10 @@ public class Review {
     Setter for visible
      */
     public void setVisible(boolean visible) {this.visible = visible;}
+
+    @Override
+    public String toString(){
+        return this.id;
+    }
 
 }

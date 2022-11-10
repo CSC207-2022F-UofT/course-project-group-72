@@ -34,7 +34,9 @@ public class Report {
     }
 
     //later modify get method based on the actual implementation of Review;
-    public User getReportedUser() {
+    //NOTE: I changed this, so it returns a string instead of a User. You need a method to access the database to
+    // get the actual object
+    public String getReportedUser() {
         return review.getUser();
     }
 
