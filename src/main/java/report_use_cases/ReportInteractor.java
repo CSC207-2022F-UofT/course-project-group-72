@@ -25,7 +25,7 @@ public class ReportInteractor implements reportInputBoundary {
     public void Create(ReportRequestModel reportRequestModel) {
 
         //if report already exists
-        if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getReview_id())){
+        if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getID())){
             throw new ReportCreationFailure("Report failed: You've already reported this review");
 
             // check if the reporter is banned
@@ -39,7 +39,8 @@ public class ReportInteractor implements reportInputBoundary {
         reportDsGateway.save(reportDsRequestModel);
 
         //add report to targeted user
-        reportRequestModel.getReview().getUser().addReport();
+        //reportRequestModel.getReview().getUser() IT RETURNS AN USERNAME, USE THE USERNAME TO FIND AND INITIALIZE THE USER FROM THE DATA BASE
+        //THEN .addReport()
 
         //add report to targeted review
         reportRequestModel.getReview().addReport();

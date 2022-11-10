@@ -15,12 +15,12 @@ public class Excalibur {
     }
 
     public void execute() {
-        if (targeted_review.getReceived_reports() >= 10) {
+        if (targeted_review.getReports() >= 10) {
             targeted_review.setVisible(false);
         }
 
         if (targeted_user.getReceived_reports() >= 30) {
-            targeted_user.setBanned(true);
+            targeted_user.setBanned();
         }
     }
 
