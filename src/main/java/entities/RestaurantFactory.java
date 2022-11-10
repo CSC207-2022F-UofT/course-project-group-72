@@ -1,7 +1,16 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class RestaurantFactory {
-    Restaurant create(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
-        return new Restaurant(owner, name, location, cuisineType, priceBucket);
+
+    public RestaurantFactory() {}
+    public Restaurant create(String ownerID, String name, String location, String cuisineType, int priceBucket) {
+        return new Restaurant(ownerID, name, location, cuisineType, priceBucket);
+    }
+    // NOTE Type of ArrayList<T> may be revered to Review and ownerID to OwnerUser
+    public Restaurant reintialize(String ownerID, String name, String location, String cuisineType, int priceBucket,
+                                  double avgStars, ArrayList<String> reviews) {
+        return new Restaurant(ownerID, name, location, cuisineType, priceBucket, avgStars, reviews);
     }
 }

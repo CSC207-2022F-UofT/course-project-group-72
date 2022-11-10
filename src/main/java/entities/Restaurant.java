@@ -5,34 +5,44 @@ import java.util.ArrayList;
 public class Restaurant {
     private String name;
     private String location;
-    private String cuisineType;
-    private int priceBucket;
-    private double AvgStars = 0;
-    private ArrayList<Review> reviews = new ArrayList<Review>();
-    private OwnerUser owner;
-
+    private ArrayList<String> reviews = new ArrayList<String>();
+    private String ownerID;
+    private RestaurantAttributes attributes = new RestaurantAttributes();
 
     //Constructors
-    public Restaurant(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
+    Restaurant(String ownerID, String name, String location, String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
-        this.cuisineType = cuisineType;
-        this.priceBucket = priceBucket;
-        this.owner = owner;
+        this.ownerID = ownerID;
+        this.attributes.setPriceBucket(priceBucket);
+        this.attributes.setCuisineType(cuisineType);
+    }
+    //Retrieval Constructor
+    Restaurant(String ownerID, String name, String location, String cuisineType, int priceBucket,
+               double avgStars, ArrayList<String> reviews) {
+        this.name = name;
+        this.location = location;
+        this.ownerID = ownerID;
+        this.attributes.setPriceBucket(priceBucket);
+        this.attributes.setCuisineType(cuisineType);
+        this.attributes.setAvgStars(avgStars);
+        this.reviews = reviews;
     }
 
     //Setters
     public void setName(String name) {this.name = name;}
 
-    public void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
+    public void setOwnerID(String ownerID) {this.ownerID = ownerID;}
 
-    public void setPriceBucket(int priceBucket) {this.priceBucket = priceBucket;}
+    public void setCuisineType(String cuisineType) {this.attributes.setCuisineType(cuisineType);}
 
-    public void setLocation(String location) {this.location = location;}
+    public void setPriceBucket(int priceBucket) {this.attributes.setPriceBucket(priceBucket);}
 
-    public void addReview(Review review) {
-        this.reviews.add(review);
-        this.AvgStars = ((double)review.getStars() + this.AvgStars) / (this.reviews.size() + 1);
+    public void addReview(String reviewID) {
+        //NOTE the type of reviewID may be reverted to Review
+        this.reviews.add(reviewID);
+        Review review = //TODO retrieve review object from database
+        this.attributes.addReview(review.getStars());
     }
 
     //Getters
@@ -40,11 +50,28 @@ public class Restaurant {
 
     public String getLocation() {return this.location;}
 
-    public int getPriceBucket() {return this.priceBucket;}
+    public OwnerUser getOwner() {
+        OwnerUser owner = //TODO retrieve owner object from database
+        return owner;
+    }
 
-    public String getCuisineType() {return this.cuisineType;}
+    public String getOwnerID() {return this.ownerID;}
 
-    public double getAvgStars() {return this.AvgStars;}
+    public ArrayList<Review> getReviews() {
+        ArrayList<Review> reviewList = new ArrayList<>();
+        for (String id : this.reviews) {
+            reviewList.add() //TODO retrieve review object from database
+        }
+        return reviewList;
+    }
 
-    public ArrayList<Review> getReviews() {return this.reviews;}
+    public ArrayList<String> getReviewIDs() {return this.reviews;}
+
+    public String getCuisineType() {return this.attributes.getCuisineType();}
+
+    public double getAvgStars() {return this.attributes.getAvgStars();}
+
+    public int getPriceBucket() {return this.attributes.getPriceBucket();}
+
+    public RestaurantAttributes getAttributes() {return this.attributes;}
 }
