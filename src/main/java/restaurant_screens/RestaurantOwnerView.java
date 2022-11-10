@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.Objects;
 
 public class RestaurantOwnerView extends JFrame implements ActionListener{
+    //NOTE: to access this class the restaurant must be owned by the OwnerUser
 
     public RestaurantOwnerView() {
 
