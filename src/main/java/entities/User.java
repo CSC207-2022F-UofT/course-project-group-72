@@ -6,11 +6,13 @@ public class User {
     private String username;
     private String password;
     private ArrayList<Review> past_reviews;
+    private ArrayList<String> likedReviews;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.past_reviews = new ArrayList<>();
+        this.likedReviews = new ArrayList<>();
     }
     // Get & Set Username
     public String getUsername() {
@@ -36,5 +38,17 @@ public class User {
 
     public void add_review(Review review) {
         this.past_reviews.add(review);
+    }
+
+    public ArrayList<String> getLikedReviews() {
+        return likedReviews;
+    }
+
+    public void addLikedReview(String id){
+        this.likedReviews.add(id);
+    }
+
+    public void removeLikedReview(String id){
+        this.likedReviews.remove(id);
     }
 }
