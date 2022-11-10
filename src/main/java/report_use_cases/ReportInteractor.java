@@ -1,14 +1,17 @@
 package report_use_cases;
 
+import Gateways.ReviewGateway;
+import Interfaces.ReviewGatewayInterface;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
 import entities.User;
-import report_screens.ManipulateReviewDs;
 import report_screens.ReportCreationFailure;
 import java.time.LocalDateTime;
 
 public class ReportInteractor implements reportInputBoundary {
+
+    private static final ReviewGatewayInterface gateway = new Gateways.ReviewGateway();
 
     final reportDsGateway reportDsGateway;
 
@@ -51,8 +54,8 @@ public class ReportInteractor implements reportInputBoundary {
         Review updated_revivew = excalibur.execute_review();
         User updated_user = excalibur.execute_user();
 
-        ManipulateReviewDs manipulateReviewDs = new ManipulateReviewDs();
-        manipulateReviewDs.updateReview(updated_revivew);
+
+        gateway.updateReview(updated_revivew);
 
 
     }
