@@ -13,7 +13,7 @@ public class ReportController {
         this.input = input;
     }
 
-    public void create(String reason, Review review, User reporter) {
+    public void create(String reason, Review review, User reporter) throws Exception {
 
         ReportRequestModel reportRequestModel = new ReportRequestModel(reason, review, reporter);
         input.Create(reportRequestModel);

@@ -6,8 +6,6 @@ import entities.Review;
 import entities.User;
 import report_screens.ManipulateReviewDs;
 import report_screens.ReportCreationFailure;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ReportInteractor implements reportInputBoundary {
@@ -26,7 +24,7 @@ public class ReportInteractor implements reportInputBoundary {
     }
 
     @Override
-    public void Create(ReportRequestModel reportRequestModel) throws IOException {
+    public void Create(ReportRequestModel reportRequestModel){
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getID())){

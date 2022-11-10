@@ -12,7 +12,7 @@ public class ManipulateReviewDs {
     private static final String NAME_OF_REVIEW_DATABASE = "src/main/java/Databases/ReviewDatabase.csv";
 
 
-    public void updateReview(Review review) throws IOException {
+    public void updateReview(Review review) {
 
         String review_id = review.getID();
         String new_STARS = String.valueOf(review.getStars());
