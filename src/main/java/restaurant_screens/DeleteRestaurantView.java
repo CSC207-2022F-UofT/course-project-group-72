@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class DeleteRestaurantView extends JPanel implements ActionListener {
     /**
@@ -38,6 +39,8 @@ public class DeleteRestaurantView extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(buttons);
 
+        this.setVisible(true);
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -46,6 +49,8 @@ public class DeleteRestaurantView extends JPanel implements ActionListener {
                 restaurantController.delete(restaurant.getLocation());
             }
             //TODO revert to previous view
+            TimeUnit.SECONDS.sleep(5);
+            this.setVisible(false);
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);

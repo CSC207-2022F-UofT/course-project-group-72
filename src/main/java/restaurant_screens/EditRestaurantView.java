@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class EditRestaurantView extends JPanel implements ActionListener{
     /**
@@ -81,6 +82,7 @@ public class EditRestaurantView extends JPanel implements ActionListener{
         this.add(priceInfo);
         this.add(buttons);
 
+        this.setVisible(true);
 
     }
     @Override
@@ -99,7 +101,9 @@ public class EditRestaurantView extends JPanel implements ActionListener{
                         restaurant.getReviewIDs()
                         );
             }
-//            // TODO revert back to previous view
+            // TODO revert back to previous view
+            TimeUnit.SECONDS.sleep(5);
+            this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
