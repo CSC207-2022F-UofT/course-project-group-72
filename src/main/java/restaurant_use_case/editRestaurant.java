@@ -22,7 +22,7 @@ public class editRestaurant implements RestaurantInputBoundary{
         }
 
         Restaurant oldRestaurant = gateway.retrieveRestaurant(requestModel.getLocation());
-        gateway.delete(requestModel.getLocation());
+        gateway.deleteRestaurant(requestModel.getLocation());
 
         LocalDateTime now = LocalDateTime.now();
         RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(

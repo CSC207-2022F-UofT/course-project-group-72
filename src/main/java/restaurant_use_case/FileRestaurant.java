@@ -131,7 +131,7 @@ public class FileRestaurant implements RestaurantDSGateway{
     }
 
     @Override
-    public void delete(String location) {
+    public void deleteRestaurant(String location) {
         this.currentRestaurants.remove(location);
         save();
     }
