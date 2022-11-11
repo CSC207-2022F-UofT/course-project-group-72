@@ -26,7 +26,7 @@ public class Report {
     }
 
     public String getReview_id(){
-       return review.getReview_id();
+       return review.getID();
     }
 
     public String getReporter_username() {

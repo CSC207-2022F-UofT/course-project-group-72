@@ -7,6 +7,8 @@ public class User {
     private String password;
     private ArrayList<Review> past_reviews;
     private ArrayList<String> likedReviews;
+    private int received_reports = 0;
+    private boolean banned = false;
 
     public User(String username, String password) {
         this.username = username;
@@ -50,5 +52,20 @@ public class User {
 
     public void removeLikedReview(String id){
         this.likedReviews.remove(id);
+    }
+
+    public int getReceived_reports(){
+        return this.received_reports;
+    }
+
+    public void addReport(){
+        this.received_reports++;
+    }
+
+    public boolean isBanned(){
+        return this.banned;
+    }
+    public void setBanned(){
+        this.banned = true;
     }
 }
