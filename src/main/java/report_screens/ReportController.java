@@ -16,6 +16,6 @@ public class ReportController {
     public void create(String reason, Review review, User reporter) throws Exception {
 
         ReportRequestModel reportRequestModel = new ReportRequestModel(reason, review, reporter);
-        input.Create(reportRequestModel);
+        input.create(reportRequestModel);
     }
 }
