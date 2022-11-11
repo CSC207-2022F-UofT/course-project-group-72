@@ -19,7 +19,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
 
         //reinitializing restaurant here is necessary may be changed later
         String restaurant = gateway.retrieveRestaurant(location).getName();
-        gateway.delete(location);
+        gateway.deleteRestaurant(location);
 
         return presenter.prepareSuccessView("deleted", restaurant);
 
