@@ -1,4 +1,8 @@
 package restaurant_screens;
 
-public class ChoicesPresenter {
+import restaurant_use_case.ChoicesResponseModel;
+
+public interface ChoicesPresenter {
+    public ChoicesResponseModel prepareSuccessView(ChoicesResponseModel responseModel);
+
 }

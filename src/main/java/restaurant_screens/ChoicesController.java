@@ -16,12 +16,11 @@ public class ChoicesController {
         this.userInput = selections;
     }
 
-    ChoicesResponseModel create(ArrayList<Restaurant> sortedList) {
+    ChoicesResponseModel create(String inputSearch, int inputPriceBucket, String inputLocation,
+                                String inputCuisineType, double inputAvgStars, String inputSort) {
 
-        //TODO: Update ChoicesRequestModel Class with necessary getters and setters needed.
+        ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch, inputPriceBucket, inputLocation,
+                inputCuisineType, inputAvgStars, inputSort);
 
-        ChoicesRequestModel requestModel = new ChoicesRequestModel();
-
-        return userInput.create(requestModel);
-    }
+        return userInput.create(requestModel);}
 }
