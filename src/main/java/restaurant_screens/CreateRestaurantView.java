@@ -40,13 +40,13 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
 //     */
 //    JFrame previousFrame;
 
-    CreateRestaurantView(RestaurantController restaurantController, OwnerUser owner, JFrame previousFrame) {
+    public CreateRestaurantView(RestaurantController restaurantController, OwnerUser owner) {
 
         this.restaurantController = restaurantController;
         this.owner = owner;
 //        this.previousFrame = previousFrame;
 
-        JLabel title = new JLabel("Edit Restaurant");
+        JLabel title = new JLabel("Create Restaurant");
 
         JPanel nameInfo = new JPanel();
         nameInfo.add(new JLabel("Restaurant Name"));
@@ -56,7 +56,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
 
         location = new JTextField(15);
         LabelTextPanel locationInfo = new LabelTextPanel(
-                new JLabel("Restaurant Location"), cuisineType);
+                new JLabel("Restaurant Location"), location);
 
         cuisineType = new JTextField(15);
         LabelTextPanel cuisineInfo = new LabelTextPanel(

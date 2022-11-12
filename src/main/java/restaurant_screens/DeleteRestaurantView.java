@@ -22,7 +22,7 @@ public class DeleteRestaurantView extends JPanel implements ActionListener {
     Restaurant restaurant;
     //NOTE: the owner must own the restaurant to access this view.
 
-    DeleteRestaurantView(RestaurantDeleteController restaurantDeleteController, Restaurant restaurant) {
+    public DeleteRestaurantView(RestaurantDeleteController restaurantDeleteController, Restaurant restaurant) {
 
         this.restaurantController = restaurantDeleteController;
         this.restaurant = restaurant;
