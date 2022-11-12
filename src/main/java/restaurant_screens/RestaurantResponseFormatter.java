@@ -13,6 +13,6 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
 
     @Override
     public RestaurantResponseModel prepareFailView(String error) {
-        throw new RestaurantCreationFailed(error);
+        throw new RestaurantInteractionFailed(error);
     }
 }

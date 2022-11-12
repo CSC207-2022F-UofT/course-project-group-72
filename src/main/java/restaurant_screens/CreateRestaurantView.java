@@ -1,20 +1,24 @@
 package restaurant_screens;
 
 import entities.OwnerUser;
-import entities.Restaurant;
 import restaurant_use_case.RestaurantResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class EditRestaurantView extends JPanel implements ActionListener{
+public class CreateRestaurantView extends JPanel implements ActionListener {
     /**
      * The restaurant name
      */
     JTextField name;
+    /**
+     * The restaurant location
+     */
+    JTextField location;
     /**
      * The restaurant cuisine type
      */
@@ -31,36 +35,34 @@ public class EditRestaurantView extends JPanel implements ActionListener{
      * The current user (which must be an owner user)
      */
     OwnerUser owner;
-    /**
-     * The current restaurant
-     */
-    Restaurant restaurant;
 //    /**
 //     * The previous frame
 //     */
 //    JFrame previousFrame;
 
-
-
-    public EditRestaurantView(RestaurantController restaurantController, OwnerUser owner, Restaurant restaurant) {
+    public CreateRestaurantView(RestaurantController restaurantController, OwnerUser owner) {
 
         this.restaurantController = restaurantController;
         this.owner = owner;
-        this.restaurant = restaurant;
 //        this.previousFrame = previousFrame;
 
-        JLabel title = new JLabel("Edit Restaurant");
+        JLabel title = new JLabel("Create Restaurant");
 
         JPanel nameInfo = new JPanel();
         nameInfo.add(new JLabel("Restaurant Name"));
-        name = new JTextField(restaurant.getName());
+        name = new JTextField(15);
         nameInfo.add(name);
         // Choice of implementations
-        cuisineType = new JTextField(restaurant.getCuisineType());
+
+        location = new JTextField(15);
+        LabelTextPanel locationInfo = new LabelTextPanel(
+                new JLabel("Restaurant Location"), location);
+
+        cuisineType = new JTextField(15);
         LabelTextPanel cuisineInfo = new LabelTextPanel(
                 new JLabel("Restaurant Cuisine"), cuisineType);
 
-        priceBucket = new JTextField(restaurant.getPriceBucket());
+        priceBucket = new JTextField(15);
         LabelTextPanel priceInfo = new LabelTextPanel(
                 new JLabel("Price Range"), priceBucket);
 
@@ -79,12 +81,13 @@ public class EditRestaurantView extends JPanel implements ActionListener{
         this.add(title);
         this.add(nameInfo);
         this.add(cuisineInfo);
+        this.add(locationInfo);
         this.add(priceInfo);
         this.add(buttons);
 
         this.setVisible(true);
-
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Click " + e.getActionCommand());
@@ -94,25 +97,24 @@ public class EditRestaurantView extends JPanel implements ActionListener{
                 RestaurantResponseModel result = restaurantController.create(
                         owner.getUsername(),
                         name.getText(),
-                        restaurant.getLocation(),
+                        location.getText(),
                         cuisineType.getText(),
                         Integer.parseInt(priceBucket.getText()),
-                        restaurant.getAvgStars(),
-                        restaurant.getReviewIDs()
-                        );
+                        0, new ArrayList<String>()
+                );
 
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
-            // TODO revert back to previous view
-//
+
+//          TODO revert to previous view
+
 //            TimeUnit.SECONDS.sleep(5);
             this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
-
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.toString());
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
 
     }
