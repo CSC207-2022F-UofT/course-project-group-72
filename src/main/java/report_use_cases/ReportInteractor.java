@@ -1,6 +1,5 @@
 package report_use_cases;
 
-import Gateways.ReviewGateway;
 import Interfaces.ReviewGatewayInterface;
 import entities.Report;
 import entities.ReportFactory;
@@ -19,23 +18,26 @@ public class ReportInteractor implements reportInputBoundary {
 
     final Excalibur excalibur;
 
+    final ReportPresenter presenter;
 
-    public ReportInteractor(reportDsGateway reportDsGateway, ReportFactory reportFactory, Excalibur excalibur) {
+
+    public ReportInteractor(reportDsGateway reportDsGateway, ReportFactory reportFactory, Excalibur excalibur, ReportPresenter presenter) {
         this.reportDsGateway = reportDsGateway;
         this.excalibur = excalibur;
         this.reportFactory = reportFactory;
+        this.presenter = presenter;
     }
 
     @Override
-    public void Create(ReportRequestModel reportRequestModel){
+    public ReportResponseModel create(ReportRequestModel reportRequestModel){
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(), reportRequestModel.getReview().getID())){
-            throw new ReportCreationFailure("Report failed: You've already reported this review");
+            return presenter.prepareFailView("Report already exists.");
 
             // check if the reporter is banned
         } else if (reportRequestModel.getReporter().isBanned()) {
-            throw new ReportCreationFailure("Report failed: Your account is under investigation due to massive reports");
+            return presenter.prepareFailView("You are banned.");
         }
 
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(), reportRequestModel.getReporter().getUsername());
@@ -56,6 +58,9 @@ public class ReportInteractor implements reportInputBoundary {
 
 
         gateway.updateReview(updated_revivew);
+
+        ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(), report.getReview_id(), now.toString());
+        return presenter.prepareSuccessView(reportResponseModel);
 
 
     }
