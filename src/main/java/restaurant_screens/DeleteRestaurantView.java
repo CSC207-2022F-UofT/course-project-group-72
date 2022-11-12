@@ -2,6 +2,7 @@ package restaurant_screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
+import restaurant_use_case.RestaurantResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,14 +47,15 @@ public class DeleteRestaurantView extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
-                restaurantController.delete(restaurant.getLocation());
+                RestaurantResponseModel result = restaurantController.delete(restaurant.getLocation());
+                JOptionPane.showMessageDialog(this, result.getOperation());
             }
             //TODO revert to previous view
-            TimeUnit.SECONDS.sleep(5);
+//            TimeUnit.SECONDS.sleep(5);
             this.setVisible(false);
 
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
 
     }
