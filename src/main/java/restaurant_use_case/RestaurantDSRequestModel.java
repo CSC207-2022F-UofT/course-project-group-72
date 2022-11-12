@@ -41,5 +41,14 @@ public class RestaurantDSRequestModel {
     int getPriceBucket() {return this.priceBucket;}
     String getOwnerID() {return this.ownerID;}
     double getAvgStars() {return this.avgStars;}
-    ArrayList<String> getReviews() {return this.reviews;}
+    ArrayList<String> getReviews() {
+        if (this.reviews.size() == 0) {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add("empty");
+            return temp;
+        } else {
+            return this.reviews;
+        }
+        //TODO decide on how to handle csv empty reviews
+    }
 }
