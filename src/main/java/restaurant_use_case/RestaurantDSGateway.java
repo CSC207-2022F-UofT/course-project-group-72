@@ -9,4 +9,5 @@ public interface RestaurantDSGateway {
     boolean existsByLocation(String location);
     Restaurant retrieveRestaurant(String location);
     ArrayList<Restaurant> retrieveAllRestaurants();
+    void deleteRestaurant(String location);
 }

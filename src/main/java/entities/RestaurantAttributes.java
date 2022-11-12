@@ -17,6 +17,8 @@ public class RestaurantAttributes {
     }
     public void setPriceBucket(int priceBucket) {this.priceBucket = priceBucket;}
 
+    void setAvgStars(double avgStars) {this.avgStars = avgStars;}
+
     // Getters
     public int getPriceBucket() {return this.priceBucket;}
 
