@@ -5,6 +5,7 @@ import restaurant_use_case.RestaurantInputBoundary;
 import restaurant_use_case.RestaurantRequestModel;
 import restaurant_use_case.RestaurantResponseModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RestaurantController {
