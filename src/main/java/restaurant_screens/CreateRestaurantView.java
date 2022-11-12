@@ -1,6 +1,7 @@
 package restaurant_screens;
 
 import entities.OwnerUser;
+import restaurant_use_case.RestaurantResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,7 +94,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
 
         try {
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
-                restaurantController.create(
+                RestaurantResponseModel result = restaurantController.create(
                         owner.getUsername(),
                         name.getText(),
                         location.getText(),
@@ -101,16 +102,19 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
                         Integer.parseInt(priceBucket.getText()),
                         0, new ArrayList<String>()
                 );
+
+                JOptionPane.showMessageDialog(this, result.getOperation());
             }
 
 //          TODO revert to previous view
-            TimeUnit.SECONDS.sleep(5);
+
+//            TimeUnit.SECONDS.sleep(5);
             this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
 
     }
