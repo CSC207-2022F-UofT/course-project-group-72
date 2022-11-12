@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface reportInputBoundary {
 
-    void Create(ReportRequestModel reportRequestModel) throws IOException;
+    ReportResponseModel create(ReportRequestModel reportRequestModel) throws IOException;
 }
