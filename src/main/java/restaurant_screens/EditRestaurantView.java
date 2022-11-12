@@ -42,8 +42,7 @@ public class EditRestaurantView extends JPanel implements ActionListener{
 
 
 
-    public EditRestaurantView(RestaurantController restaurantController, OwnerUser owner, Restaurant restaurant,
-                              JFrame previousFrame) {
+    public EditRestaurantView(RestaurantController restaurantController, OwnerUser owner, Restaurant restaurant) {
 
         this.restaurantController = restaurantController;
         this.owner = owner;
