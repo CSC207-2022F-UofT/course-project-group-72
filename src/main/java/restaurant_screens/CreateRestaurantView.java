@@ -3,9 +3,11 @@ package restaurant_screens;
 import entities.OwnerUser;
 import restaurant_use_case.RestaurantResponseModel;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +64,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
         LabelTextPanel cuisineInfo = new LabelTextPanel(
                 new JLabel("Restaurant Cuisine"), cuisineType);
 
-        priceBucket = new JTextField(15);
+        priceBucket = new JTextField("0", 15);
         LabelTextPanel priceInfo = new LabelTextPanel(
                 new JLabel("Price Range"), priceBucket);
 
@@ -106,10 +108,15 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
 
+
 //          TODO revert to previous view
 
-//            TimeUnit.SECONDS.sleep(5);
-            this.setVisible(false);
+            Container parentPanel = this.getParent();
+            parentPanel.remove(this);
+            parentPanel.revalidate();
+            parentPanel.repaint();
+
+//            this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
