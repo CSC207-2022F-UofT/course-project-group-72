@@ -1,0 +1,36 @@
+//Interface that all review gateways must implement
+
+package ReviewInterfaces;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import ReviewGateways.ReviewNotFoundException;
+import entities.Review;
+
+public interface ReviewGatewayInterface {
+    //All implementations must use this delimiter
+    String DELIMITER = "`";
+    //Methods required to manipulate the database
+    String loadReviewID() throws FileNotFoundException;
+
+    void incrementReviewID() throws IOException;
+
+    entities.Review getReview(String id) throws FileNotFoundException, ReviewNotFoundException;
+
+    ArrayList<entities.Review> getReviews(ArrayList<String> ids) throws FileNotFoundException;
+
+    void addReview(String id, String stars, String text, String username, String restaurantLocation,
+                          String likes, String response, String reports, String visible) throws IOException;
+
+    void updateReview(Review review) throws IOException;
+
+    void deleteReview(String id) throws IOException;
+
+    /*
+    Default method for returning delimiter
+     */
+    static String getDelimiter(){return DELIMITER;}
+
+}
