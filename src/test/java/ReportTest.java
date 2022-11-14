@@ -1,3 +1,4 @@
+import Gateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
@@ -6,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import report_screens.FileReportHistory;
+import report_screens.ReportController;
 import report_screens.ReportResponseFormat;
 import report_use_cases.*;
 
@@ -176,9 +178,12 @@ public class ReportTest {
             Review identicalReview = new Review("TestInteractor reviewID", 5, "TestInteractor content", "TestInteractor reviewerID",
                 "123");
 
-            User identicalReporter = new User("TestInteractor reporter_username", "1234567");
+            User identicalReporter = new User("TestInteractor reporter_username", "12345678910231073");
 
-            User differentReporter = new User("TestInteractor reporter_username2", "1234567888");
+            User differentReporter = new User("TestInteractor reporter_username2", "1234567888123");
+
+            User BannedReporter = new User("TestInteractor reporter_username3", "12345678889932");
+            BannedReporter.setBanned();
 
             //duplicate report (same review same reporter)
             ReportRequestModel testInteractorModelwithDuplicatedReport = new ReportRequestModel("Test Interactor_reason2",
@@ -187,6 +192,10 @@ public class ReportTest {
             //new report (same review different reporter)
             ReportRequestModel testInteractorModelwithNewReport = new ReportRequestModel("Test Interactor_reason3",
                 identicalReview, differentReporter);
+
+            //new report (reporter is banned)
+            ReportRequestModel testInteractorModelwithBannedReporter = new ReportRequestModel("Test Interactor_reason4",
+                identicalReview, BannedReporter);
 
             FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Interactor_test.csv");
 
@@ -203,12 +212,20 @@ public class ReportTest {
                 assertTrue(e instanceof RuntimeException);
             }
 
-            //test if Interactor create new report when new report is created
-            try{
-                testReportInteractor.create(testInteractorModelwithNewReport);
+//            //test if Interactor create new report when new report is created
+//            try{
+//                testReportInteractor.create(testInteractorModelwithNewReport);
+//
+//            } catch (Exception e){
+//                fail("ReportCreationFailure should not be thrown");
+//            }
 
+            //test if Interactor throw exception when banned reporter try to create new report
+            try{
+                testReportInteractor.create(testInteractorModelwithBannedReporter);
+                fail("ReportCreationFailure should be thrown");
             } catch (Exception e){
-                fail("ReportCreationFailure should not be thrown");
+                assertTrue(e instanceof RuntimeException);
             }
 
             //reset the file after test
@@ -221,16 +238,14 @@ public class ReportTest {
     public void testInteractorReturnResponseModel_not_mutate_model() throws IOException {
 
         FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Interactor_test.csv");
-        testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
+        ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
 
         Review review = new Review("TestInteractor reviewID", 5, "TestInteractor content", "TestInteractor reviewerID",
                 "123");
 
-        User reporter = new User("TestInteractor reporter_username", "1234567");
+        User reporter = new User("TestInteractor reporter_username", "123456712312312");
 
 
-
-        //duplicate report (same review same reporter)
         ReportRequestModel testInteractorModel = new ReportRequestModel("Test Interactor_reason",review
                 , reporter);
 
@@ -241,6 +256,26 @@ public class ReportTest {
 
 
     }
+
+   @Test
+    public void testControllerReturnResponseModel() throws Exception {
+
+        Review review = new Review("TEST_ID", 5, "TEST_CONTENT", "TEST_REVIEWER_ID",
+                "TEST_RESTAURANT_ID");
+
+       User reporter = new User("Test reporter_username", "1234567123123");
+
+//       ReviewGateway reviewGateway = new ReviewGateway();
+//         reviewGateway.addReview();
+
+       FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Controller_test.csv");
+       ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
+       ReportController testReportController = new ReportController(testReportInteractor);
+
+
+
+
+   }
 
 
 
