@@ -41,8 +41,8 @@ public class Restaurant {
     public void addReview(String reviewID) {
         //NOTE the type of reviewID may be reverted to Review
         this.reviews.add(reviewID);
-        Review review = //TODO retrieve review object from database
-        this.attributes.addReview(review.getStars());
+        //Review review = //TODO retrieve review object from database
+        //this.attributes.addReview(review.getStars());
     }
 
     //Getters
@@ -51,8 +51,9 @@ public class Restaurant {
     public String getLocation() {return this.location;}
 
     public OwnerUser getOwner() {
-        OwnerUser owner = //TODO retrieve owner object from database
-        return owner;
+        //OwnerUser owner = //TODO retrieve owner object from database
+        //return owner;
+        return null;
     }
 
     public String getOwnerID() {return this.ownerID;}
@@ -60,7 +61,7 @@ public class Restaurant {
     public ArrayList<Review> getReviews() {
         ArrayList<Review> reviewList = new ArrayList<>();
         for (String id : this.reviews) {
-            reviewList.add() //TODO retrieve review object from database
+            //reviewList.add() //TODO retrieve review object from database
         }
         return reviewList;
     }
