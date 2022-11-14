@@ -14,7 +14,7 @@ public class ChoicesSortedView extends JFrame {
 
         // Create Window
         JFrame display_list = new JFrame();
-        display_list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // display_list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         //TODO: organize/format components

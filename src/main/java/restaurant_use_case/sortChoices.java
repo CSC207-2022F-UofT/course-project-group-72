@@ -19,22 +19,31 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
 
     @Override
     // TODO: move this to the FileRestaurant (filtering)
+    // TODO: Determine Location (Postal Code or City) If Postal Code use first 3 letters for nearby
+    // TODO: Pricing change to buckets, not exact input price bucket (rating /10 for expense)
+    // TODO: Cuisine Type stays the same
+    // TODO: Average Stars should filter decimals, like 3.99 is categorized into 3
+
     public ChoicesResponseModel create(ChoicesRequestModel requestModel){
 
         ArrayList<Restaurant> matchedRestaurants = gateway.searchMatch(requestModel.getInputSearch());
 
         ArrayList<Restaurant> sortedRestaurants = new ArrayList<>();
         for (Restaurant restaurant : matchedRestaurants){
+
+            // TODO: possibly have multi drop-down select?
             if((restaurant.getPriceBucket() == requestModel.getInputPriceBucket() ||
                     restaurant.getPriceBucket() == 0)
 
-                && (Objects.equals(restaurant.getLocation(), requestModel.getInputLocation()) ||
-                    restaurant.getLocation() == null)
+                && (Objects.equals(restaurant.getLocation().substring(0, 4),
+                    requestModel.getInputLocation().substring(0, 4)) || restaurant.getLocation() == null)
 
+                    // TODO: can change to tags, would make cuisine type an input or keep the same but
+                    // choices are limited
                 && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
                     restaurant.getCuisineType() == null)
 
-                && (restaurant.getAvgStars() == requestModel.getInputAvgStars() ||
+                && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
                     restaurant.getAvgStars() == 0))
             {
                 sortedRestaurants.add(restaurant);}
