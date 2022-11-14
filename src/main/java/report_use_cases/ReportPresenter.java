@@ -7,3 +7,4 @@ public interface ReportPresenter {
     ReportResponseModel prepareFailView(String error);
 
 }
+

@@ -38,11 +38,10 @@ public class Restaurant {
 
     public void setPriceBucket(int priceBucket) {this.attributes.setPriceBucket(priceBucket);}
 
-    public void addReview(String reviewID) {
-        //NOTE the type of reviewID may be reverted to Review
-        this.reviews.add(reviewID);
-        //Review review = //TODO retrieve review object from database
-        //this.attributes.addReview(review.getStars());
+    public void addReview(Review review) {
+        // Can take in a review object instead of ReviewID since the review object will have been newly created
+        this.reviews.add(review.getID());
+        this.attributes.addReview(review.getStars());
     }
 
     //Getters
@@ -50,21 +49,20 @@ public class Restaurant {
 
     public String getLocation() {return this.location;}
 
-    public OwnerUser getOwner() {
-        //OwnerUser owner = //TODO retrieve owner object from database
-        //return owner;
-        return null;
-    }
+//    public OwnerUser getOwner() {
+//        OwnerUser owner = //TODOx retrieve owner object from database
+//        return owner;
+//    }
 
     public String getOwnerID() {return this.ownerID;}
 
-    public ArrayList<Review> getReviews() {
-        ArrayList<Review> reviewList = new ArrayList<>();
-        for (String id : this.reviews) {
-            //reviewList.add() //TODO retrieve review object from database
-        }
-        return reviewList;
-    }
+//    public ArrayList<Review> getReviews() {
+//        ArrayList<Review> reviewList = new ArrayList<>();
+//        for (String id : this.reviews) {
+//            reviewList.add() //TODOx retrieve review object from database
+//        }
+//        return reviewList;
+//    }
 
     public ArrayList<String> getReviewIDs() {return this.reviews;}
 

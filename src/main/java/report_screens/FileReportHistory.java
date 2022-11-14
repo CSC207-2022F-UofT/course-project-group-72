@@ -60,8 +60,8 @@ public class FileReportHistory implements reportDsGateway {
 
     @Override // save report to file (first put into hashmap, then save to file)
     public void save(ReportDsRequestModel reportdsRequestModel) {
-        save_reports.put(reportdsRequestModel.getReview_id(), reportdsRequestModel);
-        save();
+            save_reports.put(reportdsRequestModel.getReview_id(), reportdsRequestModel);
+            save();
     }
 
 
@@ -107,3 +107,4 @@ public class FileReportHistory implements reportDsGateway {
         return Objects.equals(corresponding_reporter, reporter_username);
     }
 }
+

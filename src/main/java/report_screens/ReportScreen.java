@@ -69,8 +69,8 @@ public class ReportScreen implements ActionListener {
 
             }
         } else if(evt.getSource() == cancel){
-            report_window.setVisible(false);
+                report_window.setVisible(false);
         }
 
+        }
     }
-}
