@@ -18,6 +18,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
     }
 
     @Override
+    // TODO: move this to the FileRestaurant (filtering)
     public ChoicesResponseModel create(ChoicesRequestModel requestModel){
 
         ArrayList<Restaurant> matchedRestaurants = gateway.searchMatch(requestModel.getInputSearch());
