@@ -1,6 +1,7 @@
 package restaurant_use_case;
 
 import java.util.ArrayList;
+import entities.Restaurant;
 
 public class RestaurantDSRequestModel {
     private String name;
@@ -44,7 +45,7 @@ public class RestaurantDSRequestModel {
     ArrayList<String> getReviews() {
         if (this.reviews.size() == 0) {
             ArrayList<String> temp = new ArrayList<>();
-            temp.add("empty");
+            temp.add(Restaurant.EMPTY_FILLER);
             return temp;
         } else {
             return this.reviews;

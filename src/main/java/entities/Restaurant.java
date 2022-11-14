@@ -3,8 +3,9 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
+    public static final String EMPTY_FILLER = "empty";
     private String name;
-    private String location;
+    private final String location;
     private ArrayList<String> reviews = new ArrayList<String>();
     private String ownerID;
     private RestaurantAttributes attributes = new RestaurantAttributes();
@@ -64,7 +65,13 @@ public class Restaurant {
 //        return reviewList;
 //    }
 
-    public ArrayList<String> getReviewIDs() {return this.reviews;}
+    public ArrayList<String> getReviewIDs() {
+        try {
+            this.reviews.remove(EMPTY_FILLER);
+        } catch (Exception ignored) {
+        }
+        return this.reviews;
+    }
 
     public String getCuisineType() {return this.attributes.getCuisineType();}
 
