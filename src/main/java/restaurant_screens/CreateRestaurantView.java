@@ -99,8 +99,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
                         name.getText(),
                         location.getText(),
                         cuisineType.getText(),
-                        Integer.parseInt(priceBucket.getText()),
-                        0, new ArrayList<String>()
+                        Integer.parseInt(priceBucket.getText())
                 );
 
                 JOptionPane.showMessageDialog(this, result.getOperation());
