@@ -23,11 +23,14 @@ public class createRestaurant implements RestaurantInputBoundary{
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
 
         if (gateway.existsByLocation(requestModel.getLocation())) {
+            // Checks if there is another restaurant at that same location, meaning they inputed the wrong location
             return presenter.prepareFailView("INVALID LOCATION");
         } else if (requestModel.getLocation().length() == 0 |
                     requestModel.getName().length() == 0 |
                     requestModel.getCuisineType().length() == 0){
-            return presenter.prepareFailView("Please fill in all of the fields");
+            // Checks if the required fields were left empty
+            //  - the price bucket is filled by default 0
+            return presenter.prepareFailView("Please fill in all of the required fields");
         }
         Restaurant newRestaurant = factory.create(
                 requestModel.getOwnerID(),

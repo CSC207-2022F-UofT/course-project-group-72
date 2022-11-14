@@ -3,11 +3,27 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
+    // Used to deal with the empty review case when saving to database
     public static final String EMPTY_FILLER = "empty";
+    /**
+     * The Restaurant's name
+     */
     private String name;
+    /**
+     * The Restaurant's unique location, used as a unique identifier
+     */
     private final String location;
+    /**
+     * The Restaurant's reviews, stored as the review's unique ID
+     */
     private ArrayList<String> reviews = new ArrayList<String>();
+    /**
+     * The Restaurant's owner, stored as the User's unique username
+     */
     private String ownerID;
+    /**
+     * The Restaurant's attributes, includes its price bucket, average stars and cuisine type
+     */
     private RestaurantAttributes attributes = new RestaurantAttributes();
 
     //Constructors

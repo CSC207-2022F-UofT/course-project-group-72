@@ -16,6 +16,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
     @Override
     public RestaurantResponseModel delete(String location) {
         if (!gateway.existsByLocation(location)) {
+            // Checks if the restaurant is already in the system and can be edited
             return presenter.prepareFailView("RESTAURANT DOES NOT EXIST");
         }
 
