@@ -44,7 +44,7 @@ public class FileRestaurant implements RestaurantDSGateway{
                 String[] col = row.split(",");
                 String location = String.valueOf(col[headers.get("location")]);
                 String name = String.valueOf(col[headers.get("name")]);
-                String cusineType = String.valueOf(col[headers.get("cusineType")]);
+                String cusineType = String.valueOf(col[headers.get("cuisineType")]);
                 int priceBucket = Integer.parseInt(col[headers.get("priceBucket")]);
                 String owner = String.valueOf(col[headers.get("owner")]);
                 double avgStars = Double.parseDouble(col[headers.get("avgStars")]);

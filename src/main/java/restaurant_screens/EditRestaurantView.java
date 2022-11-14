@@ -104,9 +104,14 @@ public class EditRestaurantView extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
             // TODO revert back to previous view
+            Container parentPanel = this.getParent();
+            parentPanel.remove(this);
+            parentPanel.revalidate();
+            parentPanel.repaint();
+
 //
 //            TimeUnit.SECONDS.sleep(5);
-            this.setVisible(false);
+//            this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 
