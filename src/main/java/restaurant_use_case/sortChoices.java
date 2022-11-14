@@ -6,7 +6,7 @@ import restaurant_screens.ChoicesPresenter;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class sortChoices implements ChoicesInputBoundary{
+public class sortChoices extends Sorting implements ChoicesInputBoundary{
 
     private final RestaurantDSGateway gateway;
     private final ChoicesPresenter presenter;
@@ -20,38 +20,32 @@ public class sortChoices implements ChoicesInputBoundary{
     @Override
     public ChoicesResponseModel create(ChoicesRequestModel requestModel){
 
-        ArrayList<Restaurant> allRestaurants = gateway.retrieveAllRestaurants();
+        ArrayList<Restaurant> matchedRestaurants = gateway.searchMatch(requestModel.getInputSearch());
+
         ArrayList<Restaurant> sortedRestaurants = new ArrayList<>();
+        for (Restaurant restaurant : matchedRestaurants){
+            if((restaurant.getPriceBucket() == requestModel.getInputPriceBucket() ||
+                    restaurant.getPriceBucket() == 0)
 
+                && (Objects.equals(restaurant.getLocation(), requestModel.getInputLocation()) ||
+                    restaurant.getLocation() == null)
 
-        // TODO: Implement search query algorithm, how many consecutive letters should match?
+                && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
+                    restaurant.getCuisineType() == null)
 
-        for (Restaurant i : allRestaurants){
-            if((i.getPriceBucket() == requestModel.getInputPriceBucket() ||
-                    i.getPriceBucket() == 0)
-
-                && (Objects.equals(i.getLocation(), requestModel.getInputLocation()) ||
-                    i.getLocation() == null)
-
-                && (Objects.equals(i.getCuisineType(), requestModel.getInputCuisineType()) ||
-                    i.getCuisineType() == null)
-
-                && (i.getAvgStars() == requestModel.getInputAvgStars() ||
-                        i.getAvgStars() == 0))
+                && (restaurant.getAvgStars() == requestModel.getInputAvgStars() ||
+                    restaurant.getAvgStars() == 0))
             {
-                sortedRestaurants.add(i);}
+                sortedRestaurants.add(restaurant);}
         }
-
-        // TODO: Implement sorting by sortMethod
-        String sortMethod = requestModel.getInputSort();
+        sortList(sortedRestaurants);
 
         ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
-
         return presenter.prepareSuccessView(responseModel);
-
-
-
 
     }
 
+    @Override
+    public void sortList(ArrayList<Restaurant> sortedRestaurants) {
+    }
 }
