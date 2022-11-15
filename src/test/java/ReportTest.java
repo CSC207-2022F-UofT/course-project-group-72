@@ -9,6 +9,7 @@ import org.junit.Test;
 import report_screens.FileReportHistory;
 import report_screens.ReportController;
 import report_screens.ReportResponseFormat;
+import report_screens.ReportScreen;
 import report_use_cases.*;
 
 
@@ -265,8 +266,8 @@ public class ReportTest {
 
        User reporter = new User("Test reporter_username", "1234567123123");
 
-//       ReviewGateway reviewGateway = new ReviewGateway();
-//         reviewGateway.addReview();
+       ReviewGateway reviewGateway = new ReviewGateway();
+       //reviewGateway.addReview(review);
 
        FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Controller_test.csv");
        ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
@@ -276,6 +277,26 @@ public class ReportTest {
 
 
    }
+
+    @Test
+    public void testReportScreen() throws IOException {
+
+        Review currentReview = new Review("1", 5, "asd", "test", "testAddress");
+        User reviewer = new User("test", "123456789asfada");
+        User currentUser = new User("testreviewr", "asiudgaiufgiuagf");
+        ReportFactory factory = new ReportFactory();
+        Excalibur excalibur = new Excalibur(reviewer, currentReview);
+        ReportPresenter presenter = new ReportResponseFormat();
+
+        FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("src/test/java/report_test/screen_test.csv");
+        testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, factory, excalibur, presenter);
+        ReportController testController = new ReportController(testReportInteractor);
+
+        ReportScreen screen = new ReportScreen(testController, currentReview, currentUser);
+
+
+
+    }
 
 
 
