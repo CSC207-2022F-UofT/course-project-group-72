@@ -3,27 +3,10 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
-    // Used to deal with the empty review case when saving to database
-    public static final String EMPTY_FILLER = "empty";
-    /**
-     * The Restaurant's name
-     */
     private String name;
-    /**
-     * The Restaurant's unique location, used as a unique identifier
-     */
     private final String location;
-    /**
-     * The Restaurant's reviews, stored as the review's unique ID
-     */
-    private ArrayList<String> reviews = new ArrayList<String>();
-    /**
-     * The Restaurant's owner, stored as the User's unique username
-     */
+    private ReviewList reviews = new ReviewList(new ArrayList<>());
     private String ownerID;
-    /**
-     * The Restaurant's attributes, includes its price bucket, average stars and cuisine type
-     */
     private RestaurantAttributes attributes = new RestaurantAttributes();
 
     //Constructors
@@ -43,7 +26,7 @@ public class Restaurant {
         this.attributes.setPriceBucket(priceBucket);
         this.attributes.setCuisineType(cuisineType);
         this.attributes.setAvgStars(avgStars);
-        this.reviews = reviews;
+        this.reviews = new ReviewList(reviews);
     }
 
     //Setters
@@ -57,7 +40,7 @@ public class Restaurant {
 
     public void addReview(Review review) {
         // Can take in a review object instead of ReviewID since the review object will have been newly created
-        this.reviews.add(review.getID());
+        this.reviews.addNewReview(review.getID());
         this.attributes.addReview(review.getStars());
     }
 
@@ -73,20 +56,12 @@ public class Restaurant {
 
     public String getOwnerID() {return this.ownerID;}
 
-//    public ArrayList<Review> getReviews() {
-//        ArrayList<Review> reviewList = new ArrayList<>();
-//        for (String id : this.reviews) {
-//            reviewList.add() //TODOx retrieve review object from database
-//        }
-//        return reviewList;
-//    }
-
     public ArrayList<String> getReviewIDs() {
-        try {
-            this.reviews.remove(EMPTY_FILLER);
-        } catch (Exception ignored) {
-        }
-        return this.reviews;
+        return this.reviews.getReviewIDs();
+    }
+
+    public ArrayList<Review>  getReview() {
+        return this.reviews.getReviews();
     }
 
     public String getCuisineType() {return this.attributes.getCuisineType();}
