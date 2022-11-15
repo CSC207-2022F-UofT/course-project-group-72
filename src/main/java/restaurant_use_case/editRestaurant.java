@@ -23,19 +23,17 @@ public class editRestaurant implements RestaurantInputBoundary{
         }
 
         Restaurant oldRestaurant = gateway.retrieveRestaurant(requestModel.getLocation());
-        gateway.deleteRestaurant(requestModel.getLocation());
 
+        // Change the restaurant to have the updated values
+        oldRestaurant.setName(requestModel.getName());
+        oldRestaurant.setCuisineType(requestModel.getCuisineType());
+        oldRestaurant.setPriceBucket(requestModel.getPriceBucket());
+
+
+        // Save to database
+        gateway.deleteRestaurant(requestModel.getLocation());
         LocalDateTime now = LocalDateTime.now();
-        RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(
-                requestModel.getOwnerID(),
-                requestModel.getName(),
-                requestModel.getLocation(),
-                requestModel.getCuisineType(),
-                requestModel.getPriceBucket(),
-                requestModel.getAvgStars(),
-                requestModel.getReviews()
-        );
-        gateway.save(saveData);
+        gateway.save(oldRestaurant);
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(oldRestaurant,

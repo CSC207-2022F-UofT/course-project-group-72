@@ -60,7 +60,7 @@ public class Restaurant {
         return this.reviews.getReviewIDs();
     }
 
-    public ArrayList<Review>  getReview() {
+    public ArrayList<Review> getReviews() {
         return this.reviews.getReviews();
     }
 
