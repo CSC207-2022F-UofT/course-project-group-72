@@ -16,6 +16,12 @@ public class User {
         this.past_reviews = new ArrayList<>();
         this.likedReviews = new ArrayList<>();
     }
+
+    public User() {
+        // For GuestUser Implementation
+        this.username = null;
+        this.password = null;
+    }
     // Get & Set Username
     public String getUsername() {
         return this.username;

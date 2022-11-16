@@ -1,17 +1,25 @@
 package user_use_cases;
 
-import entities.User;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class UserDatabaseGateway {
-    // User Data is saved in order: first column -> username, second column -> password
+public class UserGateway implements UserGatewayInterface{
+    /*
+    UserDatabase.csv -> How Instance Variables are saved
+     Column 1: username (String)
+     Column 2: password (String)
+     Column 3: past_reviews (ArrayList<Reviews>) - Use delimiter "/", to separate Review.id values.
+     Column 4: likedReviews (ArrayList<String>) - Use delimiter "|" to separate Review.id string values.
+     Column 5: received_reports (int)
+     Column 6: banned (Boolean)
+     User Data is saved in order: first column -> username, second column -> password
+     */
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
 
-
+    @Override
     public Boolean userExists(String username) {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
@@ -35,6 +43,7 @@ public class UserDatabaseGateway {
         }
     }
 
+    @Override
     public String getPassword(String username) {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
@@ -58,6 +67,7 @@ public class UserDatabaseGateway {
         return null;
     }
 
+    @Override
     public void addUser(String username, String password) {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
@@ -72,5 +82,10 @@ public class UserDatabaseGateway {
             e.printStackTrace();
         }
     }
+
+    // to- implement add review
+
+    // remove review
+
 
 }

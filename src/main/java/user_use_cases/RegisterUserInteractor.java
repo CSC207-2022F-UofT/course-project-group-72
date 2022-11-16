@@ -7,10 +7,10 @@ import user_screens.RegisterUserPresenter;
 public class RegisterUserInteractor{
 
     private final UserFactory factory;
-    private final UserDatabaseGateway gateway;
+    private final UserGateway gateway;
     private final RegisterUserPresenter presenter;
 
-    public RegisterUserInteractor(UserFactory factory, UserDatabaseGateway gateway,
+    public RegisterUserInteractor(UserFactory factory, UserGateway gateway,
                                   RegisterUserPresenter presenter) {
         this.factory = factory;
         this.gateway = gateway;

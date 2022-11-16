@@ -1,4 +1,6 @@
 package user_use_cases;
+
+import entities.User
 public class RegisterUserController {
 
     private final RegisterUserInputBoundary registeruserinputboundary;
@@ -7,7 +9,7 @@ public class RegisterUserController {
         this.registeruserinputboundary = registerInputBoundary;
     }
 
-    public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {
+    public RegisterUserResponseModel CreateUserObject(RegisterUserRequestModel requestModel) {
         return this.registeruserinputboundary.CreateUser(requestModel);
     }
 }
