@@ -19,7 +19,7 @@ public class RegisterUserInteractor{
 
     public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {
 
-        if (!gateway.userExists(requestModel.getUsername())) {
+        if (gateway.userExists(requestModel.getUsername())) {
             return presenter.prepareRegisterFailView("Username is Taken");
         }
 
