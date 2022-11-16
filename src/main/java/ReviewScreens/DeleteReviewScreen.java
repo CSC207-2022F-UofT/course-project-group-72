@@ -15,8 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DeleteReviewScreen extends JFrame implements ActionListener {
+public class DeleteReviewScreen extends JDialog implements ActionListener {
 
+    private final JFrame owner;
     private final DeleteReviewController deleteReviewController;
     private final ReviewGatewayInterface reviewGateway;
     private final UserGatewayInterface userGateway;
@@ -25,11 +26,14 @@ public class DeleteReviewScreen extends JFrame implements ActionListener {
     private final User user;
     private final Restaurant restaurant;
 
-    public DeleteReviewScreen(DeleteReviewController deleteReviewController, ReviewGatewayInterface reviewGateway,
-                              UserGatewayInterface userGateway, RestaurantDSGateway restaurantGateway,
-                              Review review, User user, Restaurant restaurant){
+    public DeleteReviewScreen(JFrame owner, DeleteReviewController deleteReviewController,
+                              ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
+                              RestaurantDSGateway restaurantGateway, Review review, User user, Restaurant restaurant){
+        //Call super on owner so that this dialog must be closed before the user can click on other windows
+        super(owner, true);
 
         //Attach attributes to the screen, so they can be used by the action listeners
+        this.owner = owner;
         this.deleteReviewController = deleteReviewController;
         this.reviewGateway = reviewGateway;
         this.userGateway = userGateway;
@@ -43,6 +47,11 @@ public class DeleteReviewScreen extends JFrame implements ActionListener {
         label.setFont(label.getFont().deriveFont(16F));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //Create a spacer to separate the question and the buttons
+        JLabel spacer1 = new JLabel(" ");
+        spacer1.setFont(spacer1.getFont().deriveFont(16F));
+        spacer1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         //Create the buttons for the user to delete the review or cancel. Make the delete button red
         JButton delete = new JButton("Delete");
         delete.setBackground(Color.RED);
@@ -53,10 +62,16 @@ public class DeleteReviewScreen extends JFrame implements ActionListener {
         delete.addActionListener(this);
         cancel.addActionListener(this);
 
+        //Create a spacer so the buttons are apart from each other
+        JLabel spacer2 = new JLabel("                                        ");
+        spacer2.setFont(spacer2.getFont().deriveFont(16F));
+        spacer2.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         //Create a panel to hold the buttons
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
         buttons.add(cancel);
+        buttons.add(spacer2);
         buttons.add(delete);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -66,12 +81,13 @@ public class DeleteReviewScreen extends JFrame implements ActionListener {
 
         //Add the other components
         main.add(label);
+        main.add(spacer1);
         main.add(buttons);
 
         //Set this instance's content pane to main and set its behaviour
         this.setContentPane(main);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300, 200));
+        this.setPreferredSize(new Dimension(500, 120));
         this.pack();
         this.setLocationRelativeTo(null);
 
@@ -95,6 +111,10 @@ public class DeleteReviewScreen extends JFrame implements ActionListener {
             //Tell the user if they were successful
             if (response.wasSuccessful()) {
                 JOptionPane.showMessageDialog(this, "Your review has been successfully deleted!");
+                //Close all old windows and re-launch RestaurantView with this review removed
+                this.dispose();
+                this.owner.dispose();
+                new RestaurantView(this.user, this.restaurant);
             } else {
                 JOptionPane.showMessageDialog(this, "An error has occurred. " +
                         "Please try again later.");

@@ -4,13 +4,15 @@ package ReviewScreens;
 
 import ReviewInterfaces.ReviewGatewayInterface;
 import ReviewControllers.EditReviewController;
+import entities.Restaurant;
 import entities.Review;
+import entities.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class EditReviewScreen extends JFrame implements ActionListener {
+public class EditReviewScreen extends JDialog implements ActionListener {
 
     //We need this to track which button the user has clicked
     private int stars;
@@ -22,19 +24,29 @@ public class EditReviewScreen extends JFrame implements ActionListener {
     private final JButton threeStar;
     private final JButton fourStar;
     private final JButton fiveStar;
+    //We need a reference to the RestaurantView so this dialog can be made modal in relation to it
+    private final JFrame owner;
     //We need a controller to talk to the interactor
     private final EditReviewController editReviewController;
     //We need to pass these to the controller
     private final ReviewGatewayInterface reviewGateway;
     private final Review review;
+    //We need these to re-launch RestaurantView
+    private final User user;
+    private final Restaurant restaurant;
 
-    public EditReviewScreen(EditReviewController editReviewController,
-                            ReviewGatewayInterface reviewGateway, Review review){
+    public EditReviewScreen(JFrame owner, EditReviewController editReviewController,
+                            ReviewGatewayInterface reviewGateway, Review review, User user, Restaurant restaurant){
+        //Call super on owner so that this dialog is modal in relation to it
+        super(owner, true);
 
         //Attach these to the screen so that the action listener may use them
+        this.owner = owner;
         this.editReviewController = editReviewController;
         this.reviewGateway = reviewGateway;
         this.review = review;
+        this.user = user;
+        this.restaurant = restaurant;
 
         //Store the review's old stars, so we do not need to keep calling review methods
         this.stars = this.review.getStars();
@@ -225,10 +237,14 @@ public class EditReviewScreen extends JFrame implements ActionListener {
                     //Tell the user if they were successful
                     if(response.wasSuccessful()){
                         JOptionPane.showMessageDialog(this, "Your review has been successfully" +
-                                "submitted!");
+                                " edited!");
+                        //Close all old windows and re-launch RestaurantView with this review removed
+                        this.dispose();
+                        this.owner.dispose();
+                        new RestaurantView(this.user, this.restaurant);
                     }else{
                         JOptionPane.showMessageDialog(this, "An error has occurred. Please try" +
-                                "again later.");
+                                " again later.");
                     }
                     //Delete the window
                     this.dispose();

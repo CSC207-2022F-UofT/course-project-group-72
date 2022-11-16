@@ -4,8 +4,6 @@ package entities;
 
 public class Review {
 
-    //Current ID used when making new reviews
-    private static String currentID = "0"; //NOTE: In main, call Review.setCurrentID(new ReviewGateway().loadReviewID);
     //Attributes each review needs
     private final String id;
     private int stars;
@@ -27,7 +25,7 @@ public class Review {
         this.username = user;
         this.restaurantLocation = restaurantLocation;
         this.likes = 0;
-        this.response = null;
+        this.response = "";
         this.reports = 0;
         this.visible = true;
     }
@@ -47,21 +45,6 @@ public class Review {
         this.reports = reports;
         this.visible = visible;
     }
-
-    /*
-    Getter for currentID
-     */
-    public static String getCurrentID() {return currentID;}
-
-    /*
-    Setter for currentID. Used on startup
-     */
-    public static void setCurrentID(String id){currentID = id;}
-
-    /*
-    Increment currentID after making a new review
-     */
-    public static void incrementCurrentID(){currentID = currentID + 1;}
 
     /*
     Getter for ID

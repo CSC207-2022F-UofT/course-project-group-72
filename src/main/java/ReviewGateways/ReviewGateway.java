@@ -120,11 +120,19 @@ public class ReviewGateway implements ReviewGatewayInterface {
     Add a Review to the database using the nine attributes
      */
     @Override
-    public void addReview(String id, String stars, String text, String username, String restaurantLocation,
-                          String likes, String response, String reports, String visible) throws IOException {
-        //Try to get the file, make a line from the pieces and add that to the end of the database
+    public void addReview(Review review) throws IOException {
+        //Try to get the file, make a line from the attributes and add that to the end of the database
         File file = new File(NAME_OF_REVIEW_DATABASE);
         FileWriter writer = new FileWriter(file, true);
+        String id = review.getID();
+        String stars = Integer.toString(review.getStars());
+        String text = review.getText();
+        String username = review.getUser();
+        String restaurantLocation = review.getRestaurant();
+        String likes = Integer.toString(review.getLikes());
+        String response = review.getResponse();
+        String reports = Integer.toString(review.getReports());
+        String visible = Boolean.toString(review.isVisible());
         String line = String.join(DELIMITER, id, stars, text, username, restaurantLocation, likes,
                 response, reports, visible);
         writer.append(line);

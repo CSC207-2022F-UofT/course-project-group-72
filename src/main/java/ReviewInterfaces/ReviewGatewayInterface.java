@@ -21,8 +21,7 @@ public interface ReviewGatewayInterface {
 
     ArrayList<entities.Review> getReviews(ArrayList<String> ids) throws FileNotFoundException;
 
-    void addReview(String id, String stars, String text, String username, String restaurantLocation,
-                          String likes, String response, String reports, String visible) throws IOException;
+    void addReview(Review review) throws IOException;
 
     void updateReview(Review review) throws IOException;
 

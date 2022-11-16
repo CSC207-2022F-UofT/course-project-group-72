@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class WriteReviewScreen extends JFrame implements ActionListener {
+public class WriteReviewScreen extends JDialog implements ActionListener {
     //Track which star button the user has clicked most recently. Default is -1
     private int stars;
     //We need a reference to the text area to get the user's text
@@ -24,6 +24,8 @@ public class WriteReviewScreen extends JFrame implements ActionListener {
     private final JButton threeStar;
     private final JButton fourStar;
     private final JButton fiveStar;
+    //We need a reference to the restaurantView, so we can reload it and make this dialog modal in relation to it
+    private final JFrame owner;
     //We need a controller to talk to the interactor
     private final WriteReviewController writeReviewController;
     //We need to pass these to the controller
@@ -33,13 +35,16 @@ public class WriteReviewScreen extends JFrame implements ActionListener {
     private final User user;
     private final Restaurant restaurant;
 
-    public WriteReviewScreen(WriteReviewController writeReviewController, ReviewGatewayInterface reviewGateway,
-                             UserGatewayInterface userGateway, RestaurantDSGateway restaurantGateway,
-                             User user, Restaurant restaurant){
+    public WriteReviewScreen(JFrame owner, WriteReviewController writeReviewController,
+                             ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
+                             RestaurantDSGateway restaurantGateway, User user, Restaurant restaurant){
+        //Call super on owner so that this dialog must be closed before the user can click on other windows
+        super(owner, true);
 
         //Attach the given objects to the screen object so that that action listener can use them
         //Additionally, set stars to -1 to track if the user has selected a number of stars yet
         this.stars = -1;
+        this.owner = owner;
         this.writeReviewController = writeReviewController;
         this.reviewGateway = reviewGateway;
         this.userGateway = userGateway;
@@ -197,10 +202,14 @@ public class WriteReviewScreen extends JFrame implements ActionListener {
                     //Tell the user if it was successful or not
                     if(response.wasSuccessful()){
                         JOptionPane.showMessageDialog(this, "Your review has been successfully" +
-                                "submitted!");
+                                " submitted!");
+                        //Close all old windows and re-launch RestaurantView with the new review added
+                        this.dispose();
+                        this.owner.dispose();
+                        new RestaurantView(this.user, this.restaurant);
                     }else{
                         JOptionPane.showMessageDialog(this, "An error has occurred. Please try" +
-                                "again later.");
+                                " again later.");
                     }
                     //Close the window
                     this.dispose();

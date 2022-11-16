@@ -4,27 +4,41 @@ package ReviewScreens;
 
 import ReviewInterfaces.ReviewGatewayInterface;
 import ReviewControllers.ReplyController;
+import entities.Restaurant;
 import entities.Review;
+import entities.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ReplyScreen extends JFrame implements ActionListener {
+public class ReplyScreen extends JDialog implements ActionListener {
 
     //We need a reference to the text area so the action listener method can get the text
     private final JTextArea textArea;
+    //We need a reference to the RestaurantView so this dialog can be made modal in relation to it
+    private final JFrame owner;
     //We need a controller to talk to the interactor
     private final ReplyController replyController;
     //We need to pass these to the controller
     private final ReviewGatewayInterface reviewGateway;
     private final Review review;
+    //We need these to re-launch RestaurantView after changes are made
+    private final User user;
+    private final Restaurant restaurant;
 
-    public ReplyScreen(ReplyController replyController, ReviewGatewayInterface reviewGateway, Review review){
+    public ReplyScreen(JFrame owner, ReplyController replyController, ReviewGatewayInterface reviewGateway,
+                       Review review, User user, Restaurant restaurant){
+        //Call super on owner so that this dialog is modal in relation to it
+        super(owner, true);
 
         //Attach the given attributes to the screen so the action listener method can access them
+        this.owner = owner;
         this.replyController = replyController;
         this.reviewGateway = reviewGateway;
         this.review = review;
+        this.user =user;
+        this.restaurant = restaurant;
 
         //Create a JLabel instructing the owner to write a response to the review
         JLabel label = new JLabel("What would you like to say to this reviewer?");
@@ -85,8 +99,12 @@ public class ReplyScreen extends JFrame implements ActionListener {
             if(responseModel.wasSuccessful()){
                 JOptionPane.showMessageDialog(this, "Your reply has been " +
                         "successfully submitted!");
+                //Close all old windows and re-launch RestaurantView with this reply added
+                this.dispose();
+                this.owner.dispose();
+                new RestaurantView(this.user, this.restaurant);
             }else{
-                JOptionPane.showMessageDialog(this, "An error has occurred. Please try" +
+                JOptionPane.showMessageDialog(this, "An error has occurred. Please try " +
                         "again later.");
             }
             //Delete the window

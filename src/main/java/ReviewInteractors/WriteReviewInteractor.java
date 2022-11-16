@@ -23,21 +23,19 @@ public class WriteReviewInteractor implements WriteReviewInputBoundary{
     public ReviewResponseModel interact(WriteReviewRequestModel requestModel){
         try {
             //Get attributes for ease of reading
-            String id = Review.getCurrentID();
-            String stars = Integer.toString(requestModel.getStars());
-            String text = requestModel.getText();
+            String id = requestModel.getReviewGateway().loadReviewID();
             User user = requestModel.getUser();
             Restaurant restaurant = requestModel.getRestaurant();
 
             //Add the review to the database, increment ReviewIDCounter and increment Review.currentID
-            requestModel.getReviewGateway().addReview(id, stars, text, user.getUsername(), restaurant.getLocation(),
-                    DEFAULT_LIKES, DEFAULT_RESPONSE, DEFAULT_REPORTS, DEFAULT_VISIBLE);
+            Review review = new Review(id, requestModel.getStars(), requestModel.getText(),
+                    user.getUsername(), restaurant.getLocation());
+            requestModel.getReviewGateway().addReview(review);
             requestModel.getReviewGateway().incrementReviewID();
-            Review.incrementCurrentID();
 
             //Remove the old version of the restaurant from the database, add the new review to the restaurant
             //object's reviews, then add the old restaurant back in with this change reflected
-            requestModel.getRestaurantGateway().delete(restaurant.getLocation());
+            requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
             restaurant.getReviewIDs().add(id);
             RestaurantDSRequestModel restaurantDSRequestModel = new RestaurantDSRequestModel(restaurant.getOwnerID(),
                     restaurant.getName(), restaurant.getLocation(), restaurant.getCuisineType(),

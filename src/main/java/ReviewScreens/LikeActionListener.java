@@ -43,9 +43,12 @@ public class LikeActionListener implements ActionListener {
         ReviewResponseModel responseModel = this.likeReviewController.interact(this.reviewGateway, this.review,
                 this.user);
 
-        if(responseModel.wasSuccessful()){
+        if(responseModel.wasSuccessful() && this.button.getBackground().equals(Color.WHITE)){
             this.button.setBackground(Color.CYAN);
-        }else{
+        }else if(responseModel.wasSuccessful() && this.button.getBackground().equals(Color.CYAN)){
+            this.button.setBackground(Color.WHITE);
+        }
+        else{
             JOptionPane.showMessageDialog(this.parent, "Sorry, an error occurred. Please try again later.");
         }
     }
