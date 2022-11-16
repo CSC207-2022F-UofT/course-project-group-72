@@ -34,9 +34,9 @@ public class RegisterUserInteractor{
 
         gateway.addUser(newUser.getUsername(), newUser.getPassword());
 
-        RegisterUserResponseModel succuessRegisterResponse =
+        RegisterUserResponseModel successRegisterResponse =
                 new RegisterUserResponseModel(newUser);
-        return presenter.prepareRegisterSuccessView(succuessRegisterResponse);
+        return presenter.prepareRegisterSuccessView(successRegisterResponse);
 
     }
 
