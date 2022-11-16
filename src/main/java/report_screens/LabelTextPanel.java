@@ -3,8 +3,8 @@ package report_screens;
 import javax.swing.*;
 
 public class LabelTextPanel extends JPanel {
-    public LabelTextPanel(JLabel label, JTextField textField) {
+    public LabelTextPanel(JLabel label, JTextArea textArea) {
         this.add(label);
-        this.add(textField);
+        this.add(textArea);
     }
 }

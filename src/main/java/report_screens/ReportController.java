@@ -3,6 +3,7 @@ package report_screens;
 import entities.Review;
 import entities.User;
 import report_use_cases.ReportRequestModel;
+import report_use_cases.ReportResponseModel;
 import report_use_cases.reportInputBoundary;
 
 public class ReportController {
@@ -13,9 +14,9 @@ public class ReportController {
         this.input = input;
     }
 
-    public void create(String reason, Review review, User reporter) throws Exception {
+    public ReportResponseModel create(String reason, Review review, User reporter) throws Exception {
 
         ReportRequestModel reportRequestModel = new ReportRequestModel(reason, review, reporter);
-        input.create(reportRequestModel);
+        return input.create(reportRequestModel);
     }
 }
