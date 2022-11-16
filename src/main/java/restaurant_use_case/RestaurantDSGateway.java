@@ -10,4 +10,5 @@ public interface RestaurantDSGateway {
     Restaurant retrieveRestaurant(String location);
     ArrayList<Restaurant> retrieveAllRestaurants();
     void deleteRestaurant(String location);
+    ArrayList<Restaurant> searchMatch(String query);
 }
