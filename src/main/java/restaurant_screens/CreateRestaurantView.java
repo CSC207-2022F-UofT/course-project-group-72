@@ -62,7 +62,7 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
         LabelTextPanel cuisineInfo = new LabelTextPanel(
                 new JLabel("Restaurant Cuisine"), cuisineType);
 
-        priceBucket = new JTextField(15);
+        priceBucket = new JTextField("0", 15);
         LabelTextPanel priceInfo = new LabelTextPanel(
                 new JLabel("Price Range"), priceBucket);
 
@@ -99,17 +99,21 @@ public class CreateRestaurantView extends JPanel implements ActionListener {
                         name.getText(),
                         location.getText(),
                         cuisineType.getText(),
-                        Integer.parseInt(priceBucket.getText()),
-                        0, new ArrayList<String>()
+                        Integer.parseInt(priceBucket.getText())
                 );
 
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
 
+
 //          TODO revert to previous view
 
-//            TimeUnit.SECONDS.sleep(5);
-            this.setVisible(false);
+            Container parentPanel = this.getParent();
+            parentPanel.remove(this);
+            parentPanel.revalidate();
+            parentPanel.repaint();
+
+//            this.setVisible(false);
 //            this.dispose();
 //            this.previousFrame.setVisible(true);
 

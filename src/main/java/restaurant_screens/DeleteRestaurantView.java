@@ -51,8 +51,13 @@ public class DeleteRestaurantView extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
             //TODO revert to previous view
+            Container parentPanel = this.getParent();
+            parentPanel.remove(this);
+            parentPanel.revalidate();
+            parentPanel.repaint();
+
 //            TimeUnit.SECONDS.sleep(5);
-            this.setVisible(false);
+//            this.setVisible(false);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
