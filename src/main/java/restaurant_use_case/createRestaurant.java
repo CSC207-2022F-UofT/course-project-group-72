@@ -38,14 +38,7 @@ public class createRestaurant implements RestaurantInputBoundary{
         );
 
         LocalDateTime now = LocalDateTime.now();
-        RestaurantDSRequestModel saveData = new RestaurantDSRequestModel(
-                requestModel.getOwnerID(),
-                requestModel.getName(),
-                requestModel.getLocation(),
-                requestModel.getCuisineType(),
-                requestModel.getPriceBucket()
-        );
-        gateway.save(saveData);
+        gateway.save(newRestaurant);
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(newRestaurant, now.toString(), "created");

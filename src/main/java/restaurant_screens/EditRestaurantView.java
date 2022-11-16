@@ -2,6 +2,7 @@ package restaurant_screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
+import restaurant_use_case.RestaurantEditRequestModel;
 import restaurant_use_case.RestaurantResponseModel;
 
 import javax.swing.*;
@@ -91,15 +92,13 @@ public class EditRestaurantView extends JPanel implements ActionListener{
 
         try {
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
-                RestaurantResponseModel result = restaurantController.create(
+                RestaurantResponseModel result = restaurantController.edit(
                         owner.getUsername(),
                         name.getText(),
                         restaurant.getLocation(),
                         cuisineType.getText(),
                         Integer.parseInt(priceBucket.getText()),
-                        restaurant.getAvgStars(),
-                        restaurant.getReviewIDs()
-                        );
+                        this.restaurant);
 
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
