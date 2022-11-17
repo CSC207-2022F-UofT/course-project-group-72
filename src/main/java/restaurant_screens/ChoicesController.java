@@ -16,11 +16,19 @@ public class ChoicesController {
         this.userInput = selections;
     }
 
-    ChoicesResponseModel select(String inputSearch, int inputPriceBucket, String inputLocation,
-                                String inputCuisineType, double inputAvgStars, String inputSort) {
+    public ChoicesResponseModel select(String inputSearch,
+                                       String inputLocation,
+                                       String inputCuisineType,
+                                       int inputPriceBucket,
+                                       double inputAvgStars,
+                                       String inputSort) {
 
-        ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch, inputPriceBucket, inputLocation,
-                inputCuisineType, inputAvgStars, inputSort);
+        ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch,
+                inputLocation,
+                inputCuisineType,
+                inputPriceBucket,
+                inputAvgStars,
+                inputSort);
 
         return userInput.create(requestModel);}
 }
