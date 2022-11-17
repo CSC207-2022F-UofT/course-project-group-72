@@ -19,10 +19,8 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
 
     @Override
     // TODO: move this to the FileRestaurant (filtering)
-    // TODO: Determine Location (Postal Code or City) If Postal Code use first 3 letters for nearby
+
     // TODO: Pricing change to buckets, not exact input price bucket (rating /10 for expense)
-    // TODO: Cuisine Type stays the same
-    // TODO: Average Stars should filter decimals, like 3.99 is categorized into 3
 
     public ChoicesResponseModel create(ChoicesRequestModel requestModel){
 
@@ -35,6 +33,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
             if((restaurant.getPriceBucket() == requestModel.getInputPriceBucket() ||
                     restaurant.getPriceBucket() == 0)
 
+                    // TODO: Determine Location (Postal Code or City) If Postal Code use first 3 letters for nearby
                 && (Objects.equals(restaurant.getLocation().substring(0, 4),
                     requestModel.getInputLocation().substring(0, 4)) || restaurant.getLocation() == null)
 
@@ -43,6 +42,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
                 && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
                     restaurant.getCuisineType() == null)
 
+                    // TODO: Average Stars should filter decimals, like 3.99 is categorized into 3
                 && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
                     restaurant.getAvgStars() == 0))
             {
