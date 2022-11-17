@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class EditRestaurantView extends JPanel implements ActionListener{
+public class EditRestaurantView extends JFrame implements ActionListener{
     /**
      * The restaurant name
      */
@@ -36,22 +36,23 @@ public class EditRestaurantView extends JPanel implements ActionListener{
      * The current restaurant
      */
     Restaurant restaurant;
-//    /**
-//     * The previous frame
-//     */
-//    JFrame previousFrame;
 
-
-
+    /**
+     *
+     * @param restaurantController the RestaurantController corresponding to the edit use case
+     * @param owner the current active user that must be an OwnerUser
+     * @param restaurant the current Restaurant
+     */
     public EditRestaurantView(RestaurantController restaurantController, OwnerUser owner, Restaurant restaurant) {
 
         this.restaurantController = restaurantController;
         this.owner = owner;
         this.restaurant = restaurant;
-//        this.previousFrame = previousFrame;
 
+        // Title Label Creation
         JLabel title = new JLabel("Edit Restaurant");
 
+        // Text Field Creation
         JPanel nameInfo = new JPanel();
         nameInfo.add(new JLabel("Restaurant Name"));
         name = new JTextField(restaurant.getName());
@@ -65,6 +66,7 @@ public class EditRestaurantView extends JPanel implements ActionListener{
         LabelTextPanel priceInfo = new LabelTextPanel(
                 new JLabel("Price Range"), priceBucket);
 
+        // Button Creation
         JButton confirm = new JButton("Confirm");
         JButton cancel = new JButton("Cancel");
 
@@ -75,16 +77,24 @@ public class EditRestaurantView extends JPanel implements ActionListener{
         confirm.addActionListener(this);
         cancel.addActionListener(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        // Content panel creation
+        JPanel main = new JPanel();
+        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
-        this.add(title);
-        this.add(nameInfo);
-        this.add(cuisineInfo);
-        this.add(priceInfo);
-        this.add(buttons);
+        main.add(title);
+        main.add(nameInfo);
+        main.add(cuisineInfo);
+        main.add(priceInfo);
+        main.add(buttons);
 
+        // Set Content Pane to Main
+        this.setContentPane(main);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(new Dimension(600, 400));
+        this.pack();
+
+        // Set Visible
         this.setVisible(true);
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -102,18 +112,10 @@ public class EditRestaurantView extends JPanel implements ActionListener{
 
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
-            // TODO revert back to previous view
-            Container parentPanel = this.getParent();
-            parentPanel.remove(this);
-            parentPanel.revalidate();
-            parentPanel.repaint();
 
-//
-//            TimeUnit.SECONDS.sleep(5);
-//            this.setVisible(false);
-//            this.dispose();
-//            this.previousFrame.setVisible(true);
-
+            // If confirm then dispose after execution, if cancel then dispose immediately
+            // Else display message and maintain
+            this.dispose();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.toString());
