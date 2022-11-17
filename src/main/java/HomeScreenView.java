@@ -18,15 +18,15 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The selected price bucket (pricing /10)
      */
-    JComboBox priceBucket;
+    JComboBox<Integer> priceBucket;
     /**
      * The select star rating (/5 stars)
      */
-    JComboBox avgStars;
+    JComboBox<Integer> avgStars;
     /**
      * The selected cuisine type
      */
-    JComboBox cuisineType;
+    JComboBox<String> cuisineType;
     /**
      * The group of radiobuttons for the sorting selection
      */
@@ -111,9 +111,9 @@ public class HomeScreenView extends JFrame implements ActionListener {
                 ChoicesResponseModel selections = choicesController.select(
                         query.getText(),
                         location.getText(),
-                        (String) cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-                        (Integer) priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-                        (Integer) avgStars.getItemAt(avgStars.getSelectedIndex()),
+                        cuisineType.getItemAt(cuisineType.getSelectedIndex()),
+                        priceBucket.getItemAt(priceBucket.getSelectedIndex()),
+                        avgStars.getItemAt(avgStars.getSelectedIndex()),
                         sortButtons.getSelection().getActionCommand()
                 );
             }
