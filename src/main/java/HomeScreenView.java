@@ -68,9 +68,9 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
 
         // Drop-Down Menus
-        priceBucket = new JComboBox(pricingOptions);
-        avgStars = new JComboBox(avgStarsOptions);
-        cuisineType = new JComboBox(cuisineOptions);
+        priceBucket = new JComboBox<>(pricingOptions);
+        avgStars = new JComboBox<>(avgStarsOptions);
+        cuisineType = new JComboBox<>(cuisineOptions);
 
         // Filter Options
         JPanel filterFields = new JPanel();
@@ -111,7 +111,6 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         try{
             if (Objects.equals(e.getActionCommand(), "Search")) {
                 ChoicesResponseModel selections = choicesController.select(
@@ -122,6 +121,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
                         avgStars.getItemAt(avgStars.getSelectedIndex()),
                         sortButtons.getSelection().getActionCommand()
                 );
+
                 Container sortedView = new ChoicesSortedView(selections);
                 this.setVisible(false);
                 sortedView.setVisible(true);
@@ -130,7 +130,6 @@ public class HomeScreenView extends JFrame implements ActionListener {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     public void main(String[] args){
