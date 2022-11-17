@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 
 
 
-public class ReportScreen implements ActionListener {
+public class ReportScreen extends JPanel implements ActionListener {
 
-    JTextField reason;
+    JTextArea reason = new JTextArea(5, 20);
 
     ReportController reportController;
 
@@ -24,19 +24,18 @@ public class ReportScreen implements ActionListener {
 
     JButton report, cancel;
 
-    JFrame report_window;
+    //JFrame report_window;
     public ReportScreen(ReportController controller, Review current_review, User current_user) {
-        reason = new JTextField(50);
         this.reportController = controller;
         this.current_review = current_review;
         this.current_user = current_user;
 
-        report_window = new JFrame();
+       // report_window = new JFrame();
         JLabel title = new JLabel("Report Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel reasonInfo = new LabelTextPanel(
-                new JLabel("Enter your reason here (Max:50 words)"), reason);
+                new JLabel("Enter your reason here"), reason);
 
         report = new JButton("Report");
         cancel = new JButton("Cancel");
@@ -48,12 +47,13 @@ public class ReportScreen implements ActionListener {
         report.addActionListener(this);
         cancel.addActionListener(this);
 
-        report_window.setSize(500, 500);
-        report_window.setLayout(new BoxLayout(report_window, BoxLayout.Y_AXIS));
-        report_window.add(title);
-        report_window.add(reasonInfo);
-        report_window.add(buttons);
-        report_window.setVisible(true);
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        this.setSize(200, 300);
+        this.add(title);
+        this.add(reasonInfo);
+        this.add(buttons);
+
+
     }
 
     @Override
@@ -62,14 +62,14 @@ public class ReportScreen implements ActionListener {
         if (evt.getSource() == report) {
             try {
                 reportController.create(reason.getText(), this.current_review, this.current_user);
-                JOptionPane.showMessageDialog(report_window, "Reported successfully!");
+                JOptionPane.showMessageDialog(this, "Reported successfully!");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(report_window, e.getMessage());
+                JOptionPane.showMessageDialog(this, e.getMessage());
 
 
             }
         } else if(evt.getSource() == cancel){
-                report_window.setVisible(false);
+                this.setVisible(false);
         }
 
         }

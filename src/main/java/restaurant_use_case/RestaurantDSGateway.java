@@ -5,9 +5,10 @@ import entities.Restaurant;
 import java.util.ArrayList;
 
 public interface RestaurantDSGateway {
-    void save(RestaurantDSRequestModel requestModel);
+    void save(Restaurant requestModel);
     boolean existsByLocation(String location);
     Restaurant retrieveRestaurant(String location);
     ArrayList<Restaurant> retrieveAllRestaurants();
     void deleteRestaurant(String location);
+    ArrayList<Restaurant> searchMatch(String query);
 }
