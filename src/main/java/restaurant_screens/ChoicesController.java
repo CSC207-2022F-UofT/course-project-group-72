@@ -16,7 +16,7 @@ public class ChoicesController {
         this.userInput = selections;
     }
 
-    ChoicesResponseModel create(String inputSearch, int inputPriceBucket, String inputLocation,
+    ChoicesResponseModel select(String inputSearch, int inputPriceBucket, String inputLocation,
                                 String inputCuisineType, double inputAvgStars, String inputSort) {
 
         ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch, inputPriceBucket, inputLocation,
