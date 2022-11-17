@@ -30,5 +30,5 @@ public class ChoicesController {
                 inputAvgStars,
                 inputSort);
 
-        return userInput.create(requestModel);}
+        return userInput.select(requestModel);}
 }

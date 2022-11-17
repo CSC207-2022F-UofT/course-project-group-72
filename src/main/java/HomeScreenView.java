@@ -1,9 +1,15 @@
+import entities.Restaurant;
 import restaurant_screens.ChoicesController;
+import restaurant_screens.ChoicesSortedView;
+import restaurant_use_case.ChoicesRequestModel;
 import restaurant_use_case.ChoicesResponseModel;
+import restaurant_use_case.sortChoices;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class HomeScreenView extends JFrame implements ActionListener {
@@ -34,7 +40,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The choices controller
      */
-    static ChoicesController choicesController;
+    ChoicesController choicesController;
 
     public HomeScreenView(ChoicesController choicesController) {
 
@@ -116,6 +122,10 @@ public class HomeScreenView extends JFrame implements ActionListener {
                         avgStars.getItemAt(avgStars.getSelectedIndex()),
                         sortButtons.getSelection().getActionCommand()
                 );
+                Container sortedView = new ChoicesSortedView(selections);
+                this.setVisible(false);
+                sortedView.setVisible(true);
+
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -123,7 +133,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args){
+    public void main(String[] args){
         HomeScreenView view = new HomeScreenView(choicesController);
         view.setVisible(true);
     }
