@@ -124,4 +124,22 @@ public class FileRestaurant implements RestaurantDSGateway{
         this.currentRestaurants.remove(location);
         save();
     }
+
+    public ArrayList<Restaurant> searchMatch(String query) {
+        ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
+
+        for (Restaurant restaurant : retrieveAllRestaurants()){
+            if (restaurant.getName().contains(query)){
+                filteredRestaurants.add(restaurant);
+            }
+
+            // Broader results Ex: Query for The Food will bring up all restaurants with "The" in name
+//            for (String word : query.split("")) {
+//                if (restaurant.getName().contains(word)) {
+//                    return true;
+//                }
+//            }
+        }
+        return filteredRestaurants;
+    }
 }
