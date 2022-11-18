@@ -21,14 +21,16 @@ public class ChoicesController {
                                        String inputCuisineType,
                                        int inputPriceBucket,
                                        double inputAvgStars,
-                                       String inputSort) {
+                                       String inputSort,
+                                       String inputDirection) {
 
         ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch,
                 inputLocation,
                 inputCuisineType,
                 inputPriceBucket,
                 inputAvgStars,
-                inputSort);
+                inputSort,
+                inputDirection);
 
         return userInput.select(requestModel);}
 }

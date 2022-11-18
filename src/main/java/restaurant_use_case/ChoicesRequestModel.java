@@ -10,11 +10,12 @@ public class ChoicesRequestModel {
     private int inputPriceBucket;
     private double inputAvgStars;
     private String inputSort;
+    private String inputDirection;
 
 
 
     public ChoicesRequestModel(String inputSearch, String inputLocation, String inputCuisineType, int inputPriceBucket,
-                               double inputAvgStars, String inputSort){
+                               double inputAvgStars, String inputSort, String inputDirection){
 
         this.inputSearch = inputSearch;
         this.inputLocation = inputLocation;
@@ -22,6 +23,7 @@ public class ChoicesRequestModel {
         this.inputPriceBucket = inputPriceBucket;
         this.inputAvgStars = inputAvgStars;
         this.inputSort = inputSort;
+        this.inputDirection = inputDirection;
 
     }
 
@@ -31,5 +33,6 @@ public class ChoicesRequestModel {
     int getInputPriceBucket() {return this.inputPriceBucket;}
     double getInputAvgStars() {return this.inputAvgStars;}
     String getInputSort() {return this.inputSort;}
+    String getInputDirection() {return this.inputDirection;}
 
 }

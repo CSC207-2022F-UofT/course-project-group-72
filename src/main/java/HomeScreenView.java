@@ -38,6 +38,30 @@ public class HomeScreenView extends JFrame implements ActionListener {
      */
     ButtonGroup sortButtons;
     /**
+     * The radiobutton for sorting by price
+     */
+    JRadioButton sortPriceButton;
+    /**
+     * The radiobutton for sorting by average stars
+     */
+    JRadioButton sortAvgStarsButton;
+    /**
+     * The radiobutton for sorting by name (alphabetical or reverse-alphabetical order)
+     */
+    JRadioButton sortNameButton;
+    /**
+     * The group of radiobuttons for the sorting direction
+     */
+    ButtonGroup sortDirection;
+    /**
+     * The radiobutton for sorting direction
+     */
+    JRadioButton sortAscending;
+    /**
+     * The radiobutton for sorting direction
+     */
+    JRadioButton sortDescending;
+    /**
      * The choices controller
      */
     ChoicesController choicesController;
@@ -60,7 +84,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
         searchButton.addActionListener(this);
 
         // Drop-Down Menus Options
-        Integer[] pricingOptions = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        Integer[] pricingOptions = { 1, 2, 3, 4, 5};
         Integer[] avgStarsOptions = { 1, 2, 3, 4, 5};
 
         // TODO: add more cuisine options
@@ -78,25 +102,37 @@ public class HomeScreenView extends JFrame implements ActionListener {
         filterFields.add(avgStars);
         filterFields.add(cuisineType);
 
-
         // Sort Method Buttons
         JPanel sortFields = new JPanel();
-        ButtonGroup sortButtons = new ButtonGroup();
+        sortButtons = new ButtonGroup();
 
         // Initialize Buttons
-        JRadioButton sortPriceButton = new JRadioButton();
-        JRadioButton sortAvgStarsButton = new JRadioButton();
-        JRadioButton sortNameButton = new JRadioButton();
+        sortPriceButton = new JRadioButton();
+        sortAvgStarsButton = new JRadioButton();
+        sortNameButton = new JRadioButton();
 
-        // Add to button group
+        // Add to selection button group
         sortButtons.add(sortPriceButton);
         sortButtons.add(sortAvgStarsButton);
         sortButtons.add(sortNameButton);
+
+        // Sorting Direction Button Group
+        sortDirection = new ButtonGroup();
+
+        // Separate Direction Buttons (Sort by Direction, Ex: Ascending, Descending)
+        sortAscending = new JRadioButton();
+        sortDescending = new JRadioButton();
+
+        // Add to direction button group
+        sortDirection.add(sortAscending);
+        sortDirection.add(sortDescending);
 
         // Add individual panels to panel (can't add Button Group)
         sortFields.add(sortPriceButton);
         sortFields.add(sortAvgStarsButton);
         sortFields.add(sortNameButton);
+        sortFields.add(sortAscending);
+        sortFields.add(sortDescending);
 
         // Setup Window
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -119,7 +155,8 @@ public class HomeScreenView extends JFrame implements ActionListener {
                         cuisineType.getItemAt(cuisineType.getSelectedIndex()),
                         priceBucket.getItemAt(priceBucket.getSelectedIndex()),
                         avgStars.getItemAt(avgStars.getSelectedIndex()),
-                        sortButtons.getSelection().getActionCommand()
+                        sortButtons.getSelection().getActionCommand(),
+                        sortDirection.getSelection().getActionCommand()
                 );
 
                 Container sortedView = new ChoicesSortedView(selections);
