@@ -1,7 +1,12 @@
 package restaurant_screens;
 
 import entities.OwnerUser;
+import entities.RestaurantFactory;
+import restaurant_use_case.RestaurantInputBoundary;
 import restaurant_use_case.RestaurantResponseModel;
+import restaurant_use_case.RestaurantDSGateway;
+import restaurant_use_case.createRestaurant;
+import user_use_cases.UserDatabaseGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,9 +37,13 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
     JButton priceRange4;
     JButton priceRange5;
     /**
-     * The controller
+     * The Restaurant gateway which manages restaurant database
      */
-    RestaurantController restaurantController;
+    RestaurantDSGateway restaurantGateway;
+    /**
+     * The User gateway which manages user database
+     */
+    UserDatabaseGateway userGateway;
     /**
      * The current user (which must be an owner user)
      */
@@ -42,12 +51,14 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
 
     /**
      *
-     * @param restaurantController the RestaurantController corresponding to the create use case
+     * @param restaurantGateway the RestaurantDSGateway that manages the restaurant database
      * @param owner the current active User which must be an OwnerUser to access this view
      */
-    public CreateRestaurantView(RestaurantController restaurantController, OwnerUser owner) {
+    public CreateRestaurantView(RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway,
+                                OwnerUser owner) {
 
-        this.restaurantController = restaurantController;
+        this.restaurantGateway = restaurantGateway;
+        this.userGateway = userGateway;
         this.owner = owner;
 
         // Title Label Creation
@@ -191,6 +202,13 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
                     break;
             }
             if (Objects.equals(buttonPressed, "Confirm")) {
+                RestaurantInputBoundary interactor = new createRestaurant(
+                        new RestaurantFactory(),
+                        restaurantGateway,
+                        userGateway,
+                        new RestaurantResponseFormatter()
+                );
+                RestaurantController restaurantController = new RestaurantController(interactor);
                 RestaurantResponseModel result = restaurantController.create(
                         owner,
                         name.getText(),
