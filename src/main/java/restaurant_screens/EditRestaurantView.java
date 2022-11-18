@@ -103,7 +103,7 @@ public class EditRestaurantView extends JFrame implements ActionListener{
         try {
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
                 RestaurantResponseModel result = restaurantController.edit(
-                        owner.getUsername(),
+                        owner,
                         name.getText(),
                         restaurant.getLocation(),
                         cuisineType.getText(),

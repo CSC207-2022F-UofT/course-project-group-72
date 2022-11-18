@@ -192,7 +192,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
             }
             if (Objects.equals(buttonPressed, "Confirm")) {
                 RestaurantResponseModel result = restaurantController.create(
-                        owner.getUsername(),
+                        owner,
                         name.getText(),
                         location.getText(),
                         cuisineType.getText(),

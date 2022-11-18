@@ -18,14 +18,14 @@ public class RestaurantController {
         this.userInput = inputData;
     }
 
-    RestaurantResponseModel create(String owner, String name, String location, String cuisineType, int priceBucket) {
+    RestaurantResponseModel create(OwnerUser owner, String name, String location, String cuisineType, int priceBucket) {
         RestaurantRequestModel requestModel = new RestaurantRequestModel(owner, name, location,
                 cuisineType, priceBucket);
 
         return userInput.create(requestModel);
     }
 
-    RestaurantResponseModel edit(String owner, String name, String location,
+    RestaurantResponseModel edit(OwnerUser owner, String name, String location,
                                    String cuisineType, int priceBucket, Restaurant restaurant) {
         RestaurantEditRequestModel requestModel = new RestaurantEditRequestModel(owner, name, location,
                 cuisineType, priceBucket, restaurant);
