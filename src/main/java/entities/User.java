@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private String password;
-    private ArrayList<Review> past_reviews;
+    private ArrayList<String> past_reviews;
     private ArrayList<String> likedReviews;
     private int received_reports = 0;
     private boolean banned = false;
@@ -34,12 +34,12 @@ public class User {
     }
 
     // Get & Add to Past Reviews
-    public ArrayList getPast_reviews() {
+    public ArrayList<String> getPast_reviews() {
         return this.past_reviews;
     }
 
-    public void add_review(Review review) {
-        this.past_reviews.add(review);
+    public void add_review(String id) {
+        this.past_reviews.add(id);
     }
 
     public ArrayList<String> getLikedReviews() {

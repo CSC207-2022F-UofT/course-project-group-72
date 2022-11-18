@@ -1,14 +1,15 @@
+//Object that represents a review
+
 package entities;
 
 public class Review {
 
-    private static final Interfaces.ReviewGatewayInterface gateway = new Gateways.ReviewGateway();
-    private static String currentID = "0"; //NOTE: In main, call Review.setCurrentID();
+    //Attributes each review needs
     private final String id;
     private int stars;
     private String text;
-    private final String username;
-    private final String restaurantAddress;
+    private String username;
+    private final String restaurantLocation;
     private int likes;
     private String response;
     private int reports;
@@ -17,14 +18,14 @@ public class Review {
     /*
     Construct a new review object using the given parameters
      */
-    public Review(String id, int stars, String text, String user, String restaurantAddress){
+    public Review(String id, int stars, String text, String user, String restaurantLocation){
         this.id = id;
         this.stars = stars;
         this.text = text;
         this.username = user;
-        this.restaurantAddress = restaurantAddress;
+        this.restaurantLocation = restaurantLocation;
         this.likes = 0;
-        this.response = null;
+        this.response = "";
         this.reports = 0;
         this.visible = true;
     }
@@ -32,28 +33,17 @@ public class Review {
     /*
     Reconstruct a Review object using information from the database
      */
-    public Review(String id, int stars, String text, String username, String restaurantAddress, int likes,
+    public Review(String id, int stars, String text, String username, String restaurantLocation, int likes,
                   String response, int reports, boolean visible){
         this.id = id;
         this.stars = stars;
         this.text = text;
         this.username = username;
-        this.restaurantAddress = restaurantAddress;
+        this.restaurantLocation = restaurantLocation;
         this.likes = likes;
         this.response = response;
         this.reports = reports;
         this.visible = visible;
-    }
-
-    public static String getCurrentID() {
-        return currentID;
-    }
-    public static void setCurrentID(){
-        currentID = gateway.loadReviewID();
-    }
-
-    public static void incrementCurrentID(){
-        currentID = currentID + 1;
     }
 
     /*
@@ -87,9 +77,14 @@ public class Review {
     public String getUser() {return this.username;}
 
     /*
+    Setter for user
+     */
+    public void setUser(String newUsername){this.username = newUsername;}
+
+    /*
     Getter for restaurant
      */
-    public String getRestaurant() {return this.restaurantAddress;}
+    public String getRestaurant() {return this.restaurantLocation;}
 
     /*
     Getter for likes
@@ -136,6 +131,9 @@ public class Review {
      */
     public void setVisible(boolean visible) {this.visible = visible;}
 
+    /*
+    The string representation of a review should just be its id
+     */
     @Override
     public String toString(){
         return this.id;
