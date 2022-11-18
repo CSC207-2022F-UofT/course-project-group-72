@@ -2,6 +2,9 @@ package restaurant_use_case;
 
 import entities.Restaurant;
 
+/**
+ *
+ */
 public class RestaurantResponseModel {
 
     Restaurant restaurant;

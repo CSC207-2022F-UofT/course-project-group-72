@@ -1,5 +1,6 @@
 package restaurant_use_case;
 
+import entities.OwnerUser;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import restaurant_screens.RestaurantPresenter;
@@ -7,13 +8,34 @@ import user_use_cases.UserDatabaseGateway;
 
 import java.time.LocalDateTime;
 
+/**
+ * The create restaurant use case interactor
+ */
 public class createRestaurant implements RestaurantInputBoundary{
+    /**
+     * The Restaurant factory used to create a new Restaurant
+     */
     private final RestaurantFactory factory;
+    /**
+     * The Restaurant Gateway that manages the Restaurant Database
+     */
     private final RestaurantDSGateway restaurantGateway;
+    /**
+     * The Restaurant Presenter that sends information to the screen
+     */
     private final RestaurantPresenter presenter;
-
+    /**
+     * The User Gateway that manages the User Database
+     */
     private final UserDatabaseGateway userGateway;
 
+    /**
+     *
+     * @param factory the RestaurantFactory that creates
+     * @param dataGateway the RestaurantGateway that manages the Restaurant database
+     * @param userGateway the UserGateway that manages the User database
+     * @param presenter the Presenter that updates the screen with the new Restaurant
+     */
     public createRestaurant(RestaurantFactory factory, RestaurantDSGateway dataGateway,
                             UserDatabaseGateway userGateway, RestaurantPresenter presenter) {
         this.factory = factory;
@@ -44,11 +66,13 @@ public class createRestaurant implements RestaurantInputBoundary{
                 requestModel.getPriceBucket()
         );
 
-        requestModel.getOwner().addRestaurant(newRestaurant);
-
+        // Adds the new Restaurant to the Owner
+        OwnerUser ownerUser = requestModel.getOwner();
+        ownerUser.addRestaurant(newRestaurant);
+        // Updates the User in the database
         LocalDateTime now = LocalDateTime.now();
         restaurantGateway.save(newRestaurant);
-        userGateway.update(OwnerUser);
+        userGateway.update(ownerUser);
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(newRestaurant, now.toString(), "created");
