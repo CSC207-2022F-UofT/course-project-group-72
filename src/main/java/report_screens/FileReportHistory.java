@@ -107,10 +107,12 @@ public class FileReportHistory implements reportDsGateway {
         return Objects.equals(corresponding_reporter, reporter_username);
     }
 
+    // general getMethod
     public Map<String, ReportDsRequestModel> getSave_reports() {
         return save_reports;
     }
 
+    // general getMethod
     public Map<String, String> getCheck_reports() {
         return check_reports;
     }

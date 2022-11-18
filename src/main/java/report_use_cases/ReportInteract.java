@@ -69,6 +69,8 @@ public class ReportInteract implements reportInputBoundary {
 
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(),
                 report.getReview_id(), now.toString());
+
+        //report is created and saved successfully at this point
         return presenter.prepareSuccessView(reportResponseModel);
 
 

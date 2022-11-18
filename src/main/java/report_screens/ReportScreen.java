@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 
 public class ReportScreen extends JPanel implements ActionListener {
 
+    //where the user types his/her reason
     JTextArea reason = new JTextArea(5, 20);
 
     ReportController reportController;
@@ -24,19 +25,21 @@ public class ReportScreen extends JPanel implements ActionListener {
 
     JButton report, cancel;
 
-    //JFrame report_window;
+
     public ReportScreen(ReportController controller, Review current_review, User current_user) {
         this.reportController = controller;
         this.current_review = current_review;
         this.current_user = current_user;
 
-       // report_window = new JFrame();
+
         JLabel title = new JLabel("Report Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel reasonInfo = new LabelTextPanel(
+        //Label the TextArea, reason.
+        LabelTextAreaPanel reasonInfo = new LabelTextAreaPanel(
                 new JLabel("Enter your reason here"), reason);
 
+        //set up buttons
         report = new JButton("Report");
         cancel = new JButton("Cancel");
 
@@ -44,9 +47,11 @@ public class ReportScreen extends JPanel implements ActionListener {
         buttons.add(report);
         buttons.add(cancel);
 
+        //add actionListener
         report.addActionListener(this);
         cancel.addActionListener(this);
 
+        //JPanel settings
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         this.setSize(200, 300);
         this.add(title);
@@ -59,11 +64,14 @@ public class ReportScreen extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
+        //case1: if the user hit report button
         if (evt.getSource() == report) {
+            //case1.1: Report is created successfully
             try {
                 reportController.create(reason.getText(), this.current_review, this.current_user);
                 JOptionPane.showMessageDialog(this, "Reported successfully!");
-            } catch (Exception e) {
+            } //case 1.2: Report isn't created; reason why report isn't created is shown by the error message
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
 
 
