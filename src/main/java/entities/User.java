@@ -17,6 +17,16 @@ public class User {
         this.likedReviews = new ArrayList<>();
     }
 
+    public User(String username, String password, ArrayList<Review> past_reviews,
+                ArrayList<String> likedReviews, int received_reports, Boolean banned) {
+        this.username = username;
+        this.password = password;
+        this.past_reviews = past_reviews;
+        this.likedReviews = likedReviews;
+        this.received_reports = received_reports;
+        this.banned = banned;
+    }
+
     public User() {
         // For GuestUser Implementation
         this.username = null;
