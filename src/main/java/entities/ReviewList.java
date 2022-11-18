@@ -57,12 +57,15 @@ public class ReviewList {
         }
         return formattedReviews;
     }
-
     /**
      *
      * @return the list of Review IDs
      */
     ArrayList<String> getReviewIDs() {
+        try {
+            this.reviews.remove(EMPTY_FILLER);
+        } catch (Exception ignored) {
+        }
         return this.reviews;
     }
 
