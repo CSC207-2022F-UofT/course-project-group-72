@@ -3,10 +3,9 @@ package entities;
 import java.util.ArrayList;
 
 public class Restaurant {
-    public static final String EMPTY_FILLER = "empty";
     private String name;
     private final String location;
-    private ArrayList<String> reviews = new ArrayList<String>();
+    private ReviewList reviews = new ReviewList(new ArrayList<>());
     private String ownerID;
     private RestaurantAttributes attributes = new RestaurantAttributes();
 
@@ -27,7 +26,7 @@ public class Restaurant {
         this.attributes.setPriceBucket(priceBucket);
         this.attributes.setCuisineType(cuisineType);
         this.attributes.setAvgStars(avgStars);
-        this.reviews = reviews;
+        this.reviews = new ReviewList(reviews);
     }
 
     //Setters
@@ -41,7 +40,7 @@ public class Restaurant {
 
     public void addReview(Review review) {
         // Can take in a review object instead of ReviewID since the review object will have been newly created
-        this.reviews.add(review.getID());
+        this.reviews.addNewReview(review.getID());
         this.attributes.addReview(review.getStars());
     }
 
@@ -57,20 +56,12 @@ public class Restaurant {
 
     public String getOwnerID() {return this.ownerID;}
 
-//    public ArrayList<Review> getReviews() {
-//        ArrayList<Review> reviewList = new ArrayList<>();
-//        for (String id : this.reviews) {
-//            reviewList.add() //TODOx retrieve review object from database
-//        }
-//        return reviewList;
-//    }
-
     public ArrayList<String> getReviewIDs() {
-        try {
-            this.reviews.remove(EMPTY_FILLER);
-        } catch (Exception ignored) {
-        }
-        return this.reviews;
+        return this.reviews.getReviewIDs();
+    }
+
+    public ArrayList<Review> getReviews() {
+        return this.reviews.getReviews();
     }
 
     public String getCuisineType() {return this.attributes.getCuisineType();}

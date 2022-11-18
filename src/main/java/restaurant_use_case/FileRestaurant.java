@@ -11,14 +11,11 @@ import java.util.*;
 
 //TODO figure out why this error below occurs
 public class FileRestaurant implements RestaurantDSGateway{
-
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, RestaurantDSRequestModel> currentRestaurants = new HashMap<>();
-
-    private final RestaurantFactory factory = new RestaurantFactory();
+    private final Map<String, Restaurant> currentRestaurants = new HashMap<>();
 
     public FileRestaurant(String csvPath) throws IOException {
         csvFile = new File(csvPath);
@@ -44,7 +41,7 @@ public class FileRestaurant implements RestaurantDSGateway{
                 String[] col = row.split(",");
                 String location = String.valueOf(col[headers.get("location")]);
                 String name = String.valueOf(col[headers.get("name")]);
-                String cusineType = String.valueOf(col[headers.get("cuisineType")]);
+                String cuisineType = String.valueOf(col[headers.get("cuisineType")]);
                 int priceBucket = Integer.parseInt(col[headers.get("priceBucket")]);
                 String owner = String.valueOf(col[headers.get("owner")]);
                 double avgStars = Double.parseDouble(col[headers.get("avgStars")]);
@@ -52,8 +49,9 @@ public class FileRestaurant implements RestaurantDSGateway{
                 String reviews = String.valueOf(col[headers.get("reviews")]);
                 ArrayList<String> reviewsList = new ArrayList<>(Arrays.asList(reviews.split("<")));
 
-                RestaurantDSRequestModel restaurant = new RestaurantDSRequestModel(owner, name,
-                        location, cusineType, priceBucket, avgStars, reviewsList);
+                RestaurantFactory restaurantFactory = new RestaurantFactory();
+                Restaurant restaurant = restaurantFactory.reinitialize(owner, name, location, cuisineType,
+                        priceBucket, avgStars, reviewsList);
                 currentRestaurants.put(location, restaurant);
             }
 
@@ -62,7 +60,7 @@ public class FileRestaurant implements RestaurantDSGateway{
     }
 
     @Override
-    public void save(RestaurantDSRequestModel requestModel) {
+    public void save(Restaurant requestModel) {
         currentRestaurants.put(requestModel.getName(), requestModel);
         save();
     }
@@ -72,8 +70,8 @@ public class FileRestaurant implements RestaurantDSGateway{
         try {
             writer = writeHeaders();
 
-            for (RestaurantDSRequestModel restaurant : currentRestaurants.values()) {
-                String reviewsLine = String.join("<", restaurant.getReviews());
+            for (Restaurant restaurant : currentRestaurants.values()) {
+                String reviewsLine = String.join("<", restaurant.getReviewIDs());
                 String line = String.join(",",
                         restaurant.getLocation(),
                         restaurant.getName(),
@@ -109,16 +107,7 @@ public class FileRestaurant implements RestaurantDSGateway{
     @Override
     public Restaurant retrieveRestaurant(String location) {
         //TODO reinitializing string to and from object
-        RestaurantDSRequestModel temp = currentRestaurants.get(location);
-        return factory.reintialize(
-                temp.getOwnerID(),
-                temp.getName(),
-                temp.getLocation(),
-                temp.getCuisineType(),
-                temp.getPriceBucket(),
-                temp.getAvgStars(),
-                temp.getReviews()
-        );
+        return currentRestaurants.get(location);
     }
 
     @Override
@@ -134,5 +123,23 @@ public class FileRestaurant implements RestaurantDSGateway{
     public void deleteRestaurant(String location) {
         this.currentRestaurants.remove(location);
         save();
+    }
+
+    public ArrayList<Restaurant> searchMatch(String query) {
+        ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
+
+        for (Restaurant restaurant : retrieveAllRestaurants()){
+            if (restaurant.getName().contains(query)){
+                filteredRestaurants.add(restaurant);
+            }
+
+            // Broader results Ex: Query for The Food will bring up all restaurants with "The" in name
+//            for (String word : query.split("")) {
+//                if (restaurant.getName().contains(word)) {
+//                    return true;
+//                }
+//            }
+        }
+        return filteredRestaurants;
     }
 }
