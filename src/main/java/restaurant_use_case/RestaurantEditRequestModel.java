@@ -1,13 +1,14 @@
 package restaurant_use_case;
 
+import entities.OwnerUser;
 import entities.Restaurant;
 
 public class RestaurantEditRequestModel extends RestaurantRequestModel{
     private final Restaurant restaurant;
 
-    public RestaurantEditRequestModel(String ownerID, String name, String location, String cuisineType, int priceBucket,
+    public RestaurantEditRequestModel(OwnerUser owner, String name, String location, String cuisineType, int priceBucket,
                                       Restaurant changedRestaurant) {
-        super(ownerID, name, location, cuisineType, priceBucket);
+        super(owner, name, location, cuisineType, priceBucket);
         this.restaurant = changedRestaurant;
     }
 

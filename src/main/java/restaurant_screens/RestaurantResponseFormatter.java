@@ -4,10 +4,17 @@ import restaurant_use_case.RestaurantResponseModel;
 
 public class RestaurantResponseFormatter implements RestaurantPresenter{
 
+    private final IFrame view;
+
+    RestaurantResponseFormatter(IFrame view) {
+        this.view = view;
+    }
+
     @Override
     public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
         unformatted.setOperation("Successfully " + unformatted.getOperation() + " " +
                 unformatted.getRestaurant().getName());
+        view.refresh(unformatted.getRestaurant());
         return unformatted;
     }
 

@@ -1,5 +1,8 @@
 package restaurant_screens;
 
+import entities.OwnerUser;
+import entities.Restaurant;
+import restaurant_use_case.RestaurantDeleteRequestModel;
 import restaurant_use_case.RestaurantResponseModel;
 import restaurant_use_case.RestaurantDeleteInputBoundary;
 
@@ -10,7 +13,9 @@ public class RestaurantDeleteController {
         this.interactor = interactor;
     }
 
-    public RestaurantResponseModel delete(String location) {
-        return interactor.delete(location);
+    public RestaurantResponseModel delete(OwnerUser owner, Restaurant restaurant) {
+        RestaurantDeleteRequestModel requestModel = new RestaurantDeleteRequestModel(owner, restaurant);
+
+        return interactor.delete(requestModel);
     }
 }
