@@ -6,7 +6,7 @@ import restaurant_use_case.RestaurantInputBoundary;
 import restaurant_use_case.RestaurantResponseModel;
 import restaurant_use_case.RestaurantDSGateway;
 import restaurant_use_case.createRestaurant;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +43,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
     /**
      * The User gateway which manages user database
      */
-    UserDatabaseGateway userGateway;
+    UserGatewayInterface userGateway;
     /**
      * The current user (which must be an owner user)
      */
@@ -60,7 +60,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
      * @param userGateway the UserGateway that manages the user database
      * @param previousFrame the previous frame that initialized this one
      */
-    public CreateRestaurantView(RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway,
+    public CreateRestaurantView(RestaurantDSGateway restaurantGateway, UserGatewayInterface userGateway,
                                 OwnerUser owner, IFrame previousFrame) {
 
         this.restaurantGateway = restaurantGateway;

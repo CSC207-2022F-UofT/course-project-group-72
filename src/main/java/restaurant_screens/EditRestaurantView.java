@@ -3,7 +3,7 @@ package restaurant_screens;
 import entities.OwnerUser;
 import entities.Restaurant;
 import restaurant_use_case.*;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,10 +29,6 @@ public class EditRestaurantView extends JFrame implements ActionListener{
      */
     RestaurantDSGateway restaurantGateway;
     /**
-     * The User Gateway that manages the User database
-     */
-    UserDatabaseGateway userGateway;
-    /**
      * The current user (which must be an owner user)
      */
     OwnerUser owner;
@@ -52,12 +48,11 @@ public class EditRestaurantView extends JFrame implements ActionListener{
      * @param previousFrame the frame that initialized this one
      */
     public EditRestaurantView (OwnerUser owner, Restaurant restaurant, IFrame previousFrame,
-                               RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway) {
+                               RestaurantDSGateway restaurantGateway) {
         this.previousFrame = previousFrame;
         this.owner = owner;
         this.restaurant = restaurant;
         this.restaurantGateway = restaurantGateway;
-        this.userGateway = userGateway;
 
         // Title Label Creation
         JLabel title = new JLabel("Edit Restaurant");
