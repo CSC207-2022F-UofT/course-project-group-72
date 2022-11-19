@@ -7,10 +7,10 @@ import user_screens.RegisterUserPresenter;
 public class RegisterUserInteractor{
 
     private final UserFactory factory;
-    private final UserDatabaseGateway gateway;
+    private final UserGateway gateway;
     private final RegisterUserPresenter presenter;
 
-    public RegisterUserInteractor(UserFactory factory, UserDatabaseGateway gateway,
+    public RegisterUserInteractor(UserFactory factory, UserGateway gateway,
                                   RegisterUserPresenter presenter) {
         this.factory = factory;
         this.gateway = gateway;
@@ -19,7 +19,7 @@ public class RegisterUserInteractor{
 
     public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {
 
-        if (!gateway.userExists(requestModel.getUsername())) {
+        if (gateway.userExists(requestModel.getUsername())) {
             return presenter.prepareRegisterFailView("Username is Taken");
         }
 
@@ -34,9 +34,9 @@ public class RegisterUserInteractor{
 
         gateway.addUser(newUser.getUsername(), newUser.getPassword());
 
-        RegisterUserResponseModel succuessRegisterResponse =
+        RegisterUserResponseModel successRegisterResponse =
                 new RegisterUserResponseModel(newUser);
-        return presenter.prepareRegisterSuccessView(succuessRegisterResponse);
+        return presenter.prepareRegisterSuccessView(successRegisterResponse);
 
     }
 
