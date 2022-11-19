@@ -3,7 +3,7 @@ package restaurant_use_case;
 import entities.Restaurant;
 
 /**
- *
+ * The screen data that is required to update the screen
  */
 public class RestaurantResponseModel {
 

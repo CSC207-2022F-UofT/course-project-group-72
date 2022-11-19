@@ -8,7 +8,7 @@ import entities.Restaurant;
  */
 public class RestaurantEditRequestModel extends RestaurantRequestModel{
     /**
-     * The unchaged to be changed Restaurant
+     * The unchanged to be changed Restaurant
      */
     private final Restaurant restaurant;
 
