@@ -1,6 +1,9 @@
 package restaurant_use_case;
 
+import entities.OwnerUser;
+import entities.Restaurant;
 import restaurant_screens.RestaurantDeletePresenter;
+import user_use_cases.UserDatabaseGateway;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -12,7 +15,11 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
     /**
      * The Restaurant Gateway that manages the Restaurant database
      */
-    private final RestaurantDSGateway gateway;
+    private final RestaurantDSGateway restaurantGateway;
+    /**
+     * The User Gateway that manages the User database
+     */
+    private final UserDatabaseGateway userGateway;
     /**
      * The Restaurant Presenter which updates the display to show that the
      * current Restaurant was deleted
@@ -21,11 +28,14 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
 
     /**
      *
-     * @param dataGateway the Restaurant Gateway
+     * @param restaurantGateway the Restaurant Gateway responsible for managing the database
+     * @param userGateway the User gateway responsible for managing the database
      * @param presenter the Restaurant Presenter
      */
-    public deleteRestaurant(RestaurantDSGateway dataGateway, RestaurantDeletePresenter presenter) {
-        gateway = dataGateway;
+    public deleteRestaurant(RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway,
+                            RestaurantDeletePresenter presenter) {
+        this.restaurantGateway = restaurantGateway;
+        this.userGateway = userGateway;
         this.presenter = presenter;
     }
 
@@ -36,7 +46,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
      */
     @Override
     public RestaurantResponseModel delete(RestaurantDeleteRequestModel requestModel) {
-        if (!gateway.existsByLocation(requestModel.getRestaurant().getLocation())) {
+        if (!restaurantGateway.existsByLocation(requestModel.getRestaurant().getLocation())) {
             // Checks if the restaurant is already in the system and can be edited
             return presenter.prepareFailView("RESTAURANT DOES NOT EXIST");
         } else if (!Objects.equals(requestModel.getRestaurant().getOwnerID(), requestModel.getOwner().getUsername())){
@@ -44,9 +54,13 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
             return presenter.prepareFailView("You do not own this restaurant");
         }
 
+        // Retrieve and update the owner
+        OwnerUser owner = requestModel.getOwner();
+        owner.removeRestaurant(requestModel.getRestaurant());
         LocalDateTime now = LocalDateTime.now();
-        //reinitializing restaurant here is necessary may be changed later
-        gateway.deleteRestaurant(requestModel.getRestaurant().getLocation());
+        userGateway.update(owner);
+        // Use the gateway to remove the restaurant
+        restaurantGateway.deleteRestaurant(requestModel.getRestaurant().getLocation());
         return presenter.prepareSuccessView("deleted", requestModel.getRestaurant().getName(), now.toString());
 
     }

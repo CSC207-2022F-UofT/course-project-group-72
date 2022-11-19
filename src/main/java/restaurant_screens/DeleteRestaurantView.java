@@ -2,35 +2,52 @@ package restaurant_screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_use_case.RestaurantResponseModel;
+import restaurant_use_case.*;
+import user_use_cases.UserDatabaseGateway;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class DeleteRestaurantView extends JFrame implements ActionListener {
     /**
-     * The controller
+     * The restaurant Gateway that manages the restaurant database
      */
-    RestaurantDeleteController restaurantController;
+    RestaurantDSGateway restaurantGateway;
+    /**
+     * The User Gateway that manages the user database
+     */
+    UserDatabaseGateway userGateway;
     /**
      * The current restaurant
      */
     Restaurant restaurant;
-
     /**
      * The current active User
      * NOTE: the owner must own the restaurant to access this view, this check is done before call
      */
     OwnerUser owner;
+    /**
+     * The previous frame
+     */
+    IFrame previousFrame;
 
-    public DeleteRestaurantView(RestaurantDeleteController restaurantDeleteController,
-                                Restaurant restaurant, OwnerUser owner) {
 
-        this.restaurantController = restaurantDeleteController;
+    /**
+     *
+     * @param restaurant the current restaurant that was clicked
+     * @param owner the current active OwnerUser
+     * @param restaurantGateway the Restaurant Gateway that manages the Restaurant database
+     * @param userGateway the User Gateway that manages the User database
+     * @param previousFrame the previous frame that initialized this one
+     */
+    public DeleteRestaurantView(Restaurant restaurant, OwnerUser owner, RestaurantDSGateway restaurantGateway,
+                                UserDatabaseGateway userGateway, IFrame previousFrame) {
+        this.previousFrame = previousFrame;
+        this.restaurantGateway = restaurantGateway;
+        this.userGateway = userGateway;
         this.restaurant = restaurant;
         this.owner = owner;
 
@@ -73,14 +90,15 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            // initialize the presenter, controller and use case interactor
+            RestaurantDeletePresenter presenter = new RestaurantDeleteResponseFormatter();
+            RestaurantDeleteInputBoundary interactor = new deleteRestaurant(restaurantGateway, userGateway, presenter);
+            RestaurantDeleteController restaurantController = new RestaurantDeleteController(interactor);
+            // Check if the person clicked confirm, if so interact
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
                 RestaurantResponseModel result = restaurantController.delete(owner, restaurant);
                 JOptionPane.showMessageDialog(this, result.getOperation());
             }
-//            Container parentPanel = this.getParent();
-//            parentPanel.remove(this);
-//            parentPanel.revalidate();
-//            parentPanel.repaint();
 
             // Disposes the screen if confirm has run and the Restaurant Deleted, or
             // cancel is clicked

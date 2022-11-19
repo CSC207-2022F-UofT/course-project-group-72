@@ -48,18 +48,25 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
      * The current user (which must be an owner user)
      */
     OwnerUser owner;
+    /**
+     * The previous screen
+     */
+    IFrame previousFrame;
 
     /**
      *
      * @param restaurantGateway the RestaurantDSGateway that manages the restaurant database
      * @param owner the current active User which must be an OwnerUser to access this view
+     * @param userGateway the UserGateway that manages the user database
+     * @param previousFrame the previous frame that initialized this one
      */
     public CreateRestaurantView(RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway,
-                                OwnerUser owner) {
+                                OwnerUser owner, IFrame previousFrame) {
 
         this.restaurantGateway = restaurantGateway;
         this.userGateway = userGateway;
         this.owner = owner;
+        this.previousFrame = previousFrame;
 
         // Title Label Creation
         JLabel title = new JLabel("Create Your Restaurant Profile");
@@ -206,7 +213,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
                         new RestaurantFactory(),
                         restaurantGateway,
                         userGateway,
-                        new RestaurantResponseFormatter()
+                        new RestaurantResponseFormatter(previousFrame)
                 );
                 RestaurantController restaurantController = new RestaurantController(interactor);
                 RestaurantResponseModel result = restaurantController.create(
