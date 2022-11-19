@@ -8,25 +8,25 @@ import java.util.Comparator;
 
 abstract class Sorting {
     // ArrayList<Restaurant> sortedRestaurants = new ArrayList<>();
-    public abstract void sortList(ArrayList<Restaurant> sortedRestaurants);
+    public abstract void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection);
 
 }
 
 class sortName extends Sorting {
-    public void sortList(ArrayList<Restaurant> sortedRestaurants) {
+    public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         Collections.sort(sortedRestaurants, Comparator.comparing(Restaurant::getName));
     }
 }
 
 class sortPrice extends Sorting {
-    public void sortList(ArrayList<Restaurant> sortedRestaurants) {
+    public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         Collections.sort(sortedRestaurants, Comparator.comparing(Restaurant::getPriceBucket,
                 Comparator.reverseOrder()));
     }
 }
 
 class sortAvgStars extends Sorting {
-    public void sortList(ArrayList<Restaurant> sortedRestaurants) {
+    public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         Collections.sort(sortedRestaurants, Comparator.comparing(Restaurant::getAvgStars));
     }
 }

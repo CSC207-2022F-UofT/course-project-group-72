@@ -17,6 +17,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
      * The search query
      */
     JTextField query;
+    JButton searchButton;
     /**
      * The input location (Postal Code)
      */
@@ -36,6 +37,10 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The group of radiobuttons for the sorting selection
      */
+    JLabel priceLabel;
+    JLabel starsLabel;
+    JLabel cuisineLabel;
+    JLabel locationLabel;
     ButtonGroup sortButtons;
     /**
      * The radiobutton for sorting by price
@@ -64,7 +69,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The choices controller
      */
-    ChoicesController choicesController;
+    static ChoicesController choicesController;
 
     public HomeScreenView(ChoicesController choicesController) {
 
@@ -73,13 +78,13 @@ public class HomeScreenView extends JFrame implements ActionListener {
         // Search Field(s) Temporarily placing Location as an input field
         JPanel searchField = new JPanel();
 
-        query = new JTextField();
-        location = new JTextField();
+        query = new JTextField("", 20);
+        location = new JTextField("", 4);
 
         searchField.add(query);
 
         // Search Button
-        JButton searchButton = new JButton("Search");
+        searchButton = new JButton("Search");
         searchField.add(searchButton);
         searchButton.addActionListener(this);
 
@@ -89,27 +94,39 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
         // TODO: add more cuisine options
         String[] cuisineOptions = {"Food"};
-
-
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
         cuisineType = new JComboBox<>(cuisineOptions);
 
+        // Labels
+        priceLabel = new JLabel("Filter By Price ($):");
+        starsLabel = new JLabel("Filter By Rating (/5 Stars):");
+        cuisineLabel = new JLabel("Filter By Cuisine:");
+        locationLabel = new JLabel("Filter By Location (Postal Code):");
+
         // Filter Options
         JPanel filterFields = new JPanel();
+        filterFields.add(priceLabel);
         filterFields.add(priceBucket);
+
+        filterFields.add(starsLabel);
         filterFields.add(avgStars);
+
+        filterFields.add(cuisineLabel);
         filterFields.add(cuisineType);
+
+        filterFields.add(locationLabel);
+        filterFields.add(location);
 
         // Sort Method Buttons
         JPanel sortFields = new JPanel();
         sortButtons = new ButtonGroup();
 
         // Initialize Buttons
-        sortPriceButton = new JRadioButton();
-        sortAvgStarsButton = new JRadioButton();
-        sortNameButton = new JRadioButton();
+        sortPriceButton = new JRadioButton("Sort By Price ($):");
+        sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):");
+        sortNameButton = new JRadioButton("Sort By Name:");
 
         // Add to selection button group
         sortButtons.add(sortPriceButton);
@@ -120,8 +137,8 @@ public class HomeScreenView extends JFrame implements ActionListener {
         sortDirection = new ButtonGroup();
 
         // Separate Direction Buttons (Sort by Direction, Ex: Ascending, Descending)
-        sortAscending = new JRadioButton();
-        sortDescending = new JRadioButton();
+        sortAscending = new JRadioButton("Sort Ascending:");
+        sortDescending = new JRadioButton("Sort Descending:");
 
         // Add to direction button group
         sortDirection.add(sortAscending);
@@ -135,41 +152,43 @@ public class HomeScreenView extends JFrame implements ActionListener {
         sortFields.add(sortDescending);
 
         // Setup Window
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         this.add(searchField);
         this.add(filterFields);
         this.add(sortFields);
 
-        this.setVisible(true);
+        // Window options
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(700, 350));
+        this.pack();
+        this.setLocationRelativeTo(null);
 
+        this.setVisible(true);
+        repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try{
-            if (Objects.equals(e.getActionCommand(), "Search")) {
-                ChoicesResponseModel selections = choicesController.select(
-                        query.getText(),
-                        location.getText(),
-                        cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-                        priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-                        avgStars.getItemAt(avgStars.getSelectedIndex()),
-                        sortButtons.getSelection().getActionCommand(),
-                        sortDirection.getSelection().getActionCommand()
+        ChoicesResponseModel selections = choicesController.select(
+                query.getText(),
+                location.getText(),
+                cuisineType.getItemAt(cuisineType.getSelectedIndex()),
+                priceBucket.getItemAt(priceBucket.getSelectedIndex()),
+                avgStars.getItemAt(avgStars.getSelectedIndex()),
+                sortButtons.getSelection().getActionCommand(),
+                sortDirection.getSelection().getActionCommand()
                 );
 
                 Container sortedView = new ChoicesSortedView(selections);
                 this.setVisible(false);
                 sortedView.setVisible(true);
-
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+//        } catch (Exception ex) {
+//            throw new RuntimeException(ex);
+//        }
     }
 
-    public void main(String[] args){
+    public static void main(String[] args){
         HomeScreenView view = new HomeScreenView(choicesController);
         view.setVisible(true);
     }
