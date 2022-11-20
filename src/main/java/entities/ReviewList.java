@@ -1,7 +1,9 @@
 package entities;
 
-import Gateways.ReviewGateway;
+import ReviewGateways.ReviewGateway;
+import ReviewGateways.ReviewNotFoundException;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,6 @@ import java.util.ArrayList;
  * can return the Review Object, or ID
  */
 public class ReviewList {
-    /**
-     * The filler string to store in the csv file to prevent errors
-     */
-    public final static String EMPTY_FILLER = "empty";
     /**
      * the ReviewGateway which deals with the Review database
      */
@@ -45,12 +43,8 @@ public class ReviewList {
      *
      * @return the list of Review objects
      */
-    ArrayList<Review> getReviews() {
+    ArrayList<Review> getReviews() throws ReviewNotFoundException, FileNotFoundException {
         ArrayList<Review> formattedReviews = new ArrayList<>();
-        try {
-            this.reviews.remove(EMPTY_FILLER);
-        } catch (Exception ignored) {
-        }
         for (String reviewID : reviews) {
             Review review = gateway.getReview(reviewID);
             formattedReviews.add(review);
@@ -59,7 +53,7 @@ public class ReviewList {
     }
     /**
      *
-     * @return the list of Review IDs or the list containing the empty filler
+     * @return the list of Review IDs
      */
     ArrayList<String> getReviewIDs() {
         return this.reviews;
