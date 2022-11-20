@@ -3,7 +3,7 @@ package restaurant_use_case;
 import entities.OwnerUser;
 import entities.Restaurant;
 import restaurant_screens.RestaurantDeletePresenter;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGatewayInterface;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,7 +19,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
     /**
      * The User Gateway that manages the User database
      */
-    private final UserDatabaseGateway userGateway;
+    private final UserGatewayInterface userGateway;
     /**
      * The Restaurant Presenter which updates the display to show that the
      * current Restaurant was deleted
@@ -32,7 +32,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
      * @param userGateway the User gateway responsible for managing the database
      * @param presenter the Restaurant Presenter
      */
-    public deleteRestaurant(RestaurantDSGateway restaurantGateway, UserDatabaseGateway userGateway,
+    public deleteRestaurant(RestaurantDSGateway restaurantGateway, UserGatewayInterface userGateway,
                             RestaurantDeletePresenter presenter) {
         this.restaurantGateway = restaurantGateway;
         this.userGateway = userGateway;
@@ -58,7 +58,7 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary{
         OwnerUser owner = requestModel.getOwner();
         owner.removeRestaurant(requestModel.getRestaurant());
         LocalDateTime now = LocalDateTime.now();
-        userGateway.update(owner);
+        userGateway.updateUser(owner);
         // Use the gateway to remove the restaurant
         restaurantGateway.deleteRestaurant(requestModel.getRestaurant().getLocation());
         return presenter.prepareSuccessView("deleted", requestModel.getRestaurant().getName(), now.toString());

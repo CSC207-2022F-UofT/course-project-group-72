@@ -3,7 +3,7 @@ package restaurant_screens;
 import entities.OwnerUser;
 import entities.Restaurant;
 import restaurant_use_case.*;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
     /**
      * The User Gateway that manages the user database
      */
-    UserDatabaseGateway userGateway;
+    UserGatewayInterface userGateway;
     /**
      * The current restaurant
      */
@@ -44,7 +44,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
      * @param previousFrame the previous frame that initialized this one
      */
     public DeleteRestaurantView(Restaurant restaurant, OwnerUser owner, RestaurantDSGateway restaurantGateway,
-                                UserDatabaseGateway userGateway, IFrame previousFrame) {
+                                UserGatewayInterface userGateway, IFrame previousFrame) {
         this.previousFrame = previousFrame;
         this.restaurantGateway = restaurantGateway;
         this.userGateway = userGateway;

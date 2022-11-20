@@ -4,7 +4,7 @@ import entities.OwnerUser;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import restaurant_screens.RestaurantPresenter;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGatewayInterface;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +27,7 @@ public class createRestaurant implements RestaurantInputBoundary{
     /**
      * The User Gateway that manages the User Database
      */
-    private final UserDatabaseGateway userGateway;
+    private final UserGatewayInterface userGateway;
 
     /**
      *
@@ -37,7 +37,7 @@ public class createRestaurant implements RestaurantInputBoundary{
      * @param presenter the Presenter that updates the screen with the new Restaurant
      */
     public createRestaurant(RestaurantFactory factory, RestaurantDSGateway dataGateway,
-                            UserDatabaseGateway userGateway, RestaurantPresenter presenter) {
+                            UserGatewayInterface userGateway, RestaurantPresenter presenter) {
         this.factory = factory;
         //not sure what is going on here, this.gateway throws an error
         restaurantGateway = dataGateway;
@@ -72,7 +72,7 @@ public class createRestaurant implements RestaurantInputBoundary{
         // Updates the User in the database
         LocalDateTime now = LocalDateTime.now();
         restaurantGateway.save(newRestaurant);
-        userGateway.update(ownerUser);
+        userGateway.updateUser(ownerUser);
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(newRestaurant, now.toString(), "created");
