@@ -59,13 +59,9 @@ public class ReviewList {
     }
     /**
      *
-     * @return the list of Review IDs
+     * @return the list of Review IDs or the list containing the empty filler
      */
     ArrayList<String> getReviewIDs() {
-        try {
-            this.reviews.remove(EMPTY_FILLER);
-        } catch (Exception ignored) {
-        }
         return this.reviews;
     }
 

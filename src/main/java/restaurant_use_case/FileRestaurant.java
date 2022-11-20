@@ -2,6 +2,8 @@ package restaurant_use_case;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
+import entities.Review;
+import entities.ReviewList;
 
 import java.io.*;
 import java.util.*;
@@ -23,6 +25,7 @@ public class FileRestaurant implements RestaurantDSGateway{
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     /**
      *  The restaurants that have been loaded from the database on construction
+     *  Maps the restaurant's unique location to the restaurant
      */
     private final Map<String, Restaurant> currentRestaurants = new HashMap<>();
 
@@ -82,7 +85,7 @@ public class FileRestaurant implements RestaurantDSGateway{
      */
     @Override
     public void save(Restaurant requestModel) {
-        currentRestaurants.put(requestModel.getName(), requestModel);
+        currentRestaurants.put(requestModel.getLocation(), requestModel);
         save();
     }
 
@@ -96,6 +99,9 @@ public class FileRestaurant implements RestaurantDSGateway{
 
             for (Restaurant restaurant : currentRestaurants.values()) {
                 String reviewsLine = String.join("<", restaurant.getReviewIDs());
+                if (reviewsLine.length() == 0) {
+                    reviewsLine = ReviewList.EMPTY_FILLER;
+                }
                 String line = String.join(",",
                         restaurant.getLocation(),
                         restaurant.getName(),
