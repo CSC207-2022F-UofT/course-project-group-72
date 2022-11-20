@@ -25,7 +25,14 @@ public class ReportScreen extends JPanel implements ActionListener {
 
     JButton report, cancel;
 
-
+    /**
+     *
+     * @param controller
+     * @param current_review
+     * @param current_user
+     *
+     * INITIALIZE REPORT VIEW: A POP OUT WINDOW
+     */
     public ReportScreen(ReportController controller, Review current_review, User current_user) {
         this.reportController = controller;
         this.current_review = current_review;
@@ -61,6 +68,11 @@ public class ReportScreen extends JPanel implements ActionListener {
 
     }
 
+    /**
+     *
+     * @param evt the event to be processed
+     *  Reacts to button click
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
