@@ -53,7 +53,7 @@ public class ReviewList {
     }
     /**
      *
-     * @return the list of Review IDs
+     * @return the list of Review ID stings
      */
     ArrayList<String> getReviewIDs() {
         return this.reviews;
