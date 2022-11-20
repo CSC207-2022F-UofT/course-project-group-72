@@ -2,8 +2,8 @@ package restaurant_screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_use_case.RestaurantEditRequestModel;
-import restaurant_use_case.RestaurantResponseModel;
+import restaurant_use_case.*;
+import user_use_cases.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,9 +25,9 @@ public class EditRestaurantView extends JFrame implements ActionListener{
      */
     JTextField priceBucket;
     /**
-     * The controller
+     * The Restaurant gateway that manages the Restaurant Database
      */
-    RestaurantController restaurantController;
+    RestaurantDSGateway restaurantGateway;
     /**
      * The current user (which must be an owner user)
      */
@@ -36,18 +36,23 @@ public class EditRestaurantView extends JFrame implements ActionListener{
      * The current restaurant
      */
     Restaurant restaurant;
+    /**
+     * The previous frame
+     */
+    IFrame previousFrame;
 
     /**
      *
-     * @param restaurantController the RestaurantController corresponding to the edit use case
      * @param owner the current active user that must be an OwnerUser
      * @param restaurant the current Restaurant
+     * @param previousFrame the frame that initialized this one
      */
-    public EditRestaurantView(RestaurantController restaurantController, OwnerUser owner, Restaurant restaurant) {
-
-        this.restaurantController = restaurantController;
+    public EditRestaurantView (OwnerUser owner, Restaurant restaurant, IFrame previousFrame,
+                               RestaurantDSGateway restaurantGateway) {
+        this.previousFrame = previousFrame;
         this.owner = owner;
         this.restaurant = restaurant;
+        this.restaurantGateway = restaurantGateway;
 
         // Title Label Creation
         JLabel title = new JLabel("Edit Restaurant");
@@ -102,6 +107,11 @@ public class EditRestaurantView extends JFrame implements ActionListener{
 
         try {
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
+                // Initialize the controller, presenter, and use case interactor
+                RestaurantPresenter presenter = new RestaurantResponseFormatter(previousFrame);
+                RestaurantInputBoundary interactor = new editRestaurant(restaurantGateway, presenter);
+                RestaurantController restaurantController = new RestaurantController(interactor);
+                // Interact
                 RestaurantResponseModel result = restaurantController.edit(
                         owner,
                         name.getText(),
