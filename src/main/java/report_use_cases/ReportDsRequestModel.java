@@ -8,6 +8,15 @@ public class ReportDsRequestModel {
     String reporter_username;
     String creation_time;
 
+    /**
+     *
+     * @param reason
+     * @param content
+     * @param review_id
+     * @param reporter_username
+     * @param creation_time
+     */
+
     public ReportDsRequestModel(String reason, String content, String review_id, String reporter_username, String creation_time) {
         this.reason = reason;
         this.content = content;

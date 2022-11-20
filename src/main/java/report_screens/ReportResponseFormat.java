@@ -26,7 +26,7 @@ public class ReportResponseFormat implements ReportPresenter {
      * Later on the ReportScreen will catch the exception
      */
     @Override
-    public ReportResponseModel prepareFailView(String error) {
+    public ReportResponseModel prepareFailView(String error) throws RuntimeException{
         throw new ReportCreationFailure(error);
 
     }
