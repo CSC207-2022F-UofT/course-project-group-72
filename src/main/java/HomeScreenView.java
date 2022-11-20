@@ -180,9 +180,13 @@ public class HomeScreenView extends JFrame implements ActionListener {
                 sortDirection.getSelection().getActionCommand()
                 );
 
-                Container sortedView = new ChoicesSortedView(selections);
+                ArrayList<Restaurant> sortedList = selections.getRestaurants();
+                Container sortedView = new ChoicesSortedView(sortedList);
+
                 this.setVisible(false);
                 sortedView.setVisible(true);
+
+
 //        } catch (Exception ex) {
 //            throw new RuntimeException(ex);
 //        }
