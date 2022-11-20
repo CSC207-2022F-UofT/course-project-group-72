@@ -1,5 +1,5 @@
 package restaurant_use_case;
 
 public interface RestaurantDeleteInputBoundary {
-    RestaurantResponseModel delete(String location);
+    RestaurantResponseModel delete(RestaurantDeleteRequestModel requestModel);
 }
