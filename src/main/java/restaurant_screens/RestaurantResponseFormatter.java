@@ -6,7 +6,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
 
     private final IFrame view;
 
-    RestaurantResponseFormatter(IFrame view) {
+    public RestaurantResponseFormatter(IFrame view) {
         this.view = view;
     }
 

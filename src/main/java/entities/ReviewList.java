@@ -1,7 +1,8 @@
 package entities;
 
-import Gateways.ReviewGateway;
+import ReviewGateways.ReviewGateway;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -51,9 +52,10 @@ public class ReviewList {
             this.reviews.remove(EMPTY_FILLER);
         } catch (Exception ignored) {
         }
-        for (String reviewID : reviews) {
-            Review review = gateway.getReview(reviewID);
-            formattedReviews.add(review);
+        try{
+            formattedReviews = gateway.getReviews(this.reviews);
+        }catch(IOException e){
+            System.out.println("An error occurred. Please try again later.");
         }
         return formattedReviews;
     }

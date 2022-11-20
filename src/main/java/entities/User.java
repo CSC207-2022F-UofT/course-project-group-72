@@ -17,7 +17,7 @@ public class User {
         this.likedReviews = new ArrayList<>();
     }
 
-    public User(String username, String password, ArrayList<Review> past_reviews,
+    public User(String username, String password, ArrayList<String> past_reviews,
                 ArrayList<String> likedReviews, int received_reports, Boolean banned) {
         this.username = username;
         this.password = password;

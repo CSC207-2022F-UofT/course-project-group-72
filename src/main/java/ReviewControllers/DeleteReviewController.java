@@ -4,7 +4,7 @@ package ReviewControllers;
 
 import ReviewInterfaces.DeleteReviewInputBoundary;
 import ReviewInterfaces.ReviewGatewayInterface;
-import ReviewInterfaces.UserGatewayInterface;
+import user_use_cases.UserGatewayInterface;
 import restaurant_use_case.RestaurantDSGateway;
 import ReviewInteractors.DeleteReviewRequestModel;
 import ReviewScreens.ReviewResponseModel;

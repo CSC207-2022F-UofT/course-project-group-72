@@ -1,6 +1,7 @@
 package report_use_cases;
 
-import Interfaces.ReviewGatewayInterface;
+import ReviewInterfaces.ReviewGatewayInterface;
+import ReviewGateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class ReportInteract implements reportInputBoundary {
 
-    private static final ReviewGatewayInterface gateway = new Gateways.ReviewGateway();
+    private static final ReviewGatewayInterface gateway = new ReviewGateway();
 
     final reportDsGateway reportDsGateway;
 

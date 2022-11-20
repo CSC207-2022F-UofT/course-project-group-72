@@ -2,18 +2,19 @@
 
 package ReviewScreens;
 
-import ReviewGateways.ReviewGateway;
-import ReviewGateways.UserGateway;
+import entities.*;
 import ReviewControllers.*;
 import ReviewInteractors.*;
-import ReviewInterfaces.*;
-import entities.*;
 import report_screens.FileReportHistory;
 import report_screens.ReportController;
 import report_screens.ReportResponseFormat;
 import report_use_cases.*;
-import restaurant_use_case.FileRestaurant;
-import restaurant_use_case.RestaurantDSGateway;
+import ReviewInterfaces.*;
+import ReviewGateways.ReviewGateway;
+import restaurant_screens.*;
+import restaurant_use_case.*;
+import user_use_cases.UserGatewayInterface;
+import user_use_cases.UserGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RestaurantView extends JFrame implements ActionListener {
+public class RestaurantView extends JFrame implements ActionListener, IFrame {
 
     private static final String REPORT_DATABASE_NAME = "src/main/java/Databases/ReportDatabase.csv";
     private static final String RESTAURANT_DATABASE_NAME = "src/main/java/Databases/RestaurantDatabase.csv";
@@ -78,12 +79,32 @@ public class RestaurantView extends JFrame implements ActionListener {
             averageStars.setFont(averageStars.getFont().deriveFont(16F));
             averageStars.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-            //Create a button to write or edit review. Only displayed if user is not an owner. Displays write if the
-            //user has not reviewed this restaurant and displays edit if they have.
-            JButton writeEdit = new JButton("Write a Review");
-            writeEdit.setFont(writeEdit.getFont().deriveFont(16F));
-            writeEdit.setOpaque(true);
-            writeEdit.addActionListener(this);
+            //Create a button to write a review. Only displayed if user is not an owner
+            JButton writeButton = new JButton("Write a Review");
+            writeButton.setFont(writeButton.getFont().deriveFont(16F));
+            writeButton.setOpaque(true);
+            writeButton.addActionListener(this);
+
+            //Create a panel to hold the buttons the owner sees when they click on the restaurant. Only visible to
+            //restaurant owner, not all owners
+            JPanel ownerPanel = new JPanel();
+            ownerPanel.setLayout(new BoxLayout(ownerPanel, BoxLayout.X_AXIS));
+            ownerPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            ownerPanel.setVisible(true);
+
+            //Create the buttons for an owner to edit or delete their restaurant, then add them to owner panel
+            JButton ownerEditButton = new JButton("Edit your Restaurant");
+            ownerEditButton.setFont(ownerEditButton.getFont().deriveFont(16F));
+            ownerEditButton.setOpaque(true);
+            ownerEditButton.addActionListener(this);
+
+            JButton ownerDeleteButton = new JButton("Delete Your Restaurant");
+            ownerDeleteButton.setFont(ownerDeleteButton.getFont().deriveFont(16F));
+            ownerDeleteButton.setOpaque(true);
+            ownerDeleteButton.addActionListener(this);
+
+            ownerPanel.add(ownerEditButton);
+            ownerPanel.add(ownerDeleteButton);
 
             //The scroll pane may only hold a single panel, so we initialize a "master panel" to hold each review panel
             JPanel masterPanel = new JPanel();
@@ -216,7 +237,9 @@ public class RestaurantView extends JFrame implements ActionListener {
             main.add(restaurantLocation);
             main.add(averageStars);
             if(!(user instanceof OwnerUser)) {
-                main.add(writeEdit);
+                main.add(writeButton);
+            }else if(this.restaurant.getOwnerID().equals(this.user.getUsername())){
+                main.add(ownerPanel);
             }
             main.add(scrollPane);
 
@@ -238,19 +261,61 @@ public class RestaurantView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean check = true;
-        for(String reviewID : this.user.getPast_reviews()){
-            if (this.restaurant.getReviewIDs().contains(reviewID)) {
-                check = false;
-                break;
+        //If a user clicked the write review button
+        if(e.getActionCommand().equals("Write a Review")) {
+            //Check if they already reviewed this restaurant
+            boolean check = true;
+            for (String reviewID : this.user.getPast_reviews()) {
+                if (this.restaurant.getReviewIDs().contains(reviewID)) {
+                    check = false;
+                    break;
+                }
+            }
+            //Launch the proper view
+            if (check) {
+                WriteReviewScreen writeScreen = new WriteReviewScreen(this, this.writeReviewController,
+                        this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant);
+            } else {
+                JOptionPane.showMessageDialog(this, "You've already written a review for this " +
+                        "restaurant. Please edit your previous review instead.");
+            }
+        //If an owner clicked edit
+        }else if(e.getActionCommand().equals("Edit your Restaurant")){
+            //Try to launch the appropriate view
+            try {
+                RestaurantDSGateway restaurantGateway = new FileRestaurant(RESTAURANT_DATABASE_NAME);
+                RestaurantPresenter restaurantPresenter = new RestaurantResponseFormatter(this);
+                RestaurantInputBoundary editRestaurant = new editRestaurant(restaurantGateway, restaurantPresenter);
+                RestaurantController restaurantController = new RestaurantController(editRestaurant);
+                EditRestaurantView editRestaurantView = new EditRestaurantView(restaurantController,
+                        (OwnerUser) this.user, this.restaurant);
+            }catch(IOException ex){
+                JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+                System.out.println("An error occurred. Please try again later.");
+                ex.printStackTrace();
+            }
+        //If an owner clicked delete
+        } else if (e.getActionCommand().equals("Delete Your Restaurant")) {
+            //Try to launch the appropriate view
+            try {
+                RestaurantDSGateway restaurantGateway = new FileRestaurant(RESTAURANT_DATABASE_NAME);
+                RestaurantDeletePresenter restaurantPresenter = new RestaurantDeleteResponseFormatter();
+                RestaurantDeleteInputBoundary deleteRestaurant = new deleteRestaurant(restaurantGateway,
+                        restaurantPresenter);
+                RestaurantDeleteController restaurantDeleteController =
+                        new RestaurantDeleteController(deleteRestaurant);
+                DeleteRestaurantView deleteRestaurantView = new DeleteRestaurantView(restaurantDeleteController,
+                        this.restaurant, (OwnerUser) this.user);
+            }catch(IOException ex){
+                JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+                System.out.println("An error occurred. Please try again later.");
+                ex.printStackTrace();
             }
         }
-        if(check){
-            WriteReviewScreen writeScreen = new WriteReviewScreen(this, this.writeReviewController,
-                    this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant);
-        }else{
-            JOptionPane.showMessageDialog(this, "You've already written a review for this " +
-                    "restaurant. Please edit your previous review instead.");
-        }
+    }
+
+    @Override
+    public void refresh(Restaurant restaurant) {
+        this.repaint();
     }
 }

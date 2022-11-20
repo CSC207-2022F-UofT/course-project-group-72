@@ -4,7 +4,7 @@ import restaurant_screens.RestaurantPresenter;
 import restaurant_screens.RestaurantResponseFormatter;
 import restaurant_use_case.*;
 import entities.*;
-import user_use_cases.UserDatabaseGateway;
+import user_use_cases.UserGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class RestaurantTempMain {
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
-        UserDatabaseGateway user = new UserDatabaseGateway();
+        UserGateway user = new UserGateway();
 
         RestaurantPresenter presenter = new RestaurantResponseFormatter();
         RestaurantFactory factory = new RestaurantFactory();

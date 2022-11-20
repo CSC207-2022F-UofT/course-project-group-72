@@ -1,9 +1,9 @@
 package user_use_cases;
 
-import Interfaces.ReviewGatewayInterface;
+import ReviewInterfaces.ReviewGatewayInterface;
 import entities.User;
 import entities.Review;
-import Gateways.ReviewGateway;
+import ReviewGateways.ReviewGateway;
 
 import java.io.BufferedWriter;
 import java.util.*;
@@ -33,87 +33,93 @@ public class UserGateway implements UserGatewayInterface{
         String new_username = user.getUsername();
         String new_password = user.getPassword();
 
-        ArrayList<Review> past_review_list = user.getPast_reviews();
-        String past_reviews_string = "";
-        for (int i = 0; i < past_review_list.size() - 1; i++) {
-            past_reviews_string = past_reviews_string + past_review_list.get(i).getID() + "/";
-        }
-        // last review without delimiter
-        if (past_review_list.size() > 0) {
-            past_reviews_string = past_reviews_string + past_review_list.get(past_review_list.size()).getID();
-        }
-        String new_past_reviews = past_reviews_string;
-
-        ArrayList<String> liked_review_list = user.getLikedReviews();
-        String new_likedReviews = String.join("|", liked_review_list);
-
-
-        String new_received_reports = String.valueOf(user.getReceived_reports());
-        String new_banned = "0";
-        if (user.isBanned()) {
-            new_banned = "1";
-        }
-
-        String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
-
-        File old_file = new File(NAME_OF_USER_DATABASE);
-        File new_file = new File(tempFile);
-
-        String username = "";
-        String password = "";
-        String past_reviews = "";
-        String likedReviews = "";
-        String received_reports = "";
-        String banned = "";
-
-
-
+        ArrayList<String> past_review_list_id = user.getPast_reviews();
         try {
-            FileWriter fw = new FileWriter(new_file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            Scanner scanner = new Scanner(new File(NAME_OF_USER_DATABASE));
-            String delimiter = ",";
-            String line;
+            ArrayList<Review> past_review_list = new ReviewGateway().getReviews(past_review_list_id);
+            String past_reviews_string = "";
+            for (int i = 0; i < past_review_list.size() - 1; i++) {
+                past_reviews_string = past_reviews_string + past_review_list.get(i).getID() + "/";
+            }
+            // last review without delimiter
+            if (past_review_list.size() > 0) {
+                past_reviews_string = past_reviews_string + past_review_list.get(past_review_list.size() - 1).getID();
+            }
+            String new_past_reviews = past_reviews_string;
 
-            while (scanner.hasNext()) {
-                line = scanner.nextLine();
-                String[] values = line.split(delimiter);
-
-                username = values[0];
-                password = values[1];
-                past_reviews = values[2];
-                likedReviews = values[3];
-                received_reports = values[4];
-                banned = values[5];
+            ArrayList<String> liked_review_list = user.getLikedReviews();
+            String new_likedReviews = String.join("|", liked_review_list);
 
 
-                // replace the old values with the new values
-                if (new_username.equals(username)) {
-                    String line1 = String.join(",", username, new_password, new_past_reviews,
-                            new_likedReviews, new_received_reports, new_banned);
-                    bw.write(line1);
-                    bw.newLine();
-
-                    //keep the old values
-                } else {
-                    String line1 = String.join(",", username, password, past_reviews,
-                            likedReviews, received_reports, banned);
-                    bw.write(line1);
-                    bw.newLine();
-                }
-
+            String new_received_reports = String.valueOf(user.getReceived_reports());
+            String new_banned = "0";
+            if (user.isBanned()) {
+                new_banned = "1";
             }
 
-            scanner.close();
-            bw.flush();
-            bw.close();
-            old_file.delete();
-            File temp = new File(NAME_OF_USER_DATABASE);
-            new_file.renameTo(temp);
+            String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
+
+            File old_file = new File(NAME_OF_USER_DATABASE);
+            File new_file = new File(tempFile);
+
+            String username = "";
+            String password = "";
+            String past_reviews = "";
+            String likedReviews = "";
+            String received_reports = "";
+            String banned = "";
 
 
-        } catch (Exception e) {
-            System.out.println("Can't find this User");
+
+            try {
+                FileWriter fw = new FileWriter(new_file, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                Scanner scanner = new Scanner(new File(NAME_OF_USER_DATABASE));
+                String delimiter = ",";
+                String line;
+
+                while (scanner.hasNext()) {
+                    line = scanner.nextLine();
+                    String[] values = line.split(delimiter);
+
+                    username = values[0];
+                    password = values[1];
+                    past_reviews = values[2];
+                    likedReviews = values[3];
+                    received_reports = values[4];
+                    banned = values[5];
+
+
+                    // replace the old values with the new values
+                    if (new_username.equals(username)) {
+                        String line1 = String.join(",", username, new_password, new_past_reviews,
+                                new_likedReviews, new_received_reports, new_banned);
+                        bw.write(line1);
+                        bw.newLine();
+
+                        //keep the old values
+                    } else {
+                        String line1 = String.join(",", username, password, past_reviews,
+                                likedReviews, received_reports, banned);
+                        bw.write(line1);
+                        bw.newLine();
+                    }
+
+                }
+
+                scanner.close();
+                bw.flush();
+                bw.close();
+                old_file.delete();
+                File temp = new File(NAME_OF_USER_DATABASE);
+                new_file.renameTo(temp);
+
+
+            } catch (Exception e) {
+                System.out.println("Can't find this User");
+                e.printStackTrace();
+            }
+        }catch(IOException e){
+            System.out.println("An error occurred. Please try again later.");
             e.printStackTrace();
         }
 
@@ -130,15 +136,12 @@ public class UserGateway implements UserGatewayInterface{
             while(scanner.hasNext()){
                 line = scanner.nextLine();
                 String[] user = line.split(delimiter);
+                ReviewGatewayInterface reviewGateway = new ReviewGateway();
 
                 if (user[0].equals(username)){
                     // Format Past Reviews
-                    List<String> past_review_ids = new ArrayList<String>();
                     String[] past_reviews_elements = user[2].split("/");
-                    ArrayList<Review> return_past_review = new ArrayList<Review>();
-                    for (int i = 0; i < past_review_ids.size(); i++) {
-                        return_past_review.add(ReviewGatewayInterface.getReview(past_reviews_elements[i]));
-                    }
+                    ArrayList<String> return_past_review = new ArrayList<String>(Arrays.asList(past_reviews_elements));
 
                     String[] liked_reviews_elements = user[3].split("|");
                     ArrayList<String> return_liked_reviews = new ArrayList(
@@ -248,6 +251,11 @@ public class UserGateway implements UserGatewayInterface{
 
     @Override
     public void addLikedReview(String reviewId) {
+
+    }
+
+    @Override
+    public void deleteReview(String id){
 
     }
 

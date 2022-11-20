@@ -7,7 +7,6 @@ import ReviewScreens.ReviewResponseModel;
 import entities.Restaurant;
 import entities.Review;
 import entities.User;
-import restaurant_use_case.RestaurantDSRequestModel;
 
 import java.io.IOException;
 
@@ -32,10 +31,7 @@ public class DeleteReviewInteractor implements DeleteReviewInputBoundary {
             //object's reviews, then add the old restaurant back in with this change reflected
             requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
             restaurant.getReviewIDs().remove(reviewID);
-            RestaurantDSRequestModel restaurantDSRequestModel = new RestaurantDSRequestModel(restaurant.getOwnerID(),
-                    restaurant.getName(), restaurant.getLocation(), restaurant.getCuisineType(),
-                    restaurant.getPriceBucket(), restaurant.getAvgStars(), restaurant.getReviewIDs());
-            requestModel.getRestaurantGateway().save(restaurantDSRequestModel);
+            requestModel.getRestaurantGateway().save(restaurant);
 
             //Remove the review from the user's list of reviews + databases
             //CHANGE THIS LATER WHEN YOU HAVE THE ACTUAL GATEWAY
