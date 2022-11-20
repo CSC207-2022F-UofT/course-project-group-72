@@ -2,13 +2,9 @@ package restaurant_use_case;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
-import entities.Review;
-import entities.ReviewList;
 
 import java.io.*;
 import java.util.*;
-
-import static java.lang.System.in;
 
 
 // Current implementation rewrites the whole file whenever save is called, may be updated later
@@ -162,7 +158,6 @@ public class FileRestaurant implements RestaurantDSGateway{
      */
     @Override
     public Restaurant retrieveRestaurant(String location) {
-        //TODO reinitializing string to and from object
         return currentRestaurants.get(location);
     }
 
