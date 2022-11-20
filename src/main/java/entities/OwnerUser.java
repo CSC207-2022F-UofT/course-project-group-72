@@ -55,4 +55,5 @@ public class OwnerUser extends User{
     public ArrayList<String> getOwnedRestaurants() {
         return this.ownedRestaurants;
     }
+
 }
