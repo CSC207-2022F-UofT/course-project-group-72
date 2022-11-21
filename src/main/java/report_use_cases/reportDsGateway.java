@@ -1,5 +1,6 @@
 package report_use_cases;
 
+//Report Gateway interface
 public interface reportDsGateway {
 
     void save(ReportDsRequestModel reportdsRequestModel);
