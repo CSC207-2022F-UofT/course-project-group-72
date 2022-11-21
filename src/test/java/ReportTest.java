@@ -1,4 +1,5 @@
-import Gateways.ReviewGateway;
+
+import ReviewGateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;

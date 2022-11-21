@@ -4,7 +4,7 @@ public interface ReportPresenter {
 
     ReportResponseModel prepareSuccessView(ReportResponseModel report);
 
-    ReportResponseModel prepareFailView(String error);
+    ReportResponseModel prepareFailView(String error) throws RuntimeException;
 
 }
 

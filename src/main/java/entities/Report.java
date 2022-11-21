@@ -2,7 +2,11 @@ package entities;
 
 //Entity layer
 
-//Report Class
+/**
+ * reason: reason input from reporter
+ * review: Review object that is chosen to be reported by reporter
+ * reporter_username: Reporter's username
+ */
 public class Report {
 
     private final String reason;
@@ -33,12 +37,12 @@ public class Report {
         return reporter_username;
     }
 
-    //later modify get method based on the actual implementation of Review;
+
     public String getReportedUser() {
         return review.getUser();
     }
 
-    //later modify get method based on the actual implementation of Review;
+
     public String getReviewContent () {
         return review.getText();
     }
