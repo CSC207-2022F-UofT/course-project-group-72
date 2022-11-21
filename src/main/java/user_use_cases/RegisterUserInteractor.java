@@ -4,27 +4,25 @@ import entities.User;
 import entities.UserFactory;
 import user_screens.RegisterUserPresenter;
 
-public class RegisterUserInteractor{
+public class RegisterUserInteractor implements RegisterUserInputBoundary{
 
     private final UserFactory factory;
     private final UserGateway gateway;
-    private final RegisterUserPresenter presenter;
 
-    public RegisterUserInteractor(UserFactory factory, UserGateway gateway,
-                                  RegisterUserPresenter presenter) {
+    public RegisterUserInteractor(UserFactory factory, UserGateway gateway) {
         this.factory = factory;
         this.gateway = gateway;
-        this.presenter = presenter;
     }
+    @Override
 
     public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {
 
         if (gateway.userExists(requestModel.getUsername())) {
-            return presenter.prepareRegisterFailView("Username is Taken");
+            return new RegisterUserResponseModel(false, "Username Taken");
         }
 
         if (!requestModel.getPassword1().equals(requestModel.getPassword2())) {
-            return presenter.prepareRegisterFailView("Passwords don't Match");
+            return new RegisterUserResponseModel(false, "Passwords don't Match");
         }
 
         User newUser = factory.CreateUserObject(
@@ -35,8 +33,8 @@ public class RegisterUserInteractor{
         gateway.addUser(newUser.getUsername(), newUser.getPassword());
 
         RegisterUserResponseModel successRegisterResponse =
-                new RegisterUserResponseModel(newUser);
-        return presenter.prepareRegisterSuccessView(successRegisterResponse);
+                new RegisterUserResponseModel(true, newUser);
+        return successRegisterResponse;
 
     }
 

@@ -32,7 +32,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
     ChoicesController choicesController;
 
-    public HomeScreenView(ChoicesController choicesController) {
+    public HomeScreenView(ChoicesController choicesController) { // should have User current user as argument
 
     }
 
