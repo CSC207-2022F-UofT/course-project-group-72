@@ -66,7 +66,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
      */
     ChoicesController choicesController;
 
-    public HomeScreenView(ChoicesController choicesController) {
+    public HomeScreenView(ChoicesController choicesController) { // should have User object -> current user as argument
 
         this.choicesController = choicesController;
 

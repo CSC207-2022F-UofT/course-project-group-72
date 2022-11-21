@@ -9,14 +9,33 @@ import java.util.*;
 
 // Current implementation rewrites the whole file whenever save is called, may be updated later
 
-//TODO figure out why this error below occurs
+/**
+ * The implementation of the Restaurant Gateway, manages the Restaurant Database
+ */
 public class FileRestaurant implements RestaurantDSGateway{
+    /**
+     *
+     */
+    private final static String EMPTY_FILLER = "empty";
+    /**
+     * The file containing the data
+     */
     private final File csvFile;
-
+    /**
+     * The headers of the csv, corresponding to the information that that column contains
+     */
     private final Map<String, Integer> headers = new LinkedHashMap<>();
-
+    /**
+     *  The restaurants that have been loaded from the database on construction
+     *  Maps the restaurant's unique location to the restaurant
+     */
     private final Map<String, Restaurant> currentRestaurants = new HashMap<>();
 
+    /**
+     *
+     * @param csvPath the path to the csv file
+     * @throws IOException Catches errors in writing new data
+     */
     public FileRestaurant(String csvPath) throws IOException {
         csvFile = new File(csvPath);
 
@@ -29,8 +48,10 @@ public class FileRestaurant implements RestaurantDSGateway{
         headers.put("avgStars", 5);
         headers.put("reviews", 6);
 
+        // Writes the headers if it is an empty file
         if (csvFile.length() == 0) {
             writeHeaders();
+            // Else read through the file and add all restaurants to currentRestaurants
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
@@ -48,6 +69,8 @@ public class FileRestaurant implements RestaurantDSGateway{
 
                 String reviews = String.valueOf(col[headers.get("reviews")]);
                 ArrayList<String> reviewsList = new ArrayList<>(Arrays.asList(reviews.split("<")));
+                // If the EMPTY FILLER was in the line, then remove it and return the empty list
+                reviewsList.remove(EMPTY_FILLER);
 
                 RestaurantFactory restaurantFactory = new RestaurantFactory();
                 Restaurant restaurant = restaurantFactory.reinitialize(owner, name, location, cuisineType,
@@ -59,12 +82,20 @@ public class FileRestaurant implements RestaurantDSGateway{
         }
     }
 
+    /**
+     * adds the Restaurant to the current restaurants then resaves
+     *
+     * @param requestModel the Restaurant to be saved into the database
+     */
     @Override
     public void save(Restaurant requestModel) {
-        currentRestaurants.put(requestModel.getName(), requestModel);
+        currentRestaurants.put(requestModel.getLocation(), requestModel);
         save();
     }
 
+    /**
+     * Goes through all the currentRestaurants and rewrites them in the file
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -72,6 +103,11 @@ public class FileRestaurant implements RestaurantDSGateway{
 
             for (Restaurant restaurant : currentRestaurants.values()) {
                 String reviewsLine = String.join("<", restaurant.getReviewIDs());
+                // Since reading a line with nothing after the last comma causes an index of of array error
+                // add an EMPTY FILLER
+                if (reviewsLine.length() == 0) {
+                    reviewsLine = EMPTY_FILLER;
+                }
                 String line = String.join(",",
                         restaurant.getLocation(),
                         restaurant.getName(),
@@ -92,6 +128,12 @@ public class FileRestaurant implements RestaurantDSGateway{
         }
     }
 
+    /**
+     * Helper method that writes the headers of the file
+     *
+     * @return BufferedWriter for the csv file
+     * @throws IOException catches errors when writing data
+     */
     private BufferedWriter writeHeaders() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile));
         writer.write(String.join(",", headers.keySet()));
@@ -99,17 +141,30 @@ public class FileRestaurant implements RestaurantDSGateway{
         return writer;
     }
 
+    /**
+     *  Checks if a restaurant exists in the database
+     * @param identifier the unique location identifier of the Restaurant
+     * @return boolean, if or if the restaurant is in the database
+     */
     @Override
     public boolean existsByLocation(String identifier) {
         return currentRestaurants.containsKey(identifier);
     }
 
+    /**
+     *  Gets the desired restaurant
+     * @param location the unique location identifier of the Restaurant
+     * @return the Restaurant at that location
+     */
     @Override
     public Restaurant retrieveRestaurant(String location) {
-        //TODO reinitializing string to and from object
         return currentRestaurants.get(location);
     }
 
+    /**
+     *
+     * @return an ArrayList of all Restaurants in the database
+     */
     @Override
     public ArrayList<Restaurant> retrieveAllRestaurants() {
         ArrayList<Restaurant> restaurants = new ArrayList<>();
@@ -119,6 +174,10 @@ public class FileRestaurant implements RestaurantDSGateway{
         return restaurants;
     }
 
+    /**
+     * Deletes the restaurant from the database
+     * @param location the unique location identifier of the Restaurant
+     */
     @Override
     public void deleteRestaurant(String location) {
         this.currentRestaurants.remove(location);

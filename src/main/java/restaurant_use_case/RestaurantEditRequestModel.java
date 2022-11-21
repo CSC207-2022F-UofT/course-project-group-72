@@ -3,7 +3,13 @@ package restaurant_use_case;
 import entities.OwnerUser;
 import entities.Restaurant;
 
+/**
+ * The EditRequestModel contains the additional information of the current unchanged Restaurant
+ */
 public class RestaurantEditRequestModel extends RestaurantRequestModel{
+    /**
+     * The unchanged to be changed Restaurant
+     */
     private final Restaurant restaurant;
 
     public RestaurantEditRequestModel(OwnerUser owner, String name, String location, String cuisineType, int priceBucket,
