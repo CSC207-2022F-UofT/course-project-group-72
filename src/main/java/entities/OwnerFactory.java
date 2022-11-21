@@ -19,10 +19,16 @@ public class OwnerFactory extends UserFactory{
     }
 
     /**
+     * Used to reinitialize the OwnerUser
      *
-     * @param username the username of the User
+     * @param username the unique username of the User
      * @param password the password of the User
-     * @param ownedRestaurants the owned Restaurants of the OwnerUser
+     * @param pastReviews the pastReviews of the User
+     * @param likedReviews the likedReviews of the User
+     * @param receivedReports the receivedReports of the User
+     * @param banned the boolean, if or if not the User was banned
+     * @param isOwner the boolean, if or if not the User is an OwnerUser
+     * @param ownedRestaurants the ownedRestaurants of the OwnerUser
      * @return an OwnerUser instance
      */
     public OwnerUser reintialize(String username, String password, ArrayList<String> pastReviews,
