@@ -2,7 +2,7 @@ package user_use_cases;
 
 import Interfaces.ReviewGatewayInterface;
 import entities.User;
-import entities.OwnerUser;
+import entities.UserFactory;
 import entities.OwnerFactory;
 import Gateways.ReviewGateway;
 
@@ -29,6 +29,8 @@ public class UserGateway implements UserGatewayInterface{
      */
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
+    private OwnerFactory ownerFactory = new OwnerFactory();
+    private UserFactory userFactory = new UserFactory();
 
     @Override
     public void updateUser(User user) {
@@ -164,16 +166,15 @@ public class UserGateway implements UserGatewayInterface{
                     ArrayList<String> return_owned_restaurants = new ArrayList(
                             Arrays.asList( owned_restaurant_elements ) );
 
+                    User return_user = userFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
+                            Integer.parseInt(user[4]), return_banned, return_owner);
 
-                    if (!return_owner) {
-                        User return_user = new User(user[0], user[1], return_past_reviews, return_liked_reviews,
-                                Integer.parseInt(user[4]), return_banned, return_owner);
-
-                    } else {
-                        OwnerUser return_user = OwnerFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
-                                Integer.parseInt(user[4]), return_banned, return_owner, return_owned_restaurants);
+                    if (return_owner) {
+                        return_user = ownerFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
+                                Integer.parseInt(user[4]), return_banned, true, return_owned_restaurants)
                     }
 
+                    return return_user;
                 }
             }
         }catch(Exception e){
