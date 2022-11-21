@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 
 
-public class ReportScreen extends JPanel implements ActionListener {
+public class ReportScreen extends JDialog implements ActionListener {
 
     //where the user types his/her reason
     JTextArea reason = new JTextArea(5, 20);
@@ -25,6 +25,8 @@ public class ReportScreen extends JPanel implements ActionListener {
 
     JButton report, cancel;
 
+    JFrame owner;
+
     /**
      *
      * @param controller
@@ -33,7 +35,8 @@ public class ReportScreen extends JPanel implements ActionListener {
      *
      * INITIALIZE REPORT VIEW: A POP OUT WINDOW
      */
-    public ReportScreen(ReportController controller, Review current_review, User current_user) {
+    public ReportScreen(JFrame owner, ReportController controller, Review current_review, User current_user) {
+        super(owner, true);
         this.reportController = controller;
         this.current_review = current_review;
         this.current_user = current_user;
@@ -58,12 +61,18 @@ public class ReportScreen extends JPanel implements ActionListener {
         report.addActionListener(this);
         cancel.addActionListener(this);
 
-        //JPanel settings
-        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.setSize(200, 300);
-        this.add(title);
-        this.add(reasonInfo);
-        this.add(buttons);
+        JPanel main = new JPanel();
+        main.add(buttons);
+        main.add(reason);
+
+        this.setContentPane(main);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(new Dimension(600, 400));
+        this.pack();
+        this.setLocationRelativeTo(null);
+
+        //Make the JFrame appear
+        this.setVisible(true);
 
 
     }
@@ -88,8 +97,12 @@ public class ReportScreen extends JPanel implements ActionListener {
 
 
             }
+
+            this.dispose();
         } else if(evt.getSource() == cancel){
-                this.setVisible(false);
+
+            this.dispose();
+
         }
 
         }

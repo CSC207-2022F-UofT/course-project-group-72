@@ -181,7 +181,7 @@ public class RestaurantView extends JFrame implements ActionListener {
                         ReportController reportController = new ReportController(reportInteractor);
                         reportButton = new JButton("Report");
                         reportButton.setOpaque(true);
-                        reportButton.addActionListener(new ReportActionListener(reportController, review, user));
+                        reportButton.addActionListener(new ReportActionListener(this, reportController, review, user));
                         buttonPanel.add(reportButton);
                     }
                 }else if(this.restaurant.getOwnerID().equals(this.user.getUsername())){

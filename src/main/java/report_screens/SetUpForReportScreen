@@ -51,3 +51,4 @@ How to call a ReportScreen:
         application.pack();
 
         application.setVisible(true);
+
