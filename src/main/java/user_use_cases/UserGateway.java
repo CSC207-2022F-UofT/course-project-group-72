@@ -2,7 +2,6 @@ package user_use_cases;
 
 import Interfaces.ReviewGatewayInterface;
 import entities.User;
-import entities.Review;
 import Gateways.ReviewGateway;
 
 import java.io.BufferedWriter;
@@ -19,10 +18,11 @@ public class UserGateway implements UserGatewayInterface{
     UserDatabase.csv -> How Instance Variables are saved
      Column 0: username (String)
      Column 1: password (String)
-     Column 2: past_reviews (ArrayList<Reviews>) - Use delimiter "/", to separate Review.id values.
+     Column 2: past_reviews (ArrayList<String>) - Use delimiter "/", to separate Review.id values.
      Column 3: likedReviews (ArrayList<String>) - Use delimiter "|" to separate Review.id string values.
      Column 4: received_reports (int)
      Column 5: banned (Boolean) -> 0 - false, 1 - true
+     Column 6: owner (Boolean) -> 0 - false, 1 - true
      */
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
@@ -33,25 +33,24 @@ public class UserGateway implements UserGatewayInterface{
         String new_username = user.getUsername();
         String new_password = user.getPassword();
 
-        ArrayList<Review> past_review_list = user.getPast_reviews();
-        String past_reviews_string = "";
-        for (int i = 0; i < past_review_list.size() - 1; i++) {
-            past_reviews_string = past_reviews_string + past_review_list.get(i).getID() + "/";
-        }
-        // last review without delimiter
-        if (past_review_list.size() > 0) {
-            past_reviews_string = past_reviews_string + past_review_list.get(past_review_list.size()).getID();
-        }
-        String new_past_reviews = past_reviews_string;
+
+        ArrayList<String> past_review_list = user.getPast_reviews();
+        String new_past_reviews = String.join("/", past_review_list);
 
         ArrayList<String> liked_review_list = user.getLikedReviews();
         String new_likedReviews = String.join("|", liked_review_list);
 
 
         String new_received_reports = String.valueOf(user.getReceived_reports());
+
         String new_banned = "0";
         if (user.isBanned()) {
             new_banned = "1";
+        }
+
+        String new_owner = "0";
+        if (user.isOwner()) {
+            new_owner = "1";
         }
 
         String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
@@ -65,6 +64,7 @@ public class UserGateway implements UserGatewayInterface{
         String likedReviews = "";
         String received_reports = "";
         String banned = "";
+        String owner = "";
 
 
 
@@ -85,19 +85,20 @@ public class UserGateway implements UserGatewayInterface{
                 likedReviews = values[3];
                 received_reports = values[4];
                 banned = values[5];
+                owner = values[6];
 
 
                 // replace the old values with the new values
                 if (new_username.equals(username)) {
                     String line1 = String.join(",", username, new_password, new_past_reviews,
-                            new_likedReviews, new_received_reports, new_banned);
+                            new_likedReviews, new_received_reports, new_banned, new_owner);
                     bw.write(line1);
                     bw.newLine();
 
                     //keep the old values
                 } else {
                     String line1 = String.join(",", username, password, past_reviews,
-                            likedReviews, received_reports, banned);
+                            likedReviews, received_reports, banned, owner);
                     bw.write(line1);
                     bw.newLine();
                 }
@@ -133,12 +134,10 @@ public class UserGateway implements UserGatewayInterface{
 
                 if (user[0].equals(username)){
                     // Format Past Reviews
-                    List<String> past_review_ids = new ArrayList<String>();
+
                     String[] past_reviews_elements = user[2].split("/");
-                    ArrayList<Review> return_past_review = new ArrayList<Review>();
-                    for (int i = 0; i < past_review_ids.size(); i++) {
-                        return_past_review.add(ReviewGatewayInterface.getReview(past_reviews_elements[i]));
-                    }
+                    ArrayList<String> return_past_reviews = new ArrayList(
+                            Arrays.asList( past_reviews_elements ) );
 
                     String[] liked_reviews_elements = user[3].split("|");
                     ArrayList<String> return_liked_reviews = new ArrayList(
@@ -149,8 +148,13 @@ public class UserGateway implements UserGatewayInterface{
                         return_banned = true;
                     }
 
-                    User return_user = new User(user[0], user[1], return_past_review, return_liked_reviews,
-                            Integer.parseInt(user[4]), return_banned);
+                    Boolean return_owner = false;
+                    if (Integer.parseInt(user[6]) == 1) {
+                        return_owner = true;
+                    }
+
+                    User return_user = new User(user[0], user[1], return_past_reviews, return_liked_reviews,
+                            Integer.parseInt(user[4]), return_banned, return_owner);
 
                     return return_user;
                 }
@@ -228,6 +232,8 @@ public class UserGateway implements UserGatewayInterface{
             writer.append(",");
             writer.append("0"); // boolean banned -> 0 - false, 1 - true
             writer.append(",");
+            writer.append("0"); // boolean owner -> 0 - false, 1 - true
+            writer.append(",");
             writer.append("\n");
             writer.close();
         } catch (IOException e) {
@@ -236,19 +242,16 @@ public class UserGateway implements UserGatewayInterface{
         }
     }
 
-    @Override
-    public void banUser(String username) {
-
+    public void addReview(String reviewId, String userid) {
+        User curr_user = getUser(userid);
+        curr_user.add_review(reviewId);
+        updateUser(curr_user);
     }
 
-    @Override
-    public void addReview(String reviewId) {
-
-    }
-
-    @Override
-    public void addLikedReview(String reviewId) {
-
+    public void addLikedReview(String reviewId, String userid) {
+        User curr_user = getUser(userid);
+        curr_user.addLikedReview(reviewId);
+        updateUser(curr_user);
     }
 
 }

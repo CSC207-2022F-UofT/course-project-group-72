@@ -14,10 +14,9 @@ public interface UserGatewayInterface {
 
     public void addUser(String username, String password);
 
-    public void banUser(String username);
 
-    public void addReview(String reviewId);
+    public void addReview(String reviewId, String userid);
 
-    public void addLikedReview(String reviewId);
+    public void addLikedReview(String reviewId, String userid);
 
 }

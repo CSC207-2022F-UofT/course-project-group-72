@@ -5,6 +5,9 @@ import entities.Review;
 
 import java.util.ArrayList;
 
+/**
+ * The Request model for modifying Restaurants, containing all the possible changed or new information
+ */
 public class RestaurantRequestModel {
     //TODO Possibly use RestaurantAttributes to contain the data we need to pass
     private final String name;
