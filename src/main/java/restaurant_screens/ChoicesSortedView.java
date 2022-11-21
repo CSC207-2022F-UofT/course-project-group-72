@@ -16,23 +16,19 @@ public class ChoicesSortedView extends JFrame {
     JLabel restaurantPrice;
     JLabel restaurantLocation;
     JLabel restaurantCuisineType;
+    JLabel restaurantAvgStars;
 
     public ChoicesSortedView(ArrayList<Restaurant> sortedList) {
-        // format response model
-
-        // Create Window
-//        JFrame display_list = new JFrame();
-        // display_list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
         //TODO: organize/format components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         for (Restaurant restaurant : sortedList) {
             // Components
-            restaurantName = new JLabel(restaurant.getName());
-            restaurantPrice = new JLabel(String.valueOf(restaurant.getPriceBucket()));
-            restaurantLocation = new JLabel(restaurant.getLocation());
-            restaurantCuisineType = new JLabel(restaurant.getCuisineType());
+            restaurantName = new JLabel("Name: " + restaurant.getName());
+            restaurantPrice = new JLabel("Price Rating($): " + restaurant.getPriceBucket());
+            restaurantLocation = new JLabel("Location: " + restaurant.getLocation());
+            restaurantCuisineType = new JLabel("Cuisine: " + restaurant.getCuisineType());
+            restaurantAvgStars = new JLabel("Star Rating(/5): " + restaurant.getAvgStars());
 
             JPanel restaurantPanel = new JPanel();
             restaurantPanel.add(restaurantName);
@@ -40,21 +36,14 @@ public class ChoicesSortedView extends JFrame {
             restaurantPanel.add(restaurantLocation);
             restaurantPanel.add(restaurantCuisineType);
 
-//            display_list.add(restaurantPanel);
             this.add(restaurantPanel);
 
 
         }
 
-        // display
-//        display_list.setLocationRelativeTo(null);
-//        display_list.pack();
-//        display_list.setVisible(true);
-
-
         // Window options
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(700, 350));
+        this.setPreferredSize(new Dimension(800, 550));
         this.pack();
         this.setLocationRelativeTo(null);
 

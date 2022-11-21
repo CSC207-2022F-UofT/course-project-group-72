@@ -1,16 +1,16 @@
+package restaurant_use_case;
+
 import entities.Restaurant;
 import restaurant_screens.ChoicesController;
+import restaurant_screens.ChoicesPresenter;
+import restaurant_screens.ChoicesResponseFormatter;
 import restaurant_screens.ChoicesSortedView;
-import restaurant_use_case.ChoicesRequestModel;
-import restaurant_use_case.ChoicesResponseModel;
-import restaurant_use_case.sortChoices;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class HomeScreenView extends JFrame implements ActionListener {
     /**
@@ -69,11 +69,10 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The choices controller
      */
-    static ChoicesController choicesController;
+    static RestaurantDSGateway choicesGateway;
 
-    public HomeScreenView(ChoicesController choicesController) {
-
-        this.choicesController = choicesController;
+    public HomeScreenView(RestaurantDSGateway choicesGateway) {
+        HomeScreenView.choicesGateway = choicesGateway;
 
         // Search Field(s) Temporarily placing Location as an input field
         JPanel searchField = new JPanel();
@@ -89,11 +88,11 @@ public class HomeScreenView extends JFrame implements ActionListener {
         searchButton.addActionListener(this);
 
         // Drop-Down Menus Options
-        Integer[] pricingOptions = { 1, 2, 3, 4, 5};
-        Integer[] avgStarsOptions = { 1, 2, 3, 4, 5};
+        Integer[] pricingOptions = {0, 1, 2, 3, 4, 5};
+        Integer[] avgStarsOptions = {0, 1, 2, 3, 4, 5};
 
         // TODO: add more cuisine options
-        String[] cuisineOptions = {"Food"};
+        String[] cuisineOptions = {"No Preference", "Food"};
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
@@ -125,7 +124,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
         // Initialize Buttons
         sortPriceButton = new JRadioButton("Sort By Price ($):");
-        sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):");
+        sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):", true);
         sortNameButton = new JRadioButton("Sort By Name:");
 
         // Add to selection button group
@@ -138,7 +137,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
         // Separate Direction Buttons (Sort by Direction, Ex: Ascending, Descending)
         sortAscending = new JRadioButton("Sort Ascending:");
-        sortDescending = new JRadioButton("Sort Descending:");
+        sortDescending = new JRadioButton("Sort Descending:", true);
 
         // Add to direction button group
         sortDirection.add(sortAscending);
@@ -160,7 +159,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
         // Window options
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(700, 350));
+        this.setPreferredSize(new Dimension(800, 350));
         this.pack();
         this.setLocationRelativeTo(null);
 
@@ -170,6 +169,15 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // System.out.println("Click " + e.getActionCommand());
+        // ChoicesInputBoundary sortChoices = null;
+        // ChoicesController choicesController = new ChoicesController(sortChoices);
+
+        ChoicesPresenter presenter = new ChoicesResponseFormatter();
+        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
+        ChoicesController choicesController = new ChoicesController(interactor);
+
+        //try {
         ChoicesResponseModel selections = choicesController.select(
                 query.getText(),
                 location.getText(),
@@ -178,23 +186,31 @@ public class HomeScreenView extends JFrame implements ActionListener {
                 avgStars.getItemAt(avgStars.getSelectedIndex()),
                 sortButtons.getSelection().getActionCommand(),
                 sortDirection.getSelection().getActionCommand()
-                );
+            );
+            System.exit(0);
 
-                ArrayList<Restaurant> sortedList = selections.getRestaurants();
-                Container sortedView = new ChoicesSortedView(sortedList);
+            ArrayList<Restaurant> sortedList = selections.getRestaurants();
 
-                this.setVisible(false);
-                sortedView.setVisible(true);
+            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList);
 
+            this.setVisible(false);
+            this.dispose();
+            sortedView.setVisible(true);
+            repaint();
+
+        //} catch (Exception ex) {
+        //    JOptionPane.showMessageDialog(this, ex.toString());
 
 //        } catch (Exception ex) {
 //            throw new RuntimeException(ex);
 //        }
-    }
+        }
 
-    public static void main(String[] args){
-        HomeScreenView view = new HomeScreenView(choicesController);
-        view.setVisible(true);
-    }
+//    public static void main(String[] args){
+//        // choicesController = new ChoicesController();
+//
+//        HomeScreenView view = new HomeScreenView(choicesGateway);
+//        view.setVisible(true);
+//    }
 
 }

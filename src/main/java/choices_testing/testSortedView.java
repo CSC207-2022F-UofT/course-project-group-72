@@ -16,17 +16,17 @@ public class testSortedView {
         RestaurantFactory factory = new RestaurantFactory();
         Restaurant r1 = factory.create("111",
                 "Tim Hortons",
-                "M1B",
+                "M1B 1M2",
                 "Coffee",
                 1);
         Restaurant r2 = factory.create("222",
                 "Ajisen",
-                "K9B",
+                "K9B 5L0",
                 "Ramen",
                 3);
         Restaurant r3 = factory.create("333",
                 "Chako",
-                "Z1B",
+                "Z1B 2C8",
                 "K BBQ",
                 5);
 

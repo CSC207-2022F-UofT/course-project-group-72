@@ -36,12 +36,13 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
 
                     // Determines Location (Postal Code) and uses the first 3 letters for nearby rest
                 && (Objects.equals(restaurant.getLocation().substring(0, 4),
-                    requestModel.getInputLocation().substring(0, 4)) || restaurant.getLocation() == null)
+                    requestModel.getInputLocation().substring(0, 4)) ||
+                    Objects.equals(restaurant.getLocation(), ""))
 
                     // Can change to tags, would make cuisine type an input or keep the same but
                     // choices are limited
                 && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
-                    restaurant.getCuisineType() == null)
+                    Objects.equals(restaurant.getCuisineType(), ""))
 
                     // Average Stars should filter decimals, like 3.99 is categorized into 3
                 && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
