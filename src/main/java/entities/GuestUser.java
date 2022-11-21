@@ -1,8 +1,8 @@
 package entities;
 
-public class GuestUser extends User{
+public class GuestUser{
 
     public GuestUser() {
-        super();
-    }
+
+    };
 }
