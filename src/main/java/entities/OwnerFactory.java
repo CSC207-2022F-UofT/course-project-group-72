@@ -22,10 +22,14 @@ public class OwnerFactory extends UserFactory{
      *
      * @param username the username of the User
      * @param password the password of the User
-     * @param restaurants the owned Restaurants of the OwnerUser
+     * @param ownedRestaurants the owned Restaurants of the OwnerUser
      * @return an OwnerUser instance
      */
-    public OwnerUser reintialize(String username, String password, ArrayList<String> restaurants) {
-        return new OwnerUser(username, password, restaurants);
+    public OwnerUser reintialize(String username, String password, ArrayList<String> pastReviews,
+                                 ArrayList<String> likedReviews,
+                                 int receivedReports, boolean banned, boolean isOwner,
+                                 ArrayList<String> ownedRestaurants) {
+        return new OwnerUser(username, password, pastReviews, likedReviews, receivedReports, banned, isOwner,
+                ownedRestaurants);
     }
 }

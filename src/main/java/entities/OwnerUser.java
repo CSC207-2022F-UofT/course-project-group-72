@@ -28,11 +28,13 @@ public class OwnerUser extends User{
      *
      * @param username the unique username of the User
      * @param password the password of the User
-     * @param restaurants the ownedRestaurnts of the OwnerUser
+     * @param ownedRestaurants the ownedRestaurants of the OwnerUser
      */
-    OwnerUser(String username, String password,  ArrayList<String> restaurants) {
-        super(username, password);
-        this.ownedRestaurants = restaurants;
+    OwnerUser(String username, String password, ArrayList<String> pastReviews, ArrayList<String> likedReviews,
+              int receivedReports, boolean banned, boolean isOwner,
+              ArrayList<String> ownedRestaurants) {
+        super(username, password, pastReviews, likedReviews, receivedReports, banned, isOwner);
+        this.ownedRestaurants = ownedRestaurants;
     }
     /**
      *
