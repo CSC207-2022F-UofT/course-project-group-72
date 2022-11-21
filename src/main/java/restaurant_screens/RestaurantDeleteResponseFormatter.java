@@ -20,7 +20,7 @@ public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresen
      */
     @Override
     public RestaurantResponseModel prepareSuccessView(String message, String restaurant, String deletionTime) {
-        this.previousView.back(); //TODO implementation
+        //this.previousView.back(); //TODO implementation
         return new RestaurantResponseModel(null, "Your restaurant: " + restaurant
                 + " was successfully " + message, deletionTime);
     }

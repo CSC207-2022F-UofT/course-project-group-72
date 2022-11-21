@@ -25,7 +25,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
     public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
         unformatted.setOperation("Successfully " + unformatted.getOperation() + " " +
                 unformatted.getRestaurant().getName());
-        previousView.refresh();
+        //previousView.refresh();
         return unformatted;
     }
 
