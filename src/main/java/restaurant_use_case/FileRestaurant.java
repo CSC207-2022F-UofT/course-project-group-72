@@ -14,6 +14,10 @@ import java.util.*;
  */
 public class FileRestaurant implements RestaurantDSGateway{
     /**
+     *
+     */
+    private final static String EMPTY_FILLER = "empty";
+    /**
      * The file containing the data
      */
     private final File csvFile;
@@ -23,6 +27,7 @@ public class FileRestaurant implements RestaurantDSGateway{
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     /**
      *  The restaurants that have been loaded from the database on construction
+     *  Maps the restaurant's unique location to the restaurant
      */
     private final Map<String, Restaurant> currentRestaurants = new HashMap<>();
 
@@ -64,6 +69,8 @@ public class FileRestaurant implements RestaurantDSGateway{
 
                 String reviews = String.valueOf(col[headers.get("reviews")]);
                 ArrayList<String> reviewsList = new ArrayList<>(Arrays.asList(reviews.split("<")));
+                // If the EMPTY FILLER was in the line, then remove it and return the empty list
+                reviewsList.remove(EMPTY_FILLER);
 
                 RestaurantFactory restaurantFactory = new RestaurantFactory();
                 Restaurant restaurant = restaurantFactory.reinitialize(owner, name, location, cuisineType,
@@ -82,7 +89,7 @@ public class FileRestaurant implements RestaurantDSGateway{
      */
     @Override
     public void save(Restaurant requestModel) {
-        currentRestaurants.put(requestModel.getName(), requestModel);
+        currentRestaurants.put(requestModel.getLocation(), requestModel);
         save();
     }
 
@@ -96,6 +103,11 @@ public class FileRestaurant implements RestaurantDSGateway{
 
             for (Restaurant restaurant : currentRestaurants.values()) {
                 String reviewsLine = String.join("<", restaurant.getReviewIDs());
+                // Since reading a line with nothing after the last comma causes an index of of array error
+                // add an EMPTY FILLER
+                if (reviewsLine.length() == 0) {
+                    reviewsLine = EMPTY_FILLER;
+                }
                 String line = String.join(",",
                         restaurant.getLocation(),
                         restaurant.getName(),
@@ -146,7 +158,6 @@ public class FileRestaurant implements RestaurantDSGateway{
      */
     @Override
     public Restaurant retrieveRestaurant(String location) {
-        //TODO reinitializing string to and from object
         return currentRestaurants.get(location);
     }
 
