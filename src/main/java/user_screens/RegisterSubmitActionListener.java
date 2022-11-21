@@ -46,7 +46,7 @@ public class RegisterSubmitActionListener implements ActionListener{
                 JOptionPane.showMessageDialog(this.parent, "Welcome " + responseModel.getUsername());
                 this.parent.dispose();
                 User curr_user = new User(username, password_1);
-                new HomeScreenView(curr_user);
+                // new HomeScreenView();
             } else {
                 // Error. Specific error: responseModel.getError()
                 JOptionPane.showMessageDialog(this.parent, responseModel.getError());

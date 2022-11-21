@@ -2,7 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
-public class User  extends GuestUser{
+public class User extends GuestUser{
     private String username;
     private String password;
     private ArrayList<String> past_reviews;

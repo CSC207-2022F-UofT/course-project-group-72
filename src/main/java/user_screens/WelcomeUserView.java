@@ -17,7 +17,7 @@ public class WelcomeUserView extends JFrame {
     private UserGateway userGateway;
     private UserFactory factory = new UserFactory();
     private RegisterUserController registerUserController;
-
+    private LoginUserController loginUserController;
     public WelcomeUserView() {
 
         //Initialize all needed
@@ -82,8 +82,8 @@ public class WelcomeUserView extends JFrame {
         // Register Submit button - Log-in
         JButton loginSubmitButton = new JButton("Log In");
         loginSubmitButton.setOpaque(true);
-        loginSubmitButton.addActionListener(new LoginSubmitActionListener(this, registerUserController,
-                userGateway, usernameField.getText(), passwordField.getText(), confirmPasswordField.getText()));
+        loginSubmitButton.addActionListener(new LoginSubmitActionListener(this, loginUserController,
+                userGateway, login_usernameField.getText(), login_passwordField.getText()));
 
 
         // Assemble all components

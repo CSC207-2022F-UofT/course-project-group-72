@@ -17,6 +17,19 @@ public class LoginSubmitActionListener {
     private final UserGatewayInterface userGateway;
     private String username;
 
-    private String password_1;
+    private String password;
+
+    /*
+    Constructor
+     */
+    public LoginSubmitActionListener(JFrame parent, LoginUserController loginUserController,
+                                        UserGatewayInterface userGateway, String username, String password) {
+        this.parent = parent;
+        this.loginUserController = registerUserController;
+        this.userGateway = userGateway;
+        this.username = username;
+        this.password_1 = password_1;
+        this.password_2 = password_2;
+    }
 
 }
