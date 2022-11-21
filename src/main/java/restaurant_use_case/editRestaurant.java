@@ -18,6 +18,7 @@ public class editRestaurant implements RestaurantInputBoundary{
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
         if (!gateway.existsByLocation(requestModel.getLocation())) {
+            // Checks if the restaurant exists in the system and can be deleted
             return presenter.prepareFailView("RESTAURANT DOES NOT EXIST");
         }
 

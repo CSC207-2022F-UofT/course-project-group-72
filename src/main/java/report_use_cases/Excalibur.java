@@ -9,6 +9,12 @@ public class Excalibur {
 
     private  Review targeted_review;
 
+    /**
+     *
+     * @param targeted_user
+     * @param targeted_review
+     */
+
     public Excalibur(User targeted_user, Review targeted_review) {
         this.targeted_user = targeted_user;
         this.targeted_review = targeted_review;

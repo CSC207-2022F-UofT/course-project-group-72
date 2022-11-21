@@ -27,6 +27,4 @@ public class ReportRequestModel {
         return this.reporter;
     }
 
-    //get_review_content
-    //get_reported_user
 }

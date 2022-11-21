@@ -23,6 +23,11 @@ public class FileReportHistory implements reportDsGateway {
     // Map of review_id to reporter_username, USED to check if a report exists
     private final Map<String, String> check_reports = new HashMap<>();
 
+    /**
+     *
+     * @param csvName
+     * @throws IOException
+     */
     public FileReportHistory(String csvName) throws IOException {
         csvFile = new File(csvName);
         headers.put("review_id", 0);
