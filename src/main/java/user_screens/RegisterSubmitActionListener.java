@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 
 public class RegisterSubmitActionListener implements ActionListener{
 
-    //Attributes we need to pass to LikeReviewController
     private final JFrame parent;
     private final RegisterUserController registerUserController;
     private final UserGatewayInterface userGateway;
