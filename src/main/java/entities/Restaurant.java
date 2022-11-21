@@ -1,5 +1,8 @@
 package entities;
 
+import ReviewGateways.ReviewNotFoundException;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -125,7 +128,9 @@ public class Restaurant {
     /**
      * @return the restaurant's reviews
      */
-    public ArrayList<Review> getReviews() {return this.reviews.getReviews();}
+    public ArrayList<Review> getReviews() throws ReviewNotFoundException, FileNotFoundException {
+        return this.reviews.getReviews();
+    }
     /**
      * @return the restaurant's cuisine type
      */
