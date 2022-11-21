@@ -1,5 +1,6 @@
 package restaurant_screens;
 import entities.Restaurant;
+import restaurant_use_case.ChoicesResponseModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class ChoicesSortedView extends JFrame {
 
-    public ChoicesSortedView(ArrayList<Restaurant> sortedList) {
+    public ChoicesSortedView(ChoicesResponseModel responseModel) {
 
 
         // Create Window
@@ -18,18 +19,21 @@ public class ChoicesSortedView extends JFrame {
 
 
         //TODO: organize/format components
+
+        ArrayList<Restaurant> sortedList = responseModel.getRestaurants();
+
         for (Restaurant restaurant : sortedList) {
             // Components
-            JLabel restarauntName = new JLabel(restaurant.getName());
-            JLabel restarauntPrice = new JLabel(String.valueOf(restaurant.getPriceBucket()));
-            JLabel restarauntLocation = new JLabel(restaurant.getLocation());
-            JLabel restarauntCuisineType = new JLabel(restaurant.getCuisineType());
+            JLabel restaurantName = new JLabel(restaurant.getName());
+            JLabel restaurantPrice = new JLabel(String.valueOf(restaurant.getPriceBucket()));
+            JLabel restaurantLocation = new JLabel(restaurant.getLocation());
+            JLabel restaurantCuisineType = new JLabel(restaurant.getCuisineType());
 
             JPanel restaurantPanel = new JPanel();
-            restaurantPanel.add(restarauntName);
-            restaurantPanel.add(restarauntPrice);
-            restaurantPanel.add(restarauntLocation);
-            restaurantPanel.add(restarauntCuisineType);
+            restaurantPanel.add(restaurantName);
+            restaurantPanel.add(restaurantPrice);
+            restaurantPanel.add(restaurantLocation);
+            restaurantPanel.add(restaurantCuisineType);
 
             display_list.add(restaurantPanel);
 

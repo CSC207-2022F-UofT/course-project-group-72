@@ -4,6 +4,9 @@ import entities.Restaurant;
 
 import java.util.ArrayList;
 
+/**
+ * The gateway interface, for dependency inversion
+ */
 public interface RestaurantDSGateway {
     void save(Restaurant requestModel);
     boolean existsByLocation(String location);

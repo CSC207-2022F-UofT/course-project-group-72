@@ -5,19 +5,22 @@ import entities.Review;
 
 import java.util.ArrayList;
 
+/**
+ * The Request model for modifying Restaurants, containing all the possible changed or new information
+ */
 public class RestaurantRequestModel {
     //TODO Possibly use RestaurantAttributes to contain the data we need to pass
-    private String name;
-    private String location;
-    private String cuisineType;
-    private int priceBucket;
-    private String ownerID;
+    private final String name;
+    private final String location;
+    private final String cuisineType;
+    private final int priceBucket;
+    private final OwnerUser owner;
 
-    public RestaurantRequestModel(String ownerID, String name, String location,
+    public RestaurantRequestModel(OwnerUser owner, String name, String location,
                                   String cuisineType, int priceBucket) {
         this.name = name;
         this.location = location;
-        this.ownerID = ownerID;
+        this.owner = owner;
         this.cuisineType = cuisineType;
         this.priceBucket = priceBucket;
     }
@@ -27,5 +30,5 @@ public class RestaurantRequestModel {
     String getLocation() {return this.location;}
     String getCuisineType() {return this.cuisineType;}
     int getPriceBucket() {return this.priceBucket;}
-    String getOwnerID() {return this.ownerID;}
+    OwnerUser getOwner() {return this.owner;}
 }
