@@ -14,9 +14,19 @@ public class ReportController {
         this.input = input;
     }
 
+    /**
+     *
+     * @param reason
+     * @param review
+     * @param reporter
+     * @return ReportResponseModel
+     * @throws Exception
+     */
     public ReportResponseModel create(String reason, Review review, User reporter) throws Exception {
 
+        // create a ReportRequestModel object
         ReportRequestModel reportRequestModel = new ReportRequestModel(reason, review, reporter);
+        // pass reportrequestmodel to input.create method which returns a reportreponsemodel
         return input.create(reportRequestModel);
     }
 }
