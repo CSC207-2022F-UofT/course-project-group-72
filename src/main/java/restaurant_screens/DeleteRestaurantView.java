@@ -91,7 +91,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             // initialize the presenter, controller and use case interactor
-            RestaurantDeletePresenter presenter = new RestaurantDeleteResponseFormatter();
+            RestaurantDeletePresenter presenter = new RestaurantDeleteResponseFormatter(previousFrame);
             RestaurantDeleteInputBoundary interactor = new deleteRestaurant(restaurantGateway, userGateway, presenter);
             RestaurantDeleteController restaurantController = new RestaurantDeleteController(interactor);
             // Check if the person clicked confirm, if so interact

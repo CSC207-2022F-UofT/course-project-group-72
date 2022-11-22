@@ -78,7 +78,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testRetrieveRestaurantCuisineType() {
-        String actual = gateway.retrieveRestaurant("1234, temp ave").getCuisineType();
+        String actual = gateway.retrieveRestaurant("1234 temp ave").getCuisineType();
         assertEquals("bbq", actual);
     }
 
@@ -168,6 +168,16 @@ public class RestaurantGatewayEntityTest {
         double expected = (3.2 + 3)/2;
 
         assertEquals(expected, testRestaurant2.getAvgStars(), 0.000001d);
+    }
+
+    /**
+     * Test that the gateway is able to Retrieve all restaurants
+     */
+    @Test
+    public void testRetrieveAllRestaurants() {
+        ArrayList<Restaurant> restaurants = gateway.retrieveAllRestaurants();
+        assertEquals("1234 temp ave", restaurants.get(0).getLocation());
+        assertEquals("45 fake st", restaurants.get(1).getLocation());
     }
 
     /**

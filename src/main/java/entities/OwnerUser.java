@@ -24,10 +24,15 @@ public class OwnerUser extends User{
     }
 
     /**
-     * Reinitializes the Restaurant
+     * Reinitializes the OwnerUser
      *
      * @param username the unique username of the User
      * @param password the password of the User
+     * @param pastReviews the pastReviews of the User
+     * @param likedReviews the likedReviews of the User
+     * @param receivedReports the receivedReports of the User
+     * @param banned the boolean, if or if not the User was banned
+     * @param isOwner the boolean, if or if not the User is an OwnerUser
      * @param ownedRestaurants the ownedRestaurants of the OwnerUser
      */
     OwnerUser(String username, String password, ArrayList<String> pastReviews, ArrayList<String> likedReviews,

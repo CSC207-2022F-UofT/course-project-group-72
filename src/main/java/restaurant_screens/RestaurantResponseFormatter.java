@@ -9,10 +9,10 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
     /**
      * The previous frame
      */
-    private final IFrame view;
+    private final IFrame previousView;
 
-    RestaurantResponseFormatter(IFrame view) {
-        this.view = view;
+    RestaurantResponseFormatter(IFrame previousView) {
+        this.previousView = previousView;
     }
 
     /**
@@ -25,7 +25,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
     public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
         unformatted.setOperation("Successfully " + unformatted.getOperation() + " " +
                 unformatted.getRestaurant().getName());
-        view.refresh(unformatted.getRestaurant());
+        //previousView.refresh();
         return unformatted;
     }
 

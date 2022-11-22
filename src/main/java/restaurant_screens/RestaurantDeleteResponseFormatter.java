@@ -6,6 +6,10 @@ import restaurant_use_case.RestaurantResponseModel;
  * The responseFormatter/ presenter which updated the screen
  */
 public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresenter{
+    private final IFrame previousView;
+    public RestaurantDeleteResponseFormatter(IFrame previousView) {
+        this.previousView = previousView;
+    }
     /**
      * TODO skip the previous screen and go back to sorted view
      *
@@ -16,6 +20,7 @@ public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresen
      */
     @Override
     public RestaurantResponseModel prepareSuccessView(String message, String restaurant, String deletionTime) {
+        //this.previousView.back(); //TODO implementation
         return new RestaurantResponseModel(null, "Your restaurant: " + restaurant
                 + " was successfully " + message, deletionTime);
     }

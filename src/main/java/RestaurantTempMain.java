@@ -1,10 +1,5 @@
-import restaurant_screens.CreateRestaurantView;
-import restaurant_screens.RestaurantController;
-import restaurant_screens.RestaurantPresenter;
-import restaurant_screens.RestaurantResponseFormatter;
 import restaurant_use_case.*;
 import entities.*;
-import user_use_cases.UserGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,20 +20,11 @@ public class RestaurantTempMain {
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
-        UserGateway user = new UserGateway();
 
-        RestaurantPresenter presenter = new RestaurantResponseFormatter();
         RestaurantFactory factory = new RestaurantFactory();
-        createRestaurant interactor = new createRestaurant(factory, restaurant, user, presenter);
-        RestaurantController controller = new RestaurantController(interactor);
+        restaurant.save(factory.create("123", "tim", "123 temp ave", "bbq", 3));
 
-        CreateRestaurantView resView = new CreateRestaurantView(controller,
-                new OwnerUser("testuser", "123"));
-        screens.add(resView);
-        cardLayout.show(screens, "test");
-        application.pack();
-        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setVisible(true);
+
 
     }
 }
