@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 
 
-public class ReportScreen extends JPanel implements ActionListener {
+public class ReportScreen extends JDialog implements ActionListener {
 
     //where the user types his/her reason
     JTextArea reason = new JTextArea(5, 20);
@@ -25,15 +25,18 @@ public class ReportScreen extends JPanel implements ActionListener {
 
     JButton report, cancel;
 
+    JFrame owner;
+
     /**
-     *
+     * @param previousFrame: main JFrame
      * @param controller
      * @param current_review
      * @param current_user
      *
      * INITIALIZE REPORT VIEW: A POP OUT WINDOW
      */
-    public ReportScreen(ReportController controller, Review current_review, User current_user) {
+    public ReportScreen(JFrame previousFrame, ReportController controller, Review current_review, User current_user) {
+        super(previousFrame, true);
         this.reportController = controller;
         this.current_review = current_review;
         this.current_user = current_user;
@@ -58,12 +61,19 @@ public class ReportScreen extends JPanel implements ActionListener {
         report.addActionListener(this);
         cancel.addActionListener(this);
 
-        //JPanel settings
-        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        this.setSize(200, 300);
-        this.add(title);
-        this.add(reasonInfo);
-        this.add(buttons);
+        JPanel main = new JPanel();
+        main.add(buttons);
+        main.add(reasonInfo);
+        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+
+        this.setContentPane(main);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(new Dimension(600, 400));
+        this.pack();
+        this.setLocationRelativeTo(null);
+
+        //Make the JFrame appear
+        this.setVisible(true);
 
 
     }
@@ -77,7 +87,7 @@ public class ReportScreen extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
         //case1: if the user hit report button
-        if (evt.getSource() == report) {
+        if (evt.getActionCommand().equals("Report")) {
             //case1.1: Report is created successfully
             try {
                 reportController.create(reason.getText(), this.current_review, this.current_user);
@@ -88,8 +98,12 @@ public class ReportScreen extends JPanel implements ActionListener {
 
 
             }
-        } else if(evt.getSource() == cancel){
-                this.setVisible(false);
+
+            this.dispose();
+        } else if(evt.getActionCommand().equals("Cancel")){
+
+            this.dispose();
+
         }
 
         }
