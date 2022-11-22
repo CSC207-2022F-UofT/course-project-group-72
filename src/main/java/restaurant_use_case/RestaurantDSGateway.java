@@ -40,5 +40,5 @@ public interface RestaurantDSGateway {
      * @param location the location of the Restaurant to be deleted
      */
     void deleteRestaurant(String location);
-    ArrayList<Restaurant> searchMatch(String query);
+    ArrayList<Restaurant> searchMatch(String nameQuery, String locationQuery);
 }

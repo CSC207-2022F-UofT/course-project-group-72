@@ -1,33 +1,37 @@
 package restaurant_screens;
 import entities.Restaurant;
-import restaurant_use_case.ChoicesResponseModel;
+import entities.RestaurantFactory;
+import entities.User;
+import restaurant_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChoicesSortedView extends JFrame {
+    //TODO: java documentation
+    JLabel restaurantName;
+    JLabel restaurantPrice;
+    JLabel restaurantLocation;
+    JLabel restaurantCuisineType;
+    JLabel restaurantAvgStars;
 
-    public ChoicesSortedView(ChoicesResponseModel responseModel) {
+    // TODO: pass user through login -> home screen -> choices sorted
 
-
-        // Create Window
-        JFrame display_list = new JFrame();
-        // display_list.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    public ChoicesSortedView(ArrayList<Restaurant> sortedList) {
 
         //TODO: organize/format components
-
-        ArrayList<Restaurant> sortedList = responseModel.getRestaurants();
-
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         for (Restaurant restaurant : sortedList) {
             // Components
-            JLabel restaurantName = new JLabel(restaurant.getName());
-            JLabel restaurantPrice = new JLabel(String.valueOf(restaurant.getPriceBucket()));
-            JLabel restaurantLocation = new JLabel(restaurant.getLocation());
-            JLabel restaurantCuisineType = new JLabel(restaurant.getCuisineType());
+            restaurantName = new JLabel("Name: " + restaurant.getName());
+            restaurantPrice = new JLabel("Price Rating($): " + restaurant.getPriceBucket());
+            restaurantLocation = new JLabel("Location: " + restaurant.getLocation());
+            restaurantCuisineType = new JLabel("Cuisine: " + restaurant.getCuisineType());
+            restaurantAvgStars = new JLabel("Star Rating(/5): " + restaurant.getAvgStars());
 
             JPanel restaurantPanel = new JPanel();
             restaurantPanel.add(restaurantName);
@@ -35,20 +39,19 @@ public class ChoicesSortedView extends JFrame {
             restaurantPanel.add(restaurantLocation);
             restaurantPanel.add(restaurantCuisineType);
 
-            display_list.add(restaurantPanel);
+            this.add(restaurantPanel);
+
 
         }
 
-        // display
-        display_list.setLocationRelativeTo(null);
-        display_list.pack();
-        display_list.setVisible(true);
+        // Window options
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setPreferredSize(new Dimension(800, 550));
+        this.pack();
+        this.setLocationRelativeTo(null);
+
+        this.setVisible(true);
+        repaint();
 
     }
-
-    public static void main(String[] args) {
-        // TODO: main call
-        //new ChoicesSortedView();
-    }
-
 }
