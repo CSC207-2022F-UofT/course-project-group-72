@@ -171,7 +171,7 @@ public class UserGateway implements UserGatewayInterface{
 
                     if (return_owner) {
                         return_user = ownerFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
-                                Integer.parseInt(user[4]), return_banned, true, return_owned_restaurants)
+                                Integer.parseInt(user[4]), return_banned, true, return_owned_restaurants);
                     }
 
                     return return_user;
