@@ -11,7 +11,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
      */
     private final IFrame view;
 
-    public RestaurantResponseFormatter(IFrame view) {
+    RestaurantResponseFormatter(IFrame view) {
         this.view = view;
     }
 
@@ -22,7 +22,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
      * @return a formatted version of the response
      */
     @Override
-    RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
+    public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
         unformatted.setOperation("Successfully " + unformatted.getOperation() + " " +
                 unformatted.getRestaurant().getName());
         view.refresh(unformatted.getRestaurant());
