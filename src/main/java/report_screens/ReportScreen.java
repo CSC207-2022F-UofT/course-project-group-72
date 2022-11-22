@@ -87,7 +87,7 @@ public class ReportScreen extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
         //case1: if the user hit report button
-        if (evt.getActionCommand().equals("report")) {
+        if (evt.getActionCommand().equals("Report")) {
             //case1.1: Report is created successfully
             try {
                 reportController.create(reason.getText(), this.current_review, this.current_user);
@@ -100,7 +100,7 @@ public class ReportScreen extends JDialog implements ActionListener {
             }
 
             this.dispose();
-        } else if(evt.getActionCommand().equals("cancel")){
+        } else if(evt.getActionCommand().equals("Cancel")){
 
             this.dispose();
 
