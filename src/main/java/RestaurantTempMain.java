@@ -1,7 +1,6 @@
 import restaurant_use_case.*;
 import entities.*;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -21,6 +20,7 @@ public class RestaurantTempMain {
         } catch (IOException e) {
             throw new RuntimeException("Could not create file.");
         }
+
         RestaurantFactory factory = new RestaurantFactory();
         restaurant.save(factory.create("123", "tim", "123 temp ave", "bbq", 3));
 

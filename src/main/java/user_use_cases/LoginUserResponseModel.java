@@ -1,20 +1,19 @@
 package user_use_cases;
 
 import entities.User;
-//import user_screens.RegisterUserResponseFormatter;
 
-public class RegisterUserResponseModel {
+public class LoginUserResponseModel {
 
     Boolean success;
     User user;
     private String error;
 
-    public RegisterUserResponseModel(Boolean success, String error) {
+    public LoginUserResponseModel(Boolean success, String error) {
         this.success = success;
         this.error = error;
     }
 
-    public RegisterUserResponseModel(Boolean success, User user) {
+    public LoginUserResponseModel(Boolean success, User user) {
         this.success = success;
         this.user = user;
     }
@@ -27,7 +26,7 @@ public class RegisterUserResponseModel {
         return this.user;
     }
 
-    public RegisterUserResponseModel(String error) {
+    public LoginUserResponseModel(String error) {
         this.user = null;
         this.error = error;
     }

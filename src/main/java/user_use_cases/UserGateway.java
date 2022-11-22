@@ -1,8 +1,8 @@
 package user_use_cases;
 
-import Interfaces.ReviewGatewayInterface;
 import entities.User;
-import Gateways.ReviewGateway;
+import entities.UserFactory;
+import entities.OwnerFactory;
 
 import java.io.BufferedWriter;
 import java.util.*;
@@ -23,9 +23,12 @@ public class UserGateway implements UserGatewayInterface{
      Column 4: received_reports (int)
      Column 5: banned (Boolean) -> 0 - false, 1 - true
      Column 6: owner (Boolean) -> 0 - false, 1 - true
+     Column 7: owned_restaurants (ArrayList<String>) - Use Use delimiter "%", to separate Owned locations.
      */
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
+    private OwnerFactory ownerFactory = new OwnerFactory();
+    private UserFactory userFactory = new UserFactory();
 
     @Override
     public void updateUser(User user) {
@@ -53,6 +56,9 @@ public class UserGateway implements UserGatewayInterface{
             new_owner = "1";
         }
 
+        ArrayList<String> owner_restaurants_list = user.getPast_reviews();
+        String new_owner_restaurants = String.join("%", owner_restaurants_list);
+
         String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
 
         File old_file = new File(NAME_OF_USER_DATABASE);
@@ -65,7 +71,7 @@ public class UserGateway implements UserGatewayInterface{
         String received_reports = "";
         String banned = "";
         String owner = "";
-
+        String owned_restaurants = "";
 
 
         try {
@@ -86,19 +92,20 @@ public class UserGateway implements UserGatewayInterface{
                 received_reports = values[4];
                 banned = values[5];
                 owner = values[6];
+                owned_restaurants = values[7];
 
 
                 // replace the old values with the new values
                 if (new_username.equals(username)) {
                     String line1 = String.join(",", username, new_password, new_past_reviews,
-                            new_likedReviews, new_received_reports, new_banned, new_owner);
+                            new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
                     bw.write(line1);
                     bw.newLine();
 
                     //keep the old values
                 } else {
                     String line1 = String.join(",", username, password, past_reviews,
-                            likedReviews, received_reports, banned, owner);
+                            likedReviews, received_reports, banned, owner, owned_restaurants);
                     bw.write(line1);
                     bw.newLine();
                 }
@@ -153,8 +160,17 @@ public class UserGateway implements UserGatewayInterface{
                         return_owner = true;
                     }
 
-                    User return_user = new User(user[0], user[1], return_past_reviews, return_liked_reviews,
+                    String[] owned_restaurant_elements = user[2].split("&");
+                    ArrayList<String> return_owned_restaurants = new ArrayList(
+                            Arrays.asList( owned_restaurant_elements ) );
+
+                    User return_user = userFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
                             Integer.parseInt(user[4]), return_banned, return_owner);
+
+                    if (return_owner) {
+                        return_user = ownerFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
+                                Integer.parseInt(user[4]), return_banned, true, return_owned_restaurants);
+                    }
 
                     return return_user;
                 }
@@ -224,7 +240,7 @@ public class UserGateway implements UserGatewayInterface{
             writer.append(",");
             writer.append(password); // String password
             writer.append(",");
-            writer.append(""); // ArrayList<Review> past_reviews
+            writer.append(""); // ArrayList<String> past_reviews
             writer.append(",");
             writer.append(""); // ArrayList<String> likedReviews
             writer.append(",");
@@ -233,6 +249,8 @@ public class UserGateway implements UserGatewayInterface{
             writer.append("0"); // boolean banned -> 0 - false, 1 - true
             writer.append(",");
             writer.append("0"); // boolean owner -> 0 - false, 1 - true
+            writer.append(",");
+            writer.append(""); // ArrayList<String> owned_restaurants
             writer.append(",");
             writer.append("\n");
             writer.close();

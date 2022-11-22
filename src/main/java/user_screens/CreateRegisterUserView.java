@@ -5,6 +5,7 @@ import user_use_cases.RegisterUserController;
 import entities.User;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateRegisterUserView extends JPanel implements ActionListener {
@@ -39,4 +40,8 @@ public class CreateRegisterUserView extends JPanel implements ActionListener {
         this.guestUser = new GuestUser();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
