@@ -8,6 +8,7 @@ import entities.Review;
 import entities.User;
 import restaurant_screens.IFrame;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,6 +35,7 @@ public class ReportActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        ReportScreen reportScreen = new ReportScreen(this.previousFrame, this.reportController, this.review, this.user);
+        ReportScreen reportScreen = new ReportScreen((JFrame) this.previousFrame, this.reportController, this.review, this.user);
+        reportScreen.setVisible(true);
     }
 }
