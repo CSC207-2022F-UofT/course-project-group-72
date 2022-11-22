@@ -2,19 +2,40 @@ package entities;
 
 import java.util.ArrayList;
 
-public class User {
+public class User extends GuestUser{
     private String username;
     private String password;
-    private ArrayList<Review> past_reviews;
+    private ArrayList<String> past_reviews;
     private ArrayList<String> likedReviews;
     private int received_reports = 0;
     private boolean banned = false;
+    private boolean owner = false;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.past_reviews = new ArrayList<>();
         this.likedReviews = new ArrayList<>();
+        this.received_reports = 0;
+        this.banned = false;
+        this.owner = false;
+    }
+
+    public User(String username, String password, ArrayList<String> past_reviews,
+                ArrayList<String> likedReviews, int received_reports, Boolean banned, Boolean owner) {
+        this.username = username;
+        this.password = password;
+        this.past_reviews = past_reviews;
+        this.likedReviews = likedReviews;
+        this.received_reports = received_reports;
+        this.banned = banned;
+        this.owner = owner;
+    }
+
+    public User() {
+        // For GuestUser Implementation
+        this.username = null;
+        this.password = null;
     }
     // Get & Set Username
     public String getUsername() {
@@ -34,12 +55,12 @@ public class User {
     }
 
     // Get & Add to Past Reviews
-    public ArrayList getPast_reviews() {
+    public ArrayList<String> getPast_reviews() {
         return this.past_reviews;
     }
 
-    public void add_review(Review review) {
-        this.past_reviews.add(review);
+    public void add_review(String reviewid) {
+        this.past_reviews.add(reviewid);
     }
 
     public ArrayList<String> getLikedReviews() {
@@ -68,4 +89,10 @@ public class User {
     public void setBanned(){
         this.banned = true;
     }
+
+    public boolean isOwner() {
+        return owner;
+    }
+
+    public void setOwner() { this.owner = true; }
 }

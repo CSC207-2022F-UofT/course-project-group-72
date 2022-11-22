@@ -4,27 +4,25 @@ import entities.User;
 import entities.UserFactory;
 import user_screens.RegisterUserPresenter;
 
-public class RegisterUserInteractor{
+public class RegisterUserInteractor implements RegisterUserInputBoundary{
 
     private final UserFactory factory;
-    private final UserDatabaseGateway gateway;
-    private final RegisterUserPresenter presenter;
+    private final UserGateway gateway;
 
-    public RegisterUserInteractor(UserFactory factory, UserDatabaseGateway gateway,
-                                  RegisterUserPresenter presenter) {
+    public RegisterUserInteractor(UserFactory factory, UserGateway gateway) {
         this.factory = factory;
         this.gateway = gateway;
-        this.presenter = presenter;
     }
+    @Override
 
     public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {
 
-        if (!gateway.userExists(requestModel.getUsername())) {
-            return presenter.prepareRegisterFailView("Username is Taken");
+        if (gateway.userExists(requestModel.getUsername())) {
+            return new RegisterUserResponseModel(false, "Username Taken");
         }
 
-        if (!requestModel.getPassword1().equals(requestModel.getPassword2())) {
-            return presenter.prepareRegisterFailView("Passwords don't Match");
+        if (!(requestModel.getPassword1().equals(requestModel.getPassword2()))) {
+            return new RegisterUserResponseModel(false, "Passwords don't Match");
         }
 
         User newUser = factory.CreateUserObject(
@@ -34,9 +32,9 @@ public class RegisterUserInteractor{
 
         gateway.addUser(newUser.getUsername(), newUser.getPassword());
 
-        RegisterUserResponseModel succuessRegisterResponse =
-                new RegisterUserResponseModel(newUser);
-        return presenter.prepareRegisterSuccessView(succuessRegisterResponse);
+        RegisterUserResponseModel successRegisterResponse =
+                new RegisterUserResponseModel(true, newUser);
+        return successRegisterResponse;
 
     }
 

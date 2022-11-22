@@ -103,7 +103,7 @@ public class FileRestaurant implements RestaurantDSGateway{
 
             for (Restaurant restaurant : currentRestaurants.values()) {
                 String reviewsLine = String.join("<", restaurant.getReviewIDs());
-                // Since reading a line with nothing after the last comma causes an index of array error
+                // Since reading a line with nothing after the last comma causes an index of of array error
                 // add an EMPTY FILLER
                 if (reviewsLine.length() == 0) {
                     reviewsLine = EMPTY_FILLER;
