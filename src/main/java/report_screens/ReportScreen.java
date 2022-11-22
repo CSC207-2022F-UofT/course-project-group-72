@@ -64,6 +64,7 @@ public class ReportScreen extends JDialog implements ActionListener {
         JPanel main = new JPanel();
         main.add(buttons);
         main.add(reasonInfo);
+        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
         this.setContentPane(main);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
