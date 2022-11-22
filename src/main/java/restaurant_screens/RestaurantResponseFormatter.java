@@ -22,7 +22,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
      * @return a formatted version of the response
      */
     @Override
-    public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
+    RestaurantResponseModel prepareSuccessView(RestaurantResponseModel unformatted) {
         unformatted.setOperation("Successfully " + unformatted.getOperation() + " " +
                 unformatted.getRestaurant().getName());
         view.refresh(unformatted.getRestaurant());
