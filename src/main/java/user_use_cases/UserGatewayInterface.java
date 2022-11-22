@@ -19,6 +19,4 @@ public interface UserGatewayInterface {
 
     public void addLikedReview(String reviewId, String userid);
 
-    void deleteReview(String reviewID);
-
 }
