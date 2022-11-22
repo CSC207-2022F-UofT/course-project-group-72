@@ -7,7 +7,6 @@ import ReviewScreens.ReviewResponseModel;
 import entities.Restaurant;
 import entities.Review;
 import entities.User;
-import restaurant_use_case.RestaurantDSRequestModel;
 
 import java.io.IOException;
 
@@ -24,7 +23,9 @@ public class DeleteReviewInteractor implements DeleteReviewInputBoundary {
             User user = requestModel.getUser();
             Restaurant restaurant = requestModel.getRestaurant();
 
-            //Set the Review's visible to false and reflect that change in the database
+            //Set the Review's visible to false and delete it from the database
+            //NOTE: I'm pretty sure that this method removes all references to the review object, but I set its
+            //visibility to false just to make sure it doesn't show up after being deleted
             review.setVisible(false);
             requestModel.getReviewGateway().deleteReview(reviewID);
 
@@ -32,15 +33,11 @@ public class DeleteReviewInteractor implements DeleteReviewInputBoundary {
             //object's reviews, then add the old restaurant back in with this change reflected
             requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
             restaurant.getReviewIDs().remove(reviewID);
-            RestaurantDSRequestModel restaurantDSRequestModel = new RestaurantDSRequestModel(restaurant.getOwnerID(),
-                    restaurant.getName(), restaurant.getLocation(), restaurant.getCuisineType(),
-                    restaurant.getPriceBucket(), restaurant.getAvgStars(), restaurant.getReviewIDs());
-            requestModel.getRestaurantGateway().save(restaurantDSRequestModel);
+            requestModel.getRestaurantGateway().save(restaurant);
 
             //Remove the review from the user's list of reviews + databases
-            //CHANGE THIS LATER WHEN YOU HAVE THE ACTUAL GATEWAY
             user.getPast_reviews().remove(reviewID);
-            requestModel.getUserGateway().deleteReview(reviewID);
+            requestModel.getUserGateway().updateUser(user);
 
             //Return success
             return new ReviewResponseModel(true);

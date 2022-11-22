@@ -6,28 +6,27 @@ import report_screens.ReportScreen;
 import report_screens.ReportController;
 import entities.Review;
 import entities.User;
+import restaurant_screens.IFrame;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ReportActionListener implements ActionListener {
 
     //Attributes we need to pass to ReportScreen
+    private final IFrame previousFrame;
     private final ReportController reportController;
     private final Review review;
     private final User user;
 
-    JFrame owner;
-
     /*
     Constructor
      */
-    public ReportActionListener(JFrame owner, ReportController reportController, Review review, User user){
+    public ReportActionListener(IFrame previousFrame, ReportController reportController, Review review, User user){
+        this.previousFrame = previousFrame;
         this.reportController = reportController;
         this.review = review;
         this.user = user;
-        this.owner = owner;
     }
 
     /*
@@ -35,6 +34,6 @@ public class ReportActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        ReportScreen reportScreen = new ReportScreen(this.owner, this.reportController, this.review, this.user);
+        ReportScreen reportScreen = new ReportScreen(this.previousFrame, this.reportController, this.review, this.user);
     }
 }

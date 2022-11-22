@@ -21,7 +21,7 @@ public class RegisterUserInteractor implements RegisterUserInputBoundary{
             return new RegisterUserResponseModel(false, "Username Taken");
         }
 
-        if (!requestModel.getPassword1().equals(requestModel.getPassword2())) {
+        if (!(requestModel.getPassword1().equals(requestModel.getPassword2()))) {
             return new RegisterUserResponseModel(false, "Passwords don't Match");
         }
 
