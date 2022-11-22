@@ -1,4 +1,4 @@
-package choices_testing;
+package filtering_use_case.choices_testing;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
