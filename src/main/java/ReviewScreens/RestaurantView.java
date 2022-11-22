@@ -2,18 +2,19 @@
 
 package ReviewScreens;
 
-import ReviewGateways.ReviewGateway;
-import ReviewGateways.UserGateway;
+import entities.*;
 import ReviewControllers.*;
 import ReviewInteractors.*;
-import ReviewInterfaces.*;
-import entities.*;
 import report_screens.FileReportHistory;
 import report_screens.ReportController;
 import report_screens.ReportResponseFormat;
 import report_use_cases.*;
-import restaurant_use_case.FileRestaurant;
-import restaurant_use_case.RestaurantDSGateway;
+import ReviewInterfaces.*;
+import ReviewGateways.ReviewGateway;
+import restaurant_screens.*;
+import restaurant_use_case.*;
+import user_use_cases.UserGatewayInterface;
+import user_use_cases.UserGateway;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RestaurantView extends JFrame implements ActionListener {
+public class RestaurantView extends JFrame implements ActionListener, IFrame {
 
     private static final String REPORT_DATABASE_NAME = "src/main/java/Databases/ReportDatabase.csv";
     private static final String RESTAURANT_DATABASE_NAME = "src/main/java/Databases/RestaurantDatabase.csv";
@@ -78,12 +79,38 @@ public class RestaurantView extends JFrame implements ActionListener {
             averageStars.setFont(averageStars.getFont().deriveFont(16F));
             averageStars.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-            //Create a button to write or edit review. Only displayed if user is not an owner. Displays write if the
-            //user has not reviewed this restaurant and displays edit if they have.
-            JButton writeEdit = new JButton("Write a Review");
-            writeEdit.setFont(writeEdit.getFont().deriveFont(16F));
-            writeEdit.setOpaque(true);
-            writeEdit.addActionListener(this);
+            //Create a button to write a review. Only displayed if user is not an owner
+            JButton writeButton = new JButton("Write a Review");
+            writeButton.setFont(writeButton.getFont().deriveFont(16F));
+            writeButton.setOpaque(true);
+            writeButton.addActionListener(this);
+
+            //Create a panel to hold the buttons the owner sees when they click on the restaurant. Only visible to
+            //restaurant owner, not all owners
+            JPanel ownerPanel = new JPanel();
+            ownerPanel.setLayout(new BoxLayout(ownerPanel, BoxLayout.X_AXIS));
+            ownerPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            ownerPanel.setVisible(true);
+
+            //Create the buttons for the owner to edit or delete their restaurant, then add them to owner panel
+            JButton ownerEditButton = new JButton("Edit your Restaurant");
+            ownerEditButton.setFont(ownerEditButton.getFont().deriveFont(16F));
+            ownerEditButton.setOpaque(true);
+            ownerEditButton.addActionListener(this);
+
+            JButton ownerDeleteButton = new JButton("Delete Your Restaurant");
+            ownerDeleteButton.setFont(ownerDeleteButton.getFont().deriveFont(16F));
+            ownerDeleteButton.setOpaque(true);
+            ownerDeleteButton.addActionListener(this);
+
+            ownerPanel.add(ownerEditButton);
+            ownerPanel.add(ownerDeleteButton);
+
+            //Create a label informing the user that they are banned. Only appears when the user is banned
+            JLabel banned = new JLabel("You have been banned. Your contributions have been removed and you will " +
+                    "not be able to participate in this website going forward.");
+            banned.setFont(banned.getFont().deriveFont(16F));
+            banned.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             //The scroll pane may only hold a single panel, so we initialize a "master panel" to hold each review panel
             JPanel masterPanel = new JPanel();
@@ -115,98 +142,110 @@ public class RestaurantView extends JFrame implements ActionListener {
             //Create the panels for the reviews. Use different buttons depending on whether the user is an owner user
             //or not
             for(Review review : reviews){
-                //Create the label for the username
-                usernameLabel = new JLabel("User: " + review.getUser());
-                usernameLabel.setFont(usernameLabel.getFont().deriveFont(16F));
-                usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                //If the review has not been deleted or removed due to reports
+                if(review.isVisible()) {
+                    //Create the label for the username
+                    usernameLabel = new JLabel("User: " + review.getUser());
+                    usernameLabel.setFont(usernameLabel.getFont().deriveFont(16F));
+                    usernameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-                //Create the label for the average stars
-                starLabel = new JLabel("Stars Given: " + review.getStars());
-                starLabel.setFont(starLabel.getFont().deriveFont(16F));
-                starLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    //Create the label for the average stars
+                    starLabel = new JLabel("Stars Given: " + review.getStars());
+                    starLabel.setFont(starLabel.getFont().deriveFont(16F));
+                    starLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-                //Create the text area to hold the review's text and, if applicable, the owner's response
-                String text;
-                if(!(review.getResponse().equals(""))){
-                    text = review.getText() + "\n\n" + "Owner Response: " + review.getResponse();
-                }else{
-                    text = review.getText();
-                }
-                reviewText = new JTextArea(text);
-                reviewText.setLineWrap(true);
-                reviewText.setEditable(false);
-                reviewText.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                reviewText.setFont(reviewText.getFont().deriveFont(16F));
-                reviewText.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-                //Create the panel to hold the buttons
-                buttonPanel = new JPanel();
-                buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-                buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-                if(!(this.user instanceof OwnerUser)){
-                    likeButton = new JButton("Like");
-                    if(this.user.getLikedReviews().contains(review.getID())){
-                        likeButton.setBackground(Color.CYAN);
-                    }else {
-                        likeButton.setBackground(Color.WHITE);
+                    //Create the text area to hold the review's text and, if applicable, the owner's response
+                    String text;
+                    if (!(review.getResponse().equals(""))) {
+                        text = review.getText() + "\n\n" + "Owner Response: " + review.getResponse();
+                    } else {
+                        text = review.getText();
                     }
-                    likeButton.setOpaque(true);
-                    likeButton.addActionListener(new LikeActionListener(this, likeButton, likeReviewController,
-                            this.reviewGateway, review, this.user));
-                    buttonPanel.add(likeButton);
+                    reviewText = new JTextArea(text);
+                    reviewText.setLineWrap(true);
+                    reviewText.setEditable(false);
+                    reviewText.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    reviewText.setFont(reviewText.getFont().deriveFont(16F));
+                    reviewText.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-                    if(review.getUser().equals(user.getUsername())){
-                        editButton = new JButton("Edit");
-                        editButton.setBackground(Color.GREEN);
-                        editButton.setOpaque(true);
-                        editButton.addActionListener(new EditActionListener(this, editReviewController,
+                    //Create the panel to hold the buttons
+                    buttonPanel = new JPanel();
+                    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+                    buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                    //If the user does not own this restaurant and they are not banned
+                    if (!(this.user.getUsername().equals(this.restaurant.getOwnerID())) && !(this.user.isBanned())) {
+                        //Create a like button
+                        likeButton = new JButton("Like");
+                        if (this.user.getLikedReviews().contains(review.getID())) {
+                            likeButton.setBackground(Color.CYAN);
+                        } else {
+                            likeButton.setBackground(Color.WHITE);
+                        }
+                        likeButton.setOpaque(true);
+                        likeButton.addActionListener(new LikeActionListener(this, likeButton, likeReviewController,
+                                this.reviewGateway, review, this.user));
+                        buttonPanel.add(likeButton);
+
+                        //If the current user wrote the review
+                        if (review.getUser().equals(user.getUsername())) {
+                            //Create edit and delete buttons
+                            editButton = new JButton("Edit");
+                            editButton.setBackground(Color.GREEN);
+                            editButton.setOpaque(true);
+                            editButton.addActionListener(new EditActionListener(this, editReviewController,
+                                    this.reviewGateway, review, this.user, this.restaurant));
+                            buttonPanel.add(editButton);
+
+                            deleteButton = new JButton("Delete");
+                            deleteButton.setBackground(Color.RED);
+                            deleteButton.setOpaque(true);
+                            deleteButton.addActionListener(new DeleteActionListener(this, deletereviewController,
+                                    this.reviewGateway, this.userGateway, this.restaurantGateway,
+                                    review, this.user, this.restaurant));
+                            buttonPanel.add(deleteButton);
+                        } else {
+                            //Create a report button
+                            reportDsGateway reportGateway = new FileReportHistory(REPORT_DATABASE_NAME);
+                            ReportFactory reportFactory = new ReportFactory();
+                            Excalibur excalibur = new Excalibur(userGateway.getUser(review.getUser()), review);
+                            ReportPresenter reportPresenter = new ReportResponseFormat();
+                            reportInputBoundary reportInteractor = new ReportInteract(reportGateway, reportFactory,
+                                    excalibur, reportPresenter);
+                            ReportController reportController = new ReportController(reportInteractor);
+                            reportButton = new JButton("Report");
+                            reportButton.setOpaque(true);
+                            reportButton.addActionListener(new ReportActionListener(this, reportController,
+                                    review, user));
+                            buttonPanel.add(reportButton);
+                        }
+                    //If the user owns the restaurant and they are not banned
+                    } else if(this.user.getUsername().equals(this.restaurant.getOwnerID()) &&
+                            !(this.user.isBanned())) {
+                        //Create a reply button
+                        replyButton = new JButton("Reply");
+                        replyButton.setOpaque(true);
+                        replyButton.addActionListener(new ReplyActionListener(this, replyController,
                                 this.reviewGateway, review, this.user, this.restaurant));
-                        buttonPanel.add(editButton);
-
-                        deleteButton = new JButton("Delete");
-                        deleteButton.setBackground(Color.RED);
-                        deleteButton.setOpaque(true);
-                        deleteButton.addActionListener(new DeleteActionListener(this, deletereviewController,
-                                this.reviewGateway, this.userGateway, this.restaurantGateway,
-                                review, this.user, this.restaurant));
-                        buttonPanel.add(deleteButton);
-                    }else{
-                        reportDsGateway reportGateway = new FileReportHistory(REPORT_DATABASE_NAME);
-                        ReportFactory reportFactory = new ReportFactory();
-                        Excalibur excalibur = new Excalibur(userGateway.getUser(review.getUser()), review);
-                        ReportPresenter reportPresenter = new ReportResponseFormat();
-                        reportInputBoundary reportInteractor = new ReportInteract(reportGateway, reportFactory,
-                                excalibur, reportPresenter);
-                        ReportController reportController = new ReportController(reportInteractor);
-                        reportButton = new JButton("Report");
-                        reportButton.setOpaque(true);
-                        reportButton.addActionListener(new ReportActionListener(reportController, review, user));
-                        buttonPanel.add(reportButton);
+                        buttonPanel.add(replyButton);
                     }
-                }else if(this.restaurant.getOwnerID().equals(this.user.getUsername())){
-                    replyButton = new JButton("Reply");
-                    replyButton.setOpaque(true);
-                    replyButton.addActionListener(new ReplyActionListener(this, replyController,
-                            this.reviewGateway, review, this.user, this.restaurant));
-                    buttonPanel.add(replyButton);
+
+                    //Add all the previous components in the for loop, except those already added to buttonPanel,
+                    //to a new panel
+                    panel = new JPanel();
+                    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                    panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    panel.setPreferredSize(new Dimension(800, 200));
+                    panel.setVisible(true);
+
+                    panel.add(usernameLabel);
+                    panel.add(starLabel);
+                    panel.add(reviewText);
+                    panel.add(buttonPanel);
+
+                    //Add this new panel to the scroll pane
+                    masterPanel.add(panel);
                 }
-
-                //Add all the previous components in the for loop, except those already added to buttonPanel,
-                //to a new panel
-                panel = new JPanel();
-                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-                panel.setPreferredSize(new Dimension(800, 200));
-                panel.setVisible(true);
-
-                panel.add(usernameLabel);
-                panel.add(starLabel);
-                panel.add(reviewText);
-                panel.add(buttonPanel);
-
-                //Add this new panel to the scroll pane
-                masterPanel.add(panel);
             }
 
             //Now that all the components are made, create the main JPanel
@@ -215,8 +254,12 @@ public class RestaurantView extends JFrame implements ActionListener {
             main.add(restaurantName);
             main.add(restaurantLocation);
             main.add(averageStars);
-            if(!(user instanceof OwnerUser)) {
-                main.add(writeEdit);
+            if(!(this.user.getUsername().equals(this.restaurant.getOwnerID())) && !(this.user.isBanned())) {
+                main.add(writeButton);
+            }else if(this.user.getUsername().equals(this.restaurant.getOwnerID()) && !(this.user.isBanned())){
+                main.add(ownerPanel);
+            }else{
+                main.add(banned);
             }
             main.add(scrollPane);
 
@@ -238,19 +281,40 @@ public class RestaurantView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean check = true;
-        for(String reviewID : this.user.getPast_reviews()){
-            if (this.restaurant.getReviewIDs().contains(reviewID)) {
-                check = false;
-                break;
+        //If a user clicked the write review button
+        if(e.getActionCommand().equals("Write a Review")) {
+            //Check if they already reviewed this restaurant
+            //NOTE: I would like for the user to have a reviewed restaurants attribute, change if that gets implemented
+            boolean check = true;
+            for (String reviewID : this.user.getPast_reviews()) {
+                if (this.restaurant.getReviewIDs().contains(reviewID)) {
+                    check = false;
+                    break;
+                }
             }
+            //Launch the proper view
+            if (check) {
+                WriteReviewScreen writeScreen = new WriteReviewScreen(this, this.writeReviewController,
+                        this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant);
+            } else {
+                JOptionPane.showMessageDialog(this, "You've already written a review for this " +
+                        "restaurant. Please edit your previous review instead.");
+            }
+        //If an owner clicked edit
+        }else if(e.getActionCommand().equals("Edit your Restaurant")){
+            //Try to launch the appropriate view
+            EditRestaurantView editRestaurantView = new EditRestaurantView((OwnerUser) this.user, this.restaurant,
+                    this, this.restaurantGateway);
+        //If an owner clicked delete
+        } else if (e.getActionCommand().equals("Delete Your Restaurant")) {
+            //Try to launch the appropriate view
+            DeleteRestaurantView deleteRestaurantView = new DeleteRestaurantView(this.restaurant, (OwnerUser) this.user,
+                    this.restaurantGateway, this.userGateway, this);
         }
-        if(check){
-            WriteReviewScreen writeScreen = new WriteReviewScreen(this, this.writeReviewController,
-                    this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant);
-        }else{
-            JOptionPane.showMessageDialog(this, "You've already written a review for this " +
-                    "restaurant. Please edit your previous review instead.");
-        }
+    }
+
+    @Override
+    public void refresh(Restaurant restaurant) {
+        this.repaint();
     }
 }
