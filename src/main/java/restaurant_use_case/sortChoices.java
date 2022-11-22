@@ -35,9 +35,9 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
                     restaurant.getPriceBucket() == 0)
 
                     // Determines Location (Postal Code) and uses the first 3 letters for nearby rest
-                && (Objects.equals(restaurant.getLocation().substring(0, 4),
-                    requestModel.getInputLocation().substring(0, 4)) ||
-                    Objects.equals(restaurant.getLocation(), ""))
+                //&& (Objects.equals(restaurant.getLocation().substring(0, 3),
+                 //   requestModel.getInputLocation().substring(0, 3)) ||
+                 //   Objects.equals(restaurant.getLocation(), ""))
 
                     // Can change to tags, would make cuisine type an input or keep the same but
                     // choices are limited
@@ -51,7 +51,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
             {
                 sortedRestaurants.add(restaurant);}
         }
-        sortList(sortedRestaurants, requestModel.getInputDirection());
+        //sortList(sortedRestaurants, requestModel.getInputDirection());
 
         ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
         return presenter.prepareSuccessView(responseModel);

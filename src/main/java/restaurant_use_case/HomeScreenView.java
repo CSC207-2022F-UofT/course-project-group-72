@@ -1,6 +1,7 @@
 package restaurant_use_case;
 
 import entities.Restaurant;
+import entities.User;
 import restaurant_screens.ChoicesController;
 import restaurant_screens.ChoicesPresenter;
 import restaurant_screens.ChoicesResponseFormatter;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class HomeScreenView extends JFrame implements ActionListener {
@@ -169,6 +171,7 @@ public class HomeScreenView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // , User user
         // System.out.println("Click " + e.getActionCommand());
         // ChoicesInputBoundary sortChoices = null;
         // ChoicesController choicesController = new ChoicesController(sortChoices);
@@ -177,17 +180,17 @@ public class HomeScreenView extends JFrame implements ActionListener {
         ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
         ChoicesController choicesController = new ChoicesController(interactor);
 
-        //try {
-        ChoicesResponseModel selections = choicesController.select(
-                query.getText(),
-                location.getText(),
-                cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-                priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-                avgStars.getItemAt(avgStars.getSelectedIndex()),
-                sortButtons.getSelection().getActionCommand(),
-                sortDirection.getSelection().getActionCommand()
+        try {
+            ChoicesResponseModel selections = choicesController.select(
+                    query.getText(),
+                    location.getText(),
+                    cuisineType.getItemAt(cuisineType.getSelectedIndex()),
+                    priceBucket.getItemAt(priceBucket.getSelectedIndex()),
+                    avgStars.getItemAt(avgStars.getSelectedIndex()),
+                    sortButtons.getSelection().getActionCommand(),
+                    sortDirection.getSelection().getActionCommand()
             );
-            System.exit(0);
+            // System.exit(0);
 
             ArrayList<Restaurant> sortedList = selections.getRestaurants();
 
@@ -197,20 +200,21 @@ public class HomeScreenView extends JFrame implements ActionListener {
             this.dispose();
             sortedView.setVisible(true);
             repaint();
-
-        //} catch (Exception ex) {
-        //    JOptionPane.showMessageDialog(this, ex.toString());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.toString());
 
 //        } catch (Exception ex) {
 //            throw new RuntimeException(ex);
 //        }
         }
+    }
 
-//    public static void main(String[] args){
-//        // choicesController = new ChoicesController();
-//
-//        HomeScreenView view = new HomeScreenView(choicesGateway);
-//        view.setVisible(true);
-//    }
+        public static void main (String[]args) throws IOException {
+            final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
+            HomeScreenView view = new HomeScreenView(gateway);
+            view.setVisible(true);
+        }
 
-}
+    }
+
+

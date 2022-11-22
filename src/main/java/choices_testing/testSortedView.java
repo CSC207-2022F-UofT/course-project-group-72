@@ -5,6 +5,7 @@ import entities.RestaurantFactory;
 import restaurant_screens.ChoicesSortedView;
 import restaurant_use_case.ChoicesResponseModel;
 import restaurant_use_case.FileRestaurant;
+import restaurant_use_case.HomeScreenView;
 import restaurant_use_case.RestaurantDSGateway;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 public class testSortedView {
     public static void main(String[] args) throws IOException {
+        final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
 
         RestaurantFactory factory = new RestaurantFactory();
         Restaurant r1 = factory.create("111",
@@ -36,8 +38,15 @@ public class testSortedView {
         sortedList.add(r2);
         sortedList.add(r3);
 
+        gateway.save(r1);
+        gateway.save(r2);
+        gateway.save(r3);
 
-        ChoicesSortedView view = new ChoicesSortedView(sortedList);
+        ArrayList<Restaurant> newList = gateway.searchMatch("Chako", "Z1B");
+
+        ChoicesSortedView view = new ChoicesSortedView(newList);
         view.setVisible(true);
     }
 }
+
+

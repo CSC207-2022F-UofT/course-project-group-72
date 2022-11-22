@@ -1,6 +1,7 @@
 package restaurant_screens;
 import entities.Restaurant;
 import entities.RestaurantFactory;
+import entities.User;
 import restaurant_use_case.*;
 
 import javax.swing.*;
@@ -17,6 +18,8 @@ public class ChoicesSortedView extends JFrame {
     JLabel restaurantLocation;
     JLabel restaurantCuisineType;
     JLabel restaurantAvgStars;
+
+    // TODO: pass user through login -> home screen -> choices sorted
 
     public ChoicesSortedView(ArrayList<Restaurant> sortedList) {
 
