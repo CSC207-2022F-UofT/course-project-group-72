@@ -1,5 +1,5 @@
 package user_screens;
-
+/*
 import user_use_cases.RegisterUserResponseModel;
 
 public class RegisterUserResponseFormatter implements RegisterUserPresenter {
@@ -14,3 +14,4 @@ public class RegisterUserResponseFormatter implements RegisterUserPresenter {
     }
 
 }
+*/

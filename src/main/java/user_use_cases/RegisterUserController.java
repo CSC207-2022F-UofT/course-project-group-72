@@ -1,6 +1,4 @@
 package user_use_cases;
-
-import entities.User;
 public class RegisterUserController {
 
     private final RegisterUserInputBoundary registeruserinputboundary;

@@ -28,6 +28,10 @@ public class WelcomeUserView extends JFrame {
                 userGateway);
         this.registerUserController = new RegisterUserController(registerUserInteractor);
 
+        LoginUserInputBoundary loginUserInteractor = new LoginUserInteractor(factory,
+                userGateway);
+        this.loginUserController = new LoginUserController(loginUserInteractor);
+
         //Attach these objects to the screen, so they can be used by actionPerformed
         this.guest_user = new GuestUser();
 
@@ -44,24 +48,21 @@ public class WelcomeUserView extends JFrame {
         // Input username - Register
         JTextField usernameField = new JTextField("Enter Username");
         usernameField.setFont(usernameField.getFont().deriveFont(16F));
-        usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
         // Input password_1 - Register
         JTextField passwordField = new JTextField("Enter Password");
         passwordField.setFont(passwordField.getFont().deriveFont(16F));
-        passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Input password_2 (Input Password) & Label for explanation - Register
         JTextField confirmPasswordField = new JTextField("Confirm Password");
         confirmPasswordField.setFont(confirmPasswordField.getFont().deriveFont(16F));
-        confirmPasswordField.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Register Submit button
         JButton registerSubmitButton = new JButton("Submit");
         registerSubmitButton.setOpaque(true);
         registerSubmitButton.addActionListener(new RegisterSubmitActionListener(this, registerUserController,
-                userGateway, usernameField.getText(), passwordField.getText(), confirmPasswordField.getText()));
+                userGateway, usernameField, passwordField, confirmPasswordField));
 
         // Label with "Login" and basic instructions
         JLabel login_label = new JLabel("Log-In to Existing Account");
@@ -83,14 +84,46 @@ public class WelcomeUserView extends JFrame {
         JButton loginSubmitButton = new JButton("Log In");
         loginSubmitButton.setOpaque(true);
         loginSubmitButton.addActionListener(new LoginSubmitActionListener(this, loginUserController,
-                userGateway, login_usernameField.getText(), login_passwordField.getText()));
+                userGateway, login_usernameField, login_passwordField));
+
+
+        // Register User Area
+        JPanel regsiterPanel = new JPanel();
+        regsiterPanel.add(register_label);
+        regsiterPanel.add(usernameField);
+        regsiterPanel.add(passwordField);
+        regsiterPanel.add(confirmPasswordField);
+        regsiterPanel.add(registerSubmitButton);
+
+        // Login User Area
+        JPanel loginPanel = new JPanel();
+        loginPanel.add(login_label);
+        loginPanel.add(login_usernameField);
+        loginPanel.add(login_passwordField);
+        loginPanel.add(loginSubmitButton);
 
 
         // Assemble all components
         JPanel mainPanel = new JPanel();
+
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        mainPanel.add(regsiterPanel);
+        mainPanel.add(loginPanel);
+
         mainPanel.setVisible(true);
+
+        this.add(mainPanel);
+
+        //Set this instance's content pane to main and set its behaviour
+
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.pack();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+
+        this.setVisible(true);
 
 
     }
