@@ -35,9 +35,8 @@ public class WriteReviewInteractor implements WriteReviewInputBoundary{
             requestModel.getRestaurantGateway().save(restaurant);
 
             //Add the review's id to the user database and object
-            //CHANGE THIS LATER WHEN YOU HAVE THE ACTUAL GATEWAY
-            requestModel.getUserGateway().addReview(id);
-            requestModel.getUser().add_review(id);
+            requestModel.getUserGateway().addReview(id, user.getUsername());
+            user.add_review(id);
 
             //Return success
             return new ReviewResponseModel(true);
