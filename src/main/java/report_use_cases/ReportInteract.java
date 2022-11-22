@@ -6,6 +6,10 @@ import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
 import entities.User;
+import user_use_cases.UserGateway;
+import user_use_cases.UserGatewayInterface;
+
+import javax.imageio.IIOException;
 import java.time.LocalDateTime;
 
 public class ReportInteract implements reportInputBoundary {
@@ -21,7 +25,15 @@ public class ReportInteract implements reportInputBoundary {
     final ReportPresenter presenter;
 
 
-
+    /**
+     *
+     * @param reportDsGateway
+     * @param reportFactory
+     * @param excalibur
+     * @param presenter
+     *
+     * initialize report interactor
+     */
     public ReportInteract(reportDsGateway reportDsGateway, ReportFactory reportFactory,
                           Excalibur excalibur, ReportPresenter presenter) {
         this.reportDsGateway = reportDsGateway;
@@ -31,7 +43,7 @@ public class ReportInteract implements reportInputBoundary {
     }
 
     @Override
-    public ReportResponseModel create(ReportRequestModel reportRequestModel){
+    public ReportResponseModel create(ReportRequestModel reportRequestModel) throws IIOException {
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(),
@@ -50,9 +62,12 @@ public class ReportInteract implements reportInputBoundary {
                 report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
         reportDsGateway.save(reportDsRequestModel);
 
-        //add report to targeted user
-        //reportRequestModel.getReview().getUser() IT RETURNS AN USERNAME, USE THE USERNAME TO FIND AND INITIALIZE THE USER FROM THE DATA BASE
-        //THEN .addReport()
+        //initialize the user object
+        String targeted_username = reportRequestModel.getReview().getUser();
+        UserGatewayInterface userGateway = new UserGateway();
+        User targeted_user = userGateway.getUser(targeted_username);
+        //raise report
+        targeted_user.addReport();
 
         //add report to targeted review
         reportRequestModel.getReview().addReport();
@@ -68,8 +83,12 @@ public class ReportInteract implements reportInputBoundary {
             System.out.println("Error updating review");
         }
 
+        userGateway.updateUser(updated_user);
+
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(),
                 report.getReview_id(), now.toString());
+
+        //report is created and saved successfully at this point
         return presenter.prepareSuccessView(reportResponseModel);
 
 
