@@ -3,8 +3,8 @@ package restaurant_use_case;
 import entities.OwnerUser;
 import entities.Restaurant;
 import entities.RestaurantFactory;
-import restaurant_screens.RestaurantPresenter;
-import user_use_cases.UserGatewayInterface;
+import restaurant_use_case.screens.RestaurantPresenter;
+import user_use_case.UserGatewayInterface;
 
 import java.time.LocalDateTime;
 

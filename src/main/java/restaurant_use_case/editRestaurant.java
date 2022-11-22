@@ -2,7 +2,7 @@ package restaurant_use_case;
 
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_screens.RestaurantPresenter;
+import restaurant_use_case.screens.RestaurantPresenter;
 
 import java.time.LocalDateTime;
 

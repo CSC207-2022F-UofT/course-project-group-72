@@ -5,10 +5,10 @@ import entities.Restaurant;
 import entities.RestaurantFactory;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import restaurant_screens.RestaurantPresenter;
+import restaurant_use_case.screens.RestaurantPresenter;
 import restaurant_use_case.*;
-import user_use_cases.UserGateway;
-import user_use_cases.UserGatewayInterface;
+import user_use_case.UserGateway;
+import user_use_case.UserGatewayInterface;
 
 import java.io.IOException;
 

@@ -1,5 +1,5 @@
 
-import ReviewGateways.ReviewGateway;
+import review_use_case.gateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
@@ -7,11 +7,11 @@ import entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import report_screens.FileReportHistory;
-import report_screens.ReportController;
-import report_screens.ReportResponseFormat;
-import report_screens.ReportScreen;
-import report_use_cases.*;
+import report_use_case.screens.FileReportHistory;
+import report_use_case.screens.ReportController;
+import report_use_case.screens.ReportResponseFormat;
+import report_use_case.screens.ReportScreen;
+import report_use_case.*;
 
 
 import java.io.File;

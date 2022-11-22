@@ -1,9 +1,8 @@
 package restaurant_use_case;
 
 import entities.OwnerUser;
-import entities.Restaurant;
-import restaurant_screens.RestaurantDeletePresenter;
-import user_use_cases.UserGatewayInterface;
+import restaurant_use_case.screens.RestaurantDeletePresenter;
+import user_use_case.UserGatewayInterface;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
