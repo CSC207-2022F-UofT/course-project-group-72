@@ -28,7 +28,7 @@ public class ReportScreen extends JDialog implements ActionListener {
     JFrame owner;
 
     /**
-     *
+     * @param owner: main JFrame
      * @param controller
      * @param current_review
      * @param current_user
