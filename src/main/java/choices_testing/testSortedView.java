@@ -2,11 +2,9 @@ package choices_testing;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
-import restaurant_screens.ChoicesSortedView;
-import restaurant_use_case.ChoicesResponseModel;
-import restaurant_use_case.FileRestaurant;
-import restaurant_use_case.HomeScreenView;
-import restaurant_use_case.RestaurantDSGateway;
+import filtering_use_case.ChoicesSortedView;
+import restaurant_use_case.interactors.FileRestaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import java.io.IOException;
 import java.util.ArrayList;
