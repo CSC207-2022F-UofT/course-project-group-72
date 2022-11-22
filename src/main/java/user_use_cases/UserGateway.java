@@ -1,10 +1,8 @@
 package user_use_cases;
 
-import Interfaces.ReviewGatewayInterface;
 import entities.User;
 import entities.UserFactory;
 import entities.OwnerFactory;
-import Gateways.ReviewGateway;
 
 import java.io.BufferedWriter;
 import java.util.*;
