@@ -3,32 +3,42 @@ package user_use_cases;
 import entities.User;
 import entities.UserFactory;
 
-public class LoginUserInteractor {
+public class LoginUserInteractor implements LoginUserInputBoundary{
 
     private final UserFactory factory;
     private final UserGateway gateway;
-    private final LoginUserPresenter presenter;
 
-    public LoginUserInteractor(UserFactory factory, UserGateway gateway, LoginUserPresenter presenter) {
+    public LoginUserInteractor(UserFactory factory, UserGateway gateway) {
         this.factory = factory;
-        this.presenter = presenter;
         this.gateway = gateway;
     }
 
+    @Override
     public LoginUserResponseModel loginUser(LoginUserRequestModel requestModel) {
+
         if (!gateway.userExists(requestModel.getUsername())) {
-            return presenter.loginUserDNEView();
+            return new LoginUserResponseModel(false, "Username Not Found");
         }
 
         if (!gateway.getPassword(requestModel.getUsername()).equals(requestModel.getPassword())) {
-            return presenter.loginWrongPasswordView();
+            return new LoginUserResponseModel(false, "Incorrect Password");
         }
 
-        User logged_in_user = factory.CreateUserObject(requestModel.getUsername(), requestModel.getPassword());
+        //User currUser = gateway.getUser(requestModel.getPassword());
+        User currUser = gateway.getUser(requestModel.getUsername());
+        // User currUser = factory.CreateUserObject(
+        //        requestModel.getUsername(),
+        //        requestModel.getPassword()
+        //);
 
-        LoginUserResponseModel successLoginModel = new LoginUserResponseModel(logged_in_user);
+        //gateway.addUser(newUser.getUsername(), newUser.getPassword());
 
-        return presenter.loginSuccessView(successLoginModel);
+        //User current_user = gateway.getUser(requestModel.getUsername());
+
+        LoginUserResponseModel successLoginResponse =
+                new LoginUserResponseModel(true, currUser);
+
+        return successLoginResponse;
 
     }
 }
