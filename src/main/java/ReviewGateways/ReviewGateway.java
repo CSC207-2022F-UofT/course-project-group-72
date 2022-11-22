@@ -201,8 +201,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
     }
 
     /*
-    Method to set a review's visibility to false, effectively deleting it for users, but keeping it so moderators can
-    track abusive reviews (not a feature we have implemented)
+    Method to remove a review from the review database
      */
     public void deleteReview(String id) throws IOException {
         //Try to find the database, initialize a variable to hold a single line and another to hold all the lines
@@ -218,14 +217,9 @@ public class ReviewGateway implements ReviewGatewayInterface {
             line = scanner.nextLine();
             String[] pieces = line.split(DELIMITER);
 
-            //If this line does not have the ID of the review being deleted, add it as is
+            //If this line does not have the ID of the review being deleted, add it back to the database
             if(!pieces[ID_INDEX].equals(id)) {
                 lines.add(line);
-            }
-            //Otherwise, set the visibility to false and add the new line reflecting this
-            else{
-                pieces[VISIBLE_INDEX] = "false";
-                lines.add(makeNewLine(pieces));
             }
         }
         //Empty the old database

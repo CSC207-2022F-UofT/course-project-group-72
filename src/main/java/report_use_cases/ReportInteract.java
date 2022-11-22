@@ -1,7 +1,7 @@
 package report_use_cases;
 
-import ReviewGateways.ReviewGateway;
 import ReviewInterfaces.ReviewGatewayInterface;
+import ReviewGateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;

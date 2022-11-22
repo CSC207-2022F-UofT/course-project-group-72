@@ -5,7 +5,7 @@ package ReviewScreens;
 
 import ReviewControllers.DeleteReviewController;
 import ReviewInterfaces.ReviewGatewayInterface;
-import ReviewInterfaces.UserGatewayInterface;
+import user_use_cases.UserGatewayInterface;
 import restaurant_use_case.RestaurantDSGateway;
 import entities.Restaurant;
 import entities.Review;

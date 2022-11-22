@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Array;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileScreen extends JFrame implements ActionListener {
@@ -73,10 +74,11 @@ public class ProfileScreen extends JFrame implements ActionListener {
             JLabel stars = new JLabel(Integer.toString(starCount) + "/5 stars");
 
 
-            JPanel panel = new JPanel();
-            panel.add(restarauntName);
-            panel.add(stars);
-            panel.add(reviewText);
+
+                JPanel panel = new JPanel();
+                panel.add(restarauntName);
+                panel.add(stars);
+                panel.add(reviewText);
 
             reviewsPanel.add(panel);
 
@@ -86,6 +88,8 @@ public class ProfileScreen extends JFrame implements ActionListener {
 
         JLabel restaurantsLabel = new JLabel("Restaurants");
         JPanel restaurantsPanel = new JPanel();
+
+            int averageStars = totalStars / this.reviews.size();
 
 
         for (Restaurant restaurant : this.restaurants) {
@@ -117,8 +121,7 @@ public class ProfileScreen extends JFrame implements ActionListener {
 
         JLabel averageStarLabel = new JLabel(Integer.toString(averageStars));
 
-        profile_screen_window.add(title);
-        profile_screen_window.add(averageStarLabel);
+        JLabel averageStarLabel = new JLabel(Integer.toString(averageStars));
 
         JLabel reviewsLabel = new JLabel("Reviews");
         profile_screen_window.add(reviewsLabel);
@@ -127,8 +130,14 @@ public class ProfileScreen extends JFrame implements ActionListener {
         profile_screen_window.add(restaurantsPanel);
 
 
-        profile_screen_window.setVisible(true);
+        for (JPanel panel : review_panels) {
+            profile_screen_window.add(panel);
+        }
 
+            profile_screen_window.setVisible(true);
+        }catch(IOException e){
+            System.out.println("An error occurred. Please try again later.");
+        }
     }
 
     @Override

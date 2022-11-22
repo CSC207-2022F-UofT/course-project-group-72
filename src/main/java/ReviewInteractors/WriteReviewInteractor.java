@@ -7,15 +7,10 @@ import ReviewScreens.ReviewResponseModel;
 import entities.Review;
 import entities.User;
 import entities.Restaurant;
-import restaurant_use_case.RestaurantDSRequestModel;
 
 import java.io.IOException;
 
 public class WriteReviewInteractor implements WriteReviewInputBoundary{
-    String DEFAULT_LIKES = "0";
-    String DEFAULT_RESPONSE = "";
-    String DEFAULT_REPORTS = "0";
-    String DEFAULT_VISIBLE = "true";
 
     /*
     Method to add the review to the necessary objects and databases
@@ -37,15 +32,11 @@ public class WriteReviewInteractor implements WriteReviewInputBoundary{
             //object's reviews, then add the old restaurant back in with this change reflected
             requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
             restaurant.getReviewIDs().add(id);
-            RestaurantDSRequestModel restaurantDSRequestModel = new RestaurantDSRequestModel(restaurant.getOwnerID(),
-                    restaurant.getName(), restaurant.getLocation(), restaurant.getCuisineType(),
-                    restaurant.getPriceBucket(), restaurant.getAvgStars(), restaurant.getReviewIDs());
-            requestModel.getRestaurantGateway().save(restaurantDSRequestModel);
+            requestModel.getRestaurantGateway().save(restaurant);
 
             //Add the review's id to the user database and object
-            //CHANGE THIS LATER WHEN YOU HAVE THE ACTUAL GATEWAY
-            requestModel.getUserGateway().addReview(id);
-            requestModel.getUser().add_review(id);
+            requestModel.getUserGateway().addReview(id, user.getUsername());
+            user.add_review(id);
 
             //Return success
             return new ReviewResponseModel(true);
