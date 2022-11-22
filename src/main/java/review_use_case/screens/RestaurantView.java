@@ -3,24 +3,25 @@
 package review_use_case.screens;
 
 import entities.*;
+import report_use_case.gateways.reportDsGateway;
+import report_use_case.interactors.Excalibur;
+import report_use_case.interactors.ReportInteract;
+import report_use_case.interfaces.reportInputBoundary;
+import report_use_case.screens.ReportPresenter;
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
 import review_use_case.controllers.*;
 import review_use_case.interactors.*;
 import report_use_case.screens.FileReportHistory;
 import report_use_case.screens.ReportController;
 import report_use_case.screens.ReportResponseFormat;
-import report_use_case.*;
 import review_use_case.interfaces.*;
 import restaurant_use_case.screens.DeleteRestaurantView;
 import restaurant_use_case.screens.EditRestaurantView;
 import global.IFrame;
 import review_use_case.gateways.ReviewGateway;
-import restaurant_use_case.screens.*;
-import restaurant_use_case.*;
-import review_use_case.controllers.*;
-import review_use_case.interactors.*;
-import review_use_case.interfaces.*;
-import user_use_case.UserGatewayInterface;
-import user_use_case.UserGateway;
+import user_use_case.interfaces.UserGatewayInterface;
+import user_use_case.gateways.UserGateway;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,6 @@
 package restaurant_use_case.screens;
 
 import global.IFrame;
-import restaurant_use_case.RestaurantResponseModel;
 
 /**
  * The responseFormatter/ presenter which updated the screen

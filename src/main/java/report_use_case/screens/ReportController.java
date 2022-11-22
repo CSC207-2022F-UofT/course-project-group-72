@@ -2,9 +2,8 @@ package report_use_case.screens;
 
 import entities.Review;
 import entities.User;
-import report_use_case.ReportRequestModel;
-import report_use_case.ReportResponseModel;
-import report_use_case.reportInputBoundary;
+import report_use_case.interactors.ReportRequestModel;
+import report_use_case.interfaces.reportInputBoundary;
 
 public class ReportController {
 

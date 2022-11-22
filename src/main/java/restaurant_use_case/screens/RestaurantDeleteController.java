@@ -2,9 +2,8 @@ package restaurant_use_case.screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_use_case.RestaurantDeleteRequestModel;
-import restaurant_use_case.RestaurantResponseModel;
-import restaurant_use_case.RestaurantDeleteInputBoundary;
+import restaurant_use_case.interactors.RestaurantDeleteRequestModel;
+import restaurant_use_case.interfaces.RestaurantDeleteInputBoundary;
 
 /**
  * The Controller for the deletion interaction

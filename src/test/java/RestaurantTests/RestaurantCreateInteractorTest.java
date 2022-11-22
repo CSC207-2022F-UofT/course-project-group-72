@@ -5,10 +5,16 @@ import entities.Restaurant;
 import entities.RestaurantFactory;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
+import restaurant_use_case.interactors.RestaurantRequestModel;
+import restaurant_use_case.interactors.createRestaurant;
+import restaurant_use_case.interfaces.RestaurantInputBoundary;
 import restaurant_use_case.screens.RestaurantPresenter;
-import restaurant_use_case.*;
-import user_use_case.UserGateway;
-import user_use_case.UserGatewayInterface;
+import restaurant_use_case.screens.RestaurantResponseModel;
+import user_use_case.gateways.UserGateway;
+import user_use_case.interfaces.UserGatewayInterface;
 
 import java.io.IOException;
 

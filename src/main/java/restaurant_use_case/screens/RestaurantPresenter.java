@@ -1,7 +1,5 @@
 package restaurant_use_case.screens;
 
-import restaurant_use_case.RestaurantResponseModel;
-
 // screen formatter interface
 
 /**

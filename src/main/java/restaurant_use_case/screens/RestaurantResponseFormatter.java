@@ -1,7 +1,6 @@
 package restaurant_use_case.screens;
 
 import global.IFrame;
-import restaurant_use_case.RestaurantResponseModel;
 
 /**
  * The response formatter, formats the response and refreshes the previous frame to reflect the changes made

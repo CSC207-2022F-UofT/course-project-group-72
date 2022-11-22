@@ -4,7 +4,9 @@ import entities.OwnerUser;
 import entities.Restaurant;
 import global.IFrame;
 import global.LabelTextPanel;
-import restaurant_use_case.*;
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.editRestaurant;
+import restaurant_use_case.interfaces.RestaurantInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;

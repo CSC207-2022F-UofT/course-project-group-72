@@ -4,8 +4,8 @@ package review_use_case.screens;
 
 import review_use_case.interfaces.ReviewGatewayInterface;
 import review_use_case.controllers.WriteReviewController;
-import user_use_case.UserGatewayInterface;
-import restaurant_use_case.RestaurantDSGateway;
+import user_use_case.interfaces.UserGatewayInterface;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import entities.User;
 import entities.Restaurant;
 

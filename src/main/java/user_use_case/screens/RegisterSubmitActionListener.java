@@ -1,9 +1,8 @@
 package user_use_case.screens;
 
-import user_use_case.RegisterUserController;
-import user_use_case.RegisterUserRequestModel;
-import user_use_case.RegisterUserResponseModel;
-import user_use_case.UserGatewayInterface;
+import user_use_case.controllers.RegisterUserController;
+import user_use_case.interactors.RegisterUserRequestModel;
+import user_use_case.interfaces.UserGatewayInterface;
 import entities.User;
 
 import javax.swing.*;

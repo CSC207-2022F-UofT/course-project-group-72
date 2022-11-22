@@ -1,8 +1,8 @@
 package report_use_case.screens;
 
 
-import report_use_case.ReportDsRequestModel;
-import report_use_case.reportDsGateway;
+import report_use_case.interactors.ReportDsRequestModel;
+import report_use_case.gateways.reportDsGateway;
 
 import java.io.*;
 import java.util.HashMap;

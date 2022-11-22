@@ -1,8 +1,13 @@
 package user_use_case.screens;
 
-import user_use_case.*;
-
 import entities.*;
+import user_use_case.controllers.LoginUserController;
+import user_use_case.controllers.RegisterUserController;
+import user_use_case.gateways.UserGateway;
+import user_use_case.interactors.LoginUserInputBoundary;
+import user_use_case.interactors.LoginUserInteractor;
+import user_use_case.interactors.RegisterUserInputBoundary;
+import user_use_case.interactors.RegisterUserInteractor;
 
 import javax.swing.*;
 import java.awt.*;

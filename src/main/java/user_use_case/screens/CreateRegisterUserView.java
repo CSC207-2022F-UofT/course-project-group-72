@@ -1,7 +1,7 @@
 package user_use_case.screens;
 
 import entities.GuestUser;
-import user_use_case.RegisterUserController;
+import user_use_case.controllers.RegisterUserController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

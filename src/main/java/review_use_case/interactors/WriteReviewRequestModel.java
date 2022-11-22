@@ -3,8 +3,8 @@
 package review_use_case.interactors;
 
 import review_use_case.interfaces.ReviewGatewayInterface;
-import user_use_case.UserGatewayInterface;
-import restaurant_use_case.RestaurantDSGateway;
+import user_use_case.interfaces.UserGatewayInterface;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import entities.Restaurant;
 import entities.User;
 

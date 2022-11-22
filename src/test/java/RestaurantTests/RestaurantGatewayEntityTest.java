@@ -7,7 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import restaurant_use_case.*;
+
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package global;
 import entities.OwnerUser;
 import entities.Restaurant;
 import restaurant_use_case.screens.EditRestaurantView;
-import restaurant_use_case.RestaurantDSGateway;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

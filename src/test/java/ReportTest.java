@@ -1,4 +1,10 @@
 
+import report_use_case.interactors.Excalibur;
+import report_use_case.interactors.ReportDsRequestModel;
+import report_use_case.interactors.ReportInteract;
+import report_use_case.interactors.ReportRequestModel;
+import report_use_case.interfaces.reportInputBoundary;
+import report_use_case.screens.*;
 import review_use_case.gateways.ReviewGateway;
 import entities.Report;
 import entities.ReportFactory;
@@ -7,11 +13,6 @@ import entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import report_use_case.screens.FileReportHistory;
-import report_use_case.screens.ReportController;
-import report_use_case.screens.ReportResponseFormat;
-import report_use_case.screens.ReportScreen;
-import report_use_case.*;
 
 
 import java.io.File;

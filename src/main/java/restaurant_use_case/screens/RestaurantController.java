@@ -2,10 +2,9 @@ package restaurant_use_case.screens;
 
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_use_case.RestaurantEditRequestModel;
-import restaurant_use_case.RestaurantInputBoundary;
-import restaurant_use_case.RestaurantRequestModel;
-import restaurant_use_case.RestaurantResponseModel;
+import restaurant_use_case.interactors.RestaurantEditRequestModel;
+import restaurant_use_case.interfaces.RestaurantInputBoundary;
+import restaurant_use_case.interactors.RestaurantRequestModel;
 
 /**
  * The Restaurant Controller for modification, but not deletion interactors

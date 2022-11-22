@@ -1,8 +1,8 @@
 package filtering_use_case;
 
 import entities.Restaurant;
-import restaurant_use_case.FileRestaurant;
-import restaurant_use_case.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
 import java.awt.*;

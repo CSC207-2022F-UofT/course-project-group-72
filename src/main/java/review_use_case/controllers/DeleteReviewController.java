@@ -4,8 +4,8 @@ package review_use_case.controllers;
 
 import review_use_case.interfaces.DeleteReviewInputBoundary;
 import review_use_case.interfaces.ReviewGatewayInterface;
-import user_use_case.UserGatewayInterface;
-import restaurant_use_case.RestaurantDSGateway;
+import user_use_case.interfaces.UserGatewayInterface;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import review_use_case.interactors.DeleteReviewRequestModel;
 import review_use_case.screens.ReviewResponseModel;
 import entities.Restaurant;

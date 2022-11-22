@@ -4,11 +4,10 @@ import entities.OwnerUser;
 import entities.RestaurantFactory;
 import global.IFrame;
 import global.LabelTextPanel;
-import restaurant_use_case.RestaurantInputBoundary;
-import restaurant_use_case.RestaurantResponseModel;
-import restaurant_use_case.RestaurantDSGateway;
-import restaurant_use_case.createRestaurant;
-import user_use_case.UserGatewayInterface;
+import restaurant_use_case.interfaces.RestaurantInputBoundary;
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.createRestaurant;
+import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package filtering_use_case;
 
 import entities.Restaurant;
-import restaurant_use_case.RestaurantDSGateway;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import java.util.ArrayList;
 import java.util.Objects;

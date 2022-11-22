@@ -3,8 +3,10 @@ package restaurant_use_case.screens;
 import entities.OwnerUser;
 import entities.Restaurant;
 import global.IFrame;
-import restaurant_use_case.*;
-import user_use_case.UserGatewayInterface;
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.deleteRestaurant;
+import restaurant_use_case.interfaces.RestaurantDeleteInputBoundary;
+import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;

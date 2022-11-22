@@ -1,8 +1,5 @@
 package report_use_case.screens;
 
-import report_use_case.ReportPresenter;
-import report_use_case.ReportResponseModel;
-
 public class ReportResponseFormat implements ReportPresenter {
 
     /**

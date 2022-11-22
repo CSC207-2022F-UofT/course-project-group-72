@@ -1,7 +1,5 @@
 package restaurant_use_case.screens;
 
-import restaurant_use_case.RestaurantResponseModel;
-
 /**
  * The presenter interface so that interactor can call on the presenter without knowing what it does
  */

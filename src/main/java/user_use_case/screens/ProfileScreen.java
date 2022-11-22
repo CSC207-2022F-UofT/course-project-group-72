@@ -7,8 +7,8 @@ import global.ViewRestaurantActionListener;
 import review_use_case.gateways.ReviewGateway;
 import entities.OwnerUser;
 import entities.Restaurant;
-import restaurant_use_case.FileRestaurant;
-import user_use_case.UserGateway;
+import restaurant_use_case.interactors.FileRestaurant;
+import user_use_case.gateways.UserGateway;
 import entities.Review;
 import entities.User;
 

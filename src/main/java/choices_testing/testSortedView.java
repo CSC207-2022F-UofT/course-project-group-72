@@ -3,8 +3,8 @@ package choices_testing;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import filtering_use_case.ChoicesSortedView;
-import restaurant_use_case.FileRestaurant;
-import restaurant_use_case.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import java.io.IOException;
 import java.util.ArrayList;
