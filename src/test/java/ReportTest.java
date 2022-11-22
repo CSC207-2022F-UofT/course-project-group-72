@@ -293,7 +293,7 @@ public class ReportTest {
         testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, factory, excalibur, presenter);
         ReportController testController = new ReportController(testReportInteractor);
 
-        // ReportScreen screen = new ReportScreen(testController, currentReview, currentUser);
+
 
 
 
