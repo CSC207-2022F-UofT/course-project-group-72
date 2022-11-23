@@ -112,7 +112,7 @@ public class EditRestaurantView extends JFrame implements ActionListener{
                 // Initialize the controller, presenter, and use case interactor
                 RestaurantPresenter presenter = new RestaurantResponseFormatter(previousFrame);
                 RestaurantInputBoundary interactor = new editRestaurant(restaurantGateway, presenter);
-                RestaurantController restaurantController = new RestaurantController(interactor);
+                RestaurantEditController restaurantController = new RestaurantEditController(interactor);
                 // Interact
                 RestaurantResponseModel result = restaurantController.edit(
                         owner,
