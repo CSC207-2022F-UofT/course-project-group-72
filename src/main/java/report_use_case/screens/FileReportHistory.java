@@ -32,9 +32,9 @@ public class FileReportHistory implements reportDsGateway {
         csvFile = new File(csvName);
         headers.put("review_id", 0);
         headers.put("reporter_username", 1);
-        headers.put("reason", 3);
-        headers.put("content", 4);
-        headers.put("creation_time", 5);
+        headers.put("reason", 2);
+        headers.put("content", 3);
+        headers.put("creation_time", 4);
 
         if (csvFile.length() == 0) {
             save();
