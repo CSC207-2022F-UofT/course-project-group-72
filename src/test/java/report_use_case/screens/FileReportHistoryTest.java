@@ -15,8 +15,7 @@ class FileReportHistoryTest {
 
     @BeforeAll
     static void setUp() throws IOException {
-
-        File resetFile = new File("src/test/java/report_use_case/screens/testgateway1");
+       File resetFile = new File("src/test/java/report_use_case/screens/testgateway1");
         resetFile.delete();
 
         testGateway = new FileReportHistory("src/test/java/report_use_case/screens/testgateway1");
@@ -37,21 +36,16 @@ class FileReportHistoryTest {
     }
 
     @Test
-    void existsReportByReporterAndReview() throws FileNotFoundException {
-        assert !testGateway.existsReportByReporterAndReview(
-                "Testreporter_username0",
-                "TestreviewID2");
+    void existsReportByReporterAndReview() throws IOException {
 
-       assert testGateway.existsReportByReporterAndReview(
-               "Testreporter_username2",
-              "TestreviewID");
+        FileReportHistory testGateway2 = new FileReportHistory("src/test/java/report_use_case/screens/testgateway2");
+        assertTrue(testGateway2.existsReportByReporterAndReview("Testreporter_username1", "TestreviewID"));
+        assertTrue(testGateway2.existsReportByReporterAndReview("Testreporter_username2", "TestreviewID"));
+        assertFalse(testGateway2.existsReportByReporterAndReview("Testreporter_username3", "TestreviewID"));
     }
 
 
     @AfterAll
     static void tearDown() {
-        //File resetFile = new File("src/test/java/report_use_case/screens/testgateway1");
-        //resetFile.delete();
-
     }
 }
