@@ -1,4 +1,4 @@
-package RestaurantTests;
+package restaurant_tests;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
@@ -10,39 +10,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
+import review_use_case.gateways.ReviewNotFoundException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class RestaurantGatewayEntityTest {
-    final RestaurantDSGateway gateway = new FileRestaurant("./test/java/RestaurantTests/temptest.csv");
+    final RestaurantDSGateway gateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
     final RestaurantFactory factory = new RestaurantFactory();
-    final Restaurant test1 = factory.create(
-            "123",
-            "timsstraunt",
-            "1234 temp ave",
-            "bbq",
-            5);
-    final ArrayList<String> reviews = new ArrayList<>();
-    final Restaurant test2 = factory.reinitialize(
-            "000",
-            "McDonalds",
-            "45 fake st",
-            "fast food",
-            1,
-            3.2,
-            reviews);
-    final ArrayList<Restaurant> testRestaurants = new ArrayList<>();
+    ArrayList<Restaurant> testRestaurants = new ArrayList<>();
 
     public RestaurantGatewayEntityTest() throws IOException {
-        this.reviews.add("1");
-        this.reviews.add("2");
+    }
+
+    // BEFORE DOESN'T WORK FOR SOME REASON
+    @Before
+    public void setup() {
+        Restaurant test1 = factory.create(
+                "123",
+                "timsstraunt",
+                "1234 temp ave",
+                "bbq",
+                5);
+
+        ArrayList<String> reviews = new ArrayList<String>();
+        reviews.add("1");
+        reviews.add("2");
+        Restaurant test2 = factory.reinitialize(
+                "000",
+                "McDonalds",
+                "45 fake st",
+                "fast food",
+                1,
+                3.2,
+                reviews);
+
         testRestaurants.add(test1);
         testRestaurants.add(test2);
 
-    }
-    @Test
-    public void setup() {
         gateway.save(test1);
         gateway.save(test2);
     }
@@ -87,7 +93,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testRetrieveRestaurantPriceBucket() {
-        int actual = gateway.retrieveRestaurant("1234, temp ave").getPriceBucket();
+        int actual = gateway.retrieveRestaurant("1234 temp ave").getPriceBucket();
         assertEquals(5, actual);
     }
 
@@ -114,6 +120,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testSetRestaurantName() {
+        setup();
         Restaurant test = testRestaurants.get(0);
         test.setName("newname");
         assertEquals("newname", test.getName());
@@ -124,6 +131,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testSetRestaurantOwner() {
+        setup();
         Restaurant test = testRestaurants.get(0);
         test.setOwnerID("newid");
         assertEquals("newid", test.getOwnerID());
@@ -134,6 +142,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testSetRestaurantCuisine() {
+        setup();
         Restaurant test = testRestaurants.get(0);
         test.setCuisineType("newcuisine");
         assertEquals("newcuisine", test.getCuisineType());
@@ -144,6 +153,7 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testSetRestaurantPrice() {
+        setup();
         Restaurant test = testRestaurants.get(0);
         test.setPriceBucket(4);
         assertEquals(4, test.getPriceBucket());
@@ -155,17 +165,19 @@ public class RestaurantGatewayEntityTest {
      */
     @Test
     public void testAddReview() {
+        setup();
         Review testReview = new Review("0", 2, "",
-                "00", "1234 temp ave");
+                "00", "invalid but not tested in restaurant");
         Restaurant testRestaurant1 = testRestaurants.get(0);
         testRestaurant1.addReview(testReview);
 
         assertEquals("0", testRestaurant1.getReviewIDs().get(0));
-        assertEquals(3, testRestaurant1.getAvgStars(), 0.000001d);
+        assertEquals(2, testRestaurant1.getAvgStars(), 0.000001d);
 
-        Restaurant testRestaurant2 = testRestaurants.get(0);
+        Restaurant testRestaurant2 = testRestaurants.get(1);
+        System.out.println(testRestaurant2.getAvgStars());
         testRestaurant2.addReview(testReview);
-        double expected = (3.2 + 3)/2;
+        double expected = (3.2 + 2)/2;
 
         assertEquals(expected, testRestaurant2.getAvgStars(), 0.000001d);
     }
@@ -176,8 +188,8 @@ public class RestaurantGatewayEntityTest {
     @Test
     public void testRetrieveAllRestaurants() {
         ArrayList<Restaurant> restaurants = gateway.retrieveAllRestaurants();
-        assertEquals("1234 temp ave", restaurants.get(0).getLocation());
-        assertEquals("45 fake st", restaurants.get(1).getLocation());
+        assertEquals("1234 temp ave", restaurants.get(1).getLocation());
+        assertEquals("45 fake st", restaurants.get(0).getLocation());
     }
 
     /**
