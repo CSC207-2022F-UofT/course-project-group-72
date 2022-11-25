@@ -14,6 +14,8 @@ import user_use_case.gateways.UserGateway;
 import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.imageio.IIOException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ReportInteract implements reportInputBoundary {
@@ -47,7 +49,7 @@ public class ReportInteract implements reportInputBoundary {
     }
 
     @Override
-    public ReportResponseModel create(ReportRequestModel reportRequestModel) throws IIOException {
+    public ReportResponseModel create(ReportRequestModel reportRequestModel) throws IOException {
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(),

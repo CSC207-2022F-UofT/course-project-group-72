@@ -120,31 +120,6 @@ public class ReportTest {
 //        assertEquals(testReport.getReporter_username(), fileReportHistory.getCheck_reports().get(testReport.getReview_id()));
 //    }
 
-    @Test
-    public void testExcalibur_banned_properly(){
-
-        User exUser = new User("TestUser", "1234567");
-        Review exReview = new Review("1", 5, "TestReview", "TestUser",
-                "TestRestaruantAddr");
-
-        //Review will be set to invisible if it has >= 10 reports
-        for (int i = 0; i <=15; i++){
-            exReview.addReport();
-        }
-
-        //User will be banned if it has >= 30 reports
-        for (int i = 0; i <= 5; i++){
-            exUser.addReport();
-        }
-
-
-        Excalibur excalibur = new Excalibur(exUser, exReview);
-        User afterUser = excalibur.execute_user();
-        Review afterReview = excalibur.execute_review();
-        assertFalse(afterUser.isBanned());
-        //assert afterReview.isVisible() == true;
-
-    }
 
     @Test
     public void testPresenter_successView() {
