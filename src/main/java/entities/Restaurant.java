@@ -100,7 +100,7 @@ public class Restaurant {
     public void addReview(Review review) {
         // Can take in a review object instead of ReviewID since the review object will have been newly created
         this.reviews.addNewReview(review.getID());
-        this.attributes.addReview(review.getStars());
+        this.attributes.addReview(review.getStars(), this.reviews.getReviewIDs().size());
     }
 
     //Getters
