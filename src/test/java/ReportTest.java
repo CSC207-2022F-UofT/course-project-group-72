@@ -1,4 +1,3 @@
-
 import report_use_case.interactors.Excalibur;
 import report_use_case.interactors.ReportDsRequestModel;
 import report_use_case.interactors.ReportInteract;
@@ -175,45 +174,45 @@ public class ReportTest {
     @Test
     public void testInteractor_create() throws IOException {
 
-            ReportDsRequestModel testInteractorDsModel = new ReportDsRequestModel("Test Interactor_reason",
+        ReportDsRequestModel testInteractorDsModel = new ReportDsRequestModel("Test Interactor_reason",
                 "TestInteractor content", "TestInteractor reviewID", "TestInteractor reporter_username", "TestInteractor creationtime");
 
-            Review identicalReview = new Review("TestInteractor reviewID", 5, "TestInteractor content", "TestInteractor reviewerID",
+        Review identicalReview = new Review("TestInteractor reviewID", 5, "TestInteractor content", "TestInteractor reviewerID",
                 "123");
 
-            User identicalReporter = new User("TestInteractor reporter_username", "12345678910231073");
+        User identicalReporter = new User("TestInteractor reporter_username", "12345678910231073");
 
-            User differentReporter = new User("TestInteractor reporter_username2", "1234567888123");
+        User differentReporter = new User("TestInteractor reporter_username2", "1234567888123");
 
-            User BannedReporter = new User("TestInteractor reporter_username3", "12345678889932");
-            BannedReporter.setBanned();
+        User BannedReporter = new User("TestInteractor reporter_username3", "12345678889932");
+        BannedReporter.setBanned();
 
-            //duplicate report (same review same reporter)
-            ReportRequestModel testInteractorModelwithDuplicatedReport = new ReportRequestModel("Test Interactor_reason2",
+        //duplicate report (same review same reporter)
+        ReportRequestModel testInteractorModelwithDuplicatedReport = new ReportRequestModel("Test Interactor_reason2",
                 identicalReview, identicalReporter);
 
-            //new report (same review different reporter)
-            ReportRequestModel testInteractorModelwithNewReport = new ReportRequestModel("Test Interactor_reason3",
+        //new report (same review different reporter)
+        ReportRequestModel testInteractorModelwithNewReport = new ReportRequestModel("Test Interactor_reason3",
                 identicalReview, differentReporter);
 
-            //new report (reporter is banned)
-            ReportRequestModel testInteractorModelwithBannedReporter = new ReportRequestModel("Test Interactor_reason4",
+        //new report (reporter is banned)
+        ReportRequestModel testInteractorModelwithBannedReporter = new ReportRequestModel("Test Interactor_reason4",
                 identicalReview, BannedReporter);
 
-            FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Interactor_test.csv");
+        FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Interactor_test.csv");
 
-            //save one to the file first
-            fileReportHistoryForInteractor.save(testInteractorDsModel);
+        //save one to the file first
+        fileReportHistoryForInteractor.save(testInteractorDsModel);
 
-            testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
+        testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
 
-            //test if Interactor throw exception when duplicated report is created
-            try{
-                testReportInteractor.create(testInteractorModelwithDuplicatedReport);
-                fail("ReportCreationFailure should be thrown");
-            } catch (Exception e){
-                assertTrue(e instanceof RuntimeException);
-            }
+        //test if Interactor throw exception when duplicated report is created
+        try{
+            testReportInteractor.create(testInteractorModelwithDuplicatedReport);
+            fail("ReportCreationFailure should be thrown");
+        } catch (Exception e){
+            assertTrue(e instanceof RuntimeException);
+        }
 
 //            //test if Interactor create new report when new report is created
 //            try{
@@ -223,17 +222,17 @@ public class ReportTest {
 //                fail("ReportCreationFailure should not be thrown");
 //            }
 
-            //test if Interactor throw exception when banned reporter try to create new report
-            try{
-                testReportInteractor.create(testInteractorModelwithBannedReporter);
-                fail("ReportCreationFailure should be thrown");
-            } catch (Exception e){
-                assertTrue(e instanceof RuntimeException);
-            }
+        //test if Interactor throw exception when banned reporter try to create new report
+        try{
+            testReportInteractor.create(testInteractorModelwithBannedReporter);
+            fail("ReportCreationFailure should be thrown");
+        } catch (Exception e){
+            assertTrue(e instanceof RuntimeException);
+        }
 
-            //reset the file after test
-            File resetTestFile = new File("Interactor_test.csv");
-            resetTestFile.delete();
+        //reset the file after test
+        File resetTestFile = new File("Interactor_test.csv");
+        resetTestFile.delete();
 
     }
 
@@ -260,25 +259,25 @@ public class ReportTest {
 
     }
 
-   @Test
+    @Test
     public void testControllerReturnResponseModel() throws Exception {
 
         Review review = new Review("TEST_ID", 5, "TEST_CONTENT", "TEST_REVIEWER_ID",
                 "TEST_RESTAURANT_ID");
 
-       User reporter = new User("Test reporter_username", "1234567123123");
+        User reporter = new User("Test reporter_username", "1234567123123");
 
-       ReviewGateway reviewGateway = new ReviewGateway();
-       //reviewGateway.addReview(review);
+        ReviewGateway reviewGateway = new ReviewGateway();
+        //reviewGateway.addReview(review);
 
-       FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Controller_test.csv");
-       ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
-       ReportController testReportController = new ReportController(testReportInteractor);
-
-
+        FileReportHistory fileReportHistoryForInteractor =  new FileReportHistory("Controller_test.csv");
+        ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, testFactory, testExcalibur, testPresenter);
+        ReportController testReportController = new ReportController(testReportInteractor);
 
 
-   }
+
+
+    }
 
     @Test
     public void testReportScreen() throws IOException {
@@ -294,7 +293,7 @@ public class ReportTest {
         testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, factory, excalibur, presenter);
         ReportController testController = new ReportController(testReportInteractor);
 
-       // ReportScreen screen = new ReportScreen(testController, currentReview, currentUser);
+
 
 
 
