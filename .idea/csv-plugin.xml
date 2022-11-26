@@ -3,27 +3,6 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\Controller_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Interactor_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Report_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\main\java\Databases\ReviewDatabase.csv">
           <value>
             <Attribute>
@@ -45,14 +24,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\test\java\Interactor_test.csv">
+        <entry key="\src\test\java\ReportTest.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\test\java\ReportTest.csv">
+        <entry key="\src\test\java\report_use_case\interactors\Interactor_test.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
