@@ -2,7 +2,6 @@ package filtering_use_case;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.User;
-import restaurant_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
