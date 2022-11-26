@@ -1,0 +1,3 @@
+location,name,cuisineType,priceBucket,owner,avgStars,reviews
+45 fake st,McDonalds,fast food,1,000,3.2,1<2
+1234 temp ave,timsstraunt,bbq,5,123,0.0,empty

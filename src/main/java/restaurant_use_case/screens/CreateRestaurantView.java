@@ -214,7 +214,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
                         userGateway,
                         new RestaurantResponseFormatter(previousFrame)
                 );
-                RestaurantController restaurantController = new RestaurantController(interactor);
+                RestaurantCreateController restaurantController = new RestaurantCreateController(interactor);
                 RestaurantResponseModel result = restaurantController.create(
                         owner,
                         name.getText(),

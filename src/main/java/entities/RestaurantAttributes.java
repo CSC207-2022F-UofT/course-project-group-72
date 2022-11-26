@@ -31,8 +31,14 @@ public class RestaurantAttributes {
      *
      * @param stars the stars given in the added review
      */
-    public void addReview(int stars) {
-        this.avgStars = (stars + this.avgStars) / (stars + 1);
+    public void addReview(int stars, int reviewCount) {
+        // if there were no reviews other than this one then the new avg stars will just
+        // be this review's stars
+        if (reviewCount - 1 > 0) {
+            this.avgStars = (stars + this.avgStars) / 2;
+        } else {
+            this.avgStars = stars;
+        };
     }
     /**
      *
