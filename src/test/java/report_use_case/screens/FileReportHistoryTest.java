@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 import report_use_case.interactors.ReportDsRequestModel;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +22,7 @@ class FileReportHistoryTest {
 
 
     @Test
-    void save() throws IOException {
+    void save() {
         ReportDsRequestModel testDsMOdel = new ReportDsRequestModel("Testreason",
                 "Testcontent", "TestreviewID",
                 "Testreporter_username1", "Testcreationtime");
