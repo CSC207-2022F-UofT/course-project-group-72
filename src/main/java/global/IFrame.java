@@ -3,5 +3,7 @@ package global;
 import entities.Restaurant;
 
 public interface IFrame {
-    public void refresh(Restaurant restaurant);
+    public void refresh();
+    public void back();
+    public void home();
 }
