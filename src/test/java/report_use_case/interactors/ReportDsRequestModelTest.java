@@ -25,16 +25,16 @@ class ReportDsRequestModelTest {
 
     @Test
     void getReview_id() {
-        assert Objects.equals(testDsMOdel.getReview_id(), "Test reviewID");
+        assert Objects.equals(testDsMOdel.getReviewId(), "Test reviewID");
     }
 
     @Test
     void getReporter_username() {
-        assert Objects.equals(testDsMOdel.getReporter_username(), "Test reporter_username");
+        assert Objects.equals(testDsMOdel.getReporterUsername(), "Test reporter_username");
     }
 
     @Test
     void getCreation_time() {
-        assert Objects.equals(testDsMOdel.getCreation_time(), "Test creationtime");
+        assert Objects.equals(testDsMOdel.getCreationTime(), "Test creationtime");
     }
 }

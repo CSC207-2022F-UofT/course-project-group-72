@@ -5,19 +5,19 @@ import entities.User;
 
 public class Excalibur {
 
-    private  User targeted_user;
+    private  User targetedUser;
 
-    private  Review targeted_review;
+    private  Review targetedReview;
 
     /**
      *
-     * @param targeted_user
-     * @param targeted_review
+     * @param targetedUser
+     * @param targetedReview
      */
 
-    public Excalibur(User targeted_user, Review targeted_review) {
-        this.targeted_user = targeted_user;
-        this.targeted_review = targeted_review;
+    public Excalibur(User targetedUser, Review targetedReview) {
+        this.targetedUser = targetedUser;
+        this.targetedReview = targetedReview;
     }
 
     /**
@@ -26,12 +26,12 @@ public class Excalibur {
      *
      * This method check if review has more than 10 reports
      */
-    public Review execute_review() {
-        if (targeted_review.getReports() >= 10) {
-            targeted_review.setVisible(false);
+    public Review executeReview() {
+        if (targetedReview.getReports() >= 10) {
+            targetedReview.setVisible(false);
         }
 
-        return targeted_review;
+        return targetedReview;
     }
 
     /**
@@ -40,12 +40,12 @@ public class Excalibur {
      *
      * This method check if user has more than 30 reports
      */
-    public User execute_user(){
-        if (targeted_user.getReceived_reports() >= 30) {
-            targeted_user.setBanned();
+    public User executeUser(){
+        if (targetedUser.getReceived_reports() >= 30) {
+            targetedUser.setBanned();
         }
 
-        return targeted_user;
+        return targetedUser;
     }
 
 

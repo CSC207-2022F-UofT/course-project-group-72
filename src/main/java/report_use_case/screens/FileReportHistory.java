@@ -5,10 +5,8 @@ import report_use_case.interactors.ReportDsRequestModel;
 import report_use_case.gateways.reportDsGateway;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class FileReportHistory implements reportDsGateway {
 
@@ -18,10 +16,10 @@ public class FileReportHistory implements reportDsGateway {
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     // Map of review_id to ReportDsRequestModel, USED to save to file (like a temporary cache)
-    private final MultiMap<String, ReportDsRequestModel> save_reports = new MultiMap<>();
+    private final MultiMap<String, ReportDsRequestModel> saveReports = new MultiMap<>();
 
     // Map of review_id to reporter_username, USED to check if a report exists
-    private final MultiMap<String, String> check_reports = new MultiMap<>();
+    private final MultiMap<String, String> checkReports = new MultiMap<>();
 
     /**
      *
@@ -52,10 +50,10 @@ public class FileReportHistory implements reportDsGateway {
                 String content = col[headers.get("content")];
                 String creation_time = col[headers.get("creation_time")];
 
-                check_reports.put(review_id, reporter_username);
+                checkReports.put(review_id, reporter_username);
 
                 ReportDsRequestModel report = new ReportDsRequestModel(reason, content, review_id, reporter_username, creation_time);
-                save_reports.put(review_id, report);
+                saveReports.put(review_id, report);
 
             }
 
@@ -67,7 +65,7 @@ public class FileReportHistory implements reportDsGateway {
 
     @Override // save report to file (first put into hashmap, then save to file)
     public void save(ReportDsRequestModel reportdsRequestModel) {
-        save_reports.put(reportdsRequestModel.getReview_id(), reportdsRequestModel);
+        saveReports.put(reportdsRequestModel.getReviewId(), reportdsRequestModel);
         save();
     }
 
@@ -81,9 +79,9 @@ public class FileReportHistory implements reportDsGateway {
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (String review_id : save_reports.keySet()) {
-                for (ReportDsRequestModel report : save_reports.get(review_id)) {
-                    writer.write(String.join(",", review_id, report.getReporter_username(), report.getReason(), report.getContent(), report.getCreation_time()));
+            for (String review_id : saveReports.keySet()) {
+                for (ReportDsRequestModel report : saveReports.get(review_id)) {
+                    writer.write(String.join(",", review_id, report.getReporterUsername(), report.getReason(), report.getContent(), report.getCreationTime()));
                     writer.newLine();
                 }
             }
@@ -98,9 +96,9 @@ public class FileReportHistory implements reportDsGateway {
     // check if a report exists
     @Override
     public boolean existsReportByReporterAndReview(String reporter_username, String review_id) {
-        for (String review_id_in_map : check_reports.keySet()) {
+        for (String review_id_in_map : checkReports.keySet()) {
             if (review_id_in_map.equals(review_id)) {
-                for (String reporter_username_in_map : check_reports.get(review_id_in_map)) {
+                for (String reporter_username_in_map : checkReports.get(review_id_in_map)) {
                     if (reporter_username_in_map.equals(reporter_username)) {
                         return true;
                     }

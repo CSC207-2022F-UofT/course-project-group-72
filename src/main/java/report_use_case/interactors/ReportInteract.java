@@ -72,7 +72,7 @@ public class ReportInteract implements reportInputBoundary {
         //It is a hard dependency, however I want to KEEP it here because
         // no other class should be able to change/create the ReportDsRequestModel
         ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(),
-                report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
+                report.getReviewContent(), report.getReviewId(), report.getReporterUsername(), now.toString());
 
         reportDsGateway.save(reportDsRequestModel);
 
@@ -86,8 +86,8 @@ public class ReportInteract implements reportInputBoundary {
         reportRequestModel.getReview().addReport();
 
         //save the changes to the targeted user and review
-        Review updated_revivew = excalibur.execute_review();
-        User updated_user = excalibur.execute_user();
+        Review updated_revivew = excalibur.executeReview();
+        User updated_user = excalibur.executeUser();
 
 
         try{
@@ -99,8 +99,8 @@ public class ReportInteract implements reportInputBoundary {
         try{
         userGateway.updateUser(updated_user);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
-        ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(),
-                report.getReview_id(), now.toString());
+        ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporterUsername(),
+                report.getReviewId(), now.toString());
 
         //report is created and saved successfully at this point
         return presenter.prepareSuccessView(reportResponseModel);

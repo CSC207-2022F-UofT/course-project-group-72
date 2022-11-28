@@ -20,8 +20,8 @@ public class ReportScreen extends JDialog implements ActionListener {
 
     ReportController reportController;
 
-    Review current_review;
-    User current_user;
+    Review currentReview;
+    User currentUser;
 
     JButton report, cancel;
 
@@ -30,16 +30,16 @@ public class ReportScreen extends JDialog implements ActionListener {
     /**
      * @param previousFrame: main JFrame
      * @param controller
-     * @param current_review
-     * @param current_user
+     * @param currentReview
+     * @param currentUser
      *
      * INITIALIZE REPORT VIEW: A POP OUT WINDOW
      */
-    public ReportScreen(JFrame previousFrame, ReportController controller, Review current_review, User current_user) {
+    public ReportScreen(JFrame previousFrame, ReportController controller, Review currentReview, User currentUser) {
         super(previousFrame, true);
         this.reportController = controller;
-        this.current_review = current_review;
-        this.current_user = current_user;
+        this.currentReview = currentReview;
+        this.currentUser = currentUser;
 
 
         JLabel title = new JLabel("Report Screen");
@@ -90,7 +90,7 @@ public class ReportScreen extends JDialog implements ActionListener {
         if (evt.getActionCommand().equals("Report")) {
             //case1.1: Report is created successfully
             try {
-                reportController.create(reason.getText(), this.current_review, this.current_user);
+                reportController.create(reason.getText(), this.currentReview, this.currentUser);
                 JOptionPane.showMessageDialog(this, "Reported successfully!");
             } //case 1.2: Report isn't created; reason why report isn't created is shown by the error message
             catch (Exception e) {
