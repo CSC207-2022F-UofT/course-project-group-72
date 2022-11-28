@@ -63,7 +63,7 @@ public class ReportInteract implements reportInputBoundary {
         }
 
         //Is it an issue in terms of Hard Dependency? But since reportFactory is used to create a report, does it
-        //count as a use of Dependecy injection?
+        //count as a use of Dependency injection?
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(),
                 reportRequestModel.getReporter().getUsername());
 
@@ -77,9 +77,9 @@ public class ReportInteract implements reportInputBoundary {
         reportDsGateway.save(reportDsRequestModel);
 
         //initialize the user object
-        String targeted_username = reportRequestModel.getReview().getUser();
+        String targetedUsername = reportRequestModel.getReview().getUser();
         try{
-        User targeted_user = userGateway.getUser(targeted_username);
+        User targeted_user = userGateway.getUser(targetedUsername);
             targeted_user.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
 
         //add report to targeted review
@@ -97,7 +97,7 @@ public class ReportInteract implements reportInputBoundary {
         }
 
         try{
-        userGateway.updateUser(updated_user);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
+            userGateway.updateUser(updated_user);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporterUsername(),
                 report.getReviewId(), now.toString());
