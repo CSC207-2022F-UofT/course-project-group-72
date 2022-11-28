@@ -10,9 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
-import review_use_case.gateways.ReviewNotFoundException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -175,7 +173,6 @@ public class RestaurantGatewayEntityTest {
         assertEquals(2, testRestaurant1.getAvgStars(), 0.000001d);
 
         Restaurant testRestaurant2 = testRestaurants.get(1);
-        System.out.println(testRestaurant2.getAvgStars());
         testRestaurant2.addReview(testReview);
         double expected = (3.2 + 2)/2;
 
@@ -201,6 +198,7 @@ public class RestaurantGatewayEntityTest {
         assertFalse(gateway.existsByLocation("1234 temp ave"));
     }
 
+    // AFTER DOESN'T WORK
     @After
     public void teardown() {
         ArrayList<Restaurant> removeAll = gateway.retrieveAllRestaurants();

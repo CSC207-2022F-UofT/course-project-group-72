@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.interactors.RestaurantRequestModel;
-import restaurant_use_case.interactors.createRestaurant;
+import restaurant_use_case.interactors.CreateRestaurantInteractor;
 import restaurant_use_case.interfaces.RestaurantInputBoundary;
 import restaurant_use_case.screens.RestaurantPresenter;
 import restaurant_use_case.screens.RestaurantResponseModel;
@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class RestaurantCreateInteractorTest {
 
-    final RestaurantDSGateway restaurantGateway = new FileRestaurant("./test/java/RestaurantTests/temptest.csv");
+    final RestaurantDSGateway restaurantGateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
     final RestaurantFactory factory = new RestaurantFactory();
     final UserGatewayInterface userGateway = new UserGateway();
 
@@ -37,6 +37,7 @@ public class RestaurantCreateInteractorTest {
                 assertEquals("newRestaurant", newRestaurant.getName());
                 assertEquals("123456", newRestaurant.getLocation());
                 assertTrue(restaurantGateway.existsByLocation("123456"));
+                restaurantGateway.deleteRestaurant("123456");
                 return null;
             }
 
@@ -47,7 +48,7 @@ public class RestaurantCreateInteractorTest {
             }
         };
         // Setup the interactor
-        RestaurantInputBoundary interactor = new createRestaurant(factory, restaurantGateway, userGateway, presenter);
+        RestaurantInputBoundary interactor = new CreateRestaurantInteractor(factory, restaurantGateway, userGateway, presenter);
         OwnerFactory userFactory = new OwnerFactory();
         // Setup the input data that would normally be done by the controller
         RestaurantRequestModel inputData = new RestaurantRequestModel(
