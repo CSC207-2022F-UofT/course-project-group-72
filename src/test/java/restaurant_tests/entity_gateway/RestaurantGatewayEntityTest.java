@@ -1,4 +1,4 @@
-package restaurant_tests;
+package restaurant_tests.entity_gateway;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;

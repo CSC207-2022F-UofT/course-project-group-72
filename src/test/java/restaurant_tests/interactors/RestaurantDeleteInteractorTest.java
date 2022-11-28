@@ -1,4 +1,4 @@
-package restaurant_tests;
+package restaurant_tests.interactors;
 
 import entities.OwnerFactory;
 import entities.Restaurant;
