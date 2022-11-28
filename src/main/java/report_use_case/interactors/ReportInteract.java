@@ -78,10 +78,9 @@ public class ReportInteract implements reportInputBoundary {
 
         //initialize the user object
         String targeted_username = reportRequestModel.getReview().getUser();
-
+        try{
         User targeted_user = userGateway.getUser(targeted_username);
-        //raise report
-        targeted_user.addReport();
+            targeted_user.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
 
         //add report to targeted review
         reportRequestModel.getReview().addReport();
@@ -94,10 +93,11 @@ public class ReportInteract implements reportInputBoundary {
         try{
             gateway.updateReview(updated_revivew);
         } catch(Exception e){
-            System.out.println("Error updating review");
+            return presenter.prepareFailView("Updating Error: Couldn't update review");
         }
 
-        userGateway.updateUser(updated_user);
+        try{
+        userGateway.updateUser(updated_user);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(),
                 report.getReview_id(), now.toString());
