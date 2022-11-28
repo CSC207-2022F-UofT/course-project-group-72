@@ -13,12 +13,15 @@ import entities.User;
 import user_use_case.gateways.UserGateway;
 import user_use_case.interfaces.UserGatewayInterface;
 
-import javax.imageio.IIOException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ReportInteract implements reportInputBoundary {
 
+    //Is it an issue in terms of Hard Dependency? as Interactor initialized concrete classes.
     private static final ReviewGatewayInterface gateway = new ReviewGateway();
+
+    private static final UserGatewayInterface userGateway = new UserGateway();
 
     final report_use_case.gateways.reportDsGateway reportDsGateway;
 
@@ -47,7 +50,7 @@ public class ReportInteract implements reportInputBoundary {
     }
 
     @Override
-    public ReportResponseModel create(ReportRequestModel reportRequestModel) throws IIOException {
+    public ReportResponseModel create(ReportRequestModel reportRequestModel) throws IOException {
 
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(),
@@ -59,16 +62,23 @@ public class ReportInteract implements reportInputBoundary {
             return presenter.prepareFailView("You are banned.");
         }
 
+        //Is it an issue in terms of Hard Dependency? But since reportFactory is used to create a report, does it
+        //count as a use of Dependecy injection?
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(),
                 reportRequestModel.getReporter().getUsername());
+
         LocalDateTime now = LocalDateTime.now();
+
+        //It is a hard dependency, however I want to KEEP it here because
+        // no other class should be able to change/create the ReportDsRequestModel
         ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(),
                 report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
+
         reportDsGateway.save(reportDsRequestModel);
 
         //initialize the user object
         String targeted_username = reportRequestModel.getReview().getUser();
-        UserGatewayInterface userGateway = new UserGateway();
+
         User targeted_user = userGateway.getUser(targeted_username);
         //raise report
         targeted_user.addReport();

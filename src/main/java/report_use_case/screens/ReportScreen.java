@@ -50,7 +50,7 @@ public class ReportScreen extends JDialog implements ActionListener {
                 new JLabel("Enter your reason here"), reason);
 
         //set up buttons
-        report = new JButton("report_use_case");
+        report = new JButton("Report");
         cancel = new JButton("Cancel");
 
         JPanel buttons = new JPanel();
@@ -87,7 +87,7 @@ public class ReportScreen extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
         //case1: if the user hit report button
-        if (evt.getActionCommand().equals("report_use_case")) {
+        if (evt.getActionCommand().equals("Report")) {
             //case1.1: Report is created successfully
             try {
                 reportController.create(reason.getText(), this.current_review, this.current_user);
