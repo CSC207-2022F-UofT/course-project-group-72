@@ -16,10 +16,21 @@ import user_use_case.interfaces.UserGatewayInterface;
 
 import java.io.IOException;
 
+/**
+ * Tests the RestaurantEditInteractor for correct response and action performed
+ */
 public class RestaurantEditInteractorTest {
-
+    /**
+     * The Restaurant gateway responsible for managing the temporary test database
+     */
     final RestaurantDSGateway restaurantGateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
+    /**
+     * The Restaurant factory
+     */
     final RestaurantFactory factory = new RestaurantFactory();
+    /**
+     * The User gateway
+     */
     final UserGatewayInterface userGateway = new UserGateway();
 
     public RestaurantEditInteractorTest() throws IOException {
@@ -31,18 +42,24 @@ public class RestaurantEditInteractorTest {
         RestaurantPresenter presenter = new RestaurantPresenter() {
             @Override
             public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel responseModel) {
+                // Get the Restaurant edited by the interactor
                 Restaurant editedRestaurant = responseModel.getRestaurant();
+                // Check that the old values have been changed to the new values
                 assertEquals("newRestaurant", editedRestaurant.getName());
                 assertEquals("fast food", editedRestaurant.getCuisineType());
+                // Check that the old values that have not been changed have been retained
+                assertEquals(3, editedRestaurant.getPriceBucket());
+                // Check that the unique location identifier has not been changed and the restaurant remains in database
                 assertEquals("123456", editedRestaurant.getLocation());
                 assertTrue(restaurantGateway.existsByLocation("123456"));
+                // Reset simulation database
                 restaurantGateway.deleteRestaurant("123456");
                 return null;
             }
 
             @Override
             public RestaurantResponseModel prepareFailView(String error) {
-                // Shouldn't reach fail
+                // Shouldn't reach this branch
                 fail(error);
                 return null;
             }

@@ -16,10 +16,21 @@ import user_use_case.interfaces.UserGatewayInterface;
 
 import java.io.IOException;
 
+/**
+ * Tests the RestaurantDeleteInteractor class for the correct response and action performed
+ */
 public class RestaurantDeleteInteractorTest {
-
+    /**
+     * The Restaurant gateway managing the temporary testing database
+     */
     final RestaurantDSGateway restaurantGateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
+    /**
+     * The Restaurant factory
+     */
     final RestaurantFactory factory = new RestaurantFactory();
+    /**
+     * The User gateway
+     */
     final UserGatewayInterface userGateway = new UserGateway();
 
     public RestaurantDeleteInteractorTest() throws IOException {
@@ -31,7 +42,9 @@ public class RestaurantDeleteInteractorTest {
         RestaurantDeletePresenter presenter = new RestaurantDeletePresenter() {
             @Override
             public RestaurantResponseModel prepareSuccessView(String message, String restaurant, String deletionTime) {
+                // Check that the correct restaurant was operated on by the interactor
                 assertEquals("newRestaurant", restaurant);
+                // Checks that the restaurant has been successfully deleted
                 assertFalse(restaurantGateway.existsByLocation("123456"));
                 return null;
             }
@@ -52,12 +65,13 @@ public class RestaurantDeleteInteractorTest {
                 "bbq",
                 3);
         restaurantGateway.save(newRestaurant);
+        // Simulate a controller creating a request model
         RestaurantDeleteRequestModel inputData = new RestaurantDeleteRequestModel(
                 userFactory.CreateUserObject("0000","1234"),
                 newRestaurant
         );
 
-
+        // Simulate an interaction
         interactor.delete(inputData);
 
     }

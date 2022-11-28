@@ -14,15 +14,31 @@ import restaurant_use_case.interactors.FileRestaurant;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Tests the FileRestaurant database class and Restaurant entity class
+ * Merged together since FileRestaurant returns a Restaurant
+ */
 public class RestaurantGatewayEntityTest {
+    /**
+     * The restaurant gateway responsible for the management of the temporary test database
+     */
     final RestaurantDSGateway gateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
+    /**
+     * The Restaurant factory
+     */
     final RestaurantFactory factory = new RestaurantFactory();
+    /**
+     * The Array List of Restaurants used in the environment
+     */
     ArrayList<Restaurant> testRestaurants = new ArrayList<>();
 
     public RestaurantGatewayEntityTest() throws IOException {
     }
 
     // BEFORE DOESN'T WORK FOR SOME REASON
+    /**
+     * Sets up the simulation environment to contain 2 restaurants and 2 review IDs
+     */
     @Before
     public void setup() {
         Restaurant test1 = factory.create(
