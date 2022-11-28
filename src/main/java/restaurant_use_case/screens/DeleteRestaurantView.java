@@ -4,7 +4,7 @@ import entities.OwnerUser;
 import entities.Restaurant;
 import global.IFrame;
 import restaurant_use_case.gateways.RestaurantDSGateway;
-import restaurant_use_case.interactors.deleteRestaurant;
+import restaurant_use_case.interactors.DeleteRestaurantInteractor;
 import restaurant_use_case.interfaces.RestaurantDeleteInputBoundary;
 import user_use_case.interfaces.UserGatewayInterface;
 
@@ -95,7 +95,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
         try {
             // initialize the presenter, controller and use case interactor
             RestaurantDeletePresenter presenter = new RestaurantDeleteResponseFormatter(previousFrame);
-            RestaurantDeleteInputBoundary interactor = new deleteRestaurant(restaurantGateway, userGateway, presenter);
+            RestaurantDeleteInputBoundary interactor = new DeleteRestaurantInteractor(restaurantGateway, userGateway, presenter);
             RestaurantDeleteController restaurantController = new RestaurantDeleteController(interactor);
             // Check if the person clicked confirm, if so interact
             if (Objects.equals(e.getActionCommand(), "Confirm")) {

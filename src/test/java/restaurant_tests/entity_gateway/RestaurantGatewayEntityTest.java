@@ -1,4 +1,4 @@
-package restaurant_tests;
+package restaurant_tests.entity_gateway;
 
 import entities.Restaurant;
 import entities.RestaurantFactory;
@@ -10,21 +10,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
-import review_use_case.gateways.ReviewNotFoundException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Tests the FileRestaurant database class and Restaurant entity class
+ * Merged together since FileRestaurant returns a Restaurant
+ */
 public class RestaurantGatewayEntityTest {
+    /**
+     * The restaurant gateway responsible for the management of the temporary test database
+     */
     final RestaurantDSGateway gateway = new FileRestaurant("src/test/java/restaurant_tests/temptest.csv");
+    /**
+     * The Restaurant factory
+     */
     final RestaurantFactory factory = new RestaurantFactory();
+    /**
+     * The Array List of Restaurants used in the environment
+     */
     ArrayList<Restaurant> testRestaurants = new ArrayList<>();
 
     public RestaurantGatewayEntityTest() throws IOException {
     }
 
     // BEFORE DOESN'T WORK FOR SOME REASON
+    /**
+     * Sets up the simulation environment to contain 2 restaurants and 2 review IDs
+     */
     @Before
     public void setup() {
         Restaurant test1 = factory.create(
@@ -175,7 +189,6 @@ public class RestaurantGatewayEntityTest {
         assertEquals(2, testRestaurant1.getAvgStars(), 0.000001d);
 
         Restaurant testRestaurant2 = testRestaurants.get(1);
-        System.out.println(testRestaurant2.getAvgStars());
         testRestaurant2.addReview(testReview);
         double expected = (3.2 + 2)/2;
 
@@ -201,6 +214,7 @@ public class RestaurantGatewayEntityTest {
         assertFalse(gateway.existsByLocation("1234 temp ave"));
     }
 
+    // AFTER DOESN'T WORK
     @After
     public void teardown() {
         ArrayList<Restaurant> removeAll = gateway.retrieveAllRestaurants();

@@ -6,7 +6,7 @@ import global.IFrame;
 import global.LabelTextPanel;
 import restaurant_use_case.interfaces.RestaurantInputBoundary;
 import restaurant_use_case.gateways.RestaurantDSGateway;
-import restaurant_use_case.interactors.createRestaurant;
+import restaurant_use_case.interactors.CreateRestaurantInteractor;
 import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.swing.*;
@@ -208,7 +208,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
                     break;
             }
             if (Objects.equals(buttonPressed, "Confirm")) {
-                RestaurantInputBoundary interactor = new createRestaurant(
+                RestaurantInputBoundary interactor = new CreateRestaurantInteractor(
                         new RestaurantFactory(),
                         restaurantGateway,
                         userGateway,

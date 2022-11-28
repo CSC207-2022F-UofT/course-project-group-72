@@ -5,7 +5,7 @@ import entities.Restaurant;
 import global.IFrame;
 import global.LabelTextPanel;
 import restaurant_use_case.gateways.RestaurantDSGateway;
-import restaurant_use_case.interactors.editRestaurant;
+import restaurant_use_case.interactors.EditRestaurantInteractor;
 import restaurant_use_case.interfaces.RestaurantInputBoundary;
 
 import javax.swing.*;
@@ -111,7 +111,7 @@ public class EditRestaurantView extends JFrame implements ActionListener{
             if (Objects.equals(e.getActionCommand(), "Confirm")) {
                 // Initialize the controller, presenter, and use case interactor
                 RestaurantPresenter presenter = new RestaurantResponseFormatter(previousFrame);
-                RestaurantInputBoundary interactor = new editRestaurant(restaurantGateway, presenter);
+                RestaurantInputBoundary interactor = new EditRestaurantInteractor(restaurantGateway, presenter);
                 RestaurantEditController restaurantController = new RestaurantEditController(interactor);
                 // Interact
                 RestaurantResponseModel result = restaurantController.edit(
