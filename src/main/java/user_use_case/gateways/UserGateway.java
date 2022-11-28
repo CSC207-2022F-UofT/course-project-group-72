@@ -96,19 +96,18 @@ public class UserGateway implements UserGatewayInterface {
 
 
                 // replace the old values with the new values
+                String line1;
                 if (new_username.equals(username)) {
-                    String line1 = String.join(",", username, new_password, new_past_reviews,
+                    line1 = String.join(",", username, new_password, new_past_reviews,
                             new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
-                    bw.write(line1);
-                    bw.newLine();
 
                     //keep the old values
                 } else {
-                    String line1 = String.join(",", username, password, past_reviews,
+                    line1 = String.join(",", username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
-                    bw.write(line1);
-                    bw.newLine();
                 }
+                bw.write(line1);
+                bw.newLine();
 
             }
 
@@ -143,11 +142,11 @@ public class UserGateway implements UserGatewayInterface {
                     // Format Past Reviews
 
                     String[] past_reviews_elements = user[2].split("/");
-                    ArrayList<String> return_past_reviews = new ArrayList(
+                    ArrayList<String> return_past_reviews = new ArrayList<>(
                             Arrays.asList( past_reviews_elements ) );
 
                     String[] liked_reviews_elements = user[3].split("|");
-                    ArrayList<String> return_liked_reviews = new ArrayList(
+                    ArrayList<String> return_liked_reviews = new ArrayList<>(
                             Arrays.asList( liked_reviews_elements ) );
 
                     Boolean return_banned = false;
@@ -161,7 +160,7 @@ public class UserGateway implements UserGatewayInterface {
                     }
 
                     String[] owned_restaurant_elements = user[2].split("&");
-                    ArrayList<String> return_owned_restaurants = new ArrayList(
+                    ArrayList<String> return_owned_restaurants = new ArrayList<>(
                             Arrays.asList( owned_restaurant_elements ) );
 
                     User return_user = userFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
