@@ -34,10 +34,10 @@ public class ReportInteract implements reportInputBoundary {
 
     /**
      *
-     * @param reportDsGateway
-     * @param reportFactory
-     * @param excalibur
-     * @param presenter
+     * @param reportDsGateway: reportDsGateway
+     * @param reportFactory: ReportFactory
+     * @param excalibur: Excalibur
+     * @param presenter: ReportPresenter
      *
      * initialize report interactor
      */

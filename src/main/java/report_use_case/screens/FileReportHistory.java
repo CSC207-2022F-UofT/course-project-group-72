@@ -23,8 +23,8 @@ public class FileReportHistory implements reportDsGateway {
 
     /**
      *
-     * @param csvName
-     * @throws IOException
+     * @param csvName: file name of the database
+     * @throws IOException: Exception being raised
      */
     public FileReportHistory(String csvName) throws IOException {
         csvFile = new File(csvName);

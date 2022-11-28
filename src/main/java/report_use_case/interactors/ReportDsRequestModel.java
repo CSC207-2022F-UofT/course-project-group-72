@@ -10,11 +10,11 @@ public class ReportDsRequestModel {
 
     /**
      *
-     * @param reason
-     * @param content
-     * @param review_id
-     * @param reporterUsername
-     * @param creationTime
+     * @param reason: String, reason the reporter entered
+     * @param content: String, the content corresponding to the reivew
+     * @param review_id: String
+     * @param reporterUsername: String the reporter's Username
+     * @param creationTime: Local time
      */
 
     public ReportDsRequestModel(String reason, String content, String review_id, String reporterUsername, String creationTime) {

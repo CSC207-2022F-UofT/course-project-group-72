@@ -5,14 +5,14 @@ import entities.User;
 
 public class Excalibur {
 
-    private  User targetedUser;
+    private User targetedUser;
 
-    private  Review targetedReview;
+    private Review targetedReview;
 
     /**
      *
-     * @param targetedUser
-     * @param targetedReview
+     * @param targetedUser: User corresponding to the Review being reported
+     * @param targetedReview: Review being reported
      */
 
     public Excalibur(User targetedUser, Review targetedReview) {

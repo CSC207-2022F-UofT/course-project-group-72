@@ -28,10 +28,10 @@ public class ReportScreen extends JDialog implements ActionListener {
     JFrame owner;
 
     /**
-     * @param previousFrame: main JFrame
-     * @param controller
-     * @param currentReview
-     * @param currentUser
+     * @param previousFrame: main JFrame (specifically, the Restaurant view)
+     * @param controller: ReportController being passed in
+     * @param currentReview: Review, the review being reported
+     * @param currentUser: User, the Reporter
      *
      * INITIALIZE REPORT VIEW: A POP OUT WINDOW
      */

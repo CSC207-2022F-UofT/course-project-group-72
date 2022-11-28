@@ -9,9 +9,9 @@ public class ReportResponseModel {
 
     /**
      *
-     * @param reporterName
-     * @param reviewId
-     * @param creationTime
+     * @param reporterName: String, reporter's username
+     * @param reviewId: String, reviewId of the review being reported
+     * @param creationTime: local time
      */
     public ReportResponseModel(String reporterName, String reviewId, String creationTime){
         this.reporterName = reporterName;
