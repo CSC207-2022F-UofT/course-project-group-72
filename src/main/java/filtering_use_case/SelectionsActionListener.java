@@ -49,6 +49,7 @@ public class SelectionsActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        // Initialize Needed Objects
         ChoicesPresenter presenter = new ChoicesResponseFormatter();
         ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
         ChoicesController choicesController = new ChoicesController(interactor);
@@ -64,13 +65,17 @@ public class SelectionsActionListener implements ActionListener {
                     sortDirection.getSelection().getActionCommand()
             );
 
+            // Get Sorted List and Call ChoicesSortedView
             ArrayList<Restaurant> sortedList = selections.getRestaurants();
             ChoicesSortedView sortedView = new ChoicesSortedView(sortedList, user);
 
+            // Setup for Calling SortedView and Disposal of This Window
             this.frame.setVisible(false);
             this.frame.dispose();
             sortedView.setVisible(true);
             frame.repaint();
+
+            // Exception
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this.frame, ex.toString());
 

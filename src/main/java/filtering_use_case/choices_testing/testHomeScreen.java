@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class testHomeScreen {
     public static void main(String[] args) throws IOException {
-        final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
+        final RestaurantDSGateway gateway =
+                new FileRestaurant("src/main/java/Databases/RestaurantDatabase.csv");
 
         RestaurantFactory factory = new RestaurantFactory();
         Restaurant r1 = factory.create("111",

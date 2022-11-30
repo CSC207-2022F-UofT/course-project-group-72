@@ -204,7 +204,6 @@ public class FileRestaurant implements RestaurantDSGateway {
             }
         }
 
-
         return filteredRestaurants;
     }
 }

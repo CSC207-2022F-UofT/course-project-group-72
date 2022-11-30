@@ -69,21 +69,18 @@ public class HomeScreenView extends JFrame {
     /**
      * The choices controller
      */
-    // static RestaurantDSGateway choicesGateway;
-
-    static RestaurantDSGateway choicesGateway;
 
     public HomeScreenView(User user) throws IOException {
 
-        final RestaurantDSGateway choicesGateway = new FileRestaurant("./blank2.csv");
-
-        HomeScreenView.choicesGateway = choicesGateway;
+        // Initialize Database Location and Gateway
+        String RESTAURANT_DATABASE = "src/main/java/Databases/RestaurantDatabase.csv";
+        final RestaurantDSGateway choicesGateway = new FileRestaurant(RESTAURANT_DATABASE);
 
         // Search Field(s) Temporarily placing Location as an input field
         JPanel searchField = new JPanel();
 
-        query = new JTextField("", 20);
-        location = new JTextField("", 4);
+        query = new JTextField(20);
+        location = new JTextField(4);
 
         searchField.add(query);
 
@@ -127,6 +124,11 @@ public class HomeScreenView extends JFrame {
         sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):", true);
         sortNameButton = new JRadioButton("Sort By Name:");
 
+        // Set Action Commands for Sort Method
+        sortPriceButton.setActionCommand("Price");
+        sortAvgStarsButton.setActionCommand("AvgStars");
+        sortNameButton.setActionCommand("Name");
+
         // Add to selection button group
         sortButtons.add(sortPriceButton);
         sortButtons.add(sortAvgStarsButton);
@@ -135,9 +137,13 @@ public class HomeScreenView extends JFrame {
         // Sorting Direction Button Group
         sortDirection = new ButtonGroup();
 
-        // Separate Direction Buttons (Sort by Direction, Ex: Ascending, Descending)
-        sortAscending = new JRadioButton("Sort Ascending:");
-        sortDescending = new JRadioButton("Sort Descending:", true);
+        // Separate Direction Buttons (Sort by Direction: Ascending, Descending)
+        sortAscending = new JRadioButton("Sort Ascending: ");
+        sortDescending = new JRadioButton("Sort Descending: ", true);
+
+        // Set Action Commands for Direction
+        sortAscending.setActionCommand("Ascending");
+        sortDescending.setActionCommand("Descending");
 
         // Add to direction button group
         sortDirection.add(sortAscending);
@@ -152,13 +158,9 @@ public class HomeScreenView extends JFrame {
 
         // Extract Selections
 
-
-
-
         // Search Button
         searchButton = new JButton("Search");
         searchField.add(searchButton);
-        //searchButton.addActionListener(this);
         searchButton.addActionListener(new SelectionsActionListener(
                 this,
                 choicesGateway,
@@ -188,44 +190,12 @@ public class HomeScreenView extends JFrame {
         repaint();
     }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
+//    public static void main (String[]args) throws IOException {
 //
-//        ChoicesPresenter presenter = new ChoicesResponseFormatter();
-//        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
-//        ChoicesController choicesController = new ChoicesController(interactor);
-//
-//        try {
-//            ChoicesResponseModel selections = choicesController.select(
-//                    query.getText(),
-//                    location.getText(),
-//                    cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-//                    priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-//                    avgStars.getItemAt(avgStars.getSelectedIndex()),
-//                    sortButtons.getSelection().getActionCommand(),
-//                    sortDirection.getSelection().getActionCommand()
-//            );
-//
-//            ArrayList<Restaurant> sortedList = selections.getRestaurants();
-//
-//            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList);
-//
-//            this.setVisible(false);
-//            this.dispose();
-//            sortedView.setVisible(true);
-//            repaint();
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(this, ex.toString());
-//
-//        }
+//        User userTest = new User("test", "pass");
+//        HomeScreenView view = new HomeScreenView(userTest);
+//        view.setVisible(true);
 //    }
-
-    public static void main (String[]args) throws IOException {
-
-        User userTest = new User("test", "pass");
-        HomeScreenView view = new HomeScreenView(userTest);
-        view.setVisible(true);
-    }
 
 }
 
