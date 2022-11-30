@@ -1,6 +1,7 @@
 package report_use_case.interactors;
 
 import report_use_case.gateways.reportDsGateway;
+import report_use_case.interfaces.BanTool;
 import report_use_case.interfaces.reportInputBoundary;
 import report_use_case.screens.ReportPresenter;
 import report_use_case.screens.ReportResponseModel;
@@ -27,7 +28,7 @@ public class ReportInteract implements reportInputBoundary {
 
     final ReportFactory reportFactory;
 
-    final Excalibur excalibur;
+    final BanTool banTool;
 
     final ReportPresenter presenter;
 
@@ -36,15 +37,15 @@ public class ReportInteract implements reportInputBoundary {
      *
      * @param reportDsGateway: reportDsGateway
      * @param reportFactory: ReportFactory
-     * @param excalibur: Excalibur
+     * @param banTool: Excalibur
      * @param presenter: ReportPresenter
      *
      * initialize report interactor
      */
     public ReportInteract(reportDsGateway reportDsGateway, ReportFactory reportFactory,
-                          Excalibur excalibur, ReportPresenter presenter) {
+                          BanTool banTool, ReportPresenter presenter) {
         this.reportDsGateway = reportDsGateway;
-        this.excalibur = excalibur;
+        this.banTool = banTool;
         this.reportFactory = reportFactory;
         this.presenter = presenter;
     }
@@ -79,25 +80,25 @@ public class ReportInteract implements reportInputBoundary {
         //initialize the user object
         String targetedUsername = reportRequestModel.getReview().getUser();
         try{
-        User targeted_user = userGateway.getUser(targetedUsername);
-            targeted_user.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
+        User targetedUser = userGateway.getUser(targetedUsername);
+            targetedUser.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
 
         //add report to targeted review
         reportRequestModel.getReview().addReport();
 
         //save the changes to the targeted user and review
-        Review updated_revivew = excalibur.executeReview();
-        User updated_user = excalibur.executeUser();
+        Review updatedRevivew = banTool.checkAndBanReview();
+        User updatedUser = banTool.checkAndBanUser();
 
 
         try{
-            gateway.updateReview(updated_revivew);
+            gateway.updateReview(updatedRevivew);
         } catch(Exception e){
             return presenter.prepareFailView("Updating Error: Couldn't update review");
         }
 
         try{
-            userGateway.updateUser(updated_user);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
+            userGateway.updateUser(updatedUser);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporterUsername(),
                 report.getReviewId(), now.toString());

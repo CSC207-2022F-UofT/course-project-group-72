@@ -17,20 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\test\java\Controller_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\test\java\ReportTest.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\test\java\report_use_case\interactors\Interactor_test.csv">
           <value>
             <Attribute>
@@ -39,20 +25,6 @@
           </value>
         </entry>
         <entry key="\src\test\java\report_use_case\screens\Controller_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\test\java\report_use_case\screens\screen_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\test\java\screen_test.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

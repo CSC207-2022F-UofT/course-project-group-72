@@ -4,7 +4,6 @@ import entities.Review;
 import entities.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
 
 class ExcaliburTest {
 
@@ -23,7 +22,7 @@ class ExcaliburTest {
 
 
         Excalibur excalibur = new Excalibur(exUser, exReview);
-        Review afterReview = excalibur.executeReview();
+        Review afterReview = excalibur.checkAndBanReview();
         assert afterReview.isVisible() == false;
     }
 
@@ -41,7 +40,7 @@ class ExcaliburTest {
 
 
         Excalibur excalibur = new Excalibur(exUser, exReview);
-        User afterUser = excalibur.executeUser();
+        User afterUser = excalibur.checkAndBanUser();
         assert afterUser.isBanned() == true;
     }
 }

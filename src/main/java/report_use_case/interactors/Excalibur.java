@@ -2,8 +2,16 @@ package report_use_case.interactors;
 
 import entities.Review;
 import entities.User;
+import report_use_case.interfaces.BanTool;
 
-public class Excalibur {
+//Implement: BanTool (Banning Strategy)
+public class Excalibur implements BanTool {
+
+    //threshold for banning review
+    private final int REVIEW_THRESHOLD = 10;
+
+    //threshold for banning user
+    private final int USER_THRESHOLD = 30;
 
     private User targetedUser;
 
@@ -26,8 +34,8 @@ public class Excalibur {
      *
      * This method check if review has more than 10 reports
      */
-    public Review executeReview() {
-        if (targetedReview.getReports() >= 10) {
+    public Review checkAndBanReview() {
+        if (targetedReview.getReports() >= REVIEW_THRESHOLD) {
             targetedReview.setVisible(false);
         }
 
@@ -40,8 +48,8 @@ public class Excalibur {
      *
      * This method check if user has more than 30 reports
      */
-    public User executeUser(){
-        if (targetedUser.getReceived_reports() >= 30) {
+    public User checkAndBanUser(){
+        if (targetedUser.getReceived_reports() >= USER_THRESHOLD) {
             targetedUser.setBanned();
         }
 
