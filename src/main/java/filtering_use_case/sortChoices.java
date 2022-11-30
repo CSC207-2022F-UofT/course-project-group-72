@@ -33,28 +33,28 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
 
             // Possibly have multi drop-down select?
             if((restaurant.getPriceBucket() == requestModel.getInputPriceBucket() ||
-                    restaurant.getPriceBucket() == 0)
+                    requestModel.getInputPriceBucket() == 0)
 
                     // Determines Location (Postal Code) and uses the first 3 letters for nearby rest
-                //&& (Objects.equals(restaurant.getLocation().substring(0, 3),
-                 //   requestModel.getInputLocation().substring(0, 3)) ||
-                 //   Objects.equals(restaurant.getLocation(), ""))
+                    //&& (Objects.equals(restaurant.getLocation().substring(0, 3),
+                    //   requestModel.getInputLocation().substring(0, 3)) ||
+                    //   Objects.equals(restaurant.getLocation(), ""))
 
                     // Can change to tags, would make cuisine type an input or keep the same but
                     // choices are limited
-                && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
-                    Objects.equals(restaurant.getCuisineType(), ""))
+                    && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
+                    Objects.equals(requestModel.getInputCuisineType(), "No Preference"))
 
                     // Average Stars should filter decimals, like 3.99 is categorized into 3
-                && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
-                    restaurant.getAvgStars() == 0))
+                    && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
+                    requestModel.getInputAvgStars() == 0))
 
             {
                 sortedRestaurants.add(restaurant);}
         }
         //sortList(sortedRestaurants, requestModel.getInputDirection());
 
-        ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
+        ChoicesResponseModel responseModel = new ChoicesResponseModel(matchedRestaurants);
         return presenter.prepareSuccessView(responseModel);
 
     }

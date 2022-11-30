@@ -20,7 +20,7 @@ public class ChoicesSortedView extends JFrame {
 
     // TODO: pass user through login -> home screen -> choices sorted
 
-    public ChoicesSortedView(ArrayList<Restaurant> sortedList) {
+    public ChoicesSortedView(ArrayList<Restaurant> sortedList, User user) {
 
         //TODO: organize/format components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));

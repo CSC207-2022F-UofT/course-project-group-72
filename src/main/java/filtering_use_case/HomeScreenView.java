@@ -1,6 +1,7 @@
 package filtering_use_case;
 
 import entities.Restaurant;
+import entities.User;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HomeScreenView extends JFrame implements ActionListener {
+public class HomeScreenView extends JFrame {
     /**
      * The search query
      */
@@ -68,9 +69,14 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The choices controller
      */
+    // static RestaurantDSGateway choicesGateway;
+
     static RestaurantDSGateway choicesGateway;
 
-    public HomeScreenView(RestaurantDSGateway choicesGateway) {
+    public HomeScreenView(User user) throws IOException {
+
+        final RestaurantDSGateway choicesGateway = new FileRestaurant("./blank2.csv");
+
         HomeScreenView.choicesGateway = choicesGateway;
 
         // Search Field(s) Temporarily placing Location as an input field
@@ -80,11 +86,6 @@ public class HomeScreenView extends JFrame implements ActionListener {
         location = new JTextField("", 4);
 
         searchField.add(query);
-
-        // Search Button
-        searchButton = new JButton("Search");
-        searchField.add(searchButton);
-        searchButton.addActionListener(this);
 
         // Drop-Down Menus Options
         Integer[] pricingOptions = {0, 1, 2, 3, 4, 5};
@@ -149,6 +150,27 @@ public class HomeScreenView extends JFrame implements ActionListener {
         sortFields.add(sortAscending);
         sortFields.add(sortDescending);
 
+        // Extract Selections
+
+
+
+
+        // Search Button
+        searchButton = new JButton("Search");
+        searchField.add(searchButton);
+        //searchButton.addActionListener(this);
+        searchButton.addActionListener(new SelectionsActionListener(
+                this,
+                choicesGateway,
+                user,
+                query,
+                location,
+                cuisineType,
+                priceBucket,
+                avgStars,
+                sortButtons,
+                sortDirection));
+
         // Setup Window
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -166,52 +188,45 @@ public class HomeScreenView extends JFrame implements ActionListener {
         repaint();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // , User user
-        // System.out.println("Click " + e.getActionCommand());
-        // ChoicesInputBoundary sortChoices = null;
-        // ChoicesController choicesController = new ChoicesController(sortChoices);
-
-        ChoicesPresenter presenter = new ChoicesResponseFormatter();
-        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
-        ChoicesController choicesController = new ChoicesController(interactor);
-
-        try {
-            ChoicesResponseModel selections = choicesController.select(
-                    query.getText(),
-                    location.getText(),
-                    cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-                    priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-                    avgStars.getItemAt(avgStars.getSelectedIndex()),
-                    sortButtons.getSelection().getActionCommand(),
-                    sortDirection.getSelection().getActionCommand()
-            );
-            // System.exit(0);
-
-            ArrayList<Restaurant> sortedList = selections.getRestaurants();
-
-            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList);
-
-            this.setVisible(false);
-            this.dispose();
-            sortedView.setVisible(true);
-            repaint();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.toString());
-
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//
+//        ChoicesPresenter presenter = new ChoicesResponseFormatter();
+//        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
+//        ChoicesController choicesController = new ChoicesController(interactor);
+//
+//        try {
+//            ChoicesResponseModel selections = choicesController.select(
+//                    query.getText(),
+//                    location.getText(),
+//                    cuisineType.getItemAt(cuisineType.getSelectedIndex()),
+//                    priceBucket.getItemAt(priceBucket.getSelectedIndex()),
+//                    avgStars.getItemAt(avgStars.getSelectedIndex()),
+//                    sortButtons.getSelection().getActionCommand(),
+//                    sortDirection.getSelection().getActionCommand()
+//            );
+//
+//            ArrayList<Restaurant> sortedList = selections.getRestaurants();
+//
+//            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList);
+//
+//            this.setVisible(false);
+//            this.dispose();
+//            sortedView.setVisible(true);
+//            repaint();
 //        } catch (Exception ex) {
-//            throw new RuntimeException(ex);
+//            JOptionPane.showMessageDialog(this, ex.toString());
+//
 //        }
-        }
+//    }
+
+    public static void main (String[]args) throws IOException {
+
+        User userTest = new User("test", "pass");
+        HomeScreenView view = new HomeScreenView(userTest);
+        view.setVisible(true);
     }
 
-        public static void main (String[]args) throws IOException {
-            final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
-            HomeScreenView view = new HomeScreenView(gateway);
-            view.setVisible(true);
-        }
-
-    }
+}
 
 
