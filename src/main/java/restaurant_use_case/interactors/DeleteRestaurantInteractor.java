@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Delete Restaurant use case interactor, removes the Restaurant from the database
  */
-public class deleteRestaurant implements RestaurantDeleteInputBoundary {
+public class DeleteRestaurantInteractor implements RestaurantDeleteInputBoundary {
     /**
      * The Restaurant Gateway that manages the Restaurant database
      */
@@ -34,8 +34,8 @@ public class deleteRestaurant implements RestaurantDeleteInputBoundary {
      * @param userGateway the User gateway responsible for managing the database
      * @param presenter the Restaurant Presenter
      */
-    public deleteRestaurant(RestaurantDSGateway restaurantGateway, UserGatewayInterface userGateway,
-                            RestaurantDeletePresenter presenter) {
+    public DeleteRestaurantInteractor(RestaurantDSGateway restaurantGateway, UserGatewayInterface userGateway,
+                                      RestaurantDeletePresenter presenter) {
         this.restaurantGateway = restaurantGateway;
         this.userGateway = userGateway;
         this.presenter = presenter;

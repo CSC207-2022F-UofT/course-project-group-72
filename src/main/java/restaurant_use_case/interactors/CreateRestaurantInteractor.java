@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * The create restaurant use case interactor
  */
-public class createRestaurant implements RestaurantInputBoundary {
+public class CreateRestaurantInteractor implements RestaurantInputBoundary {
     /**
      * The Restaurant factory used to create a new Restaurant
      */
@@ -39,8 +39,8 @@ public class createRestaurant implements RestaurantInputBoundary {
      * @param userGateway the UserGateway that manages the User database
      * @param presenter the Presenter that updates the screen with the new Restaurant
      */
-    public createRestaurant(RestaurantFactory factory, RestaurantDSGateway dataGateway,
-                            UserGatewayInterface userGateway, RestaurantPresenter presenter) {
+    public CreateRestaurantInteractor(RestaurantFactory factory, RestaurantDSGateway dataGateway,
+                                      UserGatewayInterface userGateway, RestaurantPresenter presenter) {
         this.factory = factory;
         //not sure what is going on here, this.gateway throws an error
         restaurantGateway = dataGateway;

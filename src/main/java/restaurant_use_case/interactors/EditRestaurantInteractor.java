@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * The edit Restaurant use case interactor which changes the data of the current restaurant and
  * reflects that update in the database
  */
-public class editRestaurant implements RestaurantInputBoundary {
+public class EditRestaurantInteractor implements RestaurantInputBoundary {
     /**
      * The Restaurant Gateway which manages the Restaurant Database
      */
@@ -28,8 +28,8 @@ public class editRestaurant implements RestaurantInputBoundary {
      * @param dataGateway the RestaurantDSGateway
      * @param presenter the Restaurant Presenter
      */
-    public editRestaurant(RestaurantDSGateway dataGateway,
-                          RestaurantPresenter presenter) {
+    public EditRestaurantInteractor(RestaurantDSGateway dataGateway,
+                                    RestaurantPresenter presenter) {
         gateway = dataGateway;
         this.presenter = presenter;
     }
@@ -42,13 +42,17 @@ public class editRestaurant implements RestaurantInputBoundary {
      */
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
+        // Down Cast to get the additional Restaurant attribute
+        RestaurantEditRequestModel editRequestModel = (RestaurantEditRequestModel)requestModel;
         if (!gateway.existsByLocation(requestModel.getLocation())) {
             // Checks if the restaurant exists in the system and can be deleted
             return presenter.prepareFailView("RESTAURANT DOES NOT EXIST");
+        } else if (!requestModel.getOwner().getUsername().equals(editRequestModel.getRestaurant().getOwnerID())) {
+            // Checks if the restaurant is owned by the OwnerUser
+            return presenter.prepareFailView("You do not own this Restaurant");
         }
         // Down Cast to access get Restaurant method of EditRequestModel
-        RestaurantEditRequestModel requestModel1 = (RestaurantEditRequestModel)requestModel;
-        Restaurant oldRestaurant = requestModel1.getRestaurant();
+        Restaurant oldRestaurant = editRequestModel.getRestaurant();
 
         // Remove the unedited restaurant from the owner's list
         OwnerUser owner = requestModel.getOwner();
