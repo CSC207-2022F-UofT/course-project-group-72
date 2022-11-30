@@ -37,7 +37,7 @@ public class ReportInteract implements reportInputBoundary {
      *
      * @param reportDsGateway: reportDsGateway
      * @param reportFactory: ReportFactory
-     * @param banTool: Excalibur
+     * @param banTool: Banning Strategy
      * @param presenter: ReportPresenter
      *
      * initialize report interactor
@@ -79,6 +79,8 @@ public class ReportInteract implements reportInputBoundary {
 
         //initialize the user object
         String targetedUsername = reportRequestModel.getReview().getUser();
+
+        //if the user object isn't found in database, return error message (not usually happen)
         try{
         User targetedUser = userGateway.getUser(targetedUsername);
             targetedUser.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
@@ -86,11 +88,11 @@ public class ReportInteract implements reportInputBoundary {
         //add report to targeted review
         reportRequestModel.getReview().addReport();
 
-        //save the changes to the targeted user and review
+        //Ban review and user using BanTool, banning strategy is specified in the input BanTool object
         Review updatedRevivew = banTool.checkAndBanReview();
         User updatedUser = banTool.checkAndBanUser();
 
-
+        //update review and user in database
         try{
             gateway.updateReview(updatedRevivew);
         } catch(Exception e){
@@ -98,8 +100,10 @@ public class ReportInteract implements reportInputBoundary {
         }
 
         try{
-            userGateway.updateUser(updatedUser);} catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
+            userGateway.updateUser(updatedUser);}
+        catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
+        //create response model
         ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporterUsername(),
                 report.getReviewId(), now.toString());
 
