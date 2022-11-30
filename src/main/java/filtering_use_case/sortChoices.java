@@ -54,7 +54,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary{
         }
         //sortList(sortedRestaurants, requestModel.getInputDirection());
 
-        ChoicesResponseModel responseModel = new ChoicesResponseModel(matchedRestaurants);
+        ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
         return presenter.prepareSuccessView(responseModel);
 
     }
