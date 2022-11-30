@@ -5,6 +5,9 @@ import entities.User;
 import report_use_case.interfaces.BanTool;
 
 //Implement: BanTool (Banning Strategy)
+
+//This class is a concrete implementation of the BanTool interface.
+//It is used to ban a user and invisible a review from the system by checking the amount of reports received.
 public class Excalibur implements BanTool {
 
     //threshold for banning review
