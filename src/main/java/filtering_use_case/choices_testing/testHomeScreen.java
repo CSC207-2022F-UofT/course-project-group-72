@@ -3,16 +3,17 @@ package filtering_use_case.choices_testing;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.User;
-import filtering_use_case.ChoicesSortedView;
-import restaurant_use_case.interactors.FileRestaurant;
+import filtering_use_case.HomeScreenView;
 import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class testSortedView {
+public class testHomeScreen {
     public static void main(String[] args) throws IOException {
-        final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
+        final RestaurantDSGateway gateway =
+                new FileRestaurant("src/main/java/Databases/RestaurantDatabase.csv");
 
         RestaurantFactory factory = new RestaurantFactory();
         Restaurant r1 = factory.create("111",
@@ -31,22 +32,14 @@ public class testSortedView {
                 "K BBQ",
                 5);
 
-        ArrayList<Restaurant> sortedList = new ArrayList<>();
-
-        sortedList.add(r1);
-        sortedList.add(r2);
-        sortedList.add(r3);
-
         gateway.save(r1);
         gateway.save(r2);
         gateway.save(r3);
 
-        ArrayList<Restaurant> newList = gateway.searchMatch("Chako", "Z1B");
-        User userTest = new User("aa", "bb");
 
-        ChoicesSortedView view = new ChoicesSortedView(newList, userTest);
+        User userTest = new User("test", "pass");
+        HomeScreenView view = new HomeScreenView(userTest);
         view.setVisible(true);
+
     }
 }
-
-
