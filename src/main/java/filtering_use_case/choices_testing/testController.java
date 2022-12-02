@@ -1,10 +1,10 @@
 package filtering_use_case.choices_testing;
 
-import filtering_use_case.*;
-import org.w3c.dom.ls.LSOutput;
+import filtering_use_case.interactors.sortChoices;
 import entities.Restaurant;
-import entities.RestaurantFactory;
 import entities.User;
+import filtering_use_case.interfaces.ChoicesInputBoundary;
+import filtering_use_case.screens.*;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
 

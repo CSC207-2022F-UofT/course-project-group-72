@@ -3,7 +3,7 @@ package filtering_use_case.choices_testing;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.User;
-import filtering_use_case.ChoicesSortedView;
+import filtering_use_case.screens.ChoicesSortedView;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 

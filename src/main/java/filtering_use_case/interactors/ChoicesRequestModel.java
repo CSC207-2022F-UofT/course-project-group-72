@@ -1,6 +1,4 @@
-package filtering_use_case;
-
-import entities.OwnerUser;
+package filtering_use_case.interactors;
 
 public class ChoicesRequestModel {
 

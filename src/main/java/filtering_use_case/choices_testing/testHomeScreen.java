@@ -3,12 +3,11 @@ package filtering_use_case.choices_testing;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.User;
-import filtering_use_case.HomeScreenView;
+import filtering_use_case.screens.HomeScreenView;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 import restaurant_use_case.interactors.FileRestaurant;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class testHomeScreen {
     public static void main(String[] args) throws IOException {

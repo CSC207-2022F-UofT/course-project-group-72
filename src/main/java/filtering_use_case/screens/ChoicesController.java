@@ -1,8 +1,7 @@
-package filtering_use_case;
+package filtering_use_case.screens;
 
-import filtering_use_case.ChoicesInputBoundary;
-import filtering_use_case.ChoicesRequestModel;
-import filtering_use_case.ChoicesResponseModel;
+import filtering_use_case.interfaces.ChoicesInputBoundary;
+import filtering_use_case.interactors.ChoicesRequestModel;
 
 public class ChoicesController {
 

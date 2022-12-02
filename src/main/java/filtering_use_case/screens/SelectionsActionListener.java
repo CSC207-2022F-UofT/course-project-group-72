@@ -1,7 +1,9 @@
-package filtering_use_case;
+package filtering_use_case.screens;
 
 import entities.Restaurant;
 import entities.User;
+import filtering_use_case.interfaces.ChoicesInputBoundary;
+import filtering_use_case.interactors.sortChoices;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
@@ -67,6 +69,8 @@ public class SelectionsActionListener implements ActionListener {
 
             // Get Sorted List and Call ChoicesSortedView
             ArrayList<Restaurant> sortedList = selections.getRestaurants();
+
+
             ChoicesSortedView sortedView = new ChoicesSortedView(sortedList, user);
 
             // Setup for Calling SortedView and Disposal of This Window
@@ -82,4 +86,3 @@ public class SelectionsActionListener implements ActionListener {
         }
     }
 }
-
