@@ -29,7 +29,7 @@ public class testHomeScreen {
         Restaurant r3 = factory.create("333",
                 "Chako",
                 "Z1B 2C8",
-                "K BBQ",
+                "Food",
                 5);
 
         gateway.save(r1);
