@@ -15,11 +15,11 @@ public class ReportController {
 
     /**
      *
-     * @param reason
-     * @param review
-     * @param reporter
+     * @param reason: String, reason the user passed in
+     * @param review: Review, the review being reported
+     * @param reporter: User, the reporter
      * @return ReportResponseModel
-     * @throws Exception
+     * @throws Exception: the Exception being raised if any
      */
     public ReportResponseModel create(String reason, Review review, User reporter) throws Exception {
 

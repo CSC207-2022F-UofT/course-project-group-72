@@ -1,6 +1,7 @@
 package report_use_case.interactors;
 
 import report_use_case.gateways.reportDsGateway;
+import report_use_case.interfaces.BanTool;
 import report_use_case.interfaces.reportInputBoundary;
 import report_use_case.screens.ReportPresenter;
 import report_use_case.screens.ReportResponseModel;
@@ -27,24 +28,24 @@ public class ReportInteract implements reportInputBoundary {
 
     final ReportFactory reportFactory;
 
-    final Excalibur excalibur;
+    final BanTool banTool;
 
     final ReportPresenter presenter;
 
 
     /**
      *
-     * @param reportDsGateway
-     * @param reportFactory
-     * @param excalibur
-     * @param presenter
+     * @param reportDsGateway: reportDsGateway
+     * @param reportFactory: ReportFactory
+     * @param banTool: Banning Strategy
+     * @param presenter: ReportPresenter
      *
      * initialize report interactor
      */
     public ReportInteract(reportDsGateway reportDsGateway, ReportFactory reportFactory,
-                          Excalibur excalibur, ReportPresenter presenter) {
+                          BanTool banTool, ReportPresenter presenter) {
         this.reportDsGateway = reportDsGateway;
-        this.excalibur = excalibur;
+        this.banTool = banTool;
         this.reportFactory = reportFactory;
         this.presenter = presenter;
     }
@@ -63,7 +64,7 @@ public class ReportInteract implements reportInputBoundary {
         }
 
         //Is it an issue in terms of Hard Dependency? But since reportFactory is used to create a report, does it
-        //count as a use of Dependecy injection?
+        //count as a use of Dependency injection?
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(),
                 reportRequestModel.getReporter().getUsername());
 
@@ -72,35 +73,39 @@ public class ReportInteract implements reportInputBoundary {
         //It is a hard dependency, however I want to KEEP it here because
         // no other class should be able to change/create the ReportDsRequestModel
         ReportDsRequestModel reportDsRequestModel =new ReportDsRequestModel(report.getReason(),
-                report.getReviewContent(), report.getReview_id(), report.getReporter_username(), now.toString());
+                report.getReviewContent(), report.getReviewId(), report.getReporterUsername(), now.toString());
 
         reportDsGateway.save(reportDsRequestModel);
 
         //initialize the user object
-        String targeted_username = reportRequestModel.getReview().getUser();
+        String targetedUsername = reportRequestModel.getReview().getUser();
 
-        User targeted_user = userGateway.getUser(targeted_username);
-        //raise report
-        targeted_user.addReport();
+        //if the user object isn't found in database, return error message (not usually happen)
+        try{
+        User targetedUser = userGateway.getUser(targetedUsername);
+            targetedUser.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
 
         //add report to targeted review
         reportRequestModel.getReview().addReport();
 
-        //save the changes to the targeted user and review
-        Review updated_revivew = excalibur.execute_review();
-        User updated_user = excalibur.execute_user();
+        //Ban review and user using BanTool, banning strategy is specified in the input BanTool object
+        Review updatedRevivew = banTool.checkAndBanReview();
+        User updatedUser = banTool.checkAndBanUser();
 
-
+        //update review and user in database
         try{
-            gateway.updateReview(updated_revivew);
+            gateway.updateReview(updatedRevivew);
         } catch(Exception e){
-            System.out.println("Error updating review");
+            return presenter.prepareFailView("Updating Error: Couldn't update review");
         }
 
-        userGateway.updateUser(updated_user);
+        try{
+            userGateway.updateUser(updatedUser);}
+        catch(Exception e){return presenter.prepareFailView("Updating Error: Couldn't update reviewer");}
 
-        ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporter_username(),
-                report.getReview_id(), now.toString());
+        //create response model
+        ReportResponseModel reportResponseModel = new ReportResponseModel(report.getReporterUsername(),
+                report.getReviewId(), now.toString());
 
         //report is created and saved successfully at this point
         return presenter.prepareSuccessView(reportResponseModel);

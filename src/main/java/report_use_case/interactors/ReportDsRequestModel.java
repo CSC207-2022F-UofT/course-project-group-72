@@ -4,25 +4,25 @@ public class ReportDsRequestModel {
 
     String reason;
     String content;
-    String review_id;
-    String reporter_username;
-    String creation_time;
+    String reviewId;
+    String reporterUsername;
+    String creationTime;
 
     /**
      *
-     * @param reason
-     * @param content
-     * @param review_id
-     * @param reporter_username
-     * @param creation_time
+     * @param reason: String, reason the reporter entered
+     * @param content: String, the content corresponding to the reivew
+     * @param review_id: String
+     * @param reporterUsername: String the reporter's Username
+     * @param creationTime: Local time
      */
 
-    public ReportDsRequestModel(String reason, String content, String review_id, String reporter_username, String creation_time) {
+    public ReportDsRequestModel(String reason, String content, String review_id, String reporterUsername, String creationTime) {
         this.reason = reason;
         this.content = content;
-        this.review_id = review_id;
-        this.reporter_username = reporter_username;
-        this.creation_time = creation_time;
+        this.reviewId = review_id;
+        this.reporterUsername = reporterUsername;
+        this.creationTime = creationTime;
     }
 
     public String getReason() {
@@ -33,16 +33,16 @@ public class ReportDsRequestModel {
         return this.content;
     }
 
-    public String getReview_id() {
-        return this.review_id;
+    public String getReviewId() {
+        return this.reviewId;
     }
 
-    public String getReporter_username() {
-        return this.reporter_username;
+    public String getReporterUsername() {
+        return this.reporterUsername;
     }
 
-    public String getCreation_time() {
-        return this.creation_time;
+    public String getCreationTime() {
+        return this.creationTime;
     }
 
 }

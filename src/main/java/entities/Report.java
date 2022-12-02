@@ -13,12 +13,12 @@ public class Report {
 
     private final Review review;
 
-    private final String reporter_username;
+    private final String reporterUsername;
 
     Report(String reason, Review review, String reporter_id){
         this.reason = reason;
         this.review = review;
-        this.reporter_username = reporter_id;
+        this.reporterUsername = reporter_id;
     }
 
     public String getReason() {
@@ -29,12 +29,12 @@ public class Report {
         return review;
     }
 
-    public String getReview_id(){
+    public String getReviewId(){
        return review.getID();
     }
 
-    public String getReporter_username() {
-        return reporter_username;
+    public String getReporterUsername() {
+        return reporterUsername;
     }
 
 
