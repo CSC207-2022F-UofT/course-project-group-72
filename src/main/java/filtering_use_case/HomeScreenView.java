@@ -1,6 +1,7 @@
 package filtering_use_case;
 
 import entities.Restaurant;
+import entities.User;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HomeScreenView extends JFrame implements ActionListener {
+public class HomeScreenView extends JFrame {
     /**
      * The search query
      */
@@ -68,23 +69,20 @@ public class HomeScreenView extends JFrame implements ActionListener {
     /**
      * The choices controller
      */
-    static RestaurantDSGateway choicesGateway;
 
-    public HomeScreenView(RestaurantDSGateway choicesGateway) {
-        HomeScreenView.choicesGateway = choicesGateway;
+    public HomeScreenView(User user) throws IOException {
+
+        // Initialize Database Location and Gateway
+        String RESTAURANT_DATABASE = "src/main/java/Databases/RestaurantDatabase.csv";
+        final RestaurantDSGateway choicesGateway = new FileRestaurant(RESTAURANT_DATABASE);
 
         // Search Field(s) Temporarily placing Location as an input field
         JPanel searchField = new JPanel();
 
-        query = new JTextField("", 20);
-        location = new JTextField("", 4);
+        query = new JTextField(20);
+        location = new JTextField(4);
 
         searchField.add(query);
-
-        // Search Button
-        searchButton = new JButton("Search");
-        searchField.add(searchButton);
-        searchButton.addActionListener(this);
 
         // Drop-Down Menus Options
         Integer[] pricingOptions = {0, 1, 2, 3, 4, 5};
@@ -126,6 +124,11 @@ public class HomeScreenView extends JFrame implements ActionListener {
         sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):", true);
         sortNameButton = new JRadioButton("Sort By Name:");
 
+        // Set Action Commands for Sort Method
+        sortPriceButton.setActionCommand("Price");
+        sortAvgStarsButton.setActionCommand("AvgStars");
+        sortNameButton.setActionCommand("Name");
+
         // Add to selection button group
         sortButtons.add(sortPriceButton);
         sortButtons.add(sortAvgStarsButton);
@@ -134,9 +137,13 @@ public class HomeScreenView extends JFrame implements ActionListener {
         // Sorting Direction Button Group
         sortDirection = new ButtonGroup();
 
-        // Separate Direction Buttons (Sort by Direction, Ex: Ascending, Descending)
-        sortAscending = new JRadioButton("Sort Ascending:");
-        sortDescending = new JRadioButton("Sort Descending:", true);
+        // Separate Direction Buttons (Sort by Direction: Ascending, Descending)
+        sortAscending = new JRadioButton("Sort Ascending: ");
+        sortDescending = new JRadioButton("Sort Descending: ", true);
+
+        // Set Action Commands for Direction
+        sortAscending.setActionCommand("Ascending");
+        sortDescending.setActionCommand("Descending");
 
         // Add to direction button group
         sortDirection.add(sortAscending);
@@ -148,6 +155,23 @@ public class HomeScreenView extends JFrame implements ActionListener {
         sortFields.add(sortNameButton);
         sortFields.add(sortAscending);
         sortFields.add(sortDescending);
+
+        // Extract Selections
+
+        // Search Button
+        searchButton = new JButton("Search");
+        searchField.add(searchButton);
+        searchButton.addActionListener(new SelectionsActionListener(
+                this,
+                choicesGateway,
+                user,
+                query,
+                location,
+                cuisineType,
+                priceBucket,
+                avgStars,
+                sortButtons,
+                sortDirection));
 
         // Setup Window
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -166,52 +190,13 @@ public class HomeScreenView extends JFrame implements ActionListener {
         repaint();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // , User user
-        // System.out.println("Click " + e.getActionCommand());
-        // ChoicesInputBoundary sortChoices = null;
-        // ChoicesController choicesController = new ChoicesController(sortChoices);
+//    public static void main (String[]args) throws IOException {
+//
+//        User userTest = new User("test", "pass");
+//        HomeScreenView view = new HomeScreenView(userTest);
+//        view.setVisible(true);
+//    }
 
-        ChoicesPresenter presenter = new ChoicesResponseFormatter();
-        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
-        ChoicesController choicesController = new ChoicesController(interactor);
-
-        try {
-            ChoicesResponseModel selections = choicesController.select(
-                    query.getText(),
-                    location.getText(),
-                    cuisineType.getItemAt(cuisineType.getSelectedIndex()),
-                    priceBucket.getItemAt(priceBucket.getSelectedIndex()),
-                    avgStars.getItemAt(avgStars.getSelectedIndex()),
-                    sortButtons.getSelection().getActionCommand(),
-                    sortDirection.getSelection().getActionCommand()
-            );
-            // System.exit(0);
-
-            ArrayList<Restaurant> sortedList = selections.getRestaurants();
-
-            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList);
-
-            this.setVisible(false);
-            this.dispose();
-            sortedView.setVisible(true);
-            repaint();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.toString());
-
-//        } catch (Exception ex) {
-//            throw new RuntimeException(ex);
-//        }
-        }
-    }
-
-        public static void main (String[]args) throws IOException {
-            final RestaurantDSGateway gateway = new FileRestaurant("./temp2.csv");
-            HomeScreenView view = new HomeScreenView(gateway);
-            view.setVisible(true);
-        }
-
-    }
+}
 
 
