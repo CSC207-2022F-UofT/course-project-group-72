@@ -54,7 +54,11 @@ public class CreateRestaurantInteractor implements RestaurantInputBoundary {
         if (restaurantGateway.existsByLocation(requestModel.getLocation())) {
             // Checks if there is another restaurant at that same location, meaning they inputed the wrong location
             return presenter.prepareFailView("INVALID LOCATION");
-        } else if (requestModel.getLocation().length() == 0 |
+        } else if (!requestModel.getLocation().matches("^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$")){
+            // Checks if the location string matches the postal code regex
+            return presenter.prepareFailView
+                    ("Please fill in your location as your postal code in the form: A1B 2C3");
+        }else if (requestModel.getLocation().length() == 0 |
                     requestModel.getName().length() == 0 |
                     requestModel.getCuisineType().length() == 0){
             // Checks if the required fields were left empty
