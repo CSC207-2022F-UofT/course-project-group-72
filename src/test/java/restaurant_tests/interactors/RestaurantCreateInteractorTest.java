@@ -43,7 +43,7 @@ public class RestaurantCreateInteractorTest {
      * Simulates a Restaurant Presenter that receives the information that the Interact creates
      */
     @Test
-    void simulation() {
+    void successfulSimulation() {
         // Temporary test presenter
         RestaurantPresenter presenter = new RestaurantPresenter() {
             @Override
@@ -51,12 +51,16 @@ public class RestaurantCreateInteractorTest {
                 // Checks the Restaurant returned by the interactor
                 Restaurant newRestaurant = responseModel.getRestaurant();
                 assertEquals("newRestaurant", newRestaurant.getName());
-                assertEquals("123456", newRestaurant.getLocation());
+                assertEquals("A1B 2C3", newRestaurant.getLocation());
                 // Check that the restaurant has been successfully stored in the database
-                assertTrue(restaurantGateway.existsByLocation("123456"));
-                restaurantGateway.deleteRestaurant("123456");
+                assertTrue(restaurantGateway.existsByLocation("A1B 2C3"));
+                restaurantGateway.deleteRestaurant("A1B 2C3");
                 // Checks the operation returned by the interactor
+                assertEquals(responseModel.getOperation(), "created");
                 // Checks mutability of operation
+                String actual = "restaurant " + responseModel.getOperation() + " test successful";
+                responseModel.setOperation(actual);
+                assertEquals(responseModel.getOperation(), actual);
                 return null;
             }
 
@@ -74,11 +78,52 @@ public class RestaurantCreateInteractorTest {
         RestaurantRequestModel inputData = new RestaurantRequestModel(
                 userFactory.CreateUserObject("0000","1234"),
                 "newRestaurant",
-                "123456",
+                "A1B 2C3",
                 "bbq",
                 3
         );
-        interactor.create(inputData);
+        try {
+            interactor.create(inputData);
+        } catch(Exception ignored) {
+            // Catches and ignores the error caused by trying to updated no existent
+            //user database
+        }
+    }
 
+    @Test
+    void failingSimulation() {
+        // Temporary test presenter
+        RestaurantPresenter presenter = new RestaurantPresenter() {
+            @Override
+            public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel responseModel) {
+                // should not reach this branch
+                fail();
+                return null;
+            }
+
+            @Override
+            public RestaurantResponseModel prepareFailView(String error) {
+                // Should catch the incorrect location type
+                assertEquals(error, "Please fill in your location as your postal code in the form: A1B 2C3");
+                return null;
+            }
+        };
+        // Setup the interactor
+        RestaurantInputBoundary interactor = new CreateRestaurantInteractor(factory, restaurantGateway, userGateway, presenter);
+        OwnerFactory userFactory = new OwnerFactory();
+        // Setup the input data that would normally be done by the controller
+        RestaurantRequestModel inputData = new RestaurantRequestModel(
+                userFactory.CreateUserObject("0000","1234"),
+                "newRestaurant",
+                "123 fake st",
+                "bbq",
+                3
+        );
+        try {
+            interactor.create(inputData);
+        } catch(Exception ignored) {
+            // Catches and ignores the error caused by trying to updated no existent
+            //user database
+        }
     }
 }
