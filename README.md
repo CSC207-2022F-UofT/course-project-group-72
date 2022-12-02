@@ -11,16 +11,17 @@
 - [x] Conduct code reviews
 
 ## Introduction:
-emmmm
+*Introduction here*
+
 
 
   ## Features:
-* User Login in/Register Service
-* User Profile Service
-* Restaurant Creation/Register as Restaurant Owner Service
-* Sort/Search System
-* Review Sytem
-* Report System
+* ***User Login in/Register Service***
+* ***User Profile Service***
+* ***Restaurant Creation/Register as Restaurant Owner Service***
+* ***Sort/Search System***
+* ***Review Sytem***
+* ***Report System***
   * User is able to report a review by clicking the button beside the review
   * User can add reason when doing report
   * All Users are able to send a report except ones being banned
@@ -38,17 +39,20 @@ emmmm
 
 
 ## Demo (ScreenShots):
-1. Welcome Page:
-2. Profile Page:
-3. Review Page
-4. Restaurant Page
-5. Home Page
-6. Report Page:
+1. **Welcome Page**:
+2. **Profile Page**:
+3. **Review Page**
+4. **Restaurant Page**
+5. **Home Page**
+6. **Report Page**:
 
-
+## Issues accomplished:
+* 
+* 
+*
 
 ## Library Used:
-* Java swing
+* `Java swing`
 
 
 
