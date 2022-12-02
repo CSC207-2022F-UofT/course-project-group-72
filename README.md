@@ -1,17 +1,57 @@
-# Project Template
+# Project Group 72
+* do we have a name for the app? 
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
 
-## Checklist For Your Project
+## Checklist
 - [x] Verify the correct settings for your project repository
 - [x] Set up Github Projects
 - [x] Create the implementation plan using issues and Github Projects
 - [x] Create development branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+- [x] Use pull requests to merge finished features into main branch
+- [x] Conduct code reviews
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+## Introduction:
+emmmm
 
 
+  ## Features:
+* User Login in/Register Service
+* User Profile Service
+* Restaurant Creation/Register as Restaurant Owner Service
+* Sort/Search System
+* Review Sytem
+* Report System
+  * User is able to report a review by clicking the button beside the review
+  * User can add reason when doing report
+  * All Users are able to send a report except ones being banned
+  * Same user cannot report one review twice
+  * Review receiving a certain amount of reports will be turned to invisible
+  * User receiving a certain amount of reports will be banned
+  * All reports will be saved in a database
+
+
+## How to Use (Instructions):
+1.
+2.
+3.
+4.
+
+
+## Demo (ScreenShots):
+1. Welcome Page:
+2. Profile Page:
+3. Review Page
+4. Restaurant Page
+5. Home Page
+6. Report Page:
+
+
+
+## Library Used:
+* Java swing
+
+
+
+## anything else to add? 
+![Octocat](https://media.tenor.com/jeqWyvBJftMAAAAC/anime-shocked.gif)
+  
