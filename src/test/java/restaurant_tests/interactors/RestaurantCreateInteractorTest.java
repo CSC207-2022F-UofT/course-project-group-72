@@ -122,7 +122,7 @@ public class RestaurantCreateInteractorTest {
         try {
             interactor.create(inputData);
         } catch(Exception ignored) {
-            // Catches and ignores the error caused by trying to updated no existent
+            // Catches and ignores the error caused by trying to updated non existent
             //user database
         }
     }
