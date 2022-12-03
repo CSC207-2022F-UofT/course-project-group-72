@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
-class SortAvgStars extends Sorting {
+public class SortAvgStars extends Sorting {
     public static void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         if (Objects.equals(sortDirection, "Ascending")) {
             Collections.sort(sortedRestaurants, Comparator.comparing(Restaurant::getAvgStars));

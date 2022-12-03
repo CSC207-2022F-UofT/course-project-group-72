@@ -2,14 +2,17 @@ package filtering_use_case.screens;
 
 import entities.Restaurant;
 import entities.User;
+import filtering_use_case.interactors.*;
 import filtering_use_case.interfaces.ChoicesInputBoundary;
-import filtering_use_case.interactors.SortChoicesInteractor;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static filtering_use_case.screens.HomeScreenView.*;
 
 public class SelectionsActionListener implements ActionListener {
     JFrame frame;
@@ -53,7 +56,25 @@ public class SelectionsActionListener implements ActionListener {
 
         // Initialize Needed Objects
         ChoicesPresenter presenter = new ChoicesResponseFormatter();
-        ChoicesInputBoundary interactor = new SortChoicesInteractor(choicesGateway, presenter);
+
+        // Finalize Sorting Method
+        String sortInput = sortButtons.getSelection().getActionCommand();
+        //String directionInput = sortDirection.getSelection().getActionCommand();
+        Sorting sortMethod = null;
+
+        if (Objects.equals(sortInput, PRICE)) {
+            sortMethod = new SortPrice();
+        }
+
+        else if (Objects.equals(sortInput, AVG_STARS)) {
+            sortMethod = new SortAvgStars();
+        }
+
+        else if (Objects.equals(sortInput, NAME)) {
+            sortMethod = new SortName();
+        }
+
+        ChoicesInputBoundary interactor = new SortChoicesInteractor(choicesGateway, presenter, sortMethod);
         ChoicesController choicesController = new ChoicesController(interactor);
 
         try {

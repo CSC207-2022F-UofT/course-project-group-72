@@ -16,10 +16,15 @@ public class SortChoicesInteractor implements ChoicesInputBoundary {
     private final RestaurantDSGateway gateway;
     private final ChoicesPresenter presenter;
 
-    public SortChoicesInteractor(RestaurantDSGateway choicesGateway, ChoicesPresenter choicesPresenter){
+    private final Sorting sortMethod;
+
+    public SortChoicesInteractor(RestaurantDSGateway choicesGateway,
+                                 ChoicesPresenter choicesPresenter,
+                                 Sorting sorting){
 
         this.gateway = choicesGateway;
         this.presenter = choicesPresenter;
+        this.sortMethod = sorting;
     }
 
     @Override
@@ -52,17 +57,7 @@ public class SortChoicesInteractor implements ChoicesInputBoundary {
         }
 
         // Sort Restaurants by RadioButtonPress
-        if (requestModel.getInputSort() == PRICE) {
-            SortPrice.sortList(sortedRestaurants, requestModel.getInputDirection());
-        }
-
-        else if (requestModel.getInputSort() == AVG_STARS) {
-            SortAvgStars.sortList(sortedRestaurants, requestModel.getInputDirection());
-        }
-
-        else if (requestModel.getInputSort() == NAME) {
-            SortName.sortList(sortedRestaurants, requestModel.getInputDirection());
-        }
+        sortMethod.sortList(sortedRestaurants, requestModel.getInputDirection());
 
         // Create a Response Model
         ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
