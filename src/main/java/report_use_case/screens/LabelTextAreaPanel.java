@@ -12,8 +12,8 @@ import javax.swing.*;
 public class LabelTextAreaPanel extends JPanel {
     /**
      *
-     * @param label
-     * @param textArea
+     * @param label: JLabel that is added to JtextArea
+     * @param textArea: JTextArea where the JLabel is added to
      *
      *  creating a label to assigned jtextarea
      */

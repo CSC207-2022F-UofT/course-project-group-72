@@ -9,18 +9,18 @@ class ReportResponseModelTest {
     @Test
     void getReporter_name() {
         ReportResponseModel reportResponseModel = new ReportResponseModel("reporter_name", "review_id", "creation_time");
-        assertEquals("reporter_name", reportResponseModel.getReporter_name());
+        assertEquals("reporter_name", reportResponseModel.getReporterName());
     }
 
     @Test
     void getReview_id() {
         ReportResponseModel reportResponseModel = new ReportResponseModel("reporter_name", "review_id", "creation_time");
-        assertEquals("review_id", reportResponseModel.getReview_id());
+        assertEquals("review_id", reportResponseModel.getReviewId());
     }
 
     @Test
     void getCreation_time() {
         ReportResponseModel reportResponseModel = new ReportResponseModel("reporter_name", "review_id", "creation_time");
-        assertEquals("creation_time", reportResponseModel.getCreation_time());
+        assertEquals("creation_time", reportResponseModel.getCreationTime());
     }
 }

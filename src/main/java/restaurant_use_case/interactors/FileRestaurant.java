@@ -189,19 +189,21 @@ public class FileRestaurant implements RestaurantDSGateway {
     public ArrayList<Restaurant> searchMatch(String nameQuery, String locationQuery) {
         ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
 
-        for (Restaurant restaurant : retrieveAllRestaurants()){
-            if (restaurant.getName().contains(nameQuery)
-                    && restaurant.getLocation().contains(locationQuery.substring(0, 3))){
-                filteredRestaurants.add(restaurant);
-            }
+        for (Restaurant restaurant : retrieveAllRestaurants()) {
 
-            // Broader results Ex: Query for The Food will bring up all restaurants with "The" in name
-//            for (String word : query.split("")) {
-//                if (restaurant.getName().contains(word)) {
-//                    return true;
-//                }
-//            }
+            if (restaurant.getName().contains(nameQuery) || Objects.equals(nameQuery, "")){
+                if (Objects.equals(locationQuery, "")) {
+                    filteredRestaurants.add(restaurant);
+                }
+                else if (locationQuery.length() < 3) {
+                    ;
+                }
+                else if (restaurant.getLocation().contains(locationQuery.substring(0, 3))) {
+                    filteredRestaurants.add(restaurant);
+                }
+            }
         }
+
         return filteredRestaurants;
     }
 }
