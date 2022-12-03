@@ -59,18 +59,18 @@ public class SelectionsActionListener implements ActionListener {
 
         // Finalize Sorting Method
         String sortInput = sortButtons.getSelection().getActionCommand();
-        //String directionInput = sortDirection.getSelection().getActionCommand();
-        Sorting sortMethod = null;
 
-        if (Objects.equals(sortInput, PRICE)) {
-            sortMethod = new SortPrice();
-        }
+        Sorting sortMethod;
 
-        else if (Objects.equals(sortInput, AVG_STARS)) {
+        if (Objects.equals(sortInput, AVG_STARS)) {
             sortMethod = new SortAvgStars();
         }
 
-        else if (Objects.equals(sortInput, NAME)) {
+        else if (Objects.equals(sortInput, PRICE)) {
+            sortMethod = new SortPrice();
+        }
+
+        else {
             sortMethod = new SortName();
         }
 

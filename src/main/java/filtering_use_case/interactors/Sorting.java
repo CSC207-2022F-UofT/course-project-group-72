@@ -10,7 +10,9 @@ import java.util.Objects;
 
 public abstract class Sorting {
 
-    public static void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
+    public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
+
     }
+
 }
 
