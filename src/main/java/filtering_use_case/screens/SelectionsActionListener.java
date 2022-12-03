@@ -84,7 +84,6 @@ public class SelectionsActionListener implements ActionListener {
                     cuisineType.getItemAt(cuisineType.getSelectedIndex()),
                     priceBucket.getItemAt(priceBucket.getSelectedIndex()),
                     avgStars.getItemAt(avgStars.getSelectedIndex()),
-                    sortButtons.getSelection().getActionCommand(),
                     sortDirection.getSelection().getActionCommand()
             );
 

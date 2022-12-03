@@ -16,7 +16,6 @@ public class ChoicesController {
                                        String inputCuisineType,
                                        int inputPriceBucket,
                                        double inputAvgStars,
-                                       String inputSort,
                                        String inputDirection) {
 
         ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch,
@@ -24,7 +23,6 @@ public class ChoicesController {
                 inputCuisineType,
                 inputPriceBucket,
                 inputAvgStars,
-                inputSort,
                 inputDirection);
 
         return userInput.select(requestModel);}
