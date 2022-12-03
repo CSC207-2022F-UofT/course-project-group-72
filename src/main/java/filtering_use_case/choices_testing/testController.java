@@ -1,6 +1,6 @@
 package filtering_use_case.choices_testing;
 
-import filtering_use_case.interactors.sortChoices;
+import filtering_use_case.interactors.SortChoicesInteractor;
 import entities.Restaurant;
 import entities.User;
 import filtering_use_case.interfaces.ChoicesInputBoundary;
@@ -18,7 +18,7 @@ public class testController {
         final RestaurantDSGateway choicesGateway = new FileRestaurant("./temp2.csv");
 
         ChoicesPresenter presenter = new ChoicesResponseFormatter();
-        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
+        ChoicesInputBoundary interactor = new SortChoicesInteractor(choicesGateway, presenter);
         ChoicesController choicesController = new ChoicesController(interactor);
 
 

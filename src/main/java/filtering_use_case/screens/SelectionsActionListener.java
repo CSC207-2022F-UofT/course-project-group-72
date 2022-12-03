@@ -3,7 +3,7 @@ package filtering_use_case.screens;
 import entities.Restaurant;
 import entities.User;
 import filtering_use_case.interfaces.ChoicesInputBoundary;
-import filtering_use_case.interactors.sortChoices;
+import filtering_use_case.interactors.SortChoicesInteractor;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
@@ -53,7 +53,7 @@ public class SelectionsActionListener implements ActionListener {
 
         // Initialize Needed Objects
         ChoicesPresenter presenter = new ChoicesResponseFormatter();
-        ChoicesInputBoundary interactor = new sortChoices(choicesGateway, presenter);
+        ChoicesInputBoundary interactor = new SortChoicesInteractor(choicesGateway, presenter);
         ChoicesController choicesController = new ChoicesController(interactor);
 
         try {

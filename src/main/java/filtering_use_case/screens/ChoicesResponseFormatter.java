@@ -1,6 +1,6 @@
 package filtering_use_case.screens;
 
-import filtering_use_case.interactors.RestaurantFilterFail;
+import filtering_use_case.interactors.RestaurantFilterFailed;
 
 public class ChoicesResponseFormatter implements ChoicesPresenter {
 
@@ -14,7 +14,7 @@ public class ChoicesResponseFormatter implements ChoicesPresenter {
     @Override
     public ChoicesResponseModel prepareFailView(String error) {
         // Throws error for empty sorted list (no restaurants match selection)
-        throw new RestaurantFilterFail(error);
+        throw new RestaurantFilterFailed(error);
     }
 
 

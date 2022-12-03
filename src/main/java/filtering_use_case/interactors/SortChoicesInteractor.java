@@ -9,14 +9,14 @@ import restaurant_use_case.gateways.RestaurantDSGateway;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static filtering_use_case.screens.HomeScreenView.cuisineNoSelection;
+import static filtering_use_case.screens.HomeScreenView.*;
 
-public class sortChoices extends Sorting implements ChoicesInputBoundary {
+public class SortChoicesInteractor implements ChoicesInputBoundary {
 
     private final RestaurantDSGateway gateway;
     private final ChoicesPresenter presenter;
 
-    public sortChoices(RestaurantDSGateway choicesGateway, ChoicesPresenter choicesPresenter){
+    public SortChoicesInteractor(RestaurantDSGateway choicesGateway, ChoicesPresenter choicesPresenter){
 
         this.gateway = choicesGateway;
         this.presenter = choicesPresenter;
@@ -40,7 +40,7 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary {
 
                             // Cuisine Match or Filter Not Selected (Selected "No Preference")
                             && (Objects.equals(restaurant.getCuisineType(), requestModel.getInputCuisineType()) ||
-                            Objects.equals(requestModel.getInputCuisineType(), cuisineNoSelection))
+                            Objects.equals(requestModel.getInputCuisineType(), NO_PREFERENCE))
 
                             // Average Stars should filter decimals, like 3.99 is categorized into 3
                             && (Math.floor(restaurant.getAvgStars()) == requestModel.getInputAvgStars() ||
@@ -51,8 +51,18 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary {
                 sortedRestaurants.add(restaurant);}
         }
 
-        // Sort Restaurants
-        sortList(sortedRestaurants, requestModel.getInputSort(), requestModel.getInputDirection());
+        // Sort Restaurants by RadioButtonPress
+        if (requestModel.getInputSort() == PRICE) {
+            SortPrice.sortList(sortedRestaurants, requestModel.getInputDirection());
+        }
+
+        else if (requestModel.getInputSort() == AVG_STARS) {
+            SortAvgStars.sortList(sortedRestaurants, requestModel.getInputDirection());
+        }
+
+        else if (requestModel.getInputSort() == NAME) {
+            SortName.sortList(sortedRestaurants, requestModel.getInputDirection());
+        }
 
         // Create a Response Model
         ChoicesResponseModel responseModel = new ChoicesResponseModel(sortedRestaurants);
@@ -64,11 +74,6 @@ public class sortChoices extends Sorting implements ChoicesInputBoundary {
         else
             // Send to Presenter
             return presenter.prepareSuccessView(responseModel);
-
-    }
-
-    @Override
-    public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortMethod, String sortDirection) {
 
     }
 

@@ -1,7 +1,6 @@
 package filtering_use_case.screens;
 
 import entities.User;
-import filtering_use_case.screens.SelectionsActionListener;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
@@ -66,7 +65,10 @@ public class HomeScreenView extends JFrame {
     /**
      * The choices controller
      */
-    public static final String cuisineNoSelection = "No Preference";
+    public static final String NO_PREFERENCE = "No Preference";
+    public static final String PRICE = "Price";
+    public static final String AVG_STARS = "AvgStars";
+    public static final String NAME = "Name";
 
     public HomeScreenView(User user) throws IOException {
 
@@ -87,7 +89,7 @@ public class HomeScreenView extends JFrame {
         Integer[] avgStarsOptions = {0, 1, 2, 3, 4, 5};
 
         // TODO: add more cuisine options
-        String[] cuisineOptions = {cuisineNoSelection, "Food"};
+        String[] cuisineOptions = {NO_PREFERENCE, "Food"};
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
