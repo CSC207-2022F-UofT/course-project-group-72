@@ -48,23 +48,39 @@ public class WelcomeUserView extends JFrame {
         register_label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Input username - Register
-        JTextField usernameField = new JTextField("Enter Username");
-        usernameField.setFont(usernameField.getFont().deriveFont(16F));
+        JPanel usernamePanel = new JPanel();
+        usernamePanel.setLayout(new BoxLayout());
+        JLabel usernameFieldLabel = new JLabel("Enter Username:");
+        JTextField usernameFieldText = new JTextField(12);
+        usernameFieldText.setFont(usernameFieldText.getFont().deriveFont(16F));
+        usernamePanel.add(usernameFieldLabel);
+        usernamePanel.add(usernameFieldText);
 
 
         // Input password_1 - Register
-        JTextField passwordField = new JTextField("Enter Password");
-        passwordField.setFont(passwordField.getFont().deriveFont(16F));
+        JPanel passwordPanel = new JPanel();
+        passwordPanel.setLayout(new BoxLayout());
+        JLabel passwordFieldLabel = new JLabel("Enter Password:");
+        JTextField passwordFieldText = new JTextField(12);
+        passwordFieldText.setFont(passwordFieldText.getFont().deriveFont(16F));
+        passwordPanel.add(passwordFieldLabel);
+        passwordPanel.add(passwordFieldText);
+
 
         // Input password_2 (Input Password) & Label for explanation - Register
-        JTextField confirmPasswordField = new JTextField("Confirm Password");
-        confirmPasswordField.setFont(confirmPasswordField.getFont().deriveFont(16F));
+        JPanel confirmpassowrdPanel = new JPanel();
+        confirmpassowrdPanel.setLayout(new BoxLayout());
+        JLabel confirmPasswordFieldLabel = new JLabel("Confirm Password:");
+        JTextField confirmPasswordFieldText = new JTextField(12);
+        confirmPasswordFieldText.setFont(confirmPasswordFieldText.getFont().deriveFont(16F));
+        confirmpassowrdPanel.add(confirmPasswordFieldLabel);
+        confirmpassowrdPanel.add(confirmPasswordFieldText);
 
         // Register Submit button
         JButton registerSubmitButton = new JButton("Submit");
         registerSubmitButton.setOpaque(true);
         registerSubmitButton.addActionListener(new RegisterSubmitActionListener(this, registerUserController,
-                userGateway, usernameField, passwordField, confirmPasswordField));
+                userGateway, usernameFieldText, passwordFieldText, confirmPasswordFieldText));
 
         // Label with "Login" and basic instructions
         JLabel login_label = new JLabel("Log-In to Existing Account");
@@ -72,36 +88,46 @@ public class WelcomeUserView extends JFrame {
         login_label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Input username - Log-in
-        JTextField login_usernameField = new JTextField("Enter Existing Username");
-        login_usernameField.setFont(usernameField.getFont().deriveFont(16F));
-        login_usernameField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel login_usernamePanel = new JPanel();
+        login_usernamePanel.setLayout(new BoxLayout());
+        JLabel login_usernameFieldLabel = new JLabel("Enter Existing Username");
+        JTextField login_usernameFieldText = new JTextField(12);
+        login_usernameFieldText.setFont(usernameFieldText.getFont().deriveFont(16F));
+        login_usernameFieldText.setAlignmentX(Component.LEFT_ALIGNMENT);
+        login_usernamePanel.add(login_usernameFieldLabel);
+        login_usernamePanel.add(login_usernameFieldText);
 
 
         // Input password - Log-in
-        JTextField login_passwordField = new JTextField("Enter Password");
-        login_passwordField.setFont(passwordField.getFont().deriveFont(16F));
-        login_passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JPanel login_passwordPanel = new JPanel();
+        login_passwordPanel.setLayout(new BoxLayout());
+        JLabel login_passwordFieldLabel = new JLabel("Enter Password");
+        JTextField login_passwordFieldText = new JTextField(12);
+        login_passwordFieldText.setFont(passwordFieldText.getFont().deriveFont(16F));
+        login_passwordFieldText.setAlignmentX(Component.LEFT_ALIGNMENT);
+        login_passwordPanel.add(login_passwordFieldLabel);
+        login_passwordPanel.add(login_passwordFieldText);
 
         // Register Submit button - Log-in
         JButton loginSubmitButton = new JButton("Log In");
         loginSubmitButton.setOpaque(true);
         loginSubmitButton.addActionListener(new LoginSubmitActionListener(this, loginUserController,
-                userGateway, login_usernameField, login_passwordField));
+                userGateway, login_usernameFieldText, login_passwordFieldText));
 
 
         // Register User Area
         JPanel regsiterPanel = new JPanel();
         regsiterPanel.add(register_label);
-        regsiterPanel.add(usernameField);
-        regsiterPanel.add(passwordField);
-        regsiterPanel.add(confirmPasswordField);
+        regsiterPanel.add(usernamePanel);
+        regsiterPanel.add(passwordPanel;
+        regsiterPanel.add(confirmpassowrdPanel;
         regsiterPanel.add(registerSubmitButton);
 
         // Login User Area
         JPanel loginPanel = new JPanel();
         loginPanel.add(login_label);
-        loginPanel.add(login_usernameField);
-        loginPanel.add(login_passwordField);
+        loginPanel.add(login_usernamePanel;
+        loginPanel.add(login_passwordPanel;
         loginPanel.add(loginSubmitButton);
 
 
