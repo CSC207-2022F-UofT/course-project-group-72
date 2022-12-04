@@ -6,13 +6,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import entities.ReviewFactory;
 import review_use_case.interfaces.ReviewGatewayInterface;
 import entities.Review;
 
 public class ReviewGateway implements ReviewGatewayInterface {
 
-    private static final String NAME_OF_REVIEW_ID_COUNTER = "src/main/java/Databases/ReviewIDCounter.txt";
-    private static final String NAME_OF_REVIEW_DATABASE = "src/main/java/Databases/ReviewDatabase.csv";
     private static final String DELIMITER = ReviewGatewayInterface.DELIMITER;
     private static final int ID_INDEX = 0;
     private static final int STARS_INDEX = 1;
@@ -23,6 +22,24 @@ public class ReviewGateway implements ReviewGatewayInterface {
     private static final int RESPONSE_INDEX = 6;
     private static final int REPORTS_INDEX = 7;
     private static final int VISIBLE_INDEX = 8;
+    private final String nameOfReviewIdCounter;
+    private final String nameOfReviewDatabase;
+
+    /*
+    Blank constructor for when you want to use the default databases
+     */
+    public ReviewGateway(){
+        this.nameOfReviewIdCounter = "src/main/java/Databases/ReviewIDCounter.txt";
+        this.nameOfReviewDatabase = "src/main/java/Databases/ReviewDatabase.csv";
+    }
+
+    /*
+    Constructor for when you want to supply specific files instead of just using the default databases
+     */
+    public ReviewGateway(String reviewIDCounterFilepath, String reviewDatabaseFilepath){
+        this.nameOfReviewIdCounter = reviewIDCounterFilepath;
+        this.nameOfReviewDatabase = reviewDatabaseFilepath;
+    }
 
     /*
     Retrieve the id that should be used when making a new review
@@ -30,7 +47,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
     @Override
     public String loadReviewID() throws FileNotFoundException {
         //Try to access the database and retrieve the string id. If the ID is empty for some reason, return 0
-        File file = new File(NAME_OF_REVIEW_ID_COUNTER);
+        File file = new File(nameOfReviewIdCounter);
         Scanner scanner = new Scanner(file);
         String ID = scanner.nextLine();
         scanner.close();
@@ -53,7 +70,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
         String stringID = Integer.toString(currentID);
 
         //Try to write this to the database
-        File file = new File(NAME_OF_REVIEW_ID_COUNTER);
+        File file = new File(nameOfReviewIdCounter);
         FileWriter writer = new FileWriter(file);
         writer.write(stringID);
         writer.close();
@@ -65,7 +82,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
     @Override
     public Review getReview(String id) throws FileNotFoundException, ReviewNotFoundException {
         //Attach a scanner to the database and declare a variable to hold one line from the database
-        File file = new File(NAME_OF_REVIEW_DATABASE);
+        File file = new File(nameOfReviewDatabase);
         Scanner scanner = new Scanner(file);
         String line;
 
@@ -94,7 +111,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
         ArrayList<Review> reviews = new ArrayList<>();
         int length = ids.size();
         int counter = 0;
-        File file = new File(NAME_OF_REVIEW_DATABASE);
+        File file = new File(nameOfReviewDatabase);
         Scanner scanner = new Scanner(file);
         String line;
 
@@ -117,12 +134,12 @@ public class ReviewGateway implements ReviewGatewayInterface {
     }
 
     /*
-    Add a Review to the database using the nine attributes
+    Add a Review to the database using the review object
      */
     @Override
     public void addReview(Review review) throws IOException {
         //Try to get the file, make a line from the attributes and add that to the end of the database
-        File file = new File(NAME_OF_REVIEW_DATABASE);
+        File file = new File(nameOfReviewDatabase);
         FileWriter writer = new FileWriter(file, true);
         String id = review.getID();
         String stars = Integer.toString(review.getStars());
@@ -143,6 +160,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
     /*
     Method to update a line in the database based off of a review object
      */
+    @Override
     public void updateReview(Review review) throws IOException {
         //Get the new attributes of the review
         String id = review.getID();
@@ -157,7 +175,7 @@ public class ReviewGateway implements ReviewGatewayInterface {
 
         //Try to find the database, initialize a variable to hold a single line and another to hold all the lines
         //retrieved so far
-        File file = new File(NAME_OF_REVIEW_DATABASE);
+        File file = new File(nameOfReviewDatabase);
         Scanner scanner = new Scanner(file);
         ArrayList<String> lines = new ArrayList<>();
         String line;
@@ -203,10 +221,11 @@ public class ReviewGateway implements ReviewGatewayInterface {
     /*
     Method to remove a review from the review database
      */
+    @Override
     public void deleteReview(String id) throws IOException {
         //Try to find the database, initialize a variable to hold a single line and another to hold all the lines
         //retrieved so far
-        File file = new File(NAME_OF_REVIEW_DATABASE);
+        File file = new File(nameOfReviewDatabase);
         Scanner scanner = new Scanner(file);
         ArrayList<String> lines = new ArrayList<>();
         String line;
@@ -249,9 +268,10 @@ public class ReviewGateway implements ReviewGatewayInterface {
         int likes = Integer.parseInt(pieces[LIKES_INDEX]);
         String response = pieces[RESPONSE_INDEX];
         int reports = Integer.parseInt(pieces[REPORTS_INDEX]);
-        boolean visible = Boolean.getBoolean(pieces[VISIBLE_INDEX]);
+        boolean visible = Boolean.parseBoolean(pieces[VISIBLE_INDEX]);
 
-        return new Review(id, stars, text, username, restaurantLocation, likes, response, reports, visible);
+        return new ReviewFactory().reinitialize(id, stars, text, username, restaurantLocation, likes,
+                response, reports, visible);
     }
 
     /*
