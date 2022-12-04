@@ -6,6 +6,8 @@ import user_use_case.interactors.LoginUserRequestModel;
 import user_use_case.interfaces.UserGatewayInterface;
 import entities.User;
 
+import filtering_use_case.HomeScreenView;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,19 +34,24 @@ public class LoginSubmitActionListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        LoginUserResponseModel responseModel = this.loginUserController.loginUser(
-                new LoginUserRequestModel(this.username.getText(), this.password.getText()));
-        if (responseModel.wasSuccess()) {
-            // Successfully logged-in new user
-            // Set responseModel.getUser() to current user, go to home screen
-            JOptionPane.showMessageDialog(this.parent, "Welcome Back " + responseModel.getUsername());
-            this.parent.dispose();
-            User curr_user = userGateway.getUser(this.username.getText());
-            //new HomeScreenView(curr_user);
-        } else {
-            // Error. Specific error: responseModel.getError()
-            JOptionPane.showMessageDialog(this.parent, responseModel.getError());
+        try {
+            LoginUserResponseModel responseModel = this.loginUserController.loginUser(
+                    new LoginUserRequestModel(this.username.getText(), this.password.getText()));
+            if (responseModel.wasSuccess()) {
+                // Successfully logged-in new user
+                // Set responseModel.getUser() to current user, go to home screen
+                JOptionPane.showMessageDialog(this.parent, "Welcome Back " + responseModel.getUsername());
+                this.parent.dispose();
+                User curr_user = userGateway.getUser(this.username.getText());
+                new HomeScreenView(curr_user);
+            } else {
+                // Error. Specific error: responseModel.getError()
+                JOptionPane.showMessageDialog(this.parent, responseModel.getError());
+            }
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this.parent,"Error Occurred");
         }
+
     }
 
 }
