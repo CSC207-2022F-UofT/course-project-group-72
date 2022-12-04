@@ -49,7 +49,6 @@ public class WelcomeUserView extends JFrame {
 
         // Input username - Register
         JPanel usernamePanel = new JPanel();
-        usernamePanel.setLayout(new BoxLayout());
         JLabel usernameFieldLabel = new JLabel("Enter Username:");
         JTextField usernameFieldText = new JTextField(12);
         usernameFieldText.setFont(usernameFieldText.getFont().deriveFont(16F));
@@ -59,7 +58,6 @@ public class WelcomeUserView extends JFrame {
 
         // Input password_1 - Register
         JPanel passwordPanel = new JPanel();
-        passwordPanel.setLayout(new BoxLayout());
         JLabel passwordFieldLabel = new JLabel("Enter Password:");
         JTextField passwordFieldText = new JTextField(12);
         passwordFieldText.setFont(passwordFieldText.getFont().deriveFont(16F));
@@ -69,7 +67,6 @@ public class WelcomeUserView extends JFrame {
 
         // Input password_2 (Input Password) & Label for explanation - Register
         JPanel confirmpassowrdPanel = new JPanel();
-        confirmpassowrdPanel.setLayout(new BoxLayout());
         JLabel confirmPasswordFieldLabel = new JLabel("Confirm Password:");
         JTextField confirmPasswordFieldText = new JTextField(12);
         confirmPasswordFieldText.setFont(confirmPasswordFieldText.getFont().deriveFont(16F));
@@ -89,7 +86,6 @@ public class WelcomeUserView extends JFrame {
 
         // Input username - Log-in
         JPanel login_usernamePanel = new JPanel();
-        login_usernamePanel.setLayout(new BoxLayout());
         JLabel login_usernameFieldLabel = new JLabel("Enter Existing Username");
         JTextField login_usernameFieldText = new JTextField(12);
         login_usernameFieldText.setFont(usernameFieldText.getFont().deriveFont(16F));
@@ -100,7 +96,6 @@ public class WelcomeUserView extends JFrame {
 
         // Input password - Log-in
         JPanel login_passwordPanel = new JPanel();
-        login_passwordPanel.setLayout(new BoxLayout());
         JLabel login_passwordFieldLabel = new JLabel("Enter Password");
         JTextField login_passwordFieldText = new JTextField(12);
         login_passwordFieldText.setFont(passwordFieldText.getFont().deriveFont(16F));
@@ -119,15 +114,15 @@ public class WelcomeUserView extends JFrame {
         JPanel regsiterPanel = new JPanel();
         regsiterPanel.add(register_label);
         regsiterPanel.add(usernamePanel);
-        regsiterPanel.add(passwordPanel;
-        regsiterPanel.add(confirmpassowrdPanel;
+        regsiterPanel.add(passwordPanel);
+        regsiterPanel.add(confirmpassowrdPanel);
         regsiterPanel.add(registerSubmitButton);
 
         // Login User Area
         JPanel loginPanel = new JPanel();
         loginPanel.add(login_label);
-        loginPanel.add(login_usernamePanel;
-        loginPanel.add(login_passwordPanel;
+        loginPanel.add(login_usernamePanel);
+        loginPanel.add(login_passwordPanel);
         loginPanel.add(loginSubmitButton);
 
 
