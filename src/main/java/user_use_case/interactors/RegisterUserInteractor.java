@@ -26,6 +26,14 @@ public class RegisterUserInteractor implements RegisterUserInputBoundary {
             return new RegisterUserResponseModel(false, "Passwords don't Match");
         }
 
+        if (requestModel.getUsername().equals("")) {
+            return new RegisterUserResponseModel(false, "Invalid Username");
+        }
+
+        if (requestModel.getPassword1().equals("")) {
+            return new RegisterUserResponseModel(false, "Invalid Password");
+        }
+
         User newUser = factory.CreateUserObject(
                 requestModel.getUsername(),
                 requestModel.getPassword1()
