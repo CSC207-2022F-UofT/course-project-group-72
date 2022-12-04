@@ -38,10 +38,10 @@ public class UserGateway implements UserGatewayInterface {
 
 
         ArrayList<String> past_review_list = user.getPast_reviews();
-        String new_past_reviews = String.join("/", past_review_list);
+        String new_past_reviews = String.join("/ ", past_review_list);
 
         ArrayList<String> liked_review_list = user.getLikedReviews();
-        String new_likedReviews = String.join("|", liked_review_list);
+        String new_likedReviews = String.join("| ", liked_review_list);
 
 
         String new_received_reports = String.valueOf(user.getReceived_reports());
@@ -57,7 +57,7 @@ public class UserGateway implements UserGatewayInterface {
         }
 
         ArrayList<String> owner_restaurants_list = user.getPast_reviews();
-        String new_owner_restaurants = String.join("%", owner_restaurants_list);
+        String new_owner_restaurants = String.join("% ", owner_restaurants_list);
 
         String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
 
@@ -78,7 +78,7 @@ public class UserGateway implements UserGatewayInterface {
             FileWriter fw = new FileWriter(new_file, true);
             BufferedWriter bw = new BufferedWriter(fw);
             Scanner scanner = new Scanner(new File(NAME_OF_USER_DATABASE));
-            String delimiter = ",";
+            String delimiter = ", ";
             String line;
 
             while (scanner.hasNext()) {
@@ -98,12 +98,12 @@ public class UserGateway implements UserGatewayInterface {
                 // replace the old values with the new values
                 String line1;
                 if (new_username.equals(username)) {
-                    line1 = String.join(",", username, new_password, new_past_reviews,
+                    line1 = String.join(", ", username, new_password, new_past_reviews,
                             new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
 
                     //keep the old values
                 } else {
-                    line1 = String.join(",", username, password, past_reviews,
+                    line1 = String.join(", ", username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
                 }
                 bw.write(line1);
@@ -131,7 +131,7 @@ public class UserGateway implements UserGatewayInterface {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
-            String delimiter = ",";
+            String delimiter = ", ";
             String line;
 
             while(scanner.hasNext()){
@@ -141,11 +141,11 @@ public class UserGateway implements UserGatewayInterface {
                 if (user[0].equals(username)){
                     // Format Past Reviews
 
-                    String[] past_reviews_elements = user[2].split("/");
+                    String[] past_reviews_elements = user[2].split("/ ");
                     ArrayList<String> return_past_reviews = new ArrayList<>(
                             Arrays.asList( past_reviews_elements ) );
 
-                    String[] liked_reviews_elements = user[3].split("|");
+                    String[] liked_reviews_elements = user[3].split("| ");
                     ArrayList<String> return_liked_reviews = new ArrayList<>(
                             Arrays.asList( liked_reviews_elements ) );
 
@@ -159,7 +159,7 @@ public class UserGateway implements UserGatewayInterface {
                         return_owner = true;
                     }
 
-                    String[] owned_restaurant_elements = user[2].split("&");
+                    String[] owned_restaurant_elements = user[2].split("% ");
                     ArrayList<String> return_owned_restaurants = new ArrayList<>(
                             Arrays.asList( owned_restaurant_elements ) );
 
@@ -187,7 +187,7 @@ public class UserGateway implements UserGatewayInterface {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
-            String delimiter = ",";
+            String delimiter = ", ";
             String line;
 
             while(scanner.hasNext()){
@@ -211,7 +211,7 @@ public class UserGateway implements UserGatewayInterface {
         try {
             File file = new File(NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
-            String delimiter = ",";
+            String delimiter = ", ";
             String line;
 
             while(scanner.hasNext()) {
@@ -236,21 +236,21 @@ public class UserGateway implements UserGatewayInterface {
             File file = new File(NAME_OF_USER_DATABASE);
             FileWriter writer = new FileWriter(file, true);
             writer.append(username); // String username
-            writer.append(",");
+            writer.append(", ");
             writer.append(password); // String password
-            writer.append(",");
+            writer.append(", ");
             writer.append(""); // ArrayList<String> past_reviews
-            writer.append(",");
+            writer.append(", ");
             writer.append(""); // ArrayList<String> likedReviews
-            writer.append(",");
+            writer.append(", ");
             writer.append("0"); // int received_reports = 0;
-            writer.append(",");
+            writer.append(", ");
             writer.append("0"); // boolean banned -> 0 - false, 1 - true
-            writer.append(",");
+            writer.append(", ");
             writer.append("0"); // boolean owner -> 0 - false, 1 - true
-            writer.append(",");
+            writer.append(", ");
             writer.append(""); // ArrayList<String> owned_restaurants
-            writer.append(",");
+            writer.append(", ");
             writer.append("\n");
             writer.close();
         } catch (IOException e) {
