@@ -1,5 +1,5 @@
-# Project Group 72
-* 72Reviews
+# 72Reviews
+* A Restaurant Review App by Group 72
 
 ## Introduction:
 *72Review...*
