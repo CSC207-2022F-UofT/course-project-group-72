@@ -1,8 +1,7 @@
-package filtering_use_case;
+package filtering_use_case.screens;
 
-import filtering_use_case.ChoicesInputBoundary;
-import filtering_use_case.ChoicesRequestModel;
-import filtering_use_case.ChoicesResponseModel;
+import filtering_use_case.interfaces.ChoicesInputBoundary;
+import filtering_use_case.interactors.ChoicesRequestModel;
 
 public class ChoicesController {
 
@@ -17,7 +16,6 @@ public class ChoicesController {
                                        String inputCuisineType,
                                        int inputPriceBucket,
                                        double inputAvgStars,
-                                       String inputSort,
                                        String inputDirection) {
 
         ChoicesRequestModel requestModel = new ChoicesRequestModel(inputSearch,
@@ -25,7 +23,6 @@ public class ChoicesController {
                 inputCuisineType,
                 inputPriceBucket,
                 inputAvgStars,
-                inputSort,
                 inputDirection);
 
         return userInput.select(requestModel);}
