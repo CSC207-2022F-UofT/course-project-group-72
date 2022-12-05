@@ -9,50 +9,78 @@ import java.awt.*;
 import java.io.IOException;
 
 public class HomeScreenView extends JFrame {
+
     /**
      * The search query
      */
     JTextField query;
+
+    /**
+     * The search button that implements the SelectionsActionListener
+     */
     JButton searchButton;
+
     /**
      * The input location (Postal Code)
      */
     JTextField location;
+
     /**
      * The selected price bucket (pricing /10)
      */
     JComboBox<Integer> priceBucket;
+
     /**
      * The select star rating (/5 stars)
      */
     JComboBox<Integer> avgStars;
+
     /**
      * The selected cuisine type
      */
     JComboBox<String> cuisineType;
+
     /**
-     * The group of radiobuttons for the sorting selection
+     * The text label of the Price Selection
      */
     JLabel priceLabel;
+
+    /**
+     * The text label of the Rating (/5 Stars) Selection
+     */
     JLabel starsLabel;
+
+    /**
+     * The text label of the Cuisine Selection
+     */
     JLabel cuisineLabel;
+
+    /**
+     * locationLabel: The text label of the Location search input Selection
+     */
     JLabel locationLabel;
-    ButtonGroup sortButtons;
+
     /**
-     * The radiobutton for sorting by price
+     * The Button Group that contains all the filter selection buttons
      */
-    JRadioButton sortPriceButton;
+    ButtonGroup filterButtons;
     /**
-     * The radiobutton for sorting by average stars
+     * The radiobutton for filtering by price
      */
-    JRadioButton sortAvgStarsButton;
+    JRadioButton filterPriceButton;
     /**
-     * The radiobutton for sorting by name (alphabetical or reverse-alphabetical order)
+     * The radiobutton for filtering by average stars
      */
-    JRadioButton sortNameButton;
+    JRadioButton filterAvgStarsButton;
+    /**
+     * The radiobutton for filtering by name (alphabetical or reverse-alphabetical order)
+     */
+    JRadioButton filterNameButton;
     /**
      * The group of radiobuttons for the sorting direction
      */
+
+
     ButtonGroup sortDirection;
     /**
      * The radiobutton for sorting direction
@@ -115,24 +143,24 @@ public class HomeScreenView extends JFrame {
         filterFields.add(locationLabel);
         filterFields.add(location);
 
-        // Sort Method Buttons
+        // Filter Buttons
         JPanel sortFields = new JPanel();
-        sortButtons = new ButtonGroup();
+        filterButtons = new ButtonGroup();
 
         // Initialize Buttons
-        sortPriceButton = new JRadioButton("Sort By Price ($):");
-        sortAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):", true);
-        sortNameButton = new JRadioButton("Sort By Name:");
+        filterPriceButton = new JRadioButton("Sort By Price ($):");
+        filterAvgStarsButton = new JRadioButton("Sort By Rating (/5 Stars):", true);
+        filterNameButton = new JRadioButton("Sort By Name:");
 
-        // Set Action Commands for Sort Method
-        sortPriceButton.setActionCommand("Price");
-        sortAvgStarsButton.setActionCommand("AvgStars");
-        sortNameButton.setActionCommand("Name");
+        // Set Action Commands for Filters
+        filterPriceButton.setActionCommand("Price");
+        filterAvgStarsButton.setActionCommand("AvgStars");
+        filterNameButton.setActionCommand("Name");
 
         // Add to selection button group
-        sortButtons.add(sortPriceButton);
-        sortButtons.add(sortAvgStarsButton);
-        sortButtons.add(sortNameButton);
+        filterButtons.add(filterPriceButton);
+        filterButtons.add(filterAvgStarsButton);
+        filterButtons.add(filterNameButton);
 
         // Sorting Direction Button Group
         sortDirection = new ButtonGroup();
@@ -150,9 +178,9 @@ public class HomeScreenView extends JFrame {
         sortDirection.add(sortDescending);
 
         // Add individual panels to panel (can't add Button Group)
-        sortFields.add(sortPriceButton);
-        sortFields.add(sortAvgStarsButton);
-        sortFields.add(sortNameButton);
+        sortFields.add(filterPriceButton);
+        sortFields.add(filterAvgStarsButton);
+        sortFields.add(filterNameButton);
         sortFields.add(sortAscending);
         sortFields.add(sortDescending);
 
@@ -168,7 +196,7 @@ public class HomeScreenView extends JFrame {
                 cuisineType,
                 priceBucket,
                 avgStars,
-                sortButtons,
+                filterButtons,
                 sortDirection));
 
         // Setup Window
