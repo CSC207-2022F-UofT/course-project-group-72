@@ -28,6 +28,8 @@ public class UserGateway implements UserGatewayInterface {
      */
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
+
+    private static final String EMPTY_FILLER = "empty";
     private OwnerFactory ownerFactory = new OwnerFactory();
     private UserFactory userFactory = new UserFactory();
 
@@ -59,11 +61,16 @@ public class UserGateway implements UserGatewayInterface {
 
         String new_owner_restaurants = "";
 
-        // fix this stuff, currently usergatewaytest isn't working because index 7 isn't working in this method.
-
         if (user instanceof OwnerUser) {
-            ArrayList<String> owner_restaurants_list = user.getOwnedRestaurants();
+            OwnerUser owner_user = (OwnerUser) user;
+
+            ArrayList<String> owner_restaurants_list = owner_user.getOwnedRestaurants();
+
             new_owner_restaurants = String.join("% ", owner_restaurants_list);
+        }
+
+        if (new_owner_restaurants.length() == 0) {
+            new_owner_restaurants = EMPTY_FILLER;
         }
 
         String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
@@ -100,13 +107,13 @@ public class UserGateway implements UserGatewayInterface {
                 received_reports = values[4];
                 banned = values[5];
                 owner = values[6];
-                owned_restaurants = values[4];
+                owned_restaurants = values[7];
 
 
                 // replace the old values with the new values
                 String line1;
                 if (new_username.equals(username)) {
-                    line1 = String.join(", ", username, new_password new_past_reviews,
+                    line1 = String.join(", ", username, new_password, new_past_reviews,
                             new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
 
                     //keep the old values
@@ -169,9 +176,14 @@ public class UserGateway implements UserGatewayInterface {
                         return_owner = true;
                     }
 
+                    ArrayList<String> return_owned_restaurants = new ArrayList<>();
+
                     String[] owned_restaurant_elements = user[2].split("% ");
-                    ArrayList<String> return_owned_restaurants = new ArrayList<>(
-                            Arrays.asList( owned_restaurant_elements ) );
+                    if (!owned_restaurant_elements.equals(EMPTY_FILLER)) {
+                        return_owned_restaurants = new ArrayList<>(
+                                Arrays.asList( owned_restaurant_elements ) );
+                    }
+
 
                     User return_user = userFactory.reintialize(user[0], user[1], return_past_reviews, return_liked_reviews,
                             Integer.parseInt(user[4]), return_banned, return_owner);
@@ -330,7 +342,7 @@ public class UserGateway implements UserGatewayInterface {
             writer.append(", ");
             writer.append("0"); // boolean owner -> 0 - false, 1 - true
             writer.append(", ");
-            writer.append(""); // ArrayList<String> owned_restaurants
+            writer.append(EMPTY_FILLER); // ArrayList<String> owned_restaurants
             writer.append(", ");
             writer.append("\n");
             writer.close();
