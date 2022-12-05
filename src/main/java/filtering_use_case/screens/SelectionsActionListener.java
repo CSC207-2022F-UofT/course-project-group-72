@@ -96,6 +96,7 @@ public class SelectionsActionListener implements ActionListener {
             // Setup for Calling SortedView and Disposal of This Window
             this.frame.setVisible(false);
             this.frame.dispose();
+            this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             sortedView.setVisible(true);
             frame.repaint();
 

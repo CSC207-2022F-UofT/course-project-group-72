@@ -60,7 +60,7 @@ public class ChoicesSortedView extends JFrame {
         this.setPreferredSize(new Dimension(800, 550));
         this.pack();
         this.setLocationRelativeTo(null);
-
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         repaint();
 
