@@ -3,7 +3,7 @@
 package review_use_case.screens;
 
 import entities.*;
-import filtering_use_case.HomeScreenView;
+import filtering_use_case.screens.HomeScreenView;
 import report_use_case.gateways.reportDsGateway;
 import report_use_case.interactors.Excalibur;
 import report_use_case.interactors.ReportInteract;

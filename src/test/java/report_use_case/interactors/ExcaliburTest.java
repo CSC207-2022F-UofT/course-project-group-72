@@ -1,6 +1,7 @@
 package report_use_case.interactors;
 
 import entities.Review;
+import entities.ReviewFactory;
 import entities.User;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ class ExcaliburTest {
     void execute_review() {
 
         User exUser = new User("TestUser", "1234567");
-        Review exReview = new Review("1", 5, "TestReview", "TestUser",
+        Review exReview = new ReviewFactory().create("1", 5, "TestReview", "TestUser",
                 "TestRestaruantAddr");
 
 
@@ -23,14 +24,14 @@ class ExcaliburTest {
 
         Excalibur excalibur = new Excalibur(exUser, exReview);
         Review afterReview = excalibur.checkAndBanReview();
-        assert afterReview.isVisible() == false;
+        assert !afterReview.isVisible();
     }
 
     @Test
     void execute_user() {
 
         User exUser = new User("TestUser", "1234567");
-        Review exReview = new Review("1", 5, "TestReview", "TestUser",
+        Review exReview = new ReviewFactory().create("1", 5, "TestReview", "TestUser",
                 "TestRestaruantAddr");
 
         //User will be banned if it has >= 30 reports
@@ -41,6 +42,6 @@ class ExcaliburTest {
 
         Excalibur excalibur = new Excalibur(exUser, exReview);
         User afterUser = excalibur.checkAndBanUser();
-        assert afterUser.isBanned() == true;
+        assert afterUser.isBanned();
     }
 }

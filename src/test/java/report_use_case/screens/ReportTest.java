@@ -3,6 +3,7 @@ package report_use_case.screens;
 import entities.Report;
 import entities.ReportFactory;
 import entities.Review;
+import entities.ReviewFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class ReportTest {
 
     static ReportFactory reportFactory = new ReportFactory();
 
-    static Review review = new Review("reviewID", 5, "reviewContent", "reviewerUsername", "Address");
+    static Review review = new ReviewFactory().create("reviewID", 5, "reviewContent", "reviewerUsername", "Address");
     @BeforeAll
     static void setUp() {
         report = reportFactory.create("reason", review, "reporter_id");

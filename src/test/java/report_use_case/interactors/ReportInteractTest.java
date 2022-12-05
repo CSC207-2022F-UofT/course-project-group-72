@@ -2,6 +2,7 @@ package report_use_case.interactors;
 
 import entities.ReportFactory;
 import entities.Review;
+import entities.ReviewFactory;
 import entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ class ReportInteractTest {
         deleteTestFile.delete();
 
         User reporter = new User("TestInteractor reporter_username", "12345678910231073");
-        Review review = new Review("ID", 5, "content", "Reviwer", "location");
+        Review review = new ReviewFactory().create("ID", 5, "content", "Reviwer", "location");
         User reviwer = new User("Reviwer", "123123123123123");
         ReportRequestModel testInteractor = new ReportRequestModel("reason",
                 review, reporter);

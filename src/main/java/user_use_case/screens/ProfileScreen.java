@@ -137,7 +137,17 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
     }
 
     @Override
-    public void refresh(Restaurant restaurant) {
+    public void refresh() {
+
+    }
+
+    @Override
+    public void back() {
+
+    }
+
+    @Override
+    public void home() {
 
     }
 }

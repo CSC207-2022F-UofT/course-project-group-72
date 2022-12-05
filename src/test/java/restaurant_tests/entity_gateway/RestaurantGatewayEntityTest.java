@@ -3,6 +3,7 @@ package restaurant_tests.entity_gateway;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.Review;
+import entities.ReviewFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -180,7 +181,7 @@ public class RestaurantGatewayEntityTest {
     @Test
     public void testAddReview() {
         setup();
-        Review testReview = new Review("0", 2, "",
+        Review testReview = new ReviewFactory().create("0", 2, "",
                 "00", "invalid but not tested in restaurant");
         Restaurant testRestaurant1 = testRestaurants.get(0);
         testRestaurant1.addReview(testReview);
