@@ -25,7 +25,6 @@ public class EditViewTest {
     public EditViewTest() throws IOException {
     }
 
-    @Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 

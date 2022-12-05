@@ -19,7 +19,6 @@ public class CreateViewTest {
     public CreateViewTest() throws IOException {
     }
 
-    @Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 
