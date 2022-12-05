@@ -11,9 +11,18 @@
   ## Features:
 * ***User Login in/Register Service***
 * ***User Profile Service***
-* ***Restaurant Creation/Register as Restaurant Owner Service***
+* ***Restaurant Creation & Management***
+  * User is able to create a new Restaurant profile to promote their Restaurant and its:
+    * Name
+    * Location
+    * Cuisine
+    * Price Range
+    * Average Stars
+  * Edit your Restaurant as you improve and change your style
+  * Delete your Restaurant if you are moving
+* ***Register as Restaurant Owner Service***
 * ***Sort/Search System***
-* ***Review Sytem***
+* ***Review System***
 * ***Report System***
   * User is able to report a review by clicking the button beside the review
   * User can add reason when doing report
@@ -56,7 +65,7 @@
 * 
 *
 *
-*
+* Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage
 * Report System: 100% class coverage, 100% method coverage, 89% line coverage
 
 ## Library Used:
