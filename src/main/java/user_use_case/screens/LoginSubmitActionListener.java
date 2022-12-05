@@ -34,22 +34,25 @@ public class LoginSubmitActionListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            LoginUserResponseModel responseModel = this.loginUserController.loginUser(
-                    new LoginUserRequestModel(this.username.getText(), this.password.getText()));
-            if (responseModel.wasSuccess()) {
-                // Successfully logged-in new user
-                // Set responseModel.getUser() to current user, go to home screen
-                JOptionPane.showMessageDialog(this.parent, "Welcome Back " + responseModel.getUsername());
-                this.parent.dispose();
-                User curr_user = userGateway.getUser(this.username.getText());
-                new HomeScreenView(curr_user);
-            } else {
-                // Error. Specific error: responseModel.getError()
-                JOptionPane.showMessageDialog(this.parent, responseModel.getError());
+
+        LoginUserResponseModel responseModel = this.loginUserController.loginUser(
+                new LoginUserRequestModel(this.username.getText(), this.password.getText()));
+        if (responseModel.wasSuccess()) {
+            // Successfully logged-in new user
+            // Set responseModel.getUser() to current user, go to home screen
+            JOptionPane.showMessageDialog(this.parent, "Welcome Back " + responseModel.getUsername());
+            this.parent.dispose();
+            User curr_user = userGateway.getUser(this.username.getText());
+            HomeScreenView HomeView;
+            try {
+                HomeView = new HomeScreenView(curr_user);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex); // Change?
             }
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(this.parent,"Error Occurred");
+            HomeView.setVisible(true);
+        } else {
+            // Error. Specific error: responseModel.getError()
+            JOptionPane.showMessageDialog(this.parent, responseModel.getError());
         }
 
     }

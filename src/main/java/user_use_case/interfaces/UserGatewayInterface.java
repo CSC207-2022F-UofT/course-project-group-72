@@ -16,6 +16,7 @@ public interface UserGatewayInterface {
 
     public void addReview(String reviewId, String userid);
 
+    //public void removeUser(String username);
     public void addLikedReview(String reviewId, String userid);
 
 }

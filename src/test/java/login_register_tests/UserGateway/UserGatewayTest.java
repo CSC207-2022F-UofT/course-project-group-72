@@ -43,13 +43,13 @@ class UserGatewayTest {
         UserGateway gateway = new UserGateway();
 
 
-        String test_username = "testusername273";
+        String test_username = "testusername384";
 
         User test_user = new User(test_username, "testpassword52");
 
         gateway.addUser(test_user.getUsername(), test_user.getPassword());
 
-        test_user.setOwner();
+        test_user.setBanned();
 
         gateway.updateUser(test_user);
 
