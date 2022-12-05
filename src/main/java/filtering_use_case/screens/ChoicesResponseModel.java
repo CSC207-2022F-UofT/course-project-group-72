@@ -1,4 +1,4 @@
-package filtering_use_case;
+package filtering_use_case.screens;
 
 import entities.Restaurant;
 

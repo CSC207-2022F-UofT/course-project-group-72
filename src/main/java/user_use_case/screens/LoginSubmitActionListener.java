@@ -1,16 +1,16 @@
 package user_use_case.screens;
 
 
+import filtering_use_case.screens.HomeScreenView;
 import user_use_case.controllers.LoginUserController;
 import user_use_case.interactors.LoginUserRequestModel;
 import user_use_case.interfaces.UserGatewayInterface;
 import entities.User;
 
-import filtering_use_case.HomeScreenView;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginSubmitActionListener implements ActionListener{
 
@@ -34,7 +34,6 @@ public class LoginSubmitActionListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         LoginUserResponseModel responseModel = this.loginUserController.loginUser(
                 new LoginUserRequestModel(this.username.getText(), this.password.getText()));
         if (responseModel.wasSuccess()) {
@@ -43,18 +42,21 @@ public class LoginSubmitActionListener implements ActionListener{
             JOptionPane.showMessageDialog(this.parent, "Welcome Back " + responseModel.getUsername());
             this.parent.dispose();
             User curr_user = userGateway.getUser(this.username.getText());
+
+            // Change View to HomeScreenView
+            // new HomeScreenView(curr_user);   OLD CODE
             HomeScreenView HomeView;
             try {
                 HomeView = new HomeScreenView(curr_user);
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 throw new RuntimeException(ex); // Change?
             }
             HomeView.setVisible(true);
+
         } else {
             // Error. Specific error: responseModel.getError()
             JOptionPane.showMessageDialog(this.parent, responseModel.getError());
         }
-
     }
 
 }

@@ -1,16 +1,12 @@
-package filtering_use_case;
+package filtering_use_case.screens;
 
-import entities.Restaurant;
 import entities.User;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class HomeScreenView extends JFrame {
     /**
@@ -69,6 +65,10 @@ public class HomeScreenView extends JFrame {
     /**
      * The choices controller
      */
+    public static final String NO_PREFERENCE = "No Preference";
+    public static final String PRICE = "Price";
+    public static final String AVG_STARS = "AvgStars";
+    public static final String NAME = "Name";
 
     public HomeScreenView(User user) throws IOException {
 
@@ -89,7 +89,7 @@ public class HomeScreenView extends JFrame {
         Integer[] avgStarsOptions = {0, 1, 2, 3, 4, 5};
 
         // TODO: add more cuisine options
-        String[] cuisineOptions = {"No Preference", "Food"};
+        String[] cuisineOptions = {NO_PREFERENCE, "Food"};
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
@@ -156,8 +156,6 @@ public class HomeScreenView extends JFrame {
         sortFields.add(sortAscending);
         sortFields.add(sortDescending);
 
-        // Extract Selections
-
         // Search Button
         searchButton = new JButton("Search");
         searchField.add(searchButton);
@@ -190,13 +188,4 @@ public class HomeScreenView extends JFrame {
         repaint();
     }
 
-//    public static void main (String[]args) throws IOException {
-//
-//        User userTest = new User("test", "pass");
-//        HomeScreenView view = new HomeScreenView(userTest);
-//        view.setVisible(true);
-//    }
-
 }
-
-

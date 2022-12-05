@@ -1,6 +1,4 @@
-package filtering_use_case;
-
-import entities.OwnerUser;
+package filtering_use_case.interactors;
 
 public class ChoicesRequestModel {
 
@@ -9,20 +7,18 @@ public class ChoicesRequestModel {
     private String inputCuisineType;
     private int inputPriceBucket;
     private double inputAvgStars;
-    private String inputSort;
     private String inputDirection;
 
 
 
     public ChoicesRequestModel(String inputSearch, String inputLocation, String inputCuisineType, int inputPriceBucket,
-                               double inputAvgStars, String inputSort, String inputDirection){
+                               double inputAvgStars, String inputDirection){
 
         this.inputSearch = inputSearch;
         this.inputLocation = inputLocation;
         this.inputCuisineType = inputCuisineType;
         this.inputPriceBucket = inputPriceBucket;
         this.inputAvgStars = inputAvgStars;
-        this.inputSort = inputSort;
         this.inputDirection = inputDirection;
 
     }
@@ -32,7 +28,6 @@ public class ChoicesRequestModel {
     String getInputCuisineType() {return this.inputCuisineType;}
     int getInputPriceBucket() {return this.inputPriceBucket;}
     double getInputAvgStars() {return this.inputAvgStars;}
-    String getInputSort() {return this.inputSort;}
     String getInputDirection() {return this.inputDirection;}
 
 }
