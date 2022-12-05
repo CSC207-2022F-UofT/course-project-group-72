@@ -2,10 +2,11 @@
 * A Restaurant Review App by Group 72
 
 ## Introduction:
-*72Review...*
-*...*  
-*...*  
-*...*  
+72Reviews is an application that provides services including:
+  * search restaurant based on your preferrence  
+  * register as Customer or Restaurant Owner
+  * give feedback to restaurants 
+  * report any inappropriate reviews
 
 
   ## Features:
