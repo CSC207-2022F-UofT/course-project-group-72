@@ -48,17 +48,7 @@
 6. **Report Page**:
 
 ## Issues accomplished:
-* [Feature 4] Review System #3
-* [Feature 3] Restaurant Search System #4
-* [Feature 2] Restaurant System #2
-* [Feature 5] Report System #5
-* Implement Functionality for Owner [1] #38
-* Implement Functionality for Owner [2] #39
-* Update Review Use Case with Implementation of UserGateway and Fix RestaurantView Functionality #51
-* Fix Transition from Home Screen View to Sorted List [1] #42
-*
-*
-*
+* [Completed Issues](https://github.com/CSC207-2022F-UofT/course-project-group-72/issues?q=is%3Aissue+is%3Aclosed)
 
 [Back to top](#readme)
 ## Test Coverage:
