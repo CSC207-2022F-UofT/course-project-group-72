@@ -33,7 +33,7 @@ class ReportScreenTest {
         ReportInteract testReportInteractor = new ReportInteract(fileReportHistoryForInteractor, factory, excalibur, presenter);
         ReportController testController = new ReportController(testReportInteractor);
 
-        ReportScreen screen = new ReportScreen(testFrame, testController, currentReview, currentUser);
+        //ReportScreen screen = new ReportScreen(testFrame, testController, currentReview, currentUser);
 
         ///////// ENTER "reason" in the text field and click "submit" button !!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
