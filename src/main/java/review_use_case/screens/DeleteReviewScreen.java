@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 public class DeleteReviewScreen extends JDialog implements ActionListener {
 
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     private final DeleteReviewController deleteReviewController;
     private final ReviewGatewayInterface reviewGateway;
     private final UserGatewayInterface userGateway;
@@ -26,14 +26,14 @@ public class DeleteReviewScreen extends JDialog implements ActionListener {
     private final User user;
     private final Restaurant restaurant;
 
-    public DeleteReviewScreen(JFrame owner, DeleteReviewController deleteReviewController,
+    public DeleteReviewScreen(RestaurantView restaurantView, DeleteReviewController deleteReviewController,
                               ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
                               RestaurantDSGateway restaurantGateway, Review review, User user, Restaurant restaurant){
         //Call super on owner so that this dialog must be closed before the user can click on other windows
-        super(owner, true);
+        super(restaurantView, true);
 
         //Attach attributes to the screen, so they can be used by the action listeners
-        this.owner = owner;
+        this.restaurantView = restaurantView;
         this.deleteReviewController = deleteReviewController;
         this.reviewGateway = reviewGateway;
         this.userGateway = userGateway;
@@ -113,8 +113,7 @@ public class DeleteReviewScreen extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Your review has been successfully deleted!");
                 //Close all old windows and re-launch RestaurantView with this review removed
                 this.dispose();
-                this.owner.dispose();
-                new RestaurantView(this.user, this.restaurant);
+                this.restaurantView.refresh();
             } else {
                 JOptionPane.showMessageDialog(this, "An error has occurred. " +
                         "Please try again later.");

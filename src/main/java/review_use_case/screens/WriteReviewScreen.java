@@ -25,7 +25,7 @@ public class WriteReviewScreen extends JDialog implements ActionListener {
     private final JButton fourStar;
     private final JButton fiveStar;
     //We need a reference to the restaurantView, so we can reload it and make this dialog modal in relation to it
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     //We need a controller to talk to the interactor
     private final WriteReviewController writeReviewController;
     //We need to pass these to the controller
@@ -35,16 +35,16 @@ public class WriteReviewScreen extends JDialog implements ActionListener {
     private final User user;
     private final Restaurant restaurant;
 
-    public WriteReviewScreen(JFrame owner, WriteReviewController writeReviewController,
+    public WriteReviewScreen(RestaurantView restaurantView, WriteReviewController writeReviewController,
                              ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
                              RestaurantDSGateway restaurantGateway, User user, Restaurant restaurant){
         //Call super on owner so that this dialog must be closed before the user can click on other windows
-        super(owner, true);
+        super(restaurantView, true);
 
         //Attach the given objects to the screen object so that that action listener can use them
         //Additionally, set stars to -1 to track if the user has selected a number of stars yet
         this.stars = -1;
-        this.owner = owner;
+        this.restaurantView = restaurantView;
         this.writeReviewController = writeReviewController;
         this.reviewGateway = reviewGateway;
         this.userGateway = userGateway;
@@ -205,8 +205,7 @@ public class WriteReviewScreen extends JDialog implements ActionListener {
                                 " submitted!");
                         //Close all old windows and re-launch RestaurantView with the new review added
                         this.dispose();
-                        this.owner.dispose();
-                        new RestaurantView(this.user, this.restaurant);
+                        this.restaurantView.refresh();
                     }else{
                         JOptionPane.showMessageDialog(this, "An error has occurred. Please try" +
                                 " again later.");

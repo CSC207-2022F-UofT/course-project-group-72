@@ -44,9 +44,15 @@ public class LikeActionListener implements ActionListener {
         ReviewResponseModel responseModel = this.likeReviewController.interact(this.reviewGateway, this.review,
                 this.user);
 
+        int likes = Integer.parseInt(this.button.getText().replaceAll("[^0-9]", ""));
+
         if(responseModel.wasSuccessful() && this.button.getBackground().equals(Color.WHITE)){
+            likes = likes + 1;
+            this.button.setText("Likes: " + likes);
             this.button.setBackground(Color.CYAN);
         }else if(responseModel.wasSuccessful() && this.button.getBackground().equals(Color.CYAN)){
+            likes = likes - 1;
+            this.button.setText("Likes: " + likes);
             this.button.setBackground(Color.WHITE);
         }
         else{

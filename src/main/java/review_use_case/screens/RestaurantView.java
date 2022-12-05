@@ -3,6 +3,7 @@
 package review_use_case.screens;
 
 import entities.*;
+import filtering_use_case.HomeScreenView;
 import report_use_case.gateways.reportDsGateway;
 import report_use_case.interactors.Excalibur;
 import report_use_case.interactors.ReportInteract;
@@ -34,14 +35,14 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
 
     private static final String REPORT_DATABASE_NAME = "src/main/java/Databases/ReportDatabase.csv";
     private static final String RESTAURANT_DATABASE_NAME = "src/main/java/Databases/RestaurantDatabase.csv";
+    private IFrame previousFrame;
     private User user;
     private Restaurant restaurant;
     private ReviewGatewayInterface reviewGateway;
     private RestaurantDSGateway restaurantGateway;
     private UserGatewayInterface userGateway;
-    private WriteReviewController writeReviewController;
 
-    public RestaurantView(User user, Restaurant restaurant){
+    public RestaurantView(IFrame previousFrame, User user, Restaurant restaurant){
         try {
             //Initialize all gateways that may be needed
             this.reviewGateway = new ReviewGateway();
@@ -52,7 +53,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
             //a user-by-user basis. Attach write and edit controllers to the screen object so the action performed
             //method can access them
             WriteReviewInputBoundary writeReviewInteractor = new WriteReviewInteractor();
-            this.writeReviewController = new WriteReviewController(writeReviewInteractor);
+            WriteReviewController writeReviewController = new WriteReviewController(writeReviewInteractor);
             EditReviewInputBoundary editReviewInteractor = new EditReviewInteractor();
             EditReviewController editReviewController = new EditReviewController(editReviewInteractor);
             LikeReviewInputBoundary likeReviewInteractor = new LikeReviewInteractor();
@@ -63,12 +64,32 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
             ReplyController replyController = new ReplyController(replyInteractor);
 
             //Attach these objects to the screen, so they can be used by actionPerformed
+            this.previousFrame = previousFrame;
             this.user = user;
             this.restaurant = restaurant;
 
             //The ids we need to get the review objects
             ArrayList<String> ids = this.restaurant.getReviewIDs();
             ArrayList<Review> reviews = this.reviewGateway.getReviews(ids);
+
+            //Create the back and home buttons
+            JButton backButton = new JButton("Back");
+            backButton.setFont(backButton.getFont().deriveFont(12F));
+            backButton.setOpaque(true);
+            backButton.addActionListener(this);
+
+            JButton homeButton = new JButton("Home");
+            homeButton.setFont(homeButton.getFont().deriveFont(12F));
+            homeButton.setOpaque(true);
+            homeButton.addActionListener(this);
+
+            //Create a panel to hold the back and home buttons, then add those buttons
+            JPanel IPanel = new JPanel();
+            IPanel.setLayout(new BoxLayout(IPanel, BoxLayout.X_AXIS));
+            IPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            IPanel.setVisible(true);
+            IPanel.add(backButton);
+            IPanel.add(homeButton);
 
             //Create a label for the name of the restaurant
             JLabel restaurantName = new JLabel(this.restaurant.getName());
@@ -90,7 +111,8 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
             JButton writeButton = new JButton("Write a Review");
             writeButton.setFont(writeButton.getFont().deriveFont(16F));
             writeButton.setOpaque(true);
-            writeButton.addActionListener(this);
+            writeButton.addActionListener(new WriteReviewActionListener(this, writeReviewController,
+                    this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant));
 
             //Create a panel to hold the buttons the owner sees when they click on the restaurant. Only visible to
             //restaurant owner, not all owners
@@ -183,7 +205,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
                     //If the user does not own this restaurant and they are not banned
                     if (!(this.user.getUsername().equals(this.restaurant.getOwnerID())) && !(this.user.isBanned())) {
                         //Create a like button
-                        likeButton = new JButton("Like");
+                        likeButton = new JButton("Likes: " + review.getLikes());
                         if (this.user.getLikedReviews().contains(review.getID())) {
                             likeButton.setBackground(Color.CYAN);
                         } else {
@@ -201,7 +223,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
                             editButton.setBackground(Color.GREEN);
                             editButton.setOpaque(true);
                             editButton.addActionListener(new EditActionListener(this, editReviewController,
-                                    this.reviewGateway, review, this.user, this.restaurant));
+                                    this.reviewGateway, review));
                             buttonPanel.add(editButton);
 
                             deleteButton = new JButton("Delete");
@@ -233,7 +255,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
                         replyButton = new JButton("Reply");
                         replyButton.setOpaque(true);
                         replyButton.addActionListener(new ReplyActionListener(this, replyController,
-                                this.reviewGateway, review, this.user, this.restaurant));
+                                this.reviewGateway, review));
                         buttonPanel.add(replyButton);
                     }
 
@@ -258,6 +280,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
             //Now that all the components are made, create the main JPanel
             JPanel main = new JPanel();
             main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+            main.add(IPanel);
             main.add(restaurantName);
             main.add(restaurantLocation);
             main.add(averageStars);
@@ -288,40 +311,41 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //If a user clicked the write review button
-        if(e.getActionCommand().equals("Write a Review")) {
-            //Check if they already reviewed this restaurant
-            //NOTE: I would like for the user to have a reviewed restaurants attribute, change if that gets implemented
-            boolean check = true;
-            for (String reviewID : this.user.getPast_reviews()) {
-                if (this.restaurant.getReviewIDs().contains(reviewID)) {
-                    check = false;
-                    break;
-                }
-            }
-            //Launch the proper view
-            if (check) {
-                WriteReviewScreen writeScreen = new WriteReviewScreen(this, this.writeReviewController,
-                        this.reviewGateway, this.userGateway, this.restaurantGateway, this.user, this.restaurant);
-            } else {
-                JOptionPane.showMessageDialog(this, "You've already written a review for this " +
-                        "restaurant. Please edit your previous review instead.");
-            }
-        //If an owner clicked edit
-        }else if(e.getActionCommand().equals("Edit your Restaurant")){
+        if(e.getActionCommand().equals("Edit your Restaurant")){
             //Try to launch the appropriate view
-            EditRestaurantView editRestaurantView = new EditRestaurantView((OwnerUser) this.user, this.restaurant,
-                    this, this.restaurantGateway);
+            new EditRestaurantView((OwnerUser) this.user, this.restaurant, this, this.restaurantGateway);
         //If an owner clicked delete
-        } else if (e.getActionCommand().equals("Delete Your Restaurant")) {
+        }else if(e.getActionCommand().equals("Delete Your Restaurant")) {
             //Try to launch the appropriate view
-            DeleteRestaurantView deleteRestaurantView = new DeleteRestaurantView(this.restaurant, (OwnerUser) this.user,
-                    this.restaurantGateway, this.userGateway, this);
+            new DeleteRestaurantView(this.restaurant, (OwnerUser) this.user, this.restaurantGateway,
+                    this.userGateway, this);
+        }else if(e.getActionCommand().equals("Back")){
+            this.back();
+        }else if(e.getActionCommand().equals("Home")){
+            this.home();
         }
     }
 
     @Override
-    public void refresh(Restaurant restaurant) {
-        this.repaint();
+    public void refresh() {
+        this.dispose();
+        new RestaurantView(this.previousFrame, this.user, this.restaurant);
+    }
+
+    @Override
+    public void back() {
+        JFrame frame = (JFrame) this.previousFrame;
+        frame.setVisible(true);
+        this.dispose();
+    }
+
+    @Override
+    public void home() {
+        try {
+            new HomeScreenView(this.user);
+            this.dispose();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+        }
     }
 }
