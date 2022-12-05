@@ -5,7 +5,7 @@ import user_use_case.interactors.RegisterUserRequestModel;
 import user_use_case.interfaces.UserGatewayInterface;
 import entities.User;
 
-import filtering_use_case.HomeScreenView;
+import filtering_use_case.screens.HomeScreenView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

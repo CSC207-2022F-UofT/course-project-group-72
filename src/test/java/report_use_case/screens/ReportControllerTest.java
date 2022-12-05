@@ -2,6 +2,7 @@ package report_use_case.screens;
 
 import entities.ReportFactory;
 import entities.Review;
+import entities.ReviewFactory;
 import entities.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class ReportControllerTest {
         File deleteTestFile = new File("src/test/java/report_use_case/screens/Controller_test.csv");
         deleteTestFile.delete();
 
-        review = new Review("TEST_ID", 5, "TEST_CONTENT", "TEST_REVIEWER_ID",
+        review = new ReviewFactory().create("TEST_ID", 5, "TEST_CONTENT", "TEST_REVIEWER_ID",
                 "TEST_RESTAURANT_ID");
 
         reporter = new User("Test reporter_username", "1234567123123");

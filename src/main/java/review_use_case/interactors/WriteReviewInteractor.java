@@ -2,6 +2,7 @@
 
 package review_use_case.interactors;
 
+import entities.ReviewFactory;
 import review_use_case.interfaces.WriteReviewInputBoundary;
 import review_use_case.screens.ReviewResponseModel;
 import entities.Review;
@@ -23,7 +24,7 @@ public class WriteReviewInteractor implements WriteReviewInputBoundary {
             Restaurant restaurant = requestModel.getRestaurant();
 
             //Add the review to the database, increment ReviewIDCounter and increment Review.currentID
-            Review review = new Review(id, requestModel.getStars(), requestModel.getText(),
+            Review review = new ReviewFactory().create(id, requestModel.getStars(), requestModel.getText(),
                     user.getUsername(), restaurant.getLocation());
             requestModel.getReviewGateway().addReview(review);
             requestModel.getReviewGateway().incrementReviewID();

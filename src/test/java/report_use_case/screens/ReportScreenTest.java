@@ -2,6 +2,7 @@ package report_use_case.screens;
 
 import entities.ReportFactory;
 import entities.Review;
+import entities.ReviewFactory;
 import entities.User;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +21,7 @@ class ReportScreenTest {
     @Test
     void testReportScreen() throws IOException {
 
-        Review currentReview = new Review("1", 5, "asd", "test", "testAddress");
+        Review currentReview = new ReviewFactory().create("1", 5, "asd", "test", "testAddress");
         User reviewer = new User("test", "123456789asfada");
         User currentUser = new User("testReporter", "asiudgaiufgiuagf");
         ReportFactory factory = new ReportFactory();
