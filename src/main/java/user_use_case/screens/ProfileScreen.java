@@ -97,7 +97,7 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
             JLabel restaurantName = new JLabel(restaurant.getName());
             JLabel restaurantLocation = new JLabel(restaurant.getLocation());
             JButton viewButton = new JButton("View");
-            ViewRestaurantActionListener viewRestaurantActionListener = new ViewRestaurantActionListener(this.user, restaurant);
+            ViewRestaurantActionListener viewRestaurantActionListener = new ViewRestaurantActionListener(this, this.user, restaurant);
             viewButton.addActionListener(viewRestaurantActionListener);
             if (isLoggedIn) {
                 JButton editButton = new JButton("Edit");
