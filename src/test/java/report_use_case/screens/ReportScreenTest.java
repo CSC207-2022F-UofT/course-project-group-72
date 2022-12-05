@@ -37,23 +37,6 @@ class ReportScreenTest {
         ///////// ENTER "reason" in the text field and click "submit" button !!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
-//    @Test
-//    void checkIfDataMatchedInDatabase() throws FileNotFoundException {
-//        File fileToCheck = new File("src/test/java/report_use_case/screens/screen_test.csv");
-//        Scanner scanner = new Scanner(fileToCheck);
-//        String line;
-//        scanner.nextLine();
-//        while (scanner.hasNextLine()) {
-//            line = scanner.nextLine();
-//            String[] lineArray = line.split(",");
-//            assertEquals("reason", lineArray[2]);
-//            assertEquals("1", lineArray[0]);
-//            assertEquals("testReporter", lineArray[1]);
-//            assertEquals("asd", lineArray[3]);
-//            assertNotNull(lineArray[4]);
-//
-//        }
-//    }
 
     @AfterAll
     static void tearDown() {
