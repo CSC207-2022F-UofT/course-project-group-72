@@ -7,7 +7,7 @@ import report_use_case.interfaces.reportInputBoundary;
 
 public class ReportController {
 
-    final reportInputBoundary input;
+    private final reportInputBoundary input;
 
     public ReportController(reportInputBoundary input) {
         this.input = input;

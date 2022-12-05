@@ -2,9 +2,9 @@ package report_use_case.screens;
 
 public class ReportResponseModel {
 
-    String reporterName;
-    String reviewId;
-    String creationTime;
+    private final String reporterName;
+    private final String reviewId;
+    private final String creationTime;
 
 
     /**

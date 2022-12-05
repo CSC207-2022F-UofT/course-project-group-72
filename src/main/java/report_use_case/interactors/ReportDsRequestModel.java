@@ -2,11 +2,11 @@ package report_use_case.interactors;
 
 public class ReportDsRequestModel {
 
-    String reason;
-    String content;
-    String reviewId;
-    String reporterUsername;
-    String creationTime;
+    private final String reason;
+    private final String content;
+    private final String reviewId;
+    private final String reporterUsername;
+    private final String creationTime;
 
     /**
      *

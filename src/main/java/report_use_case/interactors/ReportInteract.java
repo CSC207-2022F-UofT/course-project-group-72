@@ -23,13 +23,13 @@ public class ReportInteract implements reportInputBoundary {
 
     private static final UserGatewayInterface userGateway = new UserGateway();
 
-    final report_use_case.gateways.reportDsGateway reportDsGateway;
+    private final report_use_case.gateways.reportDsGateway reportDsGateway;
 
-    final ReportFactory reportFactory;
+    private final ReportFactory reportFactory;
 
-    final BanningAlgorithm banningAlgorithm;
+    private final BanningAlgorithm banningAlgorithm;
 
-    final ReportPresenter presenter;
+    private final ReportPresenter presenter;
 
 
     /**
