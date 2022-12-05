@@ -18,11 +18,11 @@ public class Review {
     /*
     Construct a new review object using the given parameters
      */
-    public Review(String id, int stars, String text, String user, String restaurantLocation){
+    Review(String id, int stars, String text, String username, String restaurantLocation){
         this.id = id;
         this.stars = stars;
         this.text = text;
-        this.username = user;
+        this.username = username;
         this.restaurantLocation = restaurantLocation;
         this.likes = 0;
         this.response = "";
@@ -33,7 +33,7 @@ public class Review {
     /*
     Reconstruct a Review object using information from the database
      */
-    public Review(String id, int stars, String text, String username, String restaurantLocation, int likes,
+    Review(String id, int stars, String text, String username, String restaurantLocation, int likes,
                   String response, int reports, boolean visible){
         this.id = id;
         this.stars = stars;
