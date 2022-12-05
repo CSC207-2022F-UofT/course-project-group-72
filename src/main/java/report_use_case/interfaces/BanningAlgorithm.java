@@ -7,7 +7,7 @@ import entities.User;
 //This interface is used to implement the Strategy design pattern
 
 //Specific ban algorithms (thresholds) are implemented in the classes that implement this interface
-public interface BanTool {
+public interface BanningAlgorithm {
 
     //check and ban review
     Review checkAndBanReview();

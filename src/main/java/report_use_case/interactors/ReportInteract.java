@@ -1,7 +1,7 @@
 package report_use_case.interactors;
 
 import report_use_case.gateways.reportDsGateway;
-import report_use_case.interfaces.BanTool;
+import report_use_case.interfaces.BanningAlgorithm;
 import report_use_case.interfaces.reportInputBoundary;
 import report_use_case.screens.ReportPresenter;
 import report_use_case.screens.ReportResponseModel;
@@ -19,33 +19,32 @@ import java.time.LocalDateTime;
 
 public class ReportInteract implements reportInputBoundary {
 
-    //Is it an issue in terms of Hard Dependency? as Interactor initialized concrete classes.
     private static final ReviewGatewayInterface gateway = new ReviewGateway();
 
     private static final UserGatewayInterface userGateway = new UserGateway();
 
-    final report_use_case.gateways.reportDsGateway reportDsGateway;
+    private final report_use_case.gateways.reportDsGateway reportDsGateway;
 
-    final ReportFactory reportFactory;
+    private final ReportFactory reportFactory;
 
-    final BanTool banTool;
+    private final BanningAlgorithm banningAlgorithm;
 
-    final ReportPresenter presenter;
+    private final ReportPresenter presenter;
 
 
     /**
      *
      * @param reportDsGateway: reportDsGateway
      * @param reportFactory: ReportFactory
-     * @param banTool: Banning Strategy
+     * @param banningAlgorithm: Banning Strategy
      * @param presenter: ReportPresenter
      *
      * initialize report interactor
      */
     public ReportInteract(reportDsGateway reportDsGateway, ReportFactory reportFactory,
-                          BanTool banTool, ReportPresenter presenter) {
+                          BanningAlgorithm banningAlgorithm, ReportPresenter presenter) {
         this.reportDsGateway = reportDsGateway;
-        this.banTool = banTool;
+        this.banningAlgorithm = banningAlgorithm;
         this.reportFactory = reportFactory;
         this.presenter = presenter;
     }
@@ -56,15 +55,13 @@ public class ReportInteract implements reportInputBoundary {
         //if report already exists
         if(reportDsGateway.existsReportByReporterAndReview(reportRequestModel.getReporter().getUsername(),
                 reportRequestModel.getReview().getID())){
-            return presenter.prepareFailView("Report already exists.");
+            return presenter.prepareFailView("Failed: Report already exists.");
 
             // check if the reporter is banned
         } else if (reportRequestModel.getReporter().isBanned()) {
-            return presenter.prepareFailView("You are banned.");
+            return presenter.prepareFailView("Failed: You are banned.");
         }
 
-        //Is it an issue in terms of Hard Dependency? But since reportFactory is used to create a report, does it
-        //count as a use of Dependency injection?
         Report report = reportFactory.create(reportRequestModel.getReason(), reportRequestModel.getReview(),
                 reportRequestModel.getReporter().getUsername());
 
@@ -88,9 +85,9 @@ public class ReportInteract implements reportInputBoundary {
         //add report to targeted review
         reportRequestModel.getReview().addReport();
 
-        //Ban review and user using BanTool, banning strategy is specified in the input BanTool object
-        Review updatedRevivew = banTool.checkAndBanReview();
-        User updatedUser = banTool.checkAndBanUser();
+        //Ban review and user using BanningAlgorithm, banning strategy is specified in the input BanningAlgorithm object
+        Review updatedRevivew = banningAlgorithm.checkAndBanReview();
+        User updatedUser = banningAlgorithm.checkAndBanUser();
 
         //update review and user in database
         try{

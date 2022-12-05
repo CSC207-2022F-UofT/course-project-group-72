@@ -17,10 +17,10 @@ public class ReportScreen extends JDialog implements ActionListener {
 
     //where the user types his/her reason
     JTextArea reason = new JTextArea(3, 20);
-    ReportController reportController;
+    private final ReportController reportController;
 
-    Review currentReview;
-    User currentUser;
+    private final Review currentReview;
+    private final User currentUser;
 
     JButton report, cancel;
 

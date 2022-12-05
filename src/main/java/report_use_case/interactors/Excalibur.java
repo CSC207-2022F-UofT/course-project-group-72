@@ -2,13 +2,13 @@ package report_use_case.interactors;
 
 import entities.Review;
 import entities.User;
-import report_use_case.interfaces.BanTool;
+import report_use_case.interfaces.BanningAlgorithm;
 
-//Implement: BanTool (Banning Strategy)
+//Implement: BanningAlgorithm (Banning Strategy)
 
-//This class is a concrete implementation of the BanTool interface.
+//This class is a concrete implementation of the BanningAlgorithm interface.
 //It is used to ban a user and invisible a review from the system by checking the amount of reports received.
-public class Excalibur implements BanTool {
+public class Excalibur implements BanningAlgorithm {
 
     //threshold for banning review
     private final int REVIEW_THRESHOLD = 10;
