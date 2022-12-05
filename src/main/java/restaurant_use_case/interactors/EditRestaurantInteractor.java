@@ -63,13 +63,18 @@ public class EditRestaurantInteractor implements RestaurantInputBoundary {
         oldRestaurant.setCuisineType(requestModel.getCuisineType());
         oldRestaurant.setPriceBucket(requestModel.getPriceBucket());
 
-        // Add back the edited restaurant to the owner's list
-        owner.addRestaurant(oldRestaurant);
-
-        // Save to database
-        gateway.deleteRestaurant(requestModel.getLocation());
         LocalDateTime now = LocalDateTime.now();
-        gateway.save(oldRestaurant);
+
+        try {
+            // Add back the edited restaurant to the owner's list
+            owner.addRestaurant(oldRestaurant);
+            // Save to database
+            gateway.deleteRestaurant(requestModel.getLocation());
+            gateway.save(oldRestaurant);
+
+        } catch (Exception error) {
+            return presenter.prepareFailView("Database error occurred");
+        }
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(oldRestaurant,

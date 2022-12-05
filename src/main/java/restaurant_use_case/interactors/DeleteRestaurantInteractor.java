@@ -60,9 +60,13 @@ public class DeleteRestaurantInteractor implements RestaurantDeleteInputBoundary
         OwnerUser owner = requestModel.getOwner();
         owner.removeRestaurant(requestModel.getRestaurant());
         LocalDateTime now = LocalDateTime.now();
-        userGateway.updateUser(owner);
-        // Use the gateway to remove the restaurant
-        restaurantGateway.deleteRestaurant(requestModel.getRestaurant().getLocation());
+        try {
+            userGateway.updateUser(owner);
+            // Use the gateway to remove the restaurant
+            restaurantGateway.deleteRestaurant(requestModel.getRestaurant().getLocation());
+        } catch (Exception error) {
+            return presenter.prepareFailView("Database error occurred");
+        }
         return presenter.prepareSuccessView("deleted", requestModel.getRestaurant().getName(), now.toString());
 
     }
