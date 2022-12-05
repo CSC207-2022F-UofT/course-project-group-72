@@ -1,6 +1,7 @@
 package restaurant_tests.screens;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.EditRestaurantView;
 import entities.RestaurantFactory;
@@ -31,7 +32,7 @@ public class EditViewTest {
         try {
             editView.actionPerformed(event);
         } catch (Exception ignored) {
-            fail();
+            Assertions.fail();
         }
     }
 }
