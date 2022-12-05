@@ -4,35 +4,28 @@ package review_use_case.screens;
 
 import review_use_case.controllers.EditReviewController;
 import review_use_case.interfaces.ReviewGatewayInterface;
-import entities.Restaurant;
 import entities.Review;
-import entities.User;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditActionListener implements ActionListener {
 
     //Attributes we need to pass to EditReviewScreen
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     private final EditReviewController editReviewController;
     private final ReviewGatewayInterface reviewGateway;
     private final Review review;
-    private final User user;
-    private final Restaurant restaurant;
 
     /*
     Constructor
      */
-    public EditActionListener(JFrame owner, EditReviewController editReviewController, ReviewGatewayInterface reviewGateway,
-                              Review review, User user, Restaurant restaurant){
-        this.owner = owner;
+    public EditActionListener(RestaurantView restaurantView, EditReviewController editReviewController,
+                              ReviewGatewayInterface reviewGateway, Review review){
+        this.restaurantView = restaurantView;
         this.editReviewController = editReviewController;
         this.reviewGateway = reviewGateway;
         this.review = review;
-        this.user = user;
-        this.restaurant = restaurant;
     }
 
     /*
@@ -40,7 +33,6 @@ public class EditActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        EditReviewScreen editScreen = new EditReviewScreen(this.owner, this.editReviewController, this.reviewGateway,
-                this.review, this.user, this.restaurant);
+        new EditReviewScreen(this.restaurantView, this.editReviewController, this.reviewGateway, this.review);
     }
 }

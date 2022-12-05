@@ -4,9 +4,7 @@ package review_use_case.screens;
 
 import review_use_case.interfaces.ReviewGatewayInterface;
 import review_use_case.controllers.ReplyController;
-import entities.Restaurant;
 import entities.Review;
-import entities.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,28 +15,23 @@ public class ReplyScreen extends JDialog implements ActionListener {
     //We need a reference to the text area so the action listener method can get the text
     private final JTextArea textArea;
     //We need a reference to the RestaurantView so this dialog can be made modal in relation to it
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     //We need a controller to talk to the interactor
     private final ReplyController replyController;
     //We need to pass these to the controller
     private final ReviewGatewayInterface reviewGateway;
     private final Review review;
-    //We need these to re-launch RestaurantView after changes are made
-    private final User user;
-    private final Restaurant restaurant;
 
-    public ReplyScreen(JFrame owner, ReplyController replyController, ReviewGatewayInterface reviewGateway,
-                       Review review, User user, Restaurant restaurant){
+    public ReplyScreen(RestaurantView restaurantView, ReplyController replyController, ReviewGatewayInterface reviewGateway,
+                       Review review){
         //Call super on owner so that this dialog is modal in relation to it
-        super(owner, true);
+        super(restaurantView, true);
 
         //Attach the given attributes to the screen so the action listener method can access them
-        this.owner = owner;
+        this.restaurantView = restaurantView;
         this.replyController = replyController;
         this.reviewGateway = reviewGateway;
         this.review = review;
-        this.user =user;
-        this.restaurant = restaurant;
 
         //Create a JLabel instructing the owner to write a response to the review
         JLabel label = new JLabel("What would you like to say to this reviewer?");
@@ -101,8 +94,7 @@ public class ReplyScreen extends JDialog implements ActionListener {
                         "successfully submitted!");
                 //Close all old windows and re-launch RestaurantView with this reply added
                 this.dispose();
-                this.owner.dispose();
-                new RestaurantView(this.user, this.restaurant);
+                this.restaurantView.refresh();
             }else{
                 JOptionPane.showMessageDialog(this, "An error has occurred. Please try " +
                         "again later.");

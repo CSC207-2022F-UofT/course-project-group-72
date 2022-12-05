@@ -11,14 +11,13 @@ import entities.Restaurant;
 import entities.Review;
 import entities.User;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteActionListener implements ActionListener {
 
     //Attributes we need to pass to DeleteReviewScreen
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     private final DeleteReviewController deleteReviewController;
     private final ReviewGatewayInterface reviewGateway;
     private final UserGatewayInterface userGateway;
@@ -30,10 +29,10 @@ public class DeleteActionListener implements ActionListener {
     /*
     Constructor
      */
-    public DeleteActionListener(JFrame owner, DeleteReviewController deleteReviewController,
+    public DeleteActionListener(RestaurantView restaurantView, DeleteReviewController deleteReviewController,
                                 ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
                                 RestaurantDSGateway restaurantGateway, Review review, User user, Restaurant restaurant){
-        this.owner = owner;
+        this.restaurantView = restaurantView;
         this.deleteReviewController = deleteReviewController;
         this.reviewGateway = reviewGateway;
         this.userGateway = userGateway;
@@ -48,7 +47,7 @@ public class DeleteActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        DeleteReviewScreen deleteScreen = new DeleteReviewScreen(this.owner, this.deleteReviewController,
-                this.reviewGateway, this.userGateway, this.restaurantGateway, this.review, this.user, this.restaurant);
+        new DeleteReviewScreen(this.restaurantView, this.deleteReviewController, this.reviewGateway, this.userGateway,
+                this.restaurantGateway, this.review, this.user, this.restaurant);
     }
 }

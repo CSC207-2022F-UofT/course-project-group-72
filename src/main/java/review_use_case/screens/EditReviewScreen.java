@@ -4,9 +4,7 @@ package review_use_case.screens;
 
 import review_use_case.interfaces.ReviewGatewayInterface;
 import review_use_case.controllers.EditReviewController;
-import entities.Restaurant;
 import entities.Review;
-import entities.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,28 +23,23 @@ public class EditReviewScreen extends JDialog implements ActionListener {
     private final JButton fourStar;
     private final JButton fiveStar;
     //We need a reference to the RestaurantView so this dialog can be made modal in relation to it
-    private final JFrame owner;
+    private final RestaurantView restaurantView;
     //We need a controller to talk to the interactor
     private final EditReviewController editReviewController;
     //We need to pass these to the controller
     private final ReviewGatewayInterface reviewGateway;
     private final Review review;
-    //We need these to re-launch RestaurantView
-    private final User user;
-    private final Restaurant restaurant;
 
-    public EditReviewScreen(JFrame owner, EditReviewController editReviewController,
-                            ReviewGatewayInterface reviewGateway, Review review, User user, Restaurant restaurant){
+    public EditReviewScreen(RestaurantView restaurantView, EditReviewController editReviewController,
+                            ReviewGatewayInterface reviewGateway, Review review){
         //Call super on owner so that this dialog is modal in relation to it
-        super(owner, true);
+        super(restaurantView, true);
 
         //Attach these to the screen so that the action listener may use them
-        this.owner = owner;
+        this.restaurantView = restaurantView;
         this.editReviewController = editReviewController;
         this.reviewGateway = reviewGateway;
         this.review = review;
-        this.user = user;
-        this.restaurant = restaurant;
 
         //Store the review's old stars, so we do not need to keep calling review methods
         this.stars = this.review.getStars();
@@ -240,8 +233,7 @@ public class EditReviewScreen extends JDialog implements ActionListener {
                                 " edited!");
                         //Close all old windows and re-launch RestaurantView with this review removed
                         this.dispose();
-                        this.owner.dispose();
-                        new RestaurantView(this.user, this.restaurant);
+                        this.restaurantView.refresh();
                     }else{
                         JOptionPane.showMessageDialog(this, "An error has occurred. Please try" +
                                 " again later.");
