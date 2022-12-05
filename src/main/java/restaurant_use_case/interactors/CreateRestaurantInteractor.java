@@ -78,8 +78,12 @@ public class CreateRestaurantInteractor implements RestaurantInputBoundary {
         ownerUser.addRestaurant(newRestaurant);
         // Updates the User in the database
         LocalDateTime now = LocalDateTime.now();
-        restaurantGateway.save(newRestaurant);
-        userGateway.updateUser(ownerUser);
+        try {
+            restaurantGateway.save(newRestaurant);
+            userGateway.updateUser(ownerUser);
+        } catch (Exception error) {
+            return presenter.prepareFailView("Database error occurred");
+        }
 
         RestaurantResponseModel successResponseModel =
                 new RestaurantResponseModel(newRestaurant, now.toString(), "created");
