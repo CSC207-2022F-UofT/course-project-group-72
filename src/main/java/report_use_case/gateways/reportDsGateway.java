@@ -10,5 +10,5 @@ public interface reportDsGateway {
 
     void save(ReportDsRequestModel reportdsRequestModel) throws IOException;
 
-    boolean existsReportByReporterAndReview(String reporter_username, String review_id);
+    boolean existsReportByReporterAndReview(String reporter_username, String review_id) throws IOException;
 }
