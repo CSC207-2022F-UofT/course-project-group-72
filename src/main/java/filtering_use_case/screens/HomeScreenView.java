@@ -7,6 +7,8 @@ import restaurant_use_case.gateways.RestaurantDSGateway;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeScreenView extends JFrame {
 
@@ -79,24 +81,36 @@ public class HomeScreenView extends JFrame {
     /**
      * The group of radiobuttons for the sorting direction
      */
-
-
     ButtonGroup sortDirection;
     /**
-     * The radiobutton for sorting direction
+     * The radiobutton for sorting direction in ascending order
      */
     JRadioButton sortAscending;
     /**
-     * The radiobutton for sorting direction
+     * The radiobutton for sorting direction in descending order
      */
     JRadioButton sortDescending;
+
     /**
-     * The choices controller
+     * The radiobutton for sorting direction in descending order
      */
     public static final String NO_PREFERENCE = "No Preference";
     public static final String PRICE = "Price";
     public static final String AVG_STARS = "AvgStars";
     public static final String NAME = "Name";
+    public static final String[] CUISINE_LIST =
+            {NO_PREFERENCE,
+            "Italian",
+            "Chinese",
+            "Caribbean",
+            "American",
+            "Indian",
+            "Japanese",
+            "Hot Dog",
+            "Food",
+            "K BBQ",
+            "Fast Food",
+            };
 
     public HomeScreenView(User user) throws IOException {
 
@@ -117,7 +131,9 @@ public class HomeScreenView extends JFrame {
         Integer[] avgStarsOptions = {0, 1, 2, 3, 4, 5};
 
         // TODO: add more cuisine options
-        String[] cuisineOptions = {NO_PREFERENCE, "Food"};
+        // String[] cuisineOptions = {NO_PREFERENCE, "Food"};
+        String[] cuisineOptions = CUISINE_LIST;
+
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
@@ -153,9 +169,9 @@ public class HomeScreenView extends JFrame {
         filterNameButton = new JRadioButton("Sort By Name:");
 
         // Set Action Commands for Filters
-        filterPriceButton.setActionCommand("Price");
-        filterAvgStarsButton.setActionCommand("AvgStars");
-        filterNameButton.setActionCommand("Name");
+        filterPriceButton.setActionCommand(PRICE);
+        filterAvgStarsButton.setActionCommand(AVG_STARS);
+        filterNameButton.setActionCommand(NAME);
 
         // Add to selection button group
         filterButtons.add(filterPriceButton);
@@ -208,9 +224,9 @@ public class HomeScreenView extends JFrame {
 
         // Window options
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(800, 350));
         this.pack();
         this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         this.setVisible(true);
         repaint();

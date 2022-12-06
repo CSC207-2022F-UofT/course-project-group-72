@@ -4,6 +4,9 @@ import entities.Restaurant;
 
 import java.util.ArrayList;
 
+/**
+ * The screen data that is required to update the screen
+ */
 public class ChoicesResponseModel {
 
     ArrayList<Restaurant> restaurantList;
@@ -12,6 +15,7 @@ public class ChoicesResponseModel {
         this.restaurantList = restaurantList;
     }
 
+    // getter method for the restaurants list
     public ArrayList<Restaurant> getRestaurants() {
         return restaurantList;
     }
