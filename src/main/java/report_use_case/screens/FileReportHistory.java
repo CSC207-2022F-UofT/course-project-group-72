@@ -18,6 +18,8 @@ public class FileReportHistory implements reportDsGateway {
     // Map of review_id to ReportDsRequestModel, USED to save to file (like a temporary cache)
     private final MultiMap<String, ReportDsRequestModel> saveReports = new MultiMap<>();
 
+    private final MultiMap<String, String> refreshedReports = new MultiMap<>();
+
     // Map of review_id to reporter_username, USED to check if a report exists
     private final MultiMap<String, String> checkReports = new MultiMap<>();
 
@@ -95,7 +97,8 @@ public class FileReportHistory implements reportDsGateway {
 
     // check if a report exists
     @Override
-    public boolean existsReportByReporterAndReview(String reporter_username, String review_id) {
+    public boolean existsReportByReporterAndReview(String reporter_username, String review_id) throws IOException {
+        refreshDatabase();
         for (String review_id_in_map : checkReports.keySet()) {
             if (review_id_in_map.equals(review_id)) {
                 for (String reporter_username_in_map : checkReports.get(review_id_in_map)) {
@@ -106,7 +109,36 @@ public class FileReportHistory implements reportDsGateway {
             }
         }
 
+        for (String review_id_in_map : refreshedReports.keySet()) {
+            if (review_id_in_map.equals(review_id)) {
+                for (String reporter_username_in_map : refreshedReports.get(review_id_in_map)) {
+                    if (reporter_username_in_map.equals(reporter_username)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
+
+    private void refreshDatabase() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(csvFile));
+        reader.readLine();
+
+        String row;
+        while ((row = reader.readLine()) != null) {
+            String[] col = row.split(",");
+            String review_id = col[headers.get("review_id")];
+            String reporter_username = col[headers.get("reporter_username")];
+
+            refreshedReports.put(review_id, reporter_username);
+
+
+        }
+
+        reader.close();
+    }
+
 
 }
