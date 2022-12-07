@@ -2,6 +2,8 @@ package filtering_use_case.screens;
 import entities.Restaurant;
 import entities.RestaurantFactory;
 import entities.User;
+import global.IFrame;
+import global.ViewRestaurantActionListener;
 //import global.ViewRestaurantActionListener;
 
 import javax.swing.*;
@@ -11,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChoicesSortedView extends JFrame {
+public class ChoicesSortedView extends JFrame implements IFrame{
     //TODO: java documentation
     JLabel restaurantName;
     JLabel restaurantPrice;
@@ -48,7 +50,7 @@ public class ChoicesSortedView extends JFrame {
             restaurantPanel.add(viewRestaurantButton);
 
             // Add ViewRestaurantActionListener to viewRestaurantButton
-            //viewRestaurantButton.addActionListener(new ViewRestaurantActionListener(user, restaurant));
+            viewRestaurantButton.addActionListener(new ViewRestaurantActionListener(this, user, restaurant));
 
             this.add(restaurantPanel);
 
@@ -63,6 +65,21 @@ public class ChoicesSortedView extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
         repaint();
+
+    }
+
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void back() {
+
+    }
+
+    @Override
+    public void home() {
 
     }
 }
