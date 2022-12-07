@@ -68,6 +68,9 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 4. **Restaurant Page**:
 5. **Review Page**:
 6. **Report Page**:
+
+<img width="543" alt="Screen Shot 2022-12-07 at 3 52 28 PM" src="https://user-images.githubusercontent.com/70244801/206293560-aa731992-4133-4911-8597-f5d7535158da.png"> 
+
 7. **Restaurant Modification Page**:
 
 ![image](https://user-images.githubusercontent.com/113074010/206293041-8f32ba6d-209f-4ad8-922d-8d95262570a9.png)
@@ -90,6 +93,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 ## Libraries Used:
 * `Java swing`
+
 * 'JUnit'
 
 
