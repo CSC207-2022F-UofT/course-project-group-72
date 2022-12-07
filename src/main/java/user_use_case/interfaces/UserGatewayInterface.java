@@ -43,6 +43,8 @@ public interface UserGatewayInterface {
 
     void addReview(String reviewId, String userid);
 
+    void removeUser(User user);
+
     //public void removeUser(User user);
     void addLikedReview(String reviewId, String userid);
 

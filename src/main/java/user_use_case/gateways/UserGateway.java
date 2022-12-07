@@ -29,6 +29,8 @@ public class UserGateway implements UserGatewayInterface {
 
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
 
+    private String TEMP_FILE = "src/main/java/Databases/temp_UserDatabase.csv";
+
     private static final String EMPTY_FILLER = "empty";
     private OwnerFactory ownerFactory = new OwnerFactory();
     private UserFactory userFactory = new UserFactory();
@@ -73,10 +75,8 @@ public class UserGateway implements UserGatewayInterface {
             new_owner_restaurants = EMPTY_FILLER;
         }
 
-        String tempFile = "src/main/java/Databases/temp_UserDatabase.csv";
-
         File old_file = new File(NAME_OF_USER_DATABASE);
-        File new_file = new File(tempFile);
+        File new_file = new File(TEMP_FILE);
 
         String username;
         String password;
@@ -204,17 +204,83 @@ public class UserGateway implements UserGatewayInterface {
         return null;
     }
 
-    //@Override
-    //public void removeUser(User user) {
-        // DOES NOT WORK CURRENTLY
+    @Override
+    public void removeUser(User user) {
         // Change username of user to "Removed" in database
         // functionality will be equivalent to if user was from database
-        //String new_username = "Removed";
 
-        //user.setUsername(new_username);
+        String given_username = user.getUsername();
 
-        //updateUser(user);
-    //}
+        String new_username = "Removed";
+
+        File old_file = new File(NAME_OF_USER_DATABASE);
+        File new_file = new File(TEMP_FILE);
+
+        String username;
+        String password;
+        String past_reviews;
+        String likedReviews;
+        String received_reports;
+        String banned;
+        String owner;
+        String owned_restaurants;
+
+
+        try {
+            FileWriter fw = new FileWriter(new_file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            File file = new File(NAME_OF_USER_DATABASE);
+            Scanner scanner = new Scanner(file);
+            String delimiter = ", ";
+            String line;
+
+            while (scanner.hasNext()) {
+                line = scanner.nextLine();
+                String[] values = line.split(delimiter);
+
+                username = values[0];
+                password = values[1];
+                past_reviews = values[2];
+                likedReviews = values[3];
+                received_reports = values[4];
+                banned = values[5];
+                owner = values[6];
+                owned_restaurants = values[7];
+
+
+                // replace the old values with the new values
+                String line1;
+                if (given_username.equals(username)) {
+                    line1 = String.join(", ", new_username, password, past_reviews,
+                            likedReviews, received_reports, banned, owner, owned_restaurants);
+
+                    //keep the old values
+                } else {
+                    line1 = String.join(", ", username, password, past_reviews,
+                            likedReviews, received_reports, banned, owner, owned_restaurants);
+                }
+                bw.write(line1);
+                bw.newLine();
+
+            }
+
+            scanner.close();
+            bw.flush();
+            bw.close();
+            old_file.delete();
+
+            File temp = new File(NAME_OF_USER_DATABASE);
+            new_file.renameTo(temp);
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Can't find this User");
+            e.printStackTrace();
+        }
+
+
+    }
 
     @Override
     public Boolean userExists(String username) {
