@@ -44,8 +44,8 @@ public class testSortedView {
         ArrayList<Restaurant> newList = gateway.searchMatch("Chako", "Z1B");
         User userTest = new User("aa", "bb");
 
-        ChoicesSortedView view = new ChoicesSortedView(newList, userTest);
-        view.setVisible(true);
+        //ChoicesSortedView view = new ChoicesSortedView(newList, userTest);
+        //view.setVisible(true);
     }
 }
 
