@@ -74,16 +74,6 @@ public class ReportInteract implements reportInputBoundary {
 
         reportDsGateway.save(reportDsRequestModel);
 
-        //initialize the user object
-        String targetedUsername = reportRequestModel.getReview().getUser();
-
-        //if the user object isn't found in database, return error message (not usually happen)
-        try{
-        User targetedUser = userGateway.getUser(targetedUsername);
-            targetedUser.addReport();}catch (Exception e){return presenter.prepareFailView("Database Error: Couldn't find reviewer");}
-
-        //add report to targeted review
-        reportRequestModel.getReview().addReport();
 
         //Ban review and user using BanningAlgorithm, banning strategy is specified in the input BanningAlgorithm object
         Review updatedRevivew = banningAlgorithm.checkAndBanReview();

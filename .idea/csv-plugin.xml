@@ -24,13 +24,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\test\java\report_use_case\screens\Controller_test.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
