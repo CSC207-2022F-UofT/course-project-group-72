@@ -1,13 +1,11 @@
 package user_use_case.screens;
 
-import global.CreateRestaurantActionListener;
-import global.EditRestaurantActionListener;
-import global.IFrame;
-import global.ViewRestaurantActionListener;
+import global.*;
 import review_use_case.gateways.ReviewGateway;
 import entities.OwnerUser;
 import entities.Restaurant;
 import restaurant_use_case.interactors.FileRestaurant;
+import user_use_case.controllers.UpgradeUserController;
 import user_use_case.gateways.UserGateway;
 import entities.Review;
 import entities.User;
@@ -20,20 +18,32 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProfileScreen extends JFrame implements ActionListener, IFrame {
+public class ProfileScreen extends JFrame implements IFrame {
     User profile;
+
+    String profile_name;
 
     User user;
 
     JFrame profile_screen_window;
+
+    IFrame previousFrame;
 
     ArrayList<Review> reviews;
     ArrayList<Restaurant> restaurants;
 
     FileRestaurant restaurant_gateway;
 
-    public ProfileScreen(User user, String profile_name) {
+    ReviewGateway reviewGateway;
+
+    UpgradeUserController upgradeUserController;
+
+    public ProfileScreen(IFrame previousFrame, User user, String profile_name) {
         UserGateway userGateway = new UserGateway();
+
+        this.profile_name = profile_name;
+        this.previousFrame = previousFrame;
+        this.upgradeUserController = new UpgradeUserController();
 
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
@@ -43,16 +53,16 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
 
         }
 
-        ReviewGateway reviewGateway = new ReviewGateway();
+        this.reviewGateway = new ReviewGateway();
         try {
-            this.reviews = reviewGateway.getReviews(profile.getPast_reviews());
+            this.reviews = this.reviewGateway.getReviews(this.profile.getPast_reviews());
         } catch (FileNotFoundException e) {
             this.reviews = new ArrayList<>();
         }
 
         profile_screen_window = new JFrame();
 
-        JLabel title = new JLabel(profile.getUsername());
+        JLabel title = new JLabel(this.profile.getUsername());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         int totalStars = 0;
@@ -69,6 +79,20 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
                 this.restaurants.add(restaurant_gateway.retrieveRestaurant(restaurant));
             }
         }
+
+//        Upgrade user section
+
+        if (!isOwner && isLoggedIn) {
+            JButton upgradeButton = new JButton("Upgrade profile to Owner");
+
+            UpgradeUserActionListener upgradeUserActionListener = new UpgradeUserActionListener(this.user);
+            upgradeButton.addActionListener(upgradeUserActionListener);
+            this.profile_screen_window.add(upgradeButton);
+        }
+
+
+//        Reviews section
+
         for (Review review : this.reviews) {
             JLabel restarauntName = new JLabel(review.getRestaurant());
             JLabel reviewText = new JLabel(review.getText());
@@ -97,7 +121,7 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
             JLabel restaurantName = new JLabel(restaurant.getName());
             JLabel restaurantLocation = new JLabel(restaurant.getLocation());
             JButton viewButton = new JButton("View");
-            ViewRestaurantActionListener viewRestaurantActionListener = new ViewRestaurantActionListener(this, this.user, restaurant);
+            ViewRestaurantActionListener viewRestaurantActionListener = new ViewRestaurantActionListener(this.previousFrame, this.user, restaurant);
             viewButton.addActionListener(viewRestaurantActionListener);
             if (isLoggedIn) {
                 JButton editButton = new JButton("Edit");
@@ -122,6 +146,7 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
         JLabel averageStarLabel = new JLabel(Integer.toString(averageStars));
 
         JLabel reviewsLabel = new JLabel("Reviews");
+        profile_screen_window.add(averageStarLabel);
         profile_screen_window.add(reviewsLabel);
         profile_screen_window.add(reviewsPanel);
         profile_screen_window.add(restaurantsLabel);
@@ -132,22 +157,17 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
     public void refresh() {
-
+        this.dispose();
+        new ProfileScreen(this.previousFrame, this.user, this.profile_name);
     }
 
     @Override
     public void back() {
-
-    }
-
-    @Override
-    public void home() {
-
+        JFrame frame = this.previousFrame;
+        frame.setVisible(true);
+        this.dispose();
     }
 }
+
+// TODO: refresh method grab everything and see if anything has changed
