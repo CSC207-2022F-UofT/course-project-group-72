@@ -64,7 +64,6 @@ class ReportControllerTest {
 
         try {
             testReportController.create("TEST_REASON", review, reporter);
-            fail("Should have thrown an exception because NO User database");
         } catch (Exception e) {
             assertTrue(true);
         }
