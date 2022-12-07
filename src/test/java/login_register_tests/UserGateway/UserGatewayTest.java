@@ -1,68 +1,59 @@
 package login_register_tests.UserGateway;
 
-import entities.UserFactory;
 import org.junit.jupiter.api.Test;
 
-import entities.Review;
 import entities.User;
 import user_use_case.gateways.UserGateway;
-import user_use_case.interfaces.UserGatewayInterface;
-import org.junit.jupiter.api.Test;
-import user_use_case.screens.WelcomeUserView;
+
+import java.util.Random;
 
 
 class UserGatewayTest {
 
-    /*
+    @Test
+    void test_get_add_user() {
+        // Make sure username does not exist in database
 
-        @Test
-        void test_get_user() {
-            // Make sure username does not exist in database & delete from database after test
-
-            UserGateway gateway = new UserGateway();
-
-
-            String test_username = "testusername59";
-
-            User test_user = new User(test_username, "testpassword52");
-
-            gateway.addUser(test_user.getUsername(), test_user.getPassword());
-
-            assert test_user.getPassword().equals(gateway.getUser(test_username).getPassword());
-
-        }*/
-
-    public static void main(String[] args) {
-        /*
         UserGateway gateway = new UserGateway();
 
-        User user1 = new UserFactory().CreateUserObject("Henry", "testpassword");
-        gateway.addUser(user1.getUsername(), user1.getPassword());
-        */
-        // Test Welcome View
-        UserGateway gateway = new UserGateway();
+        int random_user_num = new Random().nextInt(100) + 100;
 
-
-        String test_username = "testusername384";
+        String test_username = "testusername" + random_user_num;
 
         User test_user = new User(test_username, "testpassword52");
 
         gateway.addUser(test_user.getUsername(), test_user.getPassword());
 
-        test_user.setBanned();
+        String actual_password = test_user.getPassword();
 
-        gateway.updateUser(test_user);
+        String result_password = gateway.getUser(test_username).getPassword();
 
-        System.out.print(gateway.getUser(test_username).isBanned());
-
+        assert actual_password.equals(result_password);
     }
 
-        //@Test
-        //public void test_update_user() {
-            // Make sure username does not exist in database & delete from database after test
 
+    @Test
+    void test_update_user() {
+        // Tests Pass, If Fail, Confirm UserDatabase Values are stored correctly
+        int random_user_num1 = new Random().nextInt(100) + 200;
 
-        //}
+        UserGateway gateway1 = new UserGateway();
 
+        String test_username1 = "testusername" + random_user_num1;
+
+        User test_user1 = new User(test_username1, "testpassword101");
+
+        gateway1.addUser(test_user1.getUsername(), test_user1.getPassword());
+
+        test_user1.setBanned();
+
+        gateway1.updateUser(test_user1);
+
+        Boolean actual_status = test_user1.isBanned();
+
+        Boolean result_status = gateway1.getUser(test_username1).isBanned();
+
+        assert actual_status.equals(result_status);
+    }
 
 }
