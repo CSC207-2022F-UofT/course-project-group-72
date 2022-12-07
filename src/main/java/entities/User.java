@@ -3,13 +3,41 @@ package entities;
 import java.util.ArrayList;
 
 public class User extends GuestUser{
+    /**
+     * The User's username
+     */
     private String username;
+    /**
+     * The User's login password
+     */
     private String password;
+    /**
+     * The User's past reviews
+     * The ArrayList-String- contains the String IDs of Review objects
+     */
     private ArrayList<String> past_reviews;
+    /**
+     * The User's past liked reviews
+     * The ArrayList-String- contains the String IDs of past liked Review objects
+     */
     private ArrayList<String> likedReviews;
+    /**
+     * The number of Reports User has received
+     */
     private int received_reports = 0;
+    /**
+     * true - User is Banned
+     * false - User is not Banned
+     */
     private boolean banned = false;
     private boolean owner = false;
+
+    /**
+     * The creator constructor of the (new) user
+     *
+     * @param username User's username
+     * @param password User's password
+     */
 
     public User(String username, String password) {
         this.username = username;
@@ -20,6 +48,18 @@ public class User extends GuestUser{
         this.banned = false;
         this.owner = false;
     }
+
+    /**
+     * The reinitialization constructor of an existing user
+     *
+     * @param username User's username
+     * @param password User's password
+     * @param past_reviews User's passed reviews (String Ids of reviews)
+     * @param likedReviews User's passed liked reviews (String Ids of reviews)
+     * @param received_reports User's received reports
+     * @param banned Whether the User is banned
+     * @param owner Whether the User is: instanceof OwnerUser
+     */
 
     public User(String username, String password, ArrayList<String> past_reviews,
                 ArrayList<String> likedReviews, int received_reports, Boolean banned, Boolean owner) {
@@ -63,6 +103,7 @@ public class User extends GuestUser{
         this.past_reviews.add(reviewid);
     }
 
+     // Get & Add to Liked Reviews
     public ArrayList<String> getLikedReviews() {
         return likedReviews;
     }
@@ -75,14 +116,15 @@ public class User extends GuestUser{
         this.likedReviews.remove(id);
     }
 
+    // Get & Add Report of User
     public int getReceived_reports(){
         return this.received_reports;
     }
-
     public void addReport(){
         this.received_reports++;
     }
 
+    // Get & Set User Banned
     public boolean isBanned(){
         return this.banned;
     }
@@ -90,6 +132,8 @@ public class User extends GuestUser{
         this.banned = true;
     }
 
+
+    // Equivalent to: user instanceof OwnerUser
     public boolean isOwner() {
         return owner;
     }
