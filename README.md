@@ -64,9 +64,13 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 ## Demo (ScreenShots):
 1. **Welcome Page**:
 2. **Home Page**:
+
 <img width="953" alt="Screenshot 2022-12-07 at 3 56 12 PM" src="https://user-images.githubusercontent.com/58833849/206293913-22e21257-5363-460d-8ee8-292f71875f23.png">
+
 3. **Sorted Restaurants**:
+
 <img width="623" alt="Screenshot 2022-12-07 at 3 57 17 PM" src="https://user-images.githubusercontent.com/58833849/206294057-8356b948-44a3-412d-a3a4-34c9ed48189c.png">
+
 4. **Restaurant Page**:
 5. **Review Page**:
 6. **Report Page**:

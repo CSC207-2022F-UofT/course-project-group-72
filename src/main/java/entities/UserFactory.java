@@ -12,7 +12,7 @@ public class UserFactory {
      *
      * @param username the username of the User
      * @param password the password of the User
-     * @return an OwnerUser instance
+     * @return an OwnerUser instance or a new User instance
      */
     public User reintialize(String username, String password, ArrayList<String> pastReviews,
                                  ArrayList<String> likedReviews,
