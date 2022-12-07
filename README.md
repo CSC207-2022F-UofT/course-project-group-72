@@ -95,7 +95,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 ## Libraries Used:
 * `Java swing`
-* 'JUnit'
+* `JUnit`
 
 
 ## Checklist
