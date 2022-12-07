@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChoicesSortedView extends JFrame implements IFrame, ActionListener{
+public class ChoicesSortedView extends IFrame implements ActionListener{
     //TODO: java documentation
     JLabel restaurantName;
     JLabel restaurantPrice;
@@ -109,22 +109,12 @@ public class ChoicesSortedView extends JFrame implements IFrame, ActionListener{
     }
 
     @Override
-    public void home() {
-        try {
-            new HomeScreenView(this.user);
-            this.dispose();
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
-        }
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
         // Action Listeners for Back and Home Buttons (Uniform Implementation)
         if (e.getActionCommand().equals("Back")) {
             this.back();
         } else if (e.getActionCommand().equals("Home")) {
-            this.home();
+            this.home(user);
         }
     }
 }
