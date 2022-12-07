@@ -205,18 +205,16 @@ public class UserGateway implements UserGatewayInterface {
     }
 
     @Override
-    public void removeUser(User user) {
+    public void removeUser(String username) {
         // Change username of user to "Removed" in database
         // functionality will be equivalent to if user was from database
 
-        String given_username = user.getUsername();
-
-        String new_username = "Removed";
+        String given_username = username;
 
         File old_file = new File(NAME_OF_USER_DATABASE);
         File new_file = new File(TEMP_FILE);
 
-        String username;
+        String curr_username;
         String password;
         String past_reviews;
         String likedReviews;
@@ -238,7 +236,7 @@ public class UserGateway implements UserGatewayInterface {
                 line = scanner.nextLine();
                 String[] values = line.split(delimiter);
 
-                username = values[0];
+                curr_username = values[0];
                 password = values[1];
                 past_reviews = values[2];
                 likedReviews = values[3];
@@ -250,17 +248,14 @@ public class UserGateway implements UserGatewayInterface {
 
                 // replace the old values with the new values
                 String line1;
-                if (given_username.equals(username)) {
-                    line1 = String.join(", ", new_username, password, past_reviews,
-                            likedReviews, received_reports, banned, owner, owned_restaurants);
-
+                if (!given_username.equals(username)) {
                     //keep the old values
-                } else {
-                    line1 = String.join(", ", username, password, past_reviews,
+                    line1 = String.join(", ", curr_username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
+                    bw.write(line1);
+                    bw.newLine();
                 }
-                bw.write(line1);
-                bw.newLine();
+
 
             }
 

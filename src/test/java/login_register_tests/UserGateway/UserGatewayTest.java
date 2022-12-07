@@ -28,7 +28,7 @@ class UserGatewayTest {
 
         String result_password = gateway.getUser(test_username).getPassword();
 
-        gateway.removeUser(test_user);
+        gateway.removeUser(test_username);
 
         assert actual_password.equals(result_password);
     }
@@ -55,7 +55,7 @@ class UserGatewayTest {
 
         Boolean result_status = gateway1.getUser(test_username1).isBanned();
 
-        gateway1.removeUser(test_user1);
+        gateway1.removeUser(test_username1);
 
         assert actual_status.equals(result_status);
     }
