@@ -6,4 +6,6 @@ public interface IFrame {
     public void refresh();
     public void back();
     public void home();
+
+    void dispose();
 }

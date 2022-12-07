@@ -20,6 +20,8 @@ public class ViewRestaurantActionListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        this.previousFrame.dispose();
+
         RestaurantView restaurantView = new RestaurantView(this.previousFrame, this.user, this.restaurant);
     }
 }

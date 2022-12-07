@@ -4,6 +4,7 @@ import entities.RestaurantFactory;
 import entities.User;
 import global.IFrame;
 import global.ViewRestaurantActionListener;
+import review_use_case.screens.RestaurantView;
 //import global.ViewRestaurantActionListener;
 
 import javax.swing.*;
@@ -21,10 +22,16 @@ public class ChoicesSortedView extends JFrame implements IFrame{
     JLabel restaurantCuisineType;
     JLabel restaurantAvgStars;
     JButton viewRestaurantButton;
+    JFrame previousFrame;
+    ArrayList<Restaurant> sortedList;
+    User user;
 
-    // TODO: pass user through login -> home screen -> choices sorted
+    public ChoicesSortedView(JFrame previousFrame, ArrayList<Restaurant> sortedList, User user) {
 
-    public ChoicesSortedView(ArrayList<Restaurant> sortedList, User user) {
+        // Save objects for us in IFrame methods
+        this.previousFrame = previousFrame;
+        this.sortedList = sortedList;
+        this.user = user;
 
         //TODO: organize/format components
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -39,7 +46,7 @@ public class ChoicesSortedView extends JFrame implements IFrame{
             restaurantAvgStars = new JLabel("Star Rating(/5): " + restaurant.getAvgStars());
 
             // View Restaurant Button
-            viewRestaurantButton = new JButton();
+            viewRestaurantButton = new JButton("View Restaurant");
 
             // Add all elements to a single JPanel
             JPanel restaurantPanel = new JPanel();
@@ -59,27 +66,34 @@ public class ChoicesSortedView extends JFrame implements IFrame{
 
         // Window options
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(800, 550));
         this.pack();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
-        repaint();
+        this.repaint();
 
     }
 
     @Override
     public void refresh() {
-
+        this.dispose();
+        new ChoicesSortedView(this.previousFrame, this.sortedList, this.user);
     }
 
     @Override
     public void back() {
-
+        JFrame frame = this.previousFrame;
+        frame.setVisible(true);
+        this.dispose();
     }
 
     @Override
     public void home() {
-
+        try {
+            new HomeScreenView(this.user);
+            this.dispose();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+        }
     }
 }
