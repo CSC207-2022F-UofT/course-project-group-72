@@ -7,6 +7,7 @@ import filtering_use_case.screens.HomeScreenView;
 import report_use_case.gateways.reportDsGateway;
 import report_use_case.interactors.Excalibur;
 import report_use_case.interactors.ReportInteract;
+import report_use_case.interfaces.BanningAlgorithm;
 import report_use_case.interfaces.reportInputBoundary;
 import report_use_case.screens.ReportPresenter;
 import restaurant_use_case.gateways.RestaurantDSGateway;
