@@ -3,10 +3,11 @@
 
 ## Introduction:
 72Reviews is an application that provides services including:
-  * search restaurant based on your preferrence  
-  * register as Customer or Restaurant Owner
-  * give feedback to restaurants 
-  * report any inappropriate reviews
+  * Search restaurant based on your preference  
+  * Register your user account as a Customer or a Restaurant Owner
+  * Manage your restaurants as a Restaurant Owner
+  * Give feedback to restaurants in the form of reviews
+  * Report any inappropriate reviews 
 
 
   ## Features:
@@ -23,6 +24,23 @@
   * Delete your Restaurant if you are moving
 * ***Register as Restaurant Owner Service***
 * ***Sort/Search System***
+  * User is able to search, filter and sort (by attribute and direction) for their personalized list. 
+  * They can filter by:
+    * Name (Search Input)
+    * Location (Search Input)
+    * Cuisine (Drop-Down Menu)
+    * Price Range (Drop-Down Menu)
+    * Rating/AvgStars (Drop-Down Menu)
+    * Sort by:
+     * Name (Radio Button)
+     * Price (Radio Button)
+     * Rating (Radio Button)
+    * Sort Direction:
+     * Ascending (Radio Button)
+     * Descending (Radio Button)
+  * User can submit their selections by clicking the search button.
+ 
+
 * ***Review System***
 * ***Report System***
   * User is able to report a review by clicking the button beside the review
@@ -35,32 +53,39 @@
 
 ## Instruction:
 1. Run app.java under /main/java
-2. 
-3.
-4.
+2. Register an account
+NOTE: You now have access to the menu bar for Back and Home buttons
+3. Search and filter for your desired restaurants
+4. Click on restaurants that interest you to view their page
+5. Add/Delete/Edit a review if you wish, or like or report published reviews
+6. Click on Profile Screen to Access Restaurant Owner Tools (Create, Edit, Delete)
 
 
 ## Demo (ScreenShots):
 1. **Welcome Page**:
-2. **Profile Page**:
-3. **Review Page**
-4. **Restaurant Page**
-5. **Home Page**
+2. **Home Page**:
+3. **Sorted Restaurants**:
+4. **Restaurant Page**:
+5. **Review Page**:
 6. **Report Page**:
+7. **Restaurant Modification Page**:
+8. **Profile Page**:
 
 ## Issues accomplished:
 * [Completed Issues](https://github.com/CSC207-2022F-UofT/course-project-group-72/issues?q=is%3Aissue+is%3Aclosed)
 
 [Back to top](#readme)
 ## Test Coverage:
-* 
-*
-*
+* Register and Login System:
+* Search Restaurant System:
 * Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage
+* Review System:
 * Report System: 100% class coverage, 100% method coverage, 89% line coverage
+* User Profile: 
 
-## Library Used:
+## Libraries Used:
 * `Java swing`
+* 'JUnit'
 
 
 ## Checklist
