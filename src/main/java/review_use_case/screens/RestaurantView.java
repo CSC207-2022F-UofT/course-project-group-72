@@ -237,12 +237,12 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
                             //Create a report button
                             reportDsGateway reportGateway = new FileReportHistory(REPORT_DATABASE_NAME);
                             ReportFactory reportFactory = new ReportFactory();
-                            Excalibur excalibur = new Excalibur(userGateway.getUser(review.getUser()), review);
+                            BanningAlgorithm excalibur = new Excalibur(userGateway.getUser(review.getUser()), review);
                             ReportPresenter reportPresenter = new ReportResponseFormat();
                             reportInputBoundary reportInteractor = new ReportInteract(reportGateway, reportFactory,
                                     excalibur, reportPresenter);
                             ReportController reportController = new ReportController(reportInteractor);
-                            reportButton = new JButton("report_use_case");
+                            reportButton = new JButton("Report");
                             reportButton.setOpaque(true);
                             reportButton.addActionListener(new ReportActionListener(this, reportController,
                                     review, user));
