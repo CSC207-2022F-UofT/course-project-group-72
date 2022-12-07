@@ -77,7 +77,7 @@ public class EditRestaurantInteractor implements RestaurantInputBoundary {
         }
 
         RestaurantResponseModel successResponseModel =
-                new RestaurantResponseModel(oldRestaurant,
+                new RestaurantResponseModel(oldRestaurant.getName(),
                         now.toString(), "edited");
         return presenter.prepareSuccessView(successResponseModel);
     }

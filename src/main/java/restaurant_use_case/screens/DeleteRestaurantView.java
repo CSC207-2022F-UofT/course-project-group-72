@@ -57,7 +57,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
         // Label Creation
         JLabel label = new JLabel("Are you sure you'd like to delete your restaurant?");
         label.setFont(label.getFont().deriveFont(16F));
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Button Creation
         JButton confirm = new JButton("Confirm");
@@ -67,8 +67,9 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
         buttons.add(confirm);
         confirm.setBackground(Color.GREEN);
         buttons.add(cancel);
-        confirm.setBackground(Color.RED);
+        cancel.setBackground(Color.RED);
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         confirm.addActionListener(this);
         cancel.addActionListener(this);
@@ -82,9 +83,9 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
 
         this.setContentPane(main);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300, 200));
+        this.setPreferredSize(new Dimension(500, 100));
         this.pack();
-//        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
 
         // Make the frame appear
         this.setVisible(true);

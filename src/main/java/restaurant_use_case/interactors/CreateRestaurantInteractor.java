@@ -86,7 +86,7 @@ public class CreateRestaurantInteractor implements RestaurantInputBoundary {
         }
 
         RestaurantResponseModel successResponseModel =
-                new RestaurantResponseModel(newRestaurant, now.toString(), "created");
+                new RestaurantResponseModel(newRestaurant.getName(), now.toString(), "created");
         return presenter.prepareSuccessView(successResponseModel);
 
 
