@@ -67,7 +67,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
         buttons.add(confirm);
         confirm.setBackground(Color.GREEN);
         buttons.add(cancel);
-        confirm.setBackground(Color.RED);
+        cancel.setBackground(Color.RED);
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 
         confirm.addActionListener(this);
@@ -82,7 +82,7 @@ public class DeleteRestaurantView extends JFrame implements ActionListener {
 
         this.setContentPane(main);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setPreferredSize(new Dimension(300, 200));
+        this.setPreferredSize(new Dimension(500, 200));
         this.pack();
 //        this.setLocationRelativeTo(null);
 

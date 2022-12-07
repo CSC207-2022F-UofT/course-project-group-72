@@ -1,17 +1,15 @@
 package restaurant_use_case.screens;
 
-import entities.Restaurant;
-
 /**
  * The screen data that is required to update the screen
  */
 public class RestaurantResponseModel {
 
-    Restaurant restaurant;
+    String restaurant;
     String creationTime;
     String operation;
 
-    public RestaurantResponseModel(Restaurant restaurant, String creationTime, String operation) {
+    public RestaurantResponseModel(String restaurant, String creationTime, String operation) {
         this.restaurant = restaurant;
         this.creationTime = creationTime;
         this.operation = operation;
@@ -25,7 +23,7 @@ public class RestaurantResponseModel {
         return operation;
     }
 
-    public Restaurant getRestaurant() {
+    public String getRestaurant() {
         return restaurant;
     }
 
