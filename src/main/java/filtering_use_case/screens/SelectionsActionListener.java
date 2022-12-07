@@ -91,7 +91,7 @@ public class SelectionsActionListener implements ActionListener {
             ArrayList<Restaurant> sortedList = selections.getRestaurants();
 
 
-            ChoicesSortedView sortedView = new ChoicesSortedView(sortedList, user);
+            ChoicesSortedView sortedView = new ChoicesSortedView(this.frame, sortedList, user);
 
             // Setup for Calling SortedView and Disposal of This Window
             this.frame.setVisible(false);
