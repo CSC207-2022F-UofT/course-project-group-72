@@ -1,6 +1,8 @@
 package filtering_use_case.screens;
 
 import entities.User;
+import global.IFrame;
+import global.ProfileScreenActionListener;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HomeScreenView extends JFrame {
+public class HomeScreenView extends IFrame {
 
     /**
      * The search query
@@ -134,6 +136,10 @@ public class HomeScreenView extends JFrame {
         // String[] cuisineOptions = {NO_PREFERENCE, "Food"};
         String[] cuisineOptions = CUISINE_LIST;
 
+        JButton profileScreenButton = new JButton("Profile");
+        profileScreenButton.addActionListener(new ProfileScreenActionListener(this, user, user.getUsername()));
+        this.add(profileScreenButton);
+
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
@@ -232,4 +238,13 @@ public class HomeScreenView extends JFrame {
         repaint();
     }
 
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void back() {
+
+    }
 }
