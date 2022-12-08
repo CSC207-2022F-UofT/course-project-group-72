@@ -355,7 +355,64 @@ public class UserGateway implements UserGatewayInterface {
             writer.append("\n");
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred: Adding User to DataBase");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addUser(String username, String password, ArrayList<String> pastReviews,
+                        ArrayList<String> likedReviews,
+                        int receivedReports, boolean banned, boolean isOwner,
+                        ArrayList<String> ownedRestaurants) {
+        try {
+            File file = new File(NAME_OF_USER_DATABASE);
+            FileWriter writer = new FileWriter(file, true);
+
+            String str_past_reviews = String.join("/ ", pastReviews);
+
+            String str_likedReviews = String.join("| ", likedReviews);
+
+            String str_received_reports = String.valueOf(receivedReports);
+
+            String str_banned = "0";
+            if (banned) {
+                str_banned = "1";
+            }
+
+            String str_owner = "0";
+            if (isOwner) {
+                str_owner = "1";
+            }
+
+            String str_owned_restaurants = "";
+
+            if (isOwner) {
+                str_owned_restaurants = String.join("% ", ownedRestaurants);
+            } else {
+                str_owned_restaurants = EMPTY_FILLER;
+            }
+
+            writer.append(username); // String username
+            writer.append(", ");
+            writer.append(password); // String password
+            writer.append(", ");
+            writer.append(str_past_reviews); // ArrayList<String> past_reviews
+            writer.append(", ");
+            writer.append(str_likedReviews); // ArrayList<String> likedReviews
+            writer.append(", ");
+            writer.append(str_received_reports); // int received_reports = 0;
+            writer.append(", ");
+            writer.append(str_banned); // boolean banned -> 0 - false, 1 - true
+            writer.append(", ");
+            writer.append(str_owner); // boolean owner -> 0 - false, 1 - true
+            writer.append(", ");
+            writer.append(str_owned_restaurants); // ArrayList<String> owned_restaurants
+            writer.append(", ");
+            writer.append("\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred: Adding User to DataBase");
             e.printStackTrace();
         }
     }
