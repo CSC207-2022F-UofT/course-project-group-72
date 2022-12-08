@@ -1,9 +1,6 @@
 package restaurant_use_case.interactors;
 
 import entities.OwnerUser;
-import entities.Review;
-
-import java.util.ArrayList;
 
 /**
  * The Request model for modifying Restaurants, containing all the possible changed or new information
