@@ -248,14 +248,20 @@ public class UserGateway implements UserGatewayInterface {
 
                 // replace the old values with the new values
                 String line1;
-                if (!given_username.equals(username)) {
+                if (!given_username.equals(curr_username)) {
                     //keep the old values
                     line1 = String.join(", ", curr_username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
-                    bw.write(line1);
-                    bw.newLine();
+                } else {
+                    line1 = "";
                 }
 
+                bw.write(line1);
+
+                if (!line1.equals("")) {
+
+                    bw.newLine();
+                }
 
             }
 
