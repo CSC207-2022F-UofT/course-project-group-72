@@ -328,15 +328,20 @@ public class RestaurantView extends IFrame implements ActionListener {
 
     @Override
     public void refresh() {
-        this.dispose();
+        // Update the User and Restaurant
         User updatedUser = userGateway.getUser(this.user.getUsername());
         Restaurant updatedRestaurant = restaurantGateway.retrieveRestaurant(this.restaurant.getLocation());
+        // Reload the view
         new RestaurantView(this.previousFrame, updatedUser, updatedRestaurant);
+        // Dispose of the current iteration of view
+        this.dispose();
     }
 
     @Override
     public void back() {
+        // Refresh and therefore reload the previous screen
         this.previousFrame.refresh();
+        // Dipose of the current screen
         this.dispose();
     }
 }

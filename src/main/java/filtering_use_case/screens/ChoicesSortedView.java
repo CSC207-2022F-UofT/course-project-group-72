@@ -96,6 +96,11 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
 
     }
 
+    /**
+     * Helper method to update the current User
+     *
+     * @return the updated User from database
+     */
     private User updateUser() {
         UserGatewayInterface userGateway = new UserGateway();
         return userGateway.getUser(user.getUsername());
@@ -104,6 +109,7 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
     @Override
     public void refresh() {
         try {
+            // Try to construct the Restaurant Gateway
             RestaurantDSGateway restaurantGateway
                     = new FileRestaurant("src/main/java/Databases/RestaurantDatabase.csv");
 
@@ -112,14 +118,18 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
             ArrayList<Restaurant> updatedSortedList = new ArrayList<>();
             for (Restaurant restaurant : sortedList) {
                 String location = restaurant.getLocation();
+                // If the Restaurant exists and therefore was not deleted get the new information
                 if (restaurantGateway.existsByLocation(location)) {
                     updatedSortedList.add(restaurantGateway.retrieveRestaurant(location));
                 }
             }
+            // Reload the screen
             new ChoicesSortedView(this.previousFrame, updatedSortedList, updatedUser);
+            // Dispose of the home screen
             this.dispose();
 
         } catch (IOException e) {
+            // Catches the IOException thrown by FileRestaurant
             JOptionPane.showMessageDialog(this, "There was an error updating the restaurant's" +
                     "information. Please try again later.");
         }
@@ -127,7 +137,10 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
 
     @Override
     public void back() {
+        // Update the User
         User updatedUser = updateUser();
+        // Go back home with the updated user
+        // Since the previous screen is home
         this.home(updatedUser);
     }
 
