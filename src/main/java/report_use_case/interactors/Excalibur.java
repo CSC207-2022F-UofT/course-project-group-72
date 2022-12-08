@@ -38,6 +38,7 @@ public class Excalibur implements BanningAlgorithm {
      * This method check if review has more than 10 reports
      */
     public Review checkAndBanReview() {
+        targetedReview.addReport();
         if (targetedReview.getReports() >= REVIEW_THRESHOLD) {
             targetedReview.setVisible(false);
         }
@@ -52,12 +53,14 @@ public class Excalibur implements BanningAlgorithm {
      * This method check if user has more than 30 reports
      */
     public User checkAndBanUser(){
+        targetedUser.addReport();
         if (targetedUser.getReceived_reports() >= USER_THRESHOLD) {
             targetedUser.setBanned();
         }
 
         return targetedUser;
     }
+
 
 
 

@@ -49,9 +49,8 @@ public class RestaurantCreateInteractorTest {
             @Override
             public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel responseModel) {
                 // Checks the Restaurant returned by the interactor
-                Restaurant newRestaurant = responseModel.getRestaurant();
-                assertEquals("newRestaurant", newRestaurant.getName());
-                assertEquals("A1B 2C3", newRestaurant.getLocation());
+                String newRestaurant = responseModel.getRestaurant();
+                assertEquals("newRestaurant", newRestaurant);
                 // Check that the restaurant has been successfully stored in the database
                 assertTrue(restaurantGateway.existsByLocation("A1B 2C3"));
                 restaurantGateway.deleteRestaurant("A1B 2C3");

@@ -58,18 +58,19 @@ public class EditRestaurantView extends JFrame implements ActionListener{
 
         // Title Label Creation
         JLabel title = new JLabel("Edit Restaurant");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Text Field Creation
         JPanel nameInfo = new JPanel();
         nameInfo.add(new JLabel("Restaurant Name"));
-        name = new JTextField(restaurant.getName());
+        name = new JTextField(restaurant.getName(), 15);
         nameInfo.add(name);
         // Choice of implementations
-        cuisineType = new JTextField(restaurant.getCuisineType());
+        cuisineType = new JTextField(restaurant.getCuisineType(), 15);
         LabelTextPanel cuisineInfo = new LabelTextPanel(
                 new JLabel("Restaurant Cuisine"), cuisineType);
 
-        priceBucket = new JTextField(restaurant.getPriceBucket());
+        priceBucket = new JTextField(String.valueOf(restaurant.getPriceBucket()));
         LabelTextPanel priceInfo = new LabelTextPanel(
                 new JLabel("Price Range"), priceBucket);
 

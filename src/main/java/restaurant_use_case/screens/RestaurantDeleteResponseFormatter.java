@@ -11,7 +11,6 @@ public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresen
         this.previousView = previousView;
     }
     /**
-     * TODO skip the previous screen and go back to sorted view
      *
      * @param message the message to be displayed
      * @param restaurant the restaurant that was changed
@@ -20,9 +19,9 @@ public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresen
      */
     @Override
     public RestaurantResponseModel prepareSuccessView(String message, String restaurant, String deletionTime) {
-        //this.previousView.back(); //TODO implementation
-        return new RestaurantResponseModel(null, "Your restaurant: " + restaurant
-                + " was successfully " + message, deletionTime);
+        this.previousView.back();
+        return new RestaurantResponseModel(restaurant, deletionTime, "Your restaurant: " + restaurant
+                + " was successfully " + message);
     }
 
     /**

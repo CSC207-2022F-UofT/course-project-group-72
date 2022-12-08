@@ -43,15 +43,16 @@ public class RestaurantEditInteractorTest {
             @Override
             public RestaurantResponseModel prepareSuccessView(RestaurantResponseModel responseModel) {
                 // Get the Restaurant edited by the interactor
-                Restaurant editedRestaurant = responseModel.getRestaurant();
+                String editedRestaurant = responseModel.getRestaurant();
                 // Check that the old values have been changed to the new values
-                assertEquals("newRestaurant", editedRestaurant.getName());
-                assertEquals("fast food", editedRestaurant.getCuisineType());
-                // Check that the old values that have not been changed have been retained
-                assertEquals(3, editedRestaurant.getPriceBucket());
+                assertEquals("newRestaurant", editedRestaurant);
                 // Check that the unique location identifier has not been changed and the restaurant remains in database
-                assertEquals("123456", editedRestaurant.getLocation());
                 assertTrue(restaurantGateway.existsByLocation("123456"));
+                Restaurant restaurant = restaurantGateway.retrieveRestaurant("123456");
+                assertEquals("123456", restaurant.getLocation());
+                assertEquals("fast food", restaurant.getCuisineType());
+                // Check that the old values that have not been changed have been retained
+                assertEquals(3, restaurant.getPriceBucket());
                 // Reset simulation database
                 restaurantGateway.deleteRestaurant("123456");
                 return null;
