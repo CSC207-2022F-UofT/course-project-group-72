@@ -1,14 +1,14 @@
 package user_use_case.screens;
 
+import entities.*;
+import filtering_use_case.screens.HomeScreenView;
 import global.*;
 import review_use_case.gateways.ReviewGateway;
-import entities.OwnerUser;
-import entities.Restaurant;
 import restaurant_use_case.interactors.FileRestaurant;
 import user_use_case.controllers.UpgradeUserController;
 import user_use_case.gateways.UserGateway;
-import entities.Review;
-import entities.User;
+import user_use_case.interactors.UpgradeUserInputBoundary;
+import user_use_case.interactors.UpgradeUserInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,8 @@ public class ProfileScreen extends IFrame {
 
         this.profile_name = profile_name;
         this.previousFrame = previousFrame;
-        this.upgradeUserController = new UpgradeUserController();
+        UpgradeUserInputBoundary inputBoundary = new UpgradeUserInteractor(new OwnerFactory(), userGateway);
+        this.upgradeUserController = new UpgradeUserController(inputBoundary);
 
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
@@ -86,7 +87,7 @@ public class ProfileScreen extends IFrame {
         if (!isOwner && isLoggedIn) {
             JButton upgradeButton = new JButton("Upgrade profile to Owner");
 
-            UpgradeUserActionListener upgradeUserActionListener = new UpgradeUserActionListener(this.user);
+            UpgradeUserActionListener upgradeUserActionListener = new UpgradeUserActionListener(this.user, this.upgradeUserController);
             upgradeButton.addActionListener(upgradeUserActionListener);
             this.profile_screen_window.add(upgradeButton);
         }
