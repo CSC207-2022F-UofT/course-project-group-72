@@ -14,8 +14,9 @@ import java.util.*;
  * The implementation of the Restaurant Gateway, manages the Restaurant Database
  */
 public class FileRestaurant implements RestaurantDSGateway {
+    public final static String DEFAULT_DATABASE_PATH = "src/main/java/Databases/RestaurantDatabase.csv";
     /**
-     *
+     * The filler string for empty lists
      */
     private final static String EMPTY_FILLER = "empty";
     /**
@@ -50,9 +51,10 @@ public class FileRestaurant implements RestaurantDSGateway {
         headers.put("reviews", 6);
 
         // Writes the headers if it is an empty file
+        // Else read through the file and add all restaurants to currentRestaurants
         if (csvFile.length() == 0) {
-            writeHeaders();
-            // Else read through the file and add all restaurants to currentRestaurants
+            Writer writer = writeHeaders();
+            writer.close();
         } else {
 
             BufferedReader reader = new BufferedReader(new FileReader(csvFile));
@@ -104,7 +106,7 @@ public class FileRestaurant implements RestaurantDSGateway {
 
             for (Restaurant restaurant : currentRestaurants.values()) {
                 String reviewsLine = String.join("<", restaurant.getReviewIDs());
-                // Since reading a line with nothing after the last comma causes an index of of array error
+                // Since reading a line with nothing after the last comma causes an index of array error
                 // add an EMPTY FILLER
                 if (reviewsLine.length() == 0) {
                     reviewsLine = EMPTY_FILLER;

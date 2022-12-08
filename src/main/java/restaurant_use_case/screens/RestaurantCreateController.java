@@ -1,8 +1,6 @@
 package restaurant_use_case.screens;
 
 import entities.OwnerUser;
-import entities.Restaurant;
-import restaurant_use_case.interactors.RestaurantEditRequestModel;
 import restaurant_use_case.interfaces.RestaurantInputBoundary;
 import restaurant_use_case.interactors.RestaurantRequestModel;
 

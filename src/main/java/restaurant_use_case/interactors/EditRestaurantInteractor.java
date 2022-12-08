@@ -50,6 +50,9 @@ public class EditRestaurantInteractor implements RestaurantInputBoundary {
         } else if (!requestModel.getOwner().getUsername().equals(editRequestModel.getRestaurant().getOwnerID())) {
             // Checks if the restaurant is owned by the OwnerUser
             return presenter.prepareFailView("You do not own this Restaurant");
+        } else if (requestModel.getPriceBucket() < 0 || requestModel.getPriceBucket() > 5) {
+            // Check if a valid price bucket was inputted
+            return presenter.prepareFailView("Price Bucket out of range 1-5");
         }
         // Down Cast to access get Restaurant method of EditRequestModel
         Restaurant oldRestaurant = editRequestModel.getRestaurant();
