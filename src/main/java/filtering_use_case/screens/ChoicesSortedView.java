@@ -1,11 +1,12 @@
 package filtering_use_case.screens;
 import entities.Restaurant;
-import entities.RestaurantFactory;
 import entities.User;
 import global.IFrame;
 import global.ViewRestaurantActionListener;
-import review_use_case.screens.RestaurantView;
-//import global.ViewRestaurantActionListener;
+import restaurant_use_case.gateways.RestaurantDSGateway;
+import restaurant_use_case.interactors.FileRestaurant;
+import user_use_case.gateways.UserGateway;
+import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,27 +96,52 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
 
     }
 
+    /**
+     * Helper method to update the current User
+     *
+     * @return the updated User from database
+     */
+    private User updateUser() {
+        UserGatewayInterface userGateway = new UserGateway();
+        return userGateway.getUser(user.getUsername());
+    }
+
     @Override
     public void refresh() {
-        this.dispose();
-        new ChoicesSortedView(this.previousFrame, this.sortedList, this.user);
+        try {
+            // Try to construct the Restaurant Gateway
+            RestaurantDSGateway restaurantGateway
+                    = new FileRestaurant("src/main/java/Databases/RestaurantDatabase.csv");
+
+            // Retrieve the new values of any changed Restaurants
+            User updatedUser = updateUser();
+            ArrayList<Restaurant> updatedSortedList = new ArrayList<>();
+            for (Restaurant restaurant : sortedList) {
+                String location = restaurant.getLocation();
+                // If the Restaurant exists and therefore was not deleted get the new information
+                if (restaurantGateway.existsByLocation(location)) {
+                    updatedSortedList.add(restaurantGateway.retrieveRestaurant(location));
+                }
+            }
+            // Reload the screen
+            new ChoicesSortedView(this.previousFrame, updatedSortedList, updatedUser);
+            // Dispose of the home screen
+            this.dispose();
+
+        } catch (IOException e) {
+            // Catches the IOException thrown by FileRestaurant
+            JOptionPane.showMessageDialog(this, "There was an error updating the restaurant's" +
+                    "information. Please try again later.");
+        }
     }
 
     @Override
     public void back() {
-        JFrame frame = this.previousFrame;
-        frame.setVisible(true);
-        this.dispose();
-    }
-
-    @Override
-    public void home(User user) {
-        try {
-            new HomeScreenView(user);
-            this.dispose();
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
-        }
+        // Update the User
+        User updatedUser = updateUser();
+        // Go back home with the updated user
+        // Since the previous screen is home
+        this.home(updatedUser);
     }
 
     @Override

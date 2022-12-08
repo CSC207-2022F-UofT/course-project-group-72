@@ -3,7 +3,6 @@
 package review_use_case.screens;
 
 import entities.*;
-import filtering_use_case.screens.HomeScreenView;
 import report_use_case.gateways.reportDsGateway;
 import report_use_case.interactors.Excalibur;
 import report_use_case.interactors.ReportInteract;
@@ -329,23 +328,20 @@ public class RestaurantView extends IFrame implements ActionListener {
 
     @Override
     public void refresh() {
+        // Update the User and Restaurant
+        User updatedUser = userGateway.getUser(this.user.getUsername());
+        Restaurant updatedRestaurant = restaurantGateway.retrieveRestaurant(this.restaurant.getLocation());
+        // Reload the view
+        new RestaurantView(this.previousFrame, updatedUser, updatedRestaurant);
+        // Dispose of the current iteration of view
         this.dispose();
-        new RestaurantView(this.previousFrame, this.user, this.restaurant);
     }
 
     @Override
     public void back() {
-        this.previousFrame.setVisible(true);
+        // Refresh and therefore reload the previous screen
+        this.previousFrame.refresh();
+        // Dipose of the current screen
         this.dispose();
-    }
-
-    @Override
-    public void home(User user) {
-        try {
-            new HomeScreenView(user);
-            this.dispose();
-        }catch(IOException e){
-            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
-        }
     }
 }
