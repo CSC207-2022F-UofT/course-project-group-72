@@ -1,0 +1,18 @@
+package user_use_case.interactors;
+
+import entities.OwnerUser;
+
+public class UpgradeUserResponseModel {
+    OwnerUser ownerUser;
+
+    Boolean status;
+
+    public UpgradeUserResponseModel(OwnerUser ownerUser, Boolean status) {
+        this.status = status;
+        this.ownerUser = ownerUser;
+    }
+
+    public OwnerUser getOwnerUser() {
+        return this.ownerUser;
+    }
+}
