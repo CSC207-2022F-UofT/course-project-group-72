@@ -36,6 +36,10 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
     JButton priceRange4;
     JButton priceRange5;
     /**
+     * The price bucket corresponding to the priceRange buttons clicked
+     */
+    int priceBucket = 1;
+    /**
      * The Restaurant gateway which manages restaurant database
      */
     RestaurantDSGateway restaurantGateway;
@@ -162,9 +166,6 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String buttonPressed = e.getActionCommand();
         System.out.println("Click " + buttonPressed);
-
-        try {
-            int priceBucket = 0;
             switch(buttonPressed) {
                 case("1"):
                     priceRange1.setBackground(Color.GREEN);
@@ -206,32 +207,35 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
                     priceRange5.setBackground(Color.GREEN);
                     priceBucket = 5;
                     break;
+                default:
+                    // If no price bucket buttons were pressed the confirm or cancel was pressed
+                    try {
+                        if (Objects.equals(buttonPressed, "Confirm")) {
+                            RestaurantInputBoundary interactor = new CreateRestaurantInteractor(
+                                    new RestaurantFactory(),
+                                    restaurantGateway,
+                                    userGateway,
+                                    new RestaurantResponseFormatter(previousFrame)
+                            );
+                            RestaurantCreateController restaurantController = new RestaurantCreateController(interactor);
+                            RestaurantResponseModel result = restaurantController.create(
+                                    owner,
+                                    name.getText(),
+                                    location.getText(),
+                                    cuisineType.getText(),
+                                    priceBucket
+                            );
+
+                            JOptionPane.showMessageDialog(this, result.getOperation());
+                        }
+
+                        // Dispose this current screen
+                        this.dispose();
+
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage());
+                    }
             }
-            if (Objects.equals(buttonPressed, "Confirm")) {
-                RestaurantInputBoundary interactor = new CreateRestaurantInteractor(
-                        new RestaurantFactory(),
-                        restaurantGateway,
-                        userGateway,
-                        new RestaurantResponseFormatter(previousFrame)
-                );
-                RestaurantCreateController restaurantController = new RestaurantCreateController(interactor);
-                RestaurantResponseModel result = restaurantController.create(
-                        owner,
-                        name.getText(),
-                        location.getText(),
-                        cuisineType.getText(),
-                        priceBucket
-                );
-
-                JOptionPane.showMessageDialog(this, result.getOperation());
-            }
-
-            // Dispose this current screen
-            this.dispose();
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        }
 
     }
 }

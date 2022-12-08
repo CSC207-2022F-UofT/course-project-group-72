@@ -42,15 +42,13 @@ public class CreateRestaurantInteractor implements RestaurantInputBoundary {
     public CreateRestaurantInteractor(RestaurantFactory factory, RestaurantDSGateway dataGateway,
                                       UserGatewayInterface userGateway, RestaurantPresenter presenter) {
         this.factory = factory;
-        //not sure what is going on here, this.gateway throws an error
-        restaurantGateway = dataGateway;
+        this.restaurantGateway = dataGateway;
         this.userGateway = userGateway;
         this.presenter = presenter;
     }
 
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
-
         if (restaurantGateway.existsByLocation(requestModel.getLocation())) {
             // Checks if there is another restaurant at that same location, meaning they inputed the wrong location
             return presenter.prepareFailView("INVALID LOCATION");
