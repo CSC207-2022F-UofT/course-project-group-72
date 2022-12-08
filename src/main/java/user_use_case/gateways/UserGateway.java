@@ -115,11 +115,13 @@ public class UserGateway implements UserGatewayInterface {
                 if (new_username.equals(username)) {
                     line1 = String.join(", ", username, new_password, new_past_reviews,
                             new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
+                    line1 = line1 + ", ";
 
                     //keep the old values
                 } else {
                     line1 = String.join(", ", username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
+                    line1 = line1 + ", ";
                 }
                 bw.write(line1);
                 bw.newLine();
@@ -129,7 +131,7 @@ public class UserGateway implements UserGatewayInterface {
             scanner.close();
             bw.flush();
             bw.close();
-            old_file.delete();
+            old_file.delete(); // this file returns bool but we do not need
 
             File temp = new File(NAME_OF_USER_DATABASE);
             new_file.renameTo(temp);
@@ -209,8 +211,6 @@ public class UserGateway implements UserGatewayInterface {
         // Change username of user to "Removed" in database
         // functionality will be equivalent to if user was from database
 
-        String given_username = username;
-
         File old_file = new File(NAME_OF_USER_DATABASE);
         File new_file = new File(TEMP_FILE);
 
@@ -248,7 +248,7 @@ public class UserGateway implements UserGatewayInterface {
 
                 // replace the old values with the new values
                 String line1;
-                if (!given_username.equals(curr_username)) {
+                if (!username.equals(curr_username)) {
                     //keep the old values
                     line1 = String.join(", ", curr_username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
