@@ -103,7 +103,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
         priceRange4 = new JButton("4");
         priceRange5 = new JButton("5");
 
-        priceRange1.setBackground(Color.WHITE);
+        priceRange1.setBackground(Color.GREEN);
         priceRange2.setBackground(Color.WHITE);
         priceRange3.setBackground(Color.WHITE);
         priceRange4.setBackground(Color.WHITE);
@@ -151,6 +151,7 @@ public class CreateRestaurantView extends JFrame implements ActionListener {
         main.add(locationInfo);
         main.add(cuisineInfo);
         main.add(priceInfo);
+        main.add(buttons);
 
         // Set the Content Pane
         this.setContentPane(main);
