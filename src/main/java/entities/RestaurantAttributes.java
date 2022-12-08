@@ -18,7 +18,7 @@ public class RestaurantAttributes {
     private double avgStars = 0;
 
     //Constructors
-    public RestaurantAttributes() {}
+    RestaurantAttributes() {}
 
     // Setters
 
@@ -26,7 +26,7 @@ public class RestaurantAttributes {
      *
      * @param cuisineType change or reinitialize the cuisine served
      */
-    public void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
+    void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
     /**
      * Makes modification to the Average Stars in response to
      * changes in ReviewList
@@ -34,7 +34,7 @@ public class RestaurantAttributes {
      * @param stars the stars given in the added review
      * @param reviewCount the updated amount of reviews in Restaurant
      */
-    public void addReview(int stars, int reviewCount) {
+    void addReview(int stars, int reviewCount) {
         // if there were no reviews other than this one then the new avg stars will just
         // be this review's stars
         if (reviewCount - 1 > 0) {
@@ -50,7 +50,7 @@ public class RestaurantAttributes {
      * @param stars the stars given in the removed review
      * @param reviewCount the updated amount of reviews in Restaurant
      */
-    public void removeReview(int stars, int reviewCount) {
+    void removeReview(int stars, int reviewCount) {
         // If the new review count is greater than 0 then get new average
         // else set to 0
         if (reviewCount > 0) {
@@ -63,7 +63,7 @@ public class RestaurantAttributes {
      *
      * @param priceBucket the changed or reinitialized price range of the restaurant
      */
-    public void setPriceBucket(int priceBucket) {this.priceBucket = priceBucket;}
+    void setPriceBucket(int priceBucket) {this.priceBucket = priceBucket;}
     /**
      *
      * @param avgStars the reinitialized stars of the restaurant
@@ -75,15 +75,15 @@ public class RestaurantAttributes {
      *
      * @return the current price range of the Restaurant
      */
-    public int getPriceBucket() {return this.priceBucket;}
+    int getPriceBucket() {return this.priceBucket;}
     /**
      *
      * @return the current cuisine served at the Restaurant
      */
-    public String getCuisineType() {return this.cuisineType;}
+    String getCuisineType() {return this.cuisineType;}
     /**
      *
      * @return the current star rating of the Restaurant
      */
-    public double getAvgStars() {return this.avgStars;}
+    double getAvgStars() {return this.avgStars;}
 }
