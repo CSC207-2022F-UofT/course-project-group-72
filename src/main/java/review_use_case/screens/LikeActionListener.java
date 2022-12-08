@@ -6,6 +6,7 @@ import review_use_case.controllers.LikeReviewController;
 import review_use_case.interfaces.ReviewGatewayInterface;
 import entities.Review;
 import entities.User;
+import user_use_case.interfaces.UserGatewayInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ public class LikeActionListener implements ActionListener {
     private final JButton button;
     private final LikeReviewController likeReviewController;
     private final ReviewGatewayInterface reviewGateway;
+    private final UserGatewayInterface userGateway;
     private final Review review;
     private final User user;
 
@@ -26,11 +28,13 @@ public class LikeActionListener implements ActionListener {
     Constructor
      */
     public LikeActionListener(JFrame parent, JButton button, LikeReviewController likeReviewController,
-                              ReviewGatewayInterface reviewGateway, Review review, User user){
+                              ReviewGatewayInterface reviewGateway, UserGatewayInterface userGateway,
+                              Review review, User user){
         this.parent = parent;
         this.button = button;
         this.likeReviewController = likeReviewController;
         this.reviewGateway = reviewGateway;
+        this.userGateway = userGateway;
         this.review = review;
         this.user = user;
     }
@@ -41,8 +45,8 @@ public class LikeActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        ReviewResponseModel responseModel = this.likeReviewController.interact(this.reviewGateway, this.review,
-                this.user);
+        ReviewResponseModel responseModel = this.likeReviewController.interact(this.reviewGateway, this.userGateway,
+                this.review, this.user);
 
         int likes = Integer.parseInt(this.button.getText().replaceAll("[^0-9]", ""));
 

@@ -2,6 +2,7 @@
 
 package review_use_case.interactors;
 
+import entities.User;
 import review_use_case.interfaces.LikeReviewInputBoundary;
 import review_use_case.screens.ReviewResponseModel;
 import entities.Review;
@@ -16,15 +17,20 @@ public class LikeReviewInteractor implements LikeReviewInputBoundary {
     public ReviewResponseModel interact(LikeReviewRequestModel requestModel){
         try {
             Review review = requestModel.getReview();
+            User user = requestModel.getUser();
             String reviewID = review.getID();
 
             //If the user has already liked the review, unlike it and update database
             if (requestModel.getUser().getLikedReviews().contains(reviewID)) {
+                requestModel.getUser().removeLikedReview(reviewID);
+                requestModel.getUserGateway().updateUser(user);
                 review.decrementLikes();
                 requestModel.getReviewGateway().updateReview(review);
             }
             //Otherwise, like the review and update the database
             else {
+                requestModel.getUser().addLikedReview(reviewID);
+                requestModel.getUserGateway().updateUser(user);
                 review.incrementLikes();
                 requestModel.getReviewGateway().updateReview(review);
             }
