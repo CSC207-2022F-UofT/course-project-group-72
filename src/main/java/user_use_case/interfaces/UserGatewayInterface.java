@@ -2,6 +2,8 @@ package user_use_case.interfaces;
 
 import entities.User;
 
+import java.util.ArrayList;
+
 /**
  * User Gateway interface, for dependency inversion
  */
@@ -40,6 +42,10 @@ public interface UserGatewayInterface {
      */
     void addUser(String username, String password);
 
+    void addUser(String username, String password, ArrayList<String> pastReviews,
+                        ArrayList<String> likedReviews,
+                        int receivedReports, boolean banned, boolean isOwner,
+                        ArrayList<String> ownedRestaurants);
 
     void addReview(String reviewId, String userid);
 
