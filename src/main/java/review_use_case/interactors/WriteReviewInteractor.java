@@ -32,12 +32,12 @@ public class WriteReviewInteractor implements WriteReviewInputBoundary {
             //Remove the old version of the restaurant from the database, add the new review to the restaurant
             //object's reviews, then add the old restaurant back in with this change reflected
             requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
-            restaurant.getReviewIDs().add(id);
+            restaurant.addReview(review);
             requestModel.getRestaurantGateway().save(restaurant);
 
             //Add the review's id to the user database and object
-            requestModel.getUserGateway().addReview(id, user.getUsername());
             user.add_review(id);
+            requestModel.getUserGateway().updateUser(user);
 
             //Return success
             return new ReviewResponseModel(true);

@@ -214,7 +214,7 @@ public class RestaurantView extends IFrame implements ActionListener {
                         }
                         likeButton.setOpaque(true);
                         likeButton.addActionListener(new LikeActionListener(this, likeButton, likeReviewController,
-                                this.reviewGateway, review, this.user));
+                                this.reviewGateway, this.userGateway, review, this.user));
                         buttonPanel.add(likeButton);
 
                         //If the current user wrote the review
