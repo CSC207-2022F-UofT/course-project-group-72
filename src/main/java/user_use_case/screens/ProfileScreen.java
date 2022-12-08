@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProfileScreen extends JFrame implements ActionListener, IFrame {
+public class ProfileScreen extends IFrame implements ActionListener {
     User profile;
 
     User user;
@@ -147,7 +147,7 @@ public class ProfileScreen extends JFrame implements ActionListener, IFrame {
     }
 
     @Override
-    public void home() {
+    public void home(User user) {
 
     }
 }
