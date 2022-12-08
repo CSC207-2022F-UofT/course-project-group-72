@@ -26,7 +26,7 @@ public class ProfileScreen extends IFrame {
 
     User user;
 
-    JFrame profile_screen_window;
+    JPanel profile_screen_window;
 
     IFrame previousFrame;
 
@@ -50,7 +50,7 @@ public class ProfileScreen extends IFrame {
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
         try {
-            this.restaurant_gateway = new FileRestaurant("./main/Java/Databases/restaurants.csv");
+            this.restaurant_gateway = new FileRestaurant(FileRestaurant.DEFAULT_DATABASE_PATH);
         } catch (IOException exception) {
 
         }
@@ -62,7 +62,10 @@ public class ProfileScreen extends IFrame {
             this.reviews = new ArrayList<>();
         }
 
-        profile_screen_window = new JFrame();
+        profile_screen_window = new JPanel();
+
+
+        profile_screen_window.setLayout(new BoxLayout(profile_screen_window, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(this.profile.getUsername());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -74,22 +77,25 @@ public class ProfileScreen extends IFrame {
         boolean isOwner = this.user instanceof OwnerUser;
         boolean isLoggedIn = this.user.getUsername().equals(profile_name);
 
-        this.restaurants = new ArrayList<>();
-        if (isOwner) {
-            OwnerUser temporaryUser = (OwnerUser) this.user;
-            for (String restaurant : temporaryUser.getOwnedRestaurants()) {
-                this.restaurants.add(restaurant_gateway.retrieveRestaurant(restaurant));
-            }
-        }
+        this.restaurants = new ArrayList<Restaurant>();
+//        if (isOwner) {
+//            OwnerUser temporaryUser = (OwnerUser) this.user;
+//            if (temporaryUser.getOwnedRestaurants().size() > 0) {
+//                for (String restaurant : temporaryUser.getOwnedRestaurants()) {
+//                    this.restaurants.add(restaurant_gateway.retrieveRestaurant(restaurant));
+//                }
+//            }
+//        }
 
 //        Upgrade user section
 
         if (!isOwner && isLoggedIn) {
             JButton upgradeButton = new JButton("Upgrade profile to Owner");
+            upgradeButton.setOpaque(true);
 
             UpgradeUserActionListener upgradeUserActionListener = new UpgradeUserActionListener(this.user, this.upgradeUserController);
             upgradeButton.addActionListener(upgradeUserActionListener);
-            this.profile_screen_window.add(upgradeButton);
+            profile_screen_window.add(upgradeButton);
         }
 
 
@@ -141,21 +147,42 @@ public class ProfileScreen extends IFrame {
             JButton createRestaurantButton = new JButton("Create Restaurant");
             CreateRestaurantActionListener createRestaurantActionListener = new CreateRestaurantActionListener(this, userGateway, this.restaurant_gateway, (OwnerUser) this.user);
             createRestaurantButton.addActionListener(createRestaurantActionListener);
+            profile_screen_window.add(createRestaurantButton);
         }
 
-        int averageStars = totalStars / this.reviews.size();
+//        int averageStars = totalStars / this.reviews.size();
+        int averageStars = 1;
 
-        JLabel averageStarLabel = new JLabel(Integer.toString(averageStars));
+        JLabel averageStarLabel = new JLabel(Integer.toString(averageStars) + " average stars");
 
         JLabel reviewsLabel = new JLabel("Reviews");
-        profile_screen_window.add(averageStarLabel);
+
+        reviewsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        averageStarLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        reviewsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        restaurantsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        restaurantsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         profile_screen_window.add(reviewsLabel);
+        profile_screen_window.add(averageStarLabel);
         profile_screen_window.add(reviewsPanel);
         profile_screen_window.add(restaurantsLabel);
         profile_screen_window.add(restaurantsPanel);
 
+        JLabel test = new JLabel("HELLOOO");
+//        test.setVisible(true);
+//        this.add(test);
+
 
         profile_screen_window.setVisible(true);
+
+//        this.add(profile_screen_window);
+        this.setContentPane(profile_screen_window);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.pack();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package filtering_use_case.screens;
 
 import entities.User;
+import global.IFrame;
+import global.ProfileScreenActionListener;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HomeScreenView extends JFrame {
+public class HomeScreenView extends IFrame {
 
     /**
      * The search query
@@ -113,6 +115,9 @@ public class HomeScreenView extends JFrame {
             };
 
     public HomeScreenView(User user) throws IOException {
+
+        JButton profileButton = new JButton("Profile");
+        profileButton.addActionListener(new ProfileScreenActionListener( this, user, user.getUsername()));
 
         // Initialize Database Location and Gateway
         String RESTAURANT_DATABASE = "src/main/java/Databases/RestaurantDatabase.csv";
@@ -221,6 +226,7 @@ public class HomeScreenView extends JFrame {
         this.add(searchField);
         this.add(filterFields);
         this.add(sortFields);
+        this.add(profileButton);
 
         // Window options
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -232,4 +238,13 @@ public class HomeScreenView extends JFrame {
         repaint();
     }
 
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void back() {
+
+    }
 }

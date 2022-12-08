@@ -42,19 +42,17 @@ public class CreateRestaurantInteractor implements RestaurantInputBoundary {
     public CreateRestaurantInteractor(RestaurantFactory factory, RestaurantDSGateway dataGateway,
                                       UserGatewayInterface userGateway, RestaurantPresenter presenter) {
         this.factory = factory;
-        //not sure what is going on here, this.gateway throws an error
-        restaurantGateway = dataGateway;
+        this.restaurantGateway = dataGateway;
         this.userGateway = userGateway;
         this.presenter = presenter;
     }
 
     @Override
     public RestaurantResponseModel create(RestaurantRequestModel requestModel) {
-
         if (restaurantGateway.existsByLocation(requestModel.getLocation())) {
             // Checks if there is another restaurant at that same location, meaning they inputed the wrong location
             return presenter.prepareFailView("INVALID LOCATION");
-        } else if (!requestModel.getLocation().matches("^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$")){
+        } else if (!requestModel.getLocation().matches("^*[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$")){
             // Checks if the location string matches the postal code regex
             return presenter.prepareFailView
                     ("Please fill in your location as your postal code in the form: A1B 2C3");
