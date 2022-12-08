@@ -32,7 +32,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class RestaurantView extends JFrame implements ActionListener, IFrame {
+public class RestaurantView extends IFrame implements ActionListener {
 
     private static final String REPORT_DATABASE_NAME = "src/main/java/Databases/ReportDatabase.csv";
     private static final String RESTAURANT_DATABASE_NAME = "src/main/java/Databases/RestaurantDatabase.csv";
@@ -323,7 +323,7 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
         }else if(e.getActionCommand().equals("Back")){
             this.back();
         }else if(e.getActionCommand().equals("Home")){
-            this.home();
+            this.home(this.user);
         }
     }
 
@@ -335,15 +335,14 @@ public class RestaurantView extends JFrame implements ActionListener, IFrame {
 
     @Override
     public void back() {
-        JFrame frame = (JFrame) this.previousFrame;
-        frame.setVisible(true);
+        this.previousFrame.setVisible(true);
         this.dispose();
     }
 
     @Override
-    public void home() {
+    public void home(User user) {
         try {
-            new HomeScreenView(this.user);
+            new HomeScreenView(user);
             this.dispose();
         }catch(IOException e){
             JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");

@@ -109,12 +109,22 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
     }
 
     @Override
+    public void home(User user) {
+        try {
+            new HomeScreenView(user);
+            this.dispose();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+        }
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         // Action Listeners for Back and Home Buttons (Uniform Implementation)
         if (e.getActionCommand().equals("Back")) {
             this.back();
         } else if (e.getActionCommand().equals("Home")) {
-            this.home(user);
+            this.home(this.user);
         }
     }
 }
