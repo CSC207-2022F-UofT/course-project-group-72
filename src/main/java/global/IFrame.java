@@ -2,6 +2,7 @@ package global;
 
 import entities.User;
 import filtering_use_case.screens.HomeScreenView;
+import user_use_case.screens.ProfileScreen;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -16,5 +17,10 @@ public abstract class IFrame extends JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "An error occurred, Please try again later");
         }
+    }
+
+    public void profile(IFrame previousFrame, User user) {
+        new ProfileScreen(previousFrame, user, user.getUsername());
+        this.dispose();
     }
 }
