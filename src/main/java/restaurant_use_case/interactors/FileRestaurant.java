@@ -14,8 +14,9 @@ import java.util.*;
  * The implementation of the Restaurant Gateway, manages the Restaurant Database
  */
 public class FileRestaurant implements RestaurantDSGateway {
+    public final static String DEFAULT_DATABASE_PATH = "src/main/java/Databases/RestaurantDatabase.csv";
     /**
-     *
+     * The filler string for empty lists
      */
     private final static String EMPTY_FILLER = "empty";
     /**
