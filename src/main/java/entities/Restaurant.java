@@ -102,6 +102,16 @@ public class Restaurant {
         this.reviews.addNewReview(review.getID());
         this.attributes.addReview(review.getStars(), this.reviews.getReviewIDs().size());
     }
+    /**
+     * Remove the review from ReviewList and
+     * calculate a new average stars in attributes
+     *
+     * @param review the requested deleted review object
+     */
+    public void removeReview(Review review) {
+        this.reviews.removeReview(review.getID());
+        this.attributes.removeReview(review.getStars(), this.reviews.getReviewIDs().size());
+    }
 
     //Getters
     /**
@@ -112,11 +122,6 @@ public class Restaurant {
      * @return the restaurant's unique location
      */
     public String getLocation() {return this.location;}
-
-//    public OwnerUser getOwner() {
-//        OwnerUser owner = //TODOx retrieve owner object from database
-//        return owner;
-//    }
     /**
      * @return the restaurant's owner in the form of the ownerID
      */

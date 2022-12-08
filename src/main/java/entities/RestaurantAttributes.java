@@ -28,17 +28,36 @@ public class RestaurantAttributes {
      */
     public void setCuisineType(String cuisineType) {this.cuisineType = cuisineType;}
     /**
+     * Makes modification to the Average Stars in response to
+     * changes in ReviewList
      *
      * @param stars the stars given in the added review
+     * @param reviewCount the updated amount of reviews in Restaurant
      */
     public void addReview(int stars, int reviewCount) {
         // if there were no reviews other than this one then the new avg stars will just
         // be this review's stars
         if (reviewCount - 1 > 0) {
-            this.avgStars = (stars + this.avgStars) / 2;
+            this.avgStars = (stars + this.avgStars * (reviewCount - 1)) / (reviewCount);
         } else {
             this.avgStars = stars;
-        };
+        }
+    }
+    /**
+     * Makes modification to the Average Stars in response to
+     * changes in ReviewList
+     *
+     * @param stars the stars given in the removed review
+     * @param reviewCount the updated amount of reviews in Restaurant
+     */
+    public void removeReview(int stars, int reviewCount) {
+        // If the new review count is greater than 0 then get new average
+        // else set to 0
+        if (reviewCount > 0) {
+            this.avgStars = (this.avgStars * (reviewCount + 1) - stars) / (reviewCount);
+        } else {
+            this.avgStars = 0;
+        }
     }
     /**
      *

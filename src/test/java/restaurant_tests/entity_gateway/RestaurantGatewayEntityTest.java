@@ -190,12 +190,29 @@ public class RestaurantGatewayEntityTest {
         assertEquals(2, testRestaurant1.getAvgStars(), 0.000001d);
 
         Restaurant testRestaurant2 = testRestaurants.get(1);
+        assertEquals(3.2, testRestaurant2.getAvgStars(), 0.000001d);
         testRestaurant2.addReview(testReview);
-        double expected = (3.2 + 2)/2;
+        double expected = (3.2 * 2 + 2)/3;
 
         assertEquals(expected, testRestaurant2.getAvgStars(), 0.000001d);
     }
 
+    /**
+     * Test that the Restaurant correctly removes review
+     */
+    @Test
+    public void testRemoveReview() {
+        setup();
+        Review testReview = new ReviewFactory().create("1", 2, "",
+                "00", "invalid but not tested in restaurant");
+
+        Restaurant testRestaurant2 = testRestaurants.get(1);
+        assertEquals(3.2, testRestaurant2.getAvgStars(), 0.000001d);
+        testRestaurant2.removeReview(testReview);
+        double expected = (3.2 * 2 - 2);
+
+        assertEquals(expected, testRestaurant2.getAvgStars(), 0.000001d);
+    }
     /**
      * Test that the gateway is able to Retrieve all restaurants
      */

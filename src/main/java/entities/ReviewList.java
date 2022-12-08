@@ -37,6 +37,11 @@ public class ReviewList {
         reviews.add(review);
     }
 
+    /**
+     *
+     */
+    void removeReview(String review) {reviews.remove(review); }
+
     // Getters
 
     /**
