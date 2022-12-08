@@ -18,7 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProfileScreen extends JFrame implements IFrame {
+public class ProfileScreen extends IFrame {
+
     User profile;
 
     String profile_name;
@@ -158,15 +159,24 @@ public class ProfileScreen extends JFrame implements IFrame {
 
     @Override
     public void refresh() {
-        this.dispose();
         new ProfileScreen(this.previousFrame, this.user, this.profile_name);
+        this.dispose();
     }
 
     @Override
     public void back() {
-        JFrame frame = this.previousFrame;
-        frame.setVisible(true);
+        this.previousFrame.setVisible(true);
         this.dispose();
+    }
+
+    @Override
+    public void home(User user) {
+        try {
+            new HomeScreenView(user);
+            this.dispose();
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(this, "An error occurred. Please try again later.");
+        }
     }
 }
 
