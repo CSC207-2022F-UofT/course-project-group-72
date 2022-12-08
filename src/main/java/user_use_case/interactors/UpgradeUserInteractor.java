@@ -28,7 +28,8 @@ public class UpgradeUserInteractor implements UpgradeUserInputBoundary{
 
         OwnerUser ownerUser = this.factory.reintialize(username, password, reviews, liked_reviews, received_reports, banned, true, ownedRestaurants);
 
-        this.gateway.updateUser(ownerUser);
+        this.gateway.removeUser(username);
+        this.gateway.addUser(username, password, reviews, liked_reviews, received_reports, banned, true, ownedRestaurants);
 
         return new UpgradeUserResponseModel(ownerUser, true);
     }

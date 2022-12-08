@@ -50,7 +50,7 @@ public class ProfileScreen extends IFrame {
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
         try {
-            this.restaurant_gateway = new FileRestaurant("./main/Java/Databases/restaurants.csv");
+            this.restaurant_gateway = new FileRestaurant(FileRestaurant.DEFAULT_DATABASE_PATH);
         } catch (IOException exception) {
 
         }
