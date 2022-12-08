@@ -1,13 +1,13 @@
 package restaurant_use_case.screens;
 
-import global.IFrame;
+import global.ViewInterface;
 
 /**
  * The responseFormatter/ presenter which updated the screen
  */
 public class RestaurantDeleteResponseFormatter implements RestaurantDeletePresenter{
-    private final IFrame previousView;
-    public RestaurantDeleteResponseFormatter(IFrame previousView) {
+    private final ViewInterface previousView;
+    public RestaurantDeleteResponseFormatter(ViewInterface previousView) {
         this.previousView = previousView;
     }
     /**

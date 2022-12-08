@@ -11,7 +11,7 @@ import java.io.IOException;
  * allow for the presenter to call on a View class without violating
  * dependency rules
  */
-public abstract class IFrame extends JFrame {
+public abstract class IFrame extends JFrame implements ViewInterface{
     /**
      * Refreshes the current screen with updated data from the database
      */

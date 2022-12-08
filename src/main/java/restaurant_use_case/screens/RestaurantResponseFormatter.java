@@ -1,6 +1,6 @@
 package restaurant_use_case.screens;
 
-import global.IFrame;
+import global.ViewInterface;
 
 /**
  * The response formatter, formats the response and refreshes the previous frame to reflect the changes made
@@ -9,9 +9,9 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
     /**
      * The previous frame
      */
-    private final IFrame previousView;
+    private final ViewInterface previousView;
 
-    RestaurantResponseFormatter(IFrame previousView) {
+    RestaurantResponseFormatter(ViewInterface previousView) {
         this.previousView = previousView;
     }
 
