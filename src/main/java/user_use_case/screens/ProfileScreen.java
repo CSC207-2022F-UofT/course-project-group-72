@@ -217,5 +217,3 @@ public class ProfileScreen extends IFrame {
         }
     }
 }
-
-// TODO: refresh method grab everything and see if anything has changed
