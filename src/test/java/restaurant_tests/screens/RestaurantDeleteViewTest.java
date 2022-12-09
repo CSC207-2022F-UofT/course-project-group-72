@@ -1,8 +1,7 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Test;
-import restaurant_use_case.interactors.FileRestaurant;
-import restaurant_use_case.screens.DeleteRestaurantView;
+import restaurant_feature.gateways.FileRestaurant;
+import restaurant_feature.screens.DeleteRestaurantView;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;

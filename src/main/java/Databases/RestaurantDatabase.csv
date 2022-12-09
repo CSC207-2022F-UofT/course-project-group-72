@@ -1,6 +1,6 @@
 location,name,cuisineType,priceBucket,owner,avgStars,reviews
 M2C 2P3,Fake Restaurant,Food,2,TestOwner,0.0,empty
-K9B 5L0,Ajisen,Ramen,3,AjisenOwner,0.0,empty
+K9B 5L0,Ajisen,Ramen,3,AjisenOwner,4.5,0<1
 A1B 2C9,Ajisen,Ramen,5,AjisenOwner,0.0,empty
 M1B 1M2,Tim Hortons,Coffee,1,TimsOwner,0.0,empty
 Z1B 2C8,Chako,Food,5,ChakoOwner,0.0,empty

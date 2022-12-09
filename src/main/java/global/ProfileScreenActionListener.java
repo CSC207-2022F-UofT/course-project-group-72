@@ -1,7 +1,6 @@
 package global;
 
 import entities.User;
-import user_use_case.screens.ProfileScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

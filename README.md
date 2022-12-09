@@ -52,7 +52,7 @@
   * Users can like reviews, unless they own the restaurant the review is for
   * Users can delete their own reviews
   * OwnerUsers who own a restaurant may reply to reviews on that resataurant
-  * Reviews are stored in a csv file and each review's id is added to the appropriate section in the user and restaurant databases
+  * Reviews are stored in a csv file and each review's id is added to the appropriate section in the user and restaurant Databases
 
 * ***Report System***
   * User is able to report a review by clicking the button beside the review

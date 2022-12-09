@@ -1,10 +1,10 @@
 package global;
 
 import entities.OwnerUser;
-import restaurant_use_case.screens.CreateRestaurantView;
-import restaurant_use_case.gateways.RestaurantDSGateway;
-import user_use_case.gateways.UserGateway;
-import user_use_case.interfaces.UserGatewayInterface;
+import restaurant_feature.screens.CreateRestaurantView;
+import restaurant_feature.interfaces.RestaurantDSGateway;
+import user_feature.gateways.UserGateway;
+import user_feature.interfaces.UserGatewayInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

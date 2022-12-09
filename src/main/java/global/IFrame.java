@@ -1,8 +1,8 @@
 package global;
 
 import entities.User;
-import filtering_use_case.screens.HomeScreenView;
-import user_use_case.screens.ProfileScreen;
+import filtering_feature.screens.HomeScreenView;
+import user_feature.screens.ProfileScreen;
 
 import javax.swing.*;
 import java.io.IOException;

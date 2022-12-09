@@ -1,6 +1,6 @@
 package entities;
 
-import review_use_case.gateways.ReviewNotFoundException;
+import review_feature.gateways.ReviewNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

@@ -1,10 +1,8 @@
 package global;
 
-import entities.OwnerFactory;
 import entities.User;
-import user_use_case.controllers.UpgradeUserController;
-import user_use_case.interactors.UpgradeUserInteractor;
-import user_use_case.interactors.UpgradeUserRequestModel;
+import user_feature.controllers.UpgradeUserController;
+import user_feature.interactors.UpgradeUserRequestModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
