@@ -42,6 +42,13 @@
  
 
 * ***Review System***
+ * Users can write reviews, selecting 1-5 stars for the restaurant and giving some information about their visit
+ * Users edit reviews they have written, changing the number of stars and text
+ * Users can like reviews, unless they own the restaurant the review is for
+ * Users can delete their own reviews
+ * OwnerUsers who own a restaurant may reply to reviews on that resataurant
+ * Reviews are stored in a csv file and each review's id is added to the appropriate section in the user and restaurant databases
+
 * ***Report System***
   * User is able to report a review by clicking the button beside the review
   * User can add reason when doing report
@@ -73,7 +80,12 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 4. **Restaurant Page**:
 5. **Review Page**:
-6. **Report Page**:
+![image](https://user-images.githubusercontent.com/113073294/206621635-4a7fac09-a83d-408a-ba6c-8850a6323816.png)
+![image](https://user-images.githubusercontent.com/113073294/206621888-bebc9ed5-ffef-40e4-899b-25de553b558e.png)
+![image](https://user-images.githubusercontent.com/113073294/206621974-e5adf4c9-afe2-42a4-a5c4-77f048449cad.png)
+
+
+7. **Report Page**:
 
 <img width="543" alt="Screen Shot 2022-12-07 at 3 52 28 PM" src="https://user-images.githubusercontent.com/70244801/206293560-aa731992-4133-4911-8597-f5d7535158da.png"> 
 
