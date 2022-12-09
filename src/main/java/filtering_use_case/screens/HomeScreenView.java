@@ -7,10 +7,7 @@ import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.gateways.RestaurantDSGateway;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HomeScreenView extends IFrame {
 
@@ -94,7 +91,7 @@ public class HomeScreenView extends IFrame {
     JRadioButton sortDescending;
 
     /**
-     * The radiobutton for sorting direction in descending order
+     * Public static strings
      */
     public static final String NO_PREFERENCE = "No Preference";
     public static final String PRICE = "Price";
@@ -108,10 +105,7 @@ public class HomeScreenView extends IFrame {
             "American",
             "Indian",
             "Japanese",
-            "Hot Dog",
-            "Food",
-            "K BBQ",
-            "Fast Food",
+            "Fast Food"
             };
 
     public HomeScreenView(User user) throws IOException {
@@ -135,14 +129,10 @@ public class HomeScreenView extends IFrame {
         Integer[] pricingOptions = {0, 1, 2, 3, 4, 5};
         Integer[] avgStarsOptions = {0, 1, 2, 3, 4, 5};
 
-        // TODO: add more cuisine options
-        // String[] cuisineOptions = {NO_PREFERENCE, "Food"};
-        String[] cuisineOptions = CUISINE_LIST;
-
         // Drop-Down Menus
         priceBucket = new JComboBox<>(pricingOptions);
         avgStars = new JComboBox<>(avgStarsOptions);
-        cuisineType = new JComboBox<>(cuisineOptions);
+        cuisineType = new JComboBox<>(CUISINE_LIST);
 
         // Labels
         priceLabel = new JLabel("Filter By Price ($):");
@@ -238,6 +228,7 @@ public class HomeScreenView extends IFrame {
         repaint();
     }
 
+    // IFrame Methods
     @Override
     public void refresh() {
 

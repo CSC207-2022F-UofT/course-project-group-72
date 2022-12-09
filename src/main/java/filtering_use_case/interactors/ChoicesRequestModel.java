@@ -1,13 +1,15 @@
 package filtering_use_case.interactors;
-
+/**
+ * The request model used in the selection process, this contains all user input from HomeScreenView
+ */
 public class ChoicesRequestModel {
 
-    private String inputSearch;
-    private String inputLocation;
-    private String inputCuisineType;
-    private int inputPriceBucket;
-    private double inputAvgStars;
-    private String inputDirection;
+    private final String inputSearch;
+    private final String inputLocation;
+    private final String inputCuisineType;
+    private final int inputPriceBucket;
+    private final double inputAvgStars;
+    private final String inputDirection;
 
 
 

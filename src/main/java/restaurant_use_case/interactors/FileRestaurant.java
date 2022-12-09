@@ -187,6 +187,11 @@ public class FileRestaurant implements RestaurantDSGateway {
         save();
     }
 
+    /**
+     *  Searches and filters through the Restaurant database for matching restaurant selections
+     * @param nameQuery the user's text input for their specified restaurant name
+     * @param locationQuery the user's text input for their specified location
+     */
     @Override
     public ArrayList<Restaurant> searchMatch(String nameQuery, String locationQuery) {
         ArrayList<Restaurant> filteredRestaurants = new ArrayList<>();
@@ -198,7 +203,7 @@ public class FileRestaurant implements RestaurantDSGateway {
                     filteredRestaurants.add(restaurant);
                 }
                 else if (locationQuery.length() < 3) {
-                    ;
+                    ;   // pass, must be kept here to avoid index error
                 }
                 else if (restaurant.getLocation().contains(locationQuery.substring(0, 3))) {
                     filteredRestaurants.add(restaurant);

@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
+/**
+ * The Sorting Class for sorting by Name
+ */
 public class SortName extends Sorting {
     public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         if (Objects.equals(sortDirection, "Ascending")) {
