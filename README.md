@@ -83,14 +83,23 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 4. **Review Page**:
 ![image](https://user-images.githubusercontent.com/113073294/206622250-c4fd986c-032e-4a2d-94d2-81cc73a113f0.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622287-a84bfd03-2241-4ed2-bd98-20a84c29bc62.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206621888-bebc9ed5-ffef-40e4-899b-25de553b558e.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206621974-e5adf4c9-afe2-42a4-a5c4-77f048449cad.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622166-9db4da91-0d15-43cd-ac3d-6de29c660d29.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622363-253ba8f1-e9e5-4808-a05a-142aedd66983.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622376-122d1fc5-ca99-4549-9f7f-5caa97027410.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622391-64728b2f-4bf3-44e7-99ce-2e58e110cd5f.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622443-4a7e3393-bf53-47bc-b480-a3318a70cbe1.png)
+
 ![image](https://user-images.githubusercontent.com/113073294/206622460-5d822639-d40b-4d61-8cb2-48d7447a5b2a.png)
 
 
@@ -119,7 +128,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 * Register and Login System:
 * Search Restaurant System:
 * Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage (Not including non-automated view tests)
-* Review System:
+* Review System: 23% class coverage, 37% method coverage, 20% line coverage
 * Report System: 100% class coverage, 100% method coverage, 75% line coverage (Not including non-automated view tests, rest of codes were 95% covered)
 * User Profile: 
 
