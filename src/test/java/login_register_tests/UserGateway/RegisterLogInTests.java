@@ -15,7 +15,11 @@ public class RegisterLogInTests {
     void test_log_interactor() {
          LoginUserRequestModel model = new LoginUserRequestModel("TimsOwner", "123");
 
-         UserGateway gateway = new UserGateway();
+         String database = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+         String temp_database = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+         UserGateway gateway = new UserGateway(database, temp_database);
 
          UserFactory factory = new UserFactory();
 
@@ -34,7 +38,11 @@ public class RegisterLogInTests {
 
         RegisterUserRequestModel model = new RegisterUserRequestModel(username, "123", "123");
 
-        UserGateway gateway = new UserGateway();
+        String database = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway = new UserGateway(database, temp_database);
 
         UserFactory factory = new UserFactory();
 
