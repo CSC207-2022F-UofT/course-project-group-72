@@ -1,6 +1,6 @@
 package global;
 
-import review_use_case.screens.RestaurantView;
+import review_feature.screens.RestaurantView;
 import entities.Restaurant;
 import entities.User;
 

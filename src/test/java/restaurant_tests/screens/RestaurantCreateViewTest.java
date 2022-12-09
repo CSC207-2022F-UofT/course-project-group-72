@@ -1,9 +1,8 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Test;
-import restaurant_use_case.interactors.FileRestaurant;
-import restaurant_use_case.screens.CreateRestaurantView;
-import user_use_case.gateways.UserGateway;
+import restaurant_feature.gateways.FileRestaurant;
+import restaurant_feature.screens.CreateRestaurantView;
+import user_feature.gateways.UserGateway;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;

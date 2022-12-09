@@ -1,9 +1,8 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import restaurant_use_case.interactors.FileRestaurant;
-import restaurant_use_case.screens.EditRestaurantView;
+import restaurant_feature.gateways.FileRestaurant;
+import restaurant_feature.screens.EditRestaurantView;
 import entities.RestaurantFactory;
 
 import java.awt.event.ActionEvent;

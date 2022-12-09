@@ -1,12 +1,11 @@
 package login_register_tests.UserGateway;
 
 import entities.OwnerFactory;
-import entities.OwnerFactory;
 import entities.OwnerUser;
 import org.junit.jupiter.api.Test;
 
 import entities.User;
-import user_use_case.gateways.UserGateway;
+import user_feature.gateways.UserGateway;
 
 import java.util.ArrayList;
 import java.util.Random;

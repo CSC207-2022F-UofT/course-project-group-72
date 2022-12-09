@@ -2,10 +2,10 @@ package login_register_tests.UserGateway;
 
 import entities.UserFactory;
 import org.junit.jupiter.api.Test;
-import user_use_case.gateways.UserGateway;
-import user_use_case.interactors.*;
-import user_use_case.screens.LoginUserResponseModel;
-import user_use_case.screens.RegisterUserResponseModel;
+import user_feature.gateways.UserGateway;
+import user_feature.interactors.*;
+import user_feature.screens.LoginUserResponseModel;
+import user_feature.screens.RegisterUserResponseModel;
 
 import java.util.Random;
 

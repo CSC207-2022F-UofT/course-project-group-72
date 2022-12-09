@@ -5,11 +5,11 @@ import entities.Review;
 import entities.ReviewFactory;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import restaurant_use_case.interactors.FileRestaurant;
-import review_use_case.gateways.ReviewGateway;
-import review_use_case.interactors.EditReviewInteractor;
-import review_use_case.interactors.EditReviewRequestModel;
-import review_use_case.screens.ReviewResponseModel;
+import restaurant_feature.gateways.FileRestaurant;
+import review_feature.gateways.ReviewGateway;
+import review_feature.interactors.EditReviewInteractor;
+import review_feature.interactors.EditReviewRequestModel;
+import review_feature.screens.ReviewResponseModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
