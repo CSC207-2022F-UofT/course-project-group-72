@@ -1,7 +1,6 @@
 package filtering_and_sorting_tests;
 import entities.Restaurant;
 import entities.RestaurantFactory;
-import entities.User;
 import filtering_use_case.interactors.*;
 import filtering_use_case.interfaces.ChoicesInputBoundary;
 import filtering_use_case.screens.*;
@@ -14,13 +13,13 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestChoicesPriceAscending {
+public class TestChoices {
 
     final RestaurantDSGateway gateway =
             new FileRestaurant("src/test/java/filtering_and_sorting_tests/tempchoices.csv");
 
 
-    public TestChoicesPriceAscending() throws IOException {
+    public TestChoices() throws IOException {
     }
 
     // Restaurant setup
