@@ -1,4 +1,4 @@
-package review_tests.automated_tests;
+package review_tests.automated_tests.gatewaytests;
 
 import entities.Review;
 import entities.ReviewFactory;
@@ -19,7 +19,7 @@ public class TestReviewGateway {
     private final static String NAME_OF_TEST_REVIEW_ID_COUNTER =
             "src/test/java/review_tests/TestReviewIDCounterDatabase.txt";
     private final static String NAME_OF_TEST_REVIEW_DATABASE = "src/test/java/review_tests/TestReviewDatabase.csv";
-    private final static ReviewGateway reviewGateway = new ReviewGateway(NAME_OF_TEST_REVIEW_ID_COUNTER,
+    private final static ReviewGateway REVIEW_GATEWAY = new ReviewGateway(NAME_OF_TEST_REVIEW_ID_COUNTER,
             NAME_OF_TEST_REVIEW_DATABASE);
     private final String TEST_REVIEW_STRING_1 = String.join(ReviewGateway.getDelimiter(), "1", "5",
             "test text 1", "test user 1", "test location 1", "10", "test response 1", "3", "true");
@@ -68,7 +68,7 @@ public class TestReviewGateway {
     public void testLoadReviewID(){
         clearDatabases();
         try {
-            String actual = reviewGateway.loadReviewID();
+            String actual = REVIEW_GATEWAY.loadReviewID();
             String expected = "3";
             assert(actual.equals(expected));
         }catch(IOException e){
@@ -83,8 +83,8 @@ public class TestReviewGateway {
     public void testIncrementReviewID(){
         clearDatabases();
         try {
-            reviewGateway.incrementReviewID();
-            String actual = reviewGateway.loadReviewID();
+            REVIEW_GATEWAY.incrementReviewID();
+            String actual = REVIEW_GATEWAY.loadReviewID();
             String expected = "4";
             assert(actual.equals(expected));
         }catch(IOException e){
@@ -99,7 +99,7 @@ public class TestReviewGateway {
     public void testGetReview(){
         clearDatabases();
         try {
-            Review actualReview = reviewGateway.getReview("1");
+            Review actualReview = REVIEW_GATEWAY.getReview("1");
             assert(reviewsMatch(TEST_REVIEW_1, actualReview));
         }catch(IOException e1){
             fail("An IOException caused this test to fail. This should never be reached.");
@@ -119,7 +119,7 @@ public class TestReviewGateway {
             ArrayList<String> ids = new ArrayList<>();
             ids.add("1");
             ids.add("2");
-            ArrayList<Review> actualReviews = reviewGateway.getReviews(ids);
+            ArrayList<Review> actualReviews = REVIEW_GATEWAY.getReviews(ids);
             assert(reviewsMatch(TEST_REVIEW_1, actualReviews.get(0)) &&
                     reviewsMatch(TEST_REVIEW_2, actualReviews.get(1)));
         }catch(IOException e){
@@ -141,8 +141,8 @@ public class TestReviewGateway {
         Review newReview = new ReviewFactory().create(newID, newStars, newText, newUser, newLocation);
 
         try{
-            reviewGateway.addReview(newReview);
-            Review returnedReview = reviewGateway.getReview(newID);
+            REVIEW_GATEWAY.addReview(newReview);
+            Review returnedReview = REVIEW_GATEWAY.getReview(newID);
             assert(reviewsMatch(newReview, returnedReview));
         }catch(IOException e1){
             fail("An IOException caused this test to fail. This should never be reached.");
@@ -163,8 +163,8 @@ public class TestReviewGateway {
         TEST_REVIEW_1.setText(newText);
 
         try{
-            reviewGateway.updateReview(TEST_REVIEW_1);
-            Review returnedReview = reviewGateway.getReview(TEST_REVIEW_1.getID());
+            REVIEW_GATEWAY.updateReview(TEST_REVIEW_1);
+            Review returnedReview = REVIEW_GATEWAY.getReview(TEST_REVIEW_1.getID());
             assert(returnedReview.getStars() == newStars && returnedReview.getText().equals(newText));
         }catch(IOException e1){
             fail("An IOException caused this test to fail. This should never be reached.");
@@ -180,8 +180,8 @@ public class TestReviewGateway {
     public void testDeleteReview(){
         clearDatabases();
         try{
-            reviewGateway.deleteReview(TEST_REVIEW_2.getID());
-            reviewGateway.getReview(TEST_REVIEW_2.getID());
+            REVIEW_GATEWAY.deleteReview(TEST_REVIEW_2.getID());
+            REVIEW_GATEWAY.getReview(TEST_REVIEW_2.getID());
             fail("getReview did not throw a ReviewNotFoundException, so the review was not removed from th database");
         }catch(IOException e1){
             fail("An IOException caused this test to fail. This should never be reached.");

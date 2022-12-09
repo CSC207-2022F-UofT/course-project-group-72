@@ -2,6 +2,8 @@
 
 package review_use_case.controllers;
 
+import entities.Restaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import review_use_case.interfaces.EditReviewInputBoundary;
 import review_use_case.interfaces.ReviewGatewayInterface;
 import review_use_case.interactors.EditReviewRequestModel;
@@ -23,8 +25,11 @@ public class EditReviewController {
     Method to package the input data, send it to the reviewInputBoundary and return a response model containing a
     boolean representing if the method call was successful
      */
-    public ReviewResponseModel interact(ReviewGatewayInterface reviewGateway, Review review, int stars, String text){
-        EditReviewRequestModel requestModel = new EditReviewRequestModel(reviewGateway, review, stars, text);
+    public ReviewResponseModel interact(ReviewGatewayInterface reviewGateway, RestaurantDSGateway restaurantGateway,
+                                        Review review, Restaurant restaurant,
+                                        int stars, String text){
+        EditReviewRequestModel requestModel = new EditReviewRequestModel(reviewGateway, restaurantGateway, review,
+                restaurant, stars, text);
         return this.reviewInputBoundary.interact(requestModel);
     }
 }

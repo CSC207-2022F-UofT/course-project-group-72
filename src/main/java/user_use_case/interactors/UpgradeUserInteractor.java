@@ -16,8 +16,12 @@ public class UpgradeUserInteractor implements UpgradeUserInputBoundary{
         this.gateway = gateway;
     }
 
+    /*
+    Method to change a User to an OwnerUser while keeping existing data.
+     */
     @Override
     public UpgradeUserResponseModel UpgradeUser(UpgradeUserRequestModel requestModel) {
+//        Get required variables from existing user.
         String username = requestModel.getUsername();
         String password = requestModel.getPassword();
         ArrayList<String> reviews = requestModel.getPastReviews();
@@ -26,10 +30,11 @@ public class UpgradeUserInteractor implements UpgradeUserInputBoundary{
         boolean banned = requestModel.isBanned();
         ArrayList<String> ownedRestaurants = new ArrayList<>();
 
+//        Create new OwnerUser and return it.
+
         OwnerUser ownerUser = this.factory.reintialize(username, password, reviews, liked_reviews, received_reports, banned, true, ownedRestaurants);
 
-        this.gateway.removeUser(username);
-        this.gateway.addUser(username, password, reviews, liked_reviews, received_reports, banned, true, ownedRestaurants);
+        this.gateway.updateUser(ownerUser);
 
         return new UpgradeUserResponseModel(ownerUser, true);
     }
