@@ -15,4 +15,8 @@ public class UpgradeUserResponseModel {
     public OwnerUser getOwnerUser() {
         return this.ownerUser;
     }
+
+    public boolean getStatus() {
+        return this.status;
+    }
 }
