@@ -13,7 +13,7 @@
   ## Features:
 * ***User Login in/Register Service***
   *  User can Register New User Account by Entering New Username, Password, and Confirming Password
-  *  User can Login To Existing User Account
+  *  User can Login To Existing User Account by Entering Username and Passowrd
   *  If Input Data is Invalid (Passwords Don't Match, User Doen't Exist, etc.), Error Pop-up is Displayed
   *  After Successful Login or Register, Open HomeScreenView
 * ***User Profile Service***
