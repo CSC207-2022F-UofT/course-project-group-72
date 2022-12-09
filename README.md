@@ -22,7 +22,6 @@
     * Average Stars
   * Edit your Restaurant as you improve and change your style
   * Delete your Restaurant if you are moving
-* ***Register as Restaurant Owner Service***
 * ***Sort/Search System***
   * User is able to search, filter and sort (by attribute and direction) for their personalized list. 
   * They can filter by:
