@@ -70,6 +70,8 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 ## Demo (ScreenShots):
 1. **Welcome Page**:
+![welcomeScreen](https://user-images.githubusercontent.com/70244801/206623304-8bdcc6f8-9196-4fd9-ba72-a79a8108cc17.png)
+
 2. **Home Page**:
 
 <img width="953" alt="Screenshot 2022-12-07 at 3 56 12 PM" src="https://user-images.githubusercontent.com/58833849/206293913-22e21257-5363-460d-8ee8-292f71875f23.png">
@@ -78,9 +80,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 <img width="623" alt="Screenshot 2022-12-07 at 3 57 17 PM" src="https://user-images.githubusercontent.com/58833849/206294057-8356b948-44a3-412d-a3a4-34c9ed48189c.png">
 
-4. **Restaurant Page**:
-5. 
-6. **Review Page**:
+4. **Review Page**:
 ![image](https://user-images.githubusercontent.com/113073294/206622250-c4fd986c-032e-4a2d-94d2-81cc73a113f0.png)
 ![image](https://user-images.githubusercontent.com/113073294/206622287-a84bfd03-2241-4ed2-bd98-20a84c29bc62.png)
 ![image](https://user-images.githubusercontent.com/113073294/206621888-bebc9ed5-ffef-40e4-899b-25de553b558e.png)
@@ -93,18 +93,18 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 ![image](https://user-images.githubusercontent.com/113073294/206622460-5d822639-d40b-4d61-8cb2-48d7447a5b2a.png)
 
 
-7. **Report Page**:
+5. **Report Page**:
 
 <img width="543" alt="Screen Shot 2022-12-07 at 3 52 28 PM" src="https://user-images.githubusercontent.com/70244801/206293560-aa731992-4133-4911-8597-f5d7535158da.png"> 
 
-7. **Restaurant Modification Page**:
+6. **Restaurant Modification Page**:
 
 ![image](https://user-images.githubusercontent.com/113074010/206616424-80bf4b31-fe4d-444b-a3d3-28d733f3ea5d.png)
 ![image](https://user-images.githubusercontent.com/113074010/206293041-8f32ba6d-209f-4ad8-922d-8d95262570a9.png)
 ![image](https://user-images.githubusercontent.com/113074010/206293157-502fab53-87f4-42d9-bf1a-27a76a0cb494.png)
 
 
-8. **Profile Page**:
+7. **Profile Page**:
 
 ## Issues accomplished:
 * [Completed Issues](https://github.com/CSC207-2022F-UofT/course-project-group-72/issues?q=is%3Aissue+is%3Aclosed)
