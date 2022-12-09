@@ -81,7 +81,8 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 4. **Restaurant Page**:
 5. 
 6. **Review Page**:
-![image](https://user-images.githubusercontent.com/113073294/206621635-4a7fac09-a83d-408a-ba6c-8850a6323816.png)
+![image](https://user-images.githubusercontent.com/113073294/206622250-c4fd986c-032e-4a2d-94d2-81cc73a113f0.png)
+![image](https://user-images.githubusercontent.com/113073294/206622287-a84bfd03-2241-4ed2-bd98-20a84c29bc62.png)
 ![image](https://user-images.githubusercontent.com/113073294/206621888-bebc9ed5-ffef-40e4-899b-25de553b558e.png)
 ![image](https://user-images.githubusercontent.com/113073294/206621974-e5adf4c9-afe2-42a4-a5c4-77f048449cad.png)
 ![image](https://user-images.githubusercontent.com/113073294/206622166-9db4da91-0d15-43cd-ac3d-6de29c660d29.png)
