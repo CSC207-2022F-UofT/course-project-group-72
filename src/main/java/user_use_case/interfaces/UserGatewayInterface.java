@@ -17,12 +17,17 @@ public interface UserGatewayInterface {
     void updateUser(User user);
 
     /**
+     * Update the User Object in the UserDatabase.
+     *
+     * Note: Cannot update User with new username since the username is the ID of a user
+     *
      * @param username the String username of the given user
      * @return The whole User object corresponding to the username input
      */
     User getUser(String username);
 
     /**
+     *
      * @param username the String username of the given user
      * @return Bool, true is the String username is already in the User Database
      */

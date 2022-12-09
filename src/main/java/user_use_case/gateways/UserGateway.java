@@ -28,18 +28,37 @@ public class UserGateway implements UserGatewayInterface {
      */
 
     /**
-     * Pathway to csv User Datawase file
+     * Pathway to csv User Database file
      */
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
-
+    /**
+     * Pathway to csv temp_ User Database File. Used in updateUser() and removeUser()
+     */
     private String TEMP_FILE = "src/main/java/Databases/temp_UserDatabase.csv";
-
+    /**
+     * String "empty", used when array list of owned restaurants is empty (using "" causes errors.)
+     */
     private static final String EMPTY_FILLER = "empty";
+    /**
+     * ownerFactory is an instance of OwnerFactory()
+     */
     private OwnerFactory ownerFactory = new OwnerFactory();
+    /**
+     * userFactory is an instance of UserFactory()
+     */
     private UserFactory userFactory = new UserFactory();
 
+    /**
+     * Update the User Object in the UserDatabase.
+     *
+     * Note: Cannot update User with new username since the username is the ID of a user
+     *
+     * @param user The User that is being updated in User database
+     */
     @Override
     public void updateUser(User user) {
+
+        // Below (Lines 63-98): Transform user attributes into corresponding String values.
 
         String new_username = user.getUsername();
         String new_password = user.getPassword();
@@ -113,19 +132,20 @@ public class UserGateway implements UserGatewayInterface {
                 owned_restaurants = values[7];
 
 
-                // replace the old values with the new values
+                // If line contains user: replace the old values with the new values
                 String line1;
                 if (new_username.equals(username)) {
                     line1 = String.join(", ", username, new_password, new_past_reviews,
                             new_likedReviews, new_received_reports, new_banned, new_owner, new_owner_restaurants);
                     line1 = line1 + ", ";
 
-                    //keep the old values
+                    // Else: keep the old values
                 } else {
                     line1 = String.join(", ", username, password, past_reviews,
                             likedReviews, received_reports, banned, owner, owned_restaurants);
                     line1 = line1 + ", ";
                 }
+                // Write all lines in temp file, the line containing user will be written with user updated.
                 bw.write(line1);
                 bw.newLine();
 
@@ -390,8 +410,8 @@ public class UserGateway implements UserGatewayInterface {
 
             String str_owned_restaurants = "";
 
-            if (isOwner) {
-                str_owned_restaurants = String.join("% ", ownedRestaurants);
+            if (isOwner && ownedRestaurants.size() > 0) {
+                    str_owned_restaurants = String.join("% ", ownedRestaurants);
             } else {
                 str_owned_restaurants = EMPTY_FILLER;
             }
