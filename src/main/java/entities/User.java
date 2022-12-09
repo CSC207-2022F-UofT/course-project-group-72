@@ -30,6 +30,10 @@ public class User extends GuestUser{
      * false - User is not Banned
      */
     private boolean banned = false;
+    /**
+     * true - User instanceof OwnerUser
+     * false - !(User instanceof OwnerUser)
+     */
     private boolean owner = false;
 
     /**

@@ -14,6 +14,16 @@ public class RegisterUserInteractor implements RegisterUserInputBoundary {
         this.factory = factory;
         this.gateway = gateway;
     }
+
+    /**
+     * Checks if Inputted Registration Inputs are valid
+     * Username and Password must be non-empty Strings
+     * Username must be unused in database
+     * Passwords Must Match
+     *
+     * @param requestModel RegisterUserRequestModel containing inputted info from WelcomeUserView
+     * @return RegisterUserResponseModel containing success or error.
+     */
     @Override
 
     public RegisterUserResponseModel CreateUser(RegisterUserRequestModel requestModel) {

@@ -1,8 +1,17 @@
 package user_use_case.interactors;
 
 public class RegisterUserRequestModel {
+    /**
+     * Inputted Username from WelcomeUserView
+     */
     private String username;
+    /**
+     * Inputted First Password from WelcomeUserView
+     */
     private String password1;
+    /**
+     * Inputted 'confirm' password from WelcomeUserView
+     */
     private String password2;
 
     public RegisterUserRequestModel( String username, String password1, String password2) {
