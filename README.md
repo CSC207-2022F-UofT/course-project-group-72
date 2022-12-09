@@ -13,6 +13,8 @@
   ## Features:
 * ***User Login in/Register Service***
 * ***User Profile Service***
+*  User is able to upgrade their User to an OwnerUser
+*  User is able to view their previous reviews and the average stars of those reviews
 * ***Restaurant Creation & Management***
   * User is able to create a new Restaurant profile to promote their Restaurant and its:
     * Name
