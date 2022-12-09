@@ -13,8 +13,8 @@
   ## Features:
 * ***User Login in/Register Service***
 * ***User Profile Service***
-*  User is able to upgrade their User to an OwnerUser
-*  User is able to view their previous reviews and the average stars of those reviews
+  *  User is able to upgrade their User to an OwnerUser
+  *  User is able to view their previous reviews and the average stars of those reviews
 * ***Restaurant Creation & Management***
   * User is able to create a new Restaurant profile to promote their Restaurant and its:
     * Name
@@ -66,7 +66,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 3. Search and filter for your desired restaurants
 4. Click on restaurants that interest you to view their page
 5. Add/Delete/Edit a review if you wish, or like or report published reviews
-6. Click on Profile Screen to Access Restaurant Owner Tools (Create, Edit, Delete)
+6. Click on Profile Screen to Access Restaurant Owner Tools (Create and view restaurants)
 
 
 ## Demo (ScreenShots):
