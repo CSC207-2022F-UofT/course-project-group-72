@@ -49,7 +49,7 @@ public class ProfileScreen extends IFrame {
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
         try {
-            this.restaurant_gateway = new FileRestaurant("./main/Java/Databases/RestaurantDatabase.csv");
+            this.restaurant_gateway = new FileRestaurant("src/main/Java/Databases/RestaurantDatabase.csv");
         } catch (IOException exception) {
 
         }
@@ -80,13 +80,12 @@ public class ProfileScreen extends IFrame {
 //        Get restaurants and loop through to display them.
         this.restaurants = new ArrayList<Restaurant>();
         if (isOwner) {
-            OwnerFactory factory = new OwnerFactory();
-            OwnerUser temporaryUser = factory.reintialize(this.user.getUsername(), this.user.getPassword(), this.user.getPast_reviews(), this.user.getLikedReviews(), this.user.getReceived_reports(), this.user.isBanned(), true, ((OwnerUser) this.user).getOwnedRestaurants());
-//            if (temporaryUser.getOwnedRestaurants().size() > 1) {
-//                for (String restaurant : temporaryUser.getOwnedRestaurants()) {
-//                    this.restaurants.add(restaurant_gateway.retrieveRestaurant(restaurant));
-//                }
-//            }
+            ArrayList<Restaurant> fullList = restaurant_gateway.retrieveAllRestaurants();
+            for (Restaurant rest : fullList ) {
+                if (rest.getOwnerID().equals(this.user.getUsername())) {
+                    this.restaurants.add(rest);
+                }
+            }
         }
 
 //        Upgrade user section with button and actionlistener.
