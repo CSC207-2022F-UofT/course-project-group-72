@@ -12,6 +12,10 @@
 
   ## Features:
 * ***User Login in/Register Service***
+  *  User can Register New User Account by Entering New Username, Password, and Confirming Password
+  *  User can Login To Existing User Account
+  *  If Input Data is Invalid (Passwords Don't Match, User Doen't Exist, etc.), Error Pop-up is Displayed
+  *  After Successful Login or Register, Open HomeScreenView
 * ***User Profile Service***
   *  User is able to upgrade their User to an OwnerUser
   *  User is able to view their previous reviews and the average stars of those reviews
