@@ -1,6 +1,5 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.DeleteRestaurantView;
 
@@ -9,7 +8,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.fail;
 
-public class DeleteViewTest {
+public class RestaurantDeleteViewTest {
     DeleteRestaurantView deleteView = new DeleteRestaurantView(
             null,
             null,
@@ -18,7 +17,7 @@ public class DeleteViewTest {
             null
             );
 
-    public DeleteViewTest() throws IOException {
+    public RestaurantDeleteViewTest() throws IOException {
     }
 
     public void actionPerformedTest() {

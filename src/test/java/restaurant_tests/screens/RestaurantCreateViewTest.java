@@ -1,6 +1,5 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.CreateRestaurantView;
 import user_use_case.gateways.UserGateway;
@@ -10,13 +9,13 @@ import java.io.IOException;
 
 import static org.junit.Assert.fail;
 
-public class CreateViewTest {
+public class RestaurantCreateViewTest {
     CreateRestaurantView createView = new CreateRestaurantView(new FileRestaurant("src/test/java/restaurant_tests/temptest.csv"),
             new UserGateway(),
             null,
             null);
 
-    public CreateViewTest() throws IOException {
+    public RestaurantCreateViewTest() throws IOException {
     }
 
     public void actionPerformedTest() {
