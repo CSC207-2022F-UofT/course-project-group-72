@@ -47,6 +47,17 @@ public interface UserGatewayInterface {
      */
     void addUser(String username, String password);
 
+    /**
+     *
+     * @param username the String username of the given user
+     * @param password the String password of the given user
+     * @param pastReviews the ArrayList past reviews of the given user
+     * @param likedReviews the likedReviews liked reviews of the given user
+     * @param receivedReports the int received reports of the given user
+     * @param banned the String bool banned of the given user
+     * @param isOwner the String bool owner of the given user
+     * @param ownedRestaurants the ArrayList password of the given user
+     */
     void addUser(String username, String password, ArrayList<String> pastReviews,
                         ArrayList<String> likedReviews,
                         int receivedReports, boolean banned, boolean isOwner,
@@ -54,6 +65,11 @@ public interface UserGatewayInterface {
 
     void addReview(String reviewId, String userid);
 
+    /**
+     * Removes User Object from UserDatabase
+     *
+     * @param username the String username of the given user
+     */
     void removeUser(String username);
 
     //public void removeUser(User user);

@@ -15,6 +15,11 @@ public class LoginUserInteractor implements LoginUserInputBoundary {
         this.gateway = gateway;
     }
 
+    /**
+     *
+     * @param requestModel LoginUserRequestModel containing inputted info from WelcomeUserView
+     * @return LoginUserRequestModel
+     */
     @Override
     public LoginUserResponseModel loginUser(LoginUserRequestModel requestModel) {
 
