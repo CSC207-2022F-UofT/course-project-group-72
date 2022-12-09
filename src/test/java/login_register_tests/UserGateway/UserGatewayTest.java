@@ -17,7 +17,11 @@ class UserGatewayTest {
     void test_get_add_user() {
         // Make sure username does not exist in database
 
-        UserGateway gateway = new UserGateway();
+        String database = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway = new UserGateway(database, temp_database);
 
         int random_user_num = new Random().nextInt(100) + 100;
 
@@ -42,7 +46,11 @@ class UserGatewayTest {
         // Tests Pass, If Fail, Confirm UserDatabase Values are stored correctly
         int random_user_num1 = new Random().nextInt(100) + 200;
 
-        UserGateway gateway1 = new UserGateway();
+        String database1 = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database1 = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway1 = new UserGateway(database1, temp_database1);
 
         String test_username1 = "testusername" + random_user_num1;
 
@@ -70,7 +78,11 @@ class UserGatewayTest {
 
         OwnerFactory own_fact = new OwnerFactory();
 
-        UserGateway gateway2 = new UserGateway();
+        String database2 = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database2 = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway2 = new UserGateway(database2, temp_database2);
 
         String test_own_username = "testusername" + random_user_num2;
 
