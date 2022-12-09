@@ -1,5 +1,6 @@
 package restaurant_tests.screens;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.EditRestaurantView;
@@ -24,6 +25,7 @@ public class RestaurantEditViewTest {
     public RestaurantEditViewTest() throws IOException {
     }
 
+    //@Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 

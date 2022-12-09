@@ -1,5 +1,6 @@
 package restaurant_tests.screens;
 
+import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.DeleteRestaurantView;
 
@@ -20,6 +21,7 @@ public class RestaurantDeleteViewTest {
     public RestaurantDeleteViewTest() throws IOException {
     }
 
+    //@Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 

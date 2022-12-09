@@ -1,5 +1,6 @@
 package restaurant_tests.screens;
 
+import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.CreateRestaurantView;
 import user_use_case.gateways.UserGateway;
@@ -18,6 +19,7 @@ public class RestaurantCreateViewTest {
     public RestaurantCreateViewTest() throws IOException {
     }
 
+    //@Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 
