@@ -11,7 +11,7 @@ public class RestaurantResponseFormatter implements RestaurantPresenter{
      */
     private final ViewInterface previousView;
 
-    RestaurantResponseFormatter(ViewInterface previousView) {
+    public RestaurantResponseFormatter(ViewInterface previousView) {
         this.previousView = previousView;
     }
 

@@ -2,28 +2,31 @@ package restaurant_tests.screens;
 
 import org.junit.jupiter.api.Test;
 import restaurant_use_case.interactors.FileRestaurant;
-import restaurant_use_case.screens.CreateRestaurantView;
-import user_use_case.gateways.UserGateway;
+import restaurant_use_case.screens.DeleteRestaurantView;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import static org.junit.Assert.fail;
 
-public class CreateViewTest {
-    CreateRestaurantView createView = new CreateRestaurantView(new FileRestaurant("src/test/java/restaurant_tests/temptest.csv"),
-            new UserGateway(),
+public class RestaurantDeleteViewTest {
+    DeleteRestaurantView deleteView = new DeleteRestaurantView(
             null,
-            null);
+            null,
+            new FileRestaurant("src/test/java/restaurant_tests/temptest.csv"),
+            null,
+            null
+            );
 
-    public CreateViewTest() throws IOException {
+    public RestaurantDeleteViewTest() throws IOException {
     }
 
+    //@Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 
         try {
-            createView.actionPerformed(event);
+            deleteView.actionPerformed(event);
         } catch (Exception ignored) {
             fail();
         }

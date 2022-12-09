@@ -1,7 +1,7 @@
 package restaurant_tests.screens;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import restaurant_use_case.interactors.FileRestaurant;
 import restaurant_use_case.screens.EditRestaurantView;
 import entities.RestaurantFactory;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.fail;
 
-public class EditViewTest {
+public class RestaurantEditViewTest {
 
     RestaurantFactory factory = new RestaurantFactory();
 
@@ -22,9 +22,10 @@ public class EditViewTest {
             new FileRestaurant("src/test/java/restaurant_tests/temptest.csv")
     );
 
-    public EditViewTest() throws IOException {
+    public RestaurantEditViewTest() throws IOException {
     }
 
+    //@Test
     public void actionPerformedTest() {
         ActionEvent event = new ActionEvent("Confirm", 0, "Confirm");
 
