@@ -120,7 +120,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 * Search Restaurant System:
 * Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage (Not including non-automated view tests)
 * Review System:
-* Report System: 100% class coverage, 100% method coverage, 89% line coverage
+* Report System: 100% class coverage, 100% method coverage, 75% line coverage (Not including non-automated view tests, rest of codes were 95% covered)
 * User Profile: 
 
 ## Libraries Used:
