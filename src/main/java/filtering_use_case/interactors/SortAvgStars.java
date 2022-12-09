@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
+/**
+ * The Sorting Class for sorting by AvgStars (Rating)
+ */
 public class SortAvgStars extends Sorting {
     public void sortList(ArrayList<Restaurant> sortedRestaurants, String sortDirection) {
         if (Objects.equals(sortDirection, "Ascending")) {

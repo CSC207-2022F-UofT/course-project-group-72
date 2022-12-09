@@ -1,12 +1,11 @@
 package filtering_use_case.interactors;
 
 import entities.Restaurant;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Objects;
+
+/**
+ * The Sorting Class for Facade Implementation, Sorting is the Facade object in this implementation
+ */
 
 public abstract class Sorting {
 

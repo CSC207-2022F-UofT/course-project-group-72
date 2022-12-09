@@ -15,15 +15,45 @@ import java.util.Objects;
 import static filtering_use_case.screens.HomeScreenView.*;
 
 public class SelectionsActionListener implements ActionListener {
+    /**
+     * The JFrame sent through previous view
+     */
     JFrame frame;
+    /**
+     * The gateway used for accessing restaurant database
+     */
     RestaurantDSGateway choicesGateway;
+    /**
+     * The current user
+     */
     User user;
+    /**
+     * The user's input search query for restaurant name
+     */
     JTextField query;
+    /**
+     * The user's input search query for location
+     */
     JTextField location;
+    /**
+     * The user's input selection for cuisine type
+     */
     JComboBox<String> cuisineType;
+    /**
+     * The user's input selection for pricing
+     */
     JComboBox<Integer> priceBucket;
+    /**
+     * The user's input selection for rating
+     */
     JComboBox<Integer> avgStars;
+    /**
+     * The user's input selection for sort method
+     */
     ButtonGroup sortButtons;
+    /**
+     * The user's input selection for sort direction
+     */
     ButtonGroup sortDirection;
 
 
@@ -60,6 +90,7 @@ public class SelectionsActionListener implements ActionListener {
         // Finalize Sorting Method
         String sortInput = sortButtons.getSelection().getActionCommand();
 
+        // Facade usage using Sorting, delegate by user selection from HomeScreenView
         Sorting sortMethod;
 
         if (Objects.equals(sortInput, AVG_STARS)) {
@@ -74,6 +105,7 @@ public class SelectionsActionListener implements ActionListener {
             sortMethod = new SortName();
         }
 
+        // Initialize
         ChoicesInputBoundary interactor = new SortChoicesInteractor(choicesGateway, presenter, sortMethod);
         ChoicesController choicesController = new ChoicesController(interactor);
 

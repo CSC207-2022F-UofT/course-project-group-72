@@ -16,15 +16,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChoicesSortedView extends IFrame implements ActionListener{
-    //TODO: java documentation
+    /**
+     * The text label of the restaurant name
+     */
     JLabel restaurantName;
+    /**
+     * The text label of the restaurant price
+     */
     JLabel restaurantPrice;
+    /**
+     * The text label of the restaurant location
+     */
     JLabel restaurantLocation;
+    /**
+     * The text label of the restaurant cuisine type
+     */
     JLabel restaurantCuisineType;
+    /**
+     * The text label of the restaurant rating (AvgStars)
+     */
     JLabel restaurantAvgStars;
+    /**
+     * The button to direct you to the restaurant page
+     */
     JButton viewRestaurantButton;
+    /**
+     * The previous frame, used for IFrame purposes
+     */
     JFrame previousFrame;
+    /**
+     * The ArrayList of Sorted Restaurants
+     */
     ArrayList<Restaurant> sortedList;
+    /**
+     * The current user
+     */
     User user;
 
     public ChoicesSortedView(JFrame previousFrame, ArrayList<Restaurant> sortedList, User user) {
@@ -33,8 +59,6 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
         this.previousFrame = previousFrame;
         this.sortedList = sortedList;
         this.user = user;
-
-        //TODO: organize/format components
 
         // Create the back and home buttons (Uniform Implementation)
         JButton backButton = new JButton("Back");
@@ -106,6 +130,7 @@ public class ChoicesSortedView extends IFrame implements ActionListener{
         return userGateway.getUser(user.getUsername());
     }
 
+    // IFrame methods
     @Override
     public void refresh() {
         try {

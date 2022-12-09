@@ -11,11 +11,23 @@ import java.util.Objects;
 
 import static filtering_use_case.screens.HomeScreenView.*;
 
+/**
+ * Use Case Interactor for SortChoices
+ */
+
 public class SortChoicesInteractor implements ChoicesInputBoundary {
 
+    /**
+     * The Restaurant Gateway that is used to access and filter through the Restaurant Database
+     */
     private final RestaurantDSGateway gateway;
+    /**
+     * The Choices Presenter that is used to update the view
+     */
     private final ChoicesPresenter presenter;
-
+    /**
+     * The Sorting use case class that manages the sorting delegation from user selection
+     */
     private final Sorting sortMethod;
 
     public SortChoicesInteractor(RestaurantDSGateway choicesGateway,
