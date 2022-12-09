@@ -30,11 +30,11 @@ public class UserGateway implements UserGatewayInterface {
     /**
      * Pathway to csv User Database file
      */
-    private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
+    private String NAME_OF_USER_DATABASE;
     /**
      * Pathway to csv temp_ User Database File. Used in updateUser() and removeUser()
      */
-    private String TEMP_FILE = "src/main/java/Databases/temp_UserDatabase.csv";
+    private String TEMP_FILE;
     /**
      * String "empty", used when array list of owned restaurants is empty (using "" causes errors.)
      */
@@ -47,6 +47,16 @@ public class UserGateway implements UserGatewayInterface {
      * userFactory is an instance of UserFactory()
      */
     private UserFactory userFactory = new UserFactory();
+
+    public UserGateway() {
+        this.NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
+        this.TEMP_FILE = "src/main/java/Databases/temp_UserDatabase.csv";
+    }
+
+    public UserGateway(String database, String temp_database) {
+        this.NAME_OF_USER_DATABASE = database;
+        this.TEMP_FILE = temp_database;
+    }
 
     /**
      * Update the User Object in the UserDatabase.
@@ -97,8 +107,8 @@ public class UserGateway implements UserGatewayInterface {
             new_owner_restaurants = EMPTY_FILLER;
         }
 
-        File old_file = new File(NAME_OF_USER_DATABASE);
-        File new_file = new File(TEMP_FILE);
+        File old_file = new File(this.NAME_OF_USER_DATABASE);
+        File new_file = new File(this.TEMP_FILE);
 
         String username;
         String password;
@@ -113,7 +123,7 @@ public class UserGateway implements UserGatewayInterface {
         try {
             FileWriter fw = new FileWriter(new_file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
             String delimiter = ", ";
             String line;
@@ -156,7 +166,7 @@ public class UserGateway implements UserGatewayInterface {
             bw.close();
             old_file.delete(); // this file returns bool but we do not need
 
-            File temp = new File(NAME_OF_USER_DATABASE);
+            File temp = new File(this.NAME_OF_USER_DATABASE);
             new_file.renameTo(temp);
 
 
@@ -171,7 +181,7 @@ public class UserGateway implements UserGatewayInterface {
     @Override
     public User getUser(String username) {
         try {
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
             String delimiter = ", ";
             String line;
@@ -234,8 +244,8 @@ public class UserGateway implements UserGatewayInterface {
         // Change username of user to "Removed" in database
         // functionality will be equivalent to if user was from database
 
-        File old_file = new File(NAME_OF_USER_DATABASE);
-        File new_file = new File(TEMP_FILE);
+        File old_file = new File(this.NAME_OF_USER_DATABASE);
+        File new_file = new File(this.TEMP_FILE);
 
         String curr_username;
         String password;
@@ -250,7 +260,7 @@ public class UserGateway implements UserGatewayInterface {
         try {
             FileWriter fw = new FileWriter(new_file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
             String delimiter = ", ";
             String line;
@@ -293,7 +303,7 @@ public class UserGateway implements UserGatewayInterface {
             bw.close();
             old_file.delete();
 
-            File temp = new File(NAME_OF_USER_DATABASE);
+            File temp = new File(this.NAME_OF_USER_DATABASE);
             new_file.renameTo(temp);
 
 
@@ -309,7 +319,7 @@ public class UserGateway implements UserGatewayInterface {
     @Override
     public Boolean userExists(String username) {
         try {
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
             String delimiter = ", ";
             String line;
@@ -333,7 +343,7 @@ public class UserGateway implements UserGatewayInterface {
     @Override
     public String getPassword(String username) {
         try {
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             Scanner scanner = new Scanner(file);
             String delimiter = ", ";
             String line;
@@ -357,7 +367,7 @@ public class UserGateway implements UserGatewayInterface {
     @Override
     public void addUser(String username, String password) {
         try {
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             FileWriter writer = new FileWriter(file, true);
             writer.append(username); // String username
             writer.append(", ");
@@ -389,7 +399,7 @@ public class UserGateway implements UserGatewayInterface {
                         int receivedReports, boolean banned, boolean isOwner,
                         ArrayList<String> ownedRestaurants) {
         try {
-            File file = new File(NAME_OF_USER_DATABASE);
+            File file = new File(this.NAME_OF_USER_DATABASE);
             FileWriter writer = new FileWriter(file, true);
 
             String str_past_reviews = String.join("/ ", pastReviews);

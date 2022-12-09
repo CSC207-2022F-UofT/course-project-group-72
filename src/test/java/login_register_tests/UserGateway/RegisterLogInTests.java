@@ -11,11 +11,15 @@ import java.util.Random;
 
 public class RegisterLogInTests {
     // Register Log In Test
-     @Test
+    @Test
     void test_log_interactor() {
          LoginUserRequestModel model = new LoginUserRequestModel("TimsOwner", "123");
 
-         UserGateway gateway = new UserGateway();
+        String database = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway = new UserGateway(database, temp_database);
 
          UserFactory factory = new UserFactory();
 
@@ -34,7 +38,11 @@ public class RegisterLogInTests {
 
         RegisterUserRequestModel model = new RegisterUserRequestModel(username, "123", "123");
 
-        UserGateway gateway = new UserGateway();
+        String database2 = "src/test/java/login_register_tests/UserGateway/TestUserDatabase.csv";
+
+        String temp_database2 = "src/test/java/login_register_tests/UserGateway/TempTestUserDatabase.csv";
+
+        UserGateway gateway = new UserGateway(database2, temp_database2);
 
         UserFactory factory = new UserFactory();
 
