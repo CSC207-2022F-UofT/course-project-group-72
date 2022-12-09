@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import review_use_case.gateways.*;
+import review_feature.gateways.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

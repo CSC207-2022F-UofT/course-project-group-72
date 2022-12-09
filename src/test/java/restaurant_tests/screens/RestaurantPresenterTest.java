@@ -2,9 +2,9 @@ package restaurant_tests.screens;
 
 import global.ViewInterface;
 import org.junit.jupiter.api.Test;
-import restaurant_use_case.screens.RestaurantInteractionFailed;
-import restaurant_use_case.screens.RestaurantResponseFormatter;
-import restaurant_use_case.screens.RestaurantResponseModel;
+import restaurant_feature.screens.RestaurantInteractionFailed;
+import restaurant_feature.screens.RestaurantResponseFormatter;
+import restaurant_feature.screens.RestaurantResponseModel;
 import static org.junit.jupiter.api.Assertions.*;
 
 

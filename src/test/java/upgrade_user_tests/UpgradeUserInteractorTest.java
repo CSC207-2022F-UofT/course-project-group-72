@@ -1,16 +1,14 @@
 package upgrade_user_tests;
 
 import entities.OwnerFactory;
-import entities.OwnerUser;
 import org.junit.jupiter.api.Test;
 
 import entities.User;
-import user_use_case.gateways.UserGateway;
-import user_use_case.interactors.UpgradeUserInteractor;
-import user_use_case.interactors.UpgradeUserRequestModel;
-import user_use_case.interactors.UpgradeUserResponseModel;
+import user_feature.gateways.UserGateway;
+import user_feature.interactors.UpgradeUserInteractor;
+import user_feature.interactors.UpgradeUserRequestModel;
+import user_feature.interactors.UpgradeUserResponseModel;
 
-import java.util.ArrayList;
 class UpgradeUserInteractorTest {
 
     @Test
