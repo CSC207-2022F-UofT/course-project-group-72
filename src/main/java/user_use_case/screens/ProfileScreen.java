@@ -40,6 +40,7 @@ public class ProfileScreen extends IFrame {
     UpgradeUserController upgradeUserController;
 
     public ProfileScreen(IFrame previousFrame, User user, String profile_name) {
+//      Make gatewaus and handle input variables
         UserGateway userGateway = new UserGateway();
 
         this.profile_name = profile_name;
@@ -50,7 +51,7 @@ public class ProfileScreen extends IFrame {
         this.profile = userGateway.getUser(profile_name);
         this.user = user;
         try {
-            this.restaurant_gateway = new FileRestaurant(FileRestaurant.DEFAULT_DATABASE_PATH);
+            this.restaurant_gateway = new FileRestaurant("./main/Java/Databases/RestaurantDatabase.csv");
         } catch (IOException exception) {
 
         }
@@ -62,32 +63,35 @@ public class ProfileScreen extends IFrame {
             this.reviews = new ArrayList<>();
         }
 
+//        Make panel to attach everything to, set layout
         profile_screen_window = new JPanel();
-
-
         profile_screen_window.setLayout(new BoxLayout(profile_screen_window, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel(this.profile.getUsername());
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+//        Initialize star counting for average
         int totalStars = 0;
 
         JPanel reviewsPanel = new JPanel();
 
+//        State variables describing who is logged in.
         boolean isOwner = this.user instanceof OwnerUser;
         boolean isLoggedIn = this.user.getUsername().equals(profile_name);
 
+//        Get restaurants and loop through to display them.
         this.restaurants = new ArrayList<Restaurant>();
-//        if (isOwner) {
-//            OwnerUser temporaryUser = (OwnerUser) this.user;
-//            if (temporaryUser.getOwnedRestaurants().size() > 0) {
+        if (isOwner) {
+            OwnerFactory factory = new OwnerFactory();
+            OwnerUser temporaryUser = factory.reintialize(this.user.getUsername(), this.user.getPassword(), this.user.getPast_reviews(), this.user.getLikedReviews(), this.user.getReceived_reports(), this.user.isBanned(), true, ((OwnerUser) this.user).getOwnedRestaurants());
+//            if (temporaryUser.getOwnedRestaurants().size() > 1) {
 //                for (String restaurant : temporaryUser.getOwnedRestaurants()) {
 //                    this.restaurants.add(restaurant_gateway.retrieveRestaurant(restaurant));
 //                }
 //            }
-//        }
+        }
 
-//        Upgrade user section
+//        Upgrade user section with button and actionlistener.
 
         if (!isOwner && isLoggedIn) {
             JButton upgradeButton = new JButton("Upgrade profile to Owner");
@@ -99,7 +103,7 @@ public class ProfileScreen extends IFrame {
         }
 
 
-//        Reviews section
+//        Reviews section showing past reviews of this user.
 
         for (Review review : this.reviews) {
             JLabel restarauntName = new JLabel(review.getRestaurant());
@@ -109,10 +113,10 @@ public class ProfileScreen extends IFrame {
 
 
 
-                JPanel panel = new JPanel();
-                panel.add(restarauntName);
-                panel.add(stars);
-                panel.add(reviewText);
+            JPanel panel = new JPanel();
+            panel.add(restarauntName);
+            panel.add(stars);
+            panel.add(reviewText);
 
             reviewsPanel.add(panel);
 
@@ -124,6 +128,7 @@ public class ProfileScreen extends IFrame {
         JPanel restaurantsPanel = new JPanel();
 
 
+//        Creating necessary elements for displaying restaurants
         for (Restaurant restaurant : this.restaurants) {
             JPanel tempPanel = new JPanel();
             JLabel restaurantName = new JLabel(restaurant.getName());
@@ -143,6 +148,7 @@ public class ProfileScreen extends IFrame {
             restaurantsPanel.add(tempPanel);
         }
 
+//        Create restaurant button if the logged in user viewing the page is an owner.
         if (isLoggedIn && isOwner) {
             JButton createRestaurantButton = new JButton("Create Restaurant");
             CreateRestaurantActionListener createRestaurantActionListener = new CreateRestaurantActionListener(this, userGateway, this.restaurant_gateway, (OwnerUser) this.user);
@@ -150,19 +156,23 @@ public class ProfileScreen extends IFrame {
             profile_screen_window.add(createRestaurantButton);
         }
 
-//        int averageStars = totalStars / this.reviews.size();
-        int averageStars = 1;
+        int averageStars = 0;
+        if (this.reviews.size() > 0 && totalStars > 0) {
+            averageStars = (int) totalStars / this.reviews.size();
+        }
 
         JLabel averageStarLabel = new JLabel(Integer.toString(averageStars) + " average stars");
 
         JLabel reviewsLabel = new JLabel("Reviews");
 
+//        Set alignment of all components
         reviewsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         averageStarLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         reviewsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         restaurantsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         restaurantsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+//        Add all components
         profile_screen_window.add(reviewsLabel);
         profile_screen_window.add(averageStarLabel);
         profile_screen_window.add(reviewsPanel);
@@ -207,5 +217,3 @@ public class ProfileScreen extends IFrame {
         }
     }
 }
-
-// TODO: refresh method grab everything and see if anything has changed

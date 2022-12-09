@@ -2,6 +2,8 @@
 
 package review_use_case.screens;
 
+import entities.Restaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import review_use_case.interfaces.ReviewGatewayInterface;
 import review_use_case.controllers.EditReviewController;
 import entities.Review;
@@ -28,10 +30,13 @@ public class EditReviewScreen extends JDialog implements ActionListener {
     private final EditReviewController editReviewController;
     //We need to pass these to the controller
     private final ReviewGatewayInterface reviewGateway;
+    private final RestaurantDSGateway restaurantGateway;
     private final Review review;
+    private final Restaurant restaurant;
 
     public EditReviewScreen(RestaurantView restaurantView, EditReviewController editReviewController,
-                            ReviewGatewayInterface reviewGateway, Review review){
+                            ReviewGatewayInterface reviewGateway, RestaurantDSGateway restaurantGateway,
+                            Review review, Restaurant restaurant){
         //Call super on owner so that this dialog is modal in relation to it
         super(restaurantView, true);
 
@@ -39,7 +44,9 @@ public class EditReviewScreen extends JDialog implements ActionListener {
         this.restaurantView = restaurantView;
         this.editReviewController = editReviewController;
         this.reviewGateway = reviewGateway;
+        this.restaurantGateway = restaurantGateway;
         this.review = review;
+        this.restaurant = restaurant;
 
         //Store the review's old stars, so we do not need to keep calling review methods
         this.stars = this.review.getStars();
@@ -226,7 +233,7 @@ public class EditReviewScreen extends JDialog implements ActionListener {
                 //Otherwise, send the information to the controller and interact
                 } else {
                     ReviewResponseModel response = this.editReviewController.interact(this.reviewGateway,
-                            this.review, this.stars, this.textArea.getText());
+                            this.restaurantGateway, this.review, this.restaurant, this.stars, this.textArea.getText());
                     //Tell the user if they were successful
                     if(response.wasSuccessful()){
                         JOptionPane.showMessageDialog(this, "Your review has been successfully" +

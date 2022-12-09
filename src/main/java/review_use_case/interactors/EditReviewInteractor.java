@@ -2,6 +2,7 @@
 
 package review_use_case.interactors;
 
+import entities.Restaurant;
 import review_use_case.interfaces.EditReviewInputBoundary;
 import review_use_case.screens.ReviewResponseModel;
 import entities.Review;
@@ -15,13 +16,25 @@ public class EditReviewInteractor implements EditReviewInputBoundary {
      */
     public ReviewResponseModel interact(EditReviewRequestModel editReviewRequestModel){
         try{
-            //Change attributes
             Review review = editReviewRequestModel.getReview();
+            Restaurant restaurant = editReviewRequestModel.getRestaurant();
+
+            //Remove old version of review from restaurant
+            restaurant.removeReview(review);
+
+            //Change review attributes
             review.setStars(editReviewRequestModel.getStars());
             review.setText(editReviewRequestModel.getText());
 
             //Reflect change in database
             editReviewRequestModel.getReviewGateway().updateReview(review);
+
+            //Add review back to restaurant
+            restaurant.addReview(review);
+
+            //Reflect change in database
+            editReviewRequestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
+            editReviewRequestModel.getRestaurantGateway().save(restaurant);
 
             //Return success
             return new ReviewResponseModel(true);

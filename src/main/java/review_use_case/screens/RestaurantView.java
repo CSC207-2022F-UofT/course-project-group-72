@@ -223,7 +223,7 @@ public class RestaurantView extends IFrame implements ActionListener {
                             editButton.setBackground(Color.GREEN);
                             editButton.setOpaque(true);
                             editButton.addActionListener(new EditActionListener(this, editReviewController,
-                                    this.reviewGateway, review));
+                                    this.reviewGateway, this.restaurantGateway, review, this.restaurant));
                             buttonPanel.add(editButton);
 
                             deleteButton = new JButton("Delete");

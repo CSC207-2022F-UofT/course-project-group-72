@@ -32,7 +32,7 @@ public class DeleteReviewInteractor implements DeleteReviewInputBoundary {
             //Remove the old version of the restaurant from the database, remove the deleted review from the restaurant
             //object's reviews, then add the old restaurant back in with this change reflected
             requestModel.getRestaurantGateway().deleteRestaurant(restaurant.getLocation());
-            restaurant.getReviewIDs().remove(reviewID);
+            restaurant.removeReview(review);
             requestModel.getRestaurantGateway().save(restaurant);
 
             //Remove the review from the user's list of reviews + databases

@@ -2,6 +2,8 @@
 
 package review_use_case.screens;
 
+import entities.Restaurant;
+import restaurant_use_case.gateways.RestaurantDSGateway;
 import review_use_case.controllers.EditReviewController;
 import review_use_case.interfaces.ReviewGatewayInterface;
 import entities.Review;
@@ -15,17 +17,22 @@ public class EditActionListener implements ActionListener {
     private final RestaurantView restaurantView;
     private final EditReviewController editReviewController;
     private final ReviewGatewayInterface reviewGateway;
+    private final RestaurantDSGateway restaurantGateway;
     private final Review review;
+    private final Restaurant restaurant;
 
     /*
     Constructor
      */
     public EditActionListener(RestaurantView restaurantView, EditReviewController editReviewController,
-                              ReviewGatewayInterface reviewGateway, Review review){
+                              ReviewGatewayInterface reviewGateway, RestaurantDSGateway restaurantGateway,
+                              Review review, Restaurant restaurant){
         this.restaurantView = restaurantView;
         this.editReviewController = editReviewController;
         this.reviewGateway = reviewGateway;
+        this.restaurantGateway = restaurantGateway;
         this.review = review;
+        this.restaurant = restaurant;
     }
 
     /*
@@ -33,6 +40,7 @@ public class EditActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        new EditReviewScreen(this.restaurantView, this.editReviewController, this.reviewGateway, this.review);
+        new EditReviewScreen(this.restaurantView, this.editReviewController, this.reviewGateway,
+                this.restaurantGateway, this.review, this.restaurant);
     }
 }
