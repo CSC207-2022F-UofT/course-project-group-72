@@ -22,6 +22,7 @@
     * Average Stars
   * Edit your Restaurant as you improve and change your style
   * Delete your Restaurant if you are moving
+* ***Register as Restaurant Owner Service***
 * ***Sort/Search System***
   * User is able to search, filter and sort (by attribute and direction) for their personalized list. 
   * They can filter by:
@@ -85,6 +86,11 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 ![image](https://user-images.githubusercontent.com/113073294/206621888-bebc9ed5-ffef-40e4-899b-25de553b558e.png)
 ![image](https://user-images.githubusercontent.com/113073294/206621974-e5adf4c9-afe2-42a4-a5c4-77f048449cad.png)
 ![image](https://user-images.githubusercontent.com/113073294/206622166-9db4da91-0d15-43cd-ac3d-6de29c660d29.png)
+![image](https://user-images.githubusercontent.com/113073294/206622363-253ba8f1-e9e5-4808-a05a-142aedd66983.png)
+![image](https://user-images.githubusercontent.com/113073294/206622376-122d1fc5-ca99-4549-9f7f-5caa97027410.png)
+![image](https://user-images.githubusercontent.com/113073294/206622391-64728b2f-4bf3-44e7-99ce-2e58e110cd5f.png)
+![image](https://user-images.githubusercontent.com/113073294/206622443-4a7e3393-bf53-47bc-b480-a3318a70cbe1.png)
+![image](https://user-images.githubusercontent.com/113073294/206622460-5d822639-d40b-4d61-8cb2-48d7447a5b2a.png)
 
 
 7. **Report Page**:
