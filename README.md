@@ -104,6 +104,10 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 
 
 7. **Profile Page**:
+![image](https://user-images.githubusercontent.com/113149401/206623868-1710f23e-3bad-44ab-b9cb-8dded65adba1.png)
+![image](https://user-images.githubusercontent.com/113149401/206623902-d7e31963-9888-4b1f-8476-0ff90b0c474c.png)
+![image](https://user-images.githubusercontent.com/113149401/206623923-4e3ff790-608e-4491-9195-3481a6b51c43.png)
+
 
 ## Issues accomplished:
 * [Completed Issues](https://github.com/CSC207-2022F-UofT/course-project-group-72/issues?q=is%3Aissue+is%3Aclosed)
