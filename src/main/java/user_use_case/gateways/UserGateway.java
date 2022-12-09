@@ -27,6 +27,9 @@ public class UserGateway implements UserGatewayInterface {
      Column 7: owned_restaurants (ArrayList<String>) - Use Use delimiter "%", to separate Owned locations.
      */
 
+    /**
+     * Pathway to csv User Datawase file
+     */
     private static final String NAME_OF_USER_DATABASE = "src/main/java/Databases/UserDatabase.csv";
 
     private String TEMP_FILE = "src/main/java/Databases/temp_UserDatabase.csv";
