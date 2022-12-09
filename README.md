@@ -113,7 +113,7 @@ NOTE: You now have access to the menu bar for Back and Home buttons
 ## Test Coverage:
 * Register and Login System:
 * Search Restaurant System:
-* Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage
+* Restaurant Creation and Management: 100% class coverage, 88% method coverage, 81% line coverage (Not including non-automated view tests)
 * Review System:
 * Report System: 100% class coverage, 100% method coverage, 89% line coverage
 * User Profile: 
